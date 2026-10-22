@@ -32,13 +32,16 @@
 
 ```
 docs/      16 篇 25988413 期文档（引擎 API / Lua / 加载器 / 内存 / 实体表 / 爆炸弹头 / 密封盒 / 案例）
-tools/     离线数据表工具链（解析、改字节、保哈希、行级编辑 + 门禁）
+tools/     离线工具链（解析、改字节、保哈希、行级编辑 + 门禁；索引与可选依赖见 tools/README.md）
 tables/    三张小参数表（damage / projectile / weapon_customization），仅供解析验证
 refs/      字段图与索引：武器键→名字、WeaponData 字段偏移、275 个组件块类型名、loadout 表
 examples/  最小解析示例（纯标准库）+ 字段说明
 ```
 
-## 快速开始（纯 Python 3.11+，无第三方依赖）
+## 快速开始（核心表工具：纯 Python 3.11+，无第三方依赖）
+
+> 少数**可选**工具需要第三方包：PyNaCl（`dlbin_*`）、Pillow（贴图）、lupa（真 Lua 5.1）、
+> `srkit`（构建补丁）。每个工具的依赖与验证状态见 **[tools/README.md](tools/README.md)**。
 
 ```bash
 # 1) 解析一张表（不需要游戏文件也能跑仓库里 tables/ 的那三张）
