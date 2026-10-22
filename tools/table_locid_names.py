@@ -66,7 +66,10 @@ POOL_POINTERS = {
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--table", action="append", required=True)
+    ap.add_argument("--table", action="append",
+                    help="表名（可重复）；不给就扫 SLOTS 里的全部表")
+    ap.add_argument("--find", default="",
+                    help="按名字子串反查：给出名字 -> 表名 + 行号（做数值修改时的入口）")
     ap.add_argument("--plaintext", default="refs/dlbin/plaintext-all")
     ap.add_argument("--typelib", default="refs/dlbin/plaintext-all/dl_library.dl_typelib")
     ap.add_argument("--strings", action="append", default=None)
@@ -74,6 +77,8 @@ def main() -> int:
     ap.add_argument("--out", default=None)
     ap.add_argument("--samples", type=int, default=12)
     a = ap.parse_args()
+    if not a.table:
+        a.table = list(SLOTS)
 
     roots = [pathlib.Path(p) for p in (a.strings or ["refs/strings-probe/all"])]
     ids, stats = load_strings(roots, a.language)
@@ -85,6 +90,7 @@ def main() -> int:
 
     base = pathlib.Path(a.plaintext)
     out = {"strings": stats, "tables": {}}
+    matches: list[tuple[str, dict]] = []
     for name in a.table:
         path = base / f"generated_{name}.dl_bin"
         if not path.is_file():
@@ -167,6 +173,11 @@ def main() -> int:
         total = len(rows_out)
         out["tables"][name] = {"rows": total, "slots": slots, "covered": covered,
                                "data": rows_out}
+        if a.find:
+            needle = a.find.strip().lower()
+            hits = [r for r in rows_out if needle in (r.get("name") or "").lower()]
+            matches.extend((name, r) for r in hits)
+            continue
         print(f"\n=== {name}: {total} 行 ===")
         for field, off in slots.items():
             n = covered[field]
@@ -183,6 +194,14 @@ def main() -> int:
         for row in shown[:a.samples]:
             text = " | ".join(str(row.get(f, ""))[:60] for f in slots)
             print(f"  #{row['index']:4d}  {text}")
+    if a.find:
+        print(f"\n反查 {a.find!r}：{len(matches)} 条命中")
+        for name, row in matches:
+            extra = "  ".join(f"{k}={row[k]}" for k in ("name_upper", "short_name", "description")
+                              if row.get(k) and k != "name")
+            print(f"  {name:32s} #{row['index']:4d}  {row['name']!r}"
+                  f"  (group {row['group']}, row {row['row']})"
+                  + (f"\n      {extra[:150]}" if extra else ""))
     if a.out:
         dest = pathlib.Path(a.out)
         dest.parent.mkdir(parents=True, exist_ok=True)

@@ -95,12 +95,24 @@ def resolve_chain(db, attack_key: str) -> list[tuple[str, str, dict]]:
     return out
 
 
-def alias_display(wiki_title: str) -> str | None:
-    """Page title -> our internal display name.
+def alias_display(wiki_title: str) -> tuple[str, str] | None:
+    """Page title -> (our internal display name, which table backed it).
 
-    Two sources, strongest first: the localisation id resolved through the .strings table
-    (tools/stratagem_display_names.py, ~107 pages), then the nativeType bridge over the +24
-    localisation key (tools/build_stratagem_alias.py, 38 pages)."""
+    Two sources, **strongest first**: the row's own localisation id resolved through the
+    `.strings` corpus (tools/stratagem_display_names.py, 115 pages carry a wiki_title), then the
+    nativeType bridge over the `+24` localisation key (tools/build_stratagem_alias.py, 38 pages).
+    Order matters: the nativeType bridge is a guess by enum position, the localisation id is the
+    row's own data, so the strong source must be consulted first rather than only as a fallback.
+    """
+    other = pathlib.Path("refs/stratagem-display-names.json")
+    if other.is_file():
+        try:
+            rows = json.loads(other.read_text(encoding="utf-8")).get("rows", [])
+        except Exception:                                        # noqa: BLE001
+            rows = []
+        for row in rows:
+            if row.get("wiki_title") and norm(row["wiki_title"]) == norm(wiki_title):
+                return row.get("internal_name") or "", "refs/stratagem-display-names.json"
     path = pathlib.Path("refs/stratagem-alias.json")
     if not path.is_file():
         return None
@@ -110,19 +122,7 @@ def alias_display(wiki_title: str) -> str | None:
         return None
     for item in data.get("alias", []):
         if norm(item.get("wiki_title", "")) == norm(wiki_title):
-            return item.get("display")
-    # second, stronger source: the row's own localisation id resolved through the .strings table
-    # (tools/stratagem_display_names.py). It carries the real in-game name, which is what the wiki
-    # titles use, so it covers far more rows than the nativeType bridge.
-    other = pathlib.Path("refs/stratagem-display-names.json")
-    if other.is_file():
-        try:
-            rows = json.loads(other.read_text(encoding="utf-8")).get("rows", [])
-        except Exception:                                        # noqa: BLE001
-            return None
-        for row in rows:
-            if row.get("wiki_title") and norm(row["wiki_title"]) == norm(wiki_title):
-                return row.get("internal_name")
+            return item.get("display") or "", "refs/stratagem-alias.json"
     return None
 
 
@@ -217,10 +217,10 @@ def show_stratagem(db, title: str, sk: str, game: str) -> None:
         if row is None:
             mapped = alias_display(title)
             if mapped:
-                row = our_row(sk, game, mapped)
+                name, source = mapped
+                row = our_row(sk, game, name)
                 if row is not None:
-                    print(f"  [alias] page title -> our row {mapped!r} "
-                          f"(refs/stratagem-alias.json)")
+                    print(f"  [alias] page title -> our row {name!r} (来自 {source})")
         if row is None:
             print("  [our table] no matching row")
         else:
