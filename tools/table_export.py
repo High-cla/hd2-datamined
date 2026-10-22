@@ -48,6 +48,19 @@ LAYOUTS = {
         "slots_at": (48, 56),          # (offset field, count field) of the slot enum array
         "sort_at": 80,
     },
+    # Field names from the typelib's own enum members; +80 = max_uses is corroborated by HD2Runtime
+    # 0.26.0 release notes ("StratagemInfo +80 (u32), 0xFFFFFFFF = unlimited").  400 B x 153 rows.
+    "stratagem_settings": {
+        "stride": 400,
+        "fields": {0: "StratagemType", 60: "StratagemCategoryType",
+                   64: "StratagemButtonDirection", 80: "max_uses",
+                   112: "StratagemOriginType", 116: "StratagemCallInType",
+                   120: "StratagemCallInLogic", 124: "StratagemObjectiveDropRequirement",
+                   148: "StratagemCooldownType", 184: "StratagemHUDType",
+                   196: "StratagemType_196", 200: "StratagemType_200",
+                   212: "StratagemBeaconColor", 260: "StratagemInfoFlag",
+                   272: "StratagemCustomizationTypeInfo", 372: "UnitCustomizationCollectionType"},
+    },
 }
 
 
@@ -180,14 +193,18 @@ def main() -> int:
             record = {"row": index,
                       "name": row_names[index] if index < len(row_names) else ""}
             if layout:
-                slot_off, slot_cnt = struct.unpack_from("<QQ", plain, base + layout["slots_at"][0])
-                sort_value = struct.unpack_from("<I", plain, base + layout["sort_at"])[0]
-                names_out = []
-                if 0 < slot_cnt <= 8 and 0 < slot_off < group["payload"]:
-                    names_out = [SLOTS.get(struct.unpack_from("<I", plain, p0 + slot_off + k * 4)[0],
-                                           "?") for k in range(slot_cnt)]
-                record["slots"] = "|".join(names_out)
-                record["sort_group"] = SORT_GROUPS.get(sort_value, f"0x{sort_value:08X}")
+                if "slots_at" in layout:
+                    slot_off, slot_cnt = struct.unpack_from("<QQ", plain,
+                                                            base + layout["slots_at"][0])
+                    names_out = []
+                    if 0 < slot_cnt <= 8 and 0 < slot_off < group["payload"]:
+                        names_out = [SLOTS.get(struct.unpack_from("<I", plain,
+                                                                  p0 + slot_off + k * 4)[0], "?")
+                                     for k in range(slot_cnt)]
+                    record["slots"] = "|".join(names_out)
+                if "sort_at" in layout:
+                    sort_value = struct.unpack_from("<I", plain, base + layout["sort_at"])[0]
+                    record["sort_group"] = SORT_GROUPS.get(sort_value, f"0x{sort_value:08X}")
             for field in fields:
                 key = f"+{field['offset']}"
                 if field["offset"] + field["size"] <= stride:
@@ -197,7 +214,8 @@ def main() -> int:
                     record[key] = ""
             records.append(record)
 
-    extra = ["slots", "sort_group"] if layout else []
+    extra = ([c for c in ("slots", "sort_group") if layout and (c == "slots" and "slots_at" in layout
+             or c == "sort_group" and "sort_at" in layout)]) if layout else []
     columns = ["row", "name"] + extra + [f"+{f['offset']}" for f in fields]
     out_csv = pathlib.Path(a.out + ".csv")
     out_csv.parent.mkdir(parents=True, exist_ok=True)

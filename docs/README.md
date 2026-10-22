@@ -5,6 +5,7 @@
 | [BUILD-25988413.md](BUILD-25988413.md) | 本 build 的总体变化与工具链状态 |
 | [DLBIN-SEALED-BOX.md](DLBIN-SEALED-BOX.md) | `.dl_bin` 封装（sealed box）与内容哈希闸门的由来 |
 | [ENTITY-TABLE-25988413.md](ENTITY-TABLE-25988413.md) | ★ 实体/组件表离线改写：块布局、校正字、可选弹种、LoadoutEntry 否证 |
+| [STRATAGEM-SETTINGS-DECODED.md](STRATAGEM-SETTINGS-DECODED.md) | ★ 战备表解码：400 B 行、14 个具名枚举、`+80 = max_uses`（外部佐证）|
 | [WEAPON-CUSTOMIZATION-DECODED.md](WEAPON-CUSTOMIZATION-DECODED.md) | ★ 武器配件总表解码：88 B 行结构、槽位/排序组枚举、252 行逐行可读导出 |
 | [TABLE-DICTIONARY-25988413.md](TABLE-DICTIONARY-25988413.md) | ★ **全表字典**：55 张表的组/行数/步长/尾块 + 333 个类型的字段偏移表 |
 | [EXPLOSION-PROJECTILE-25988413.md](EXPLOSION-PROJECTILE-25988413.md) | ★ 爆炸/弹头线：射弹行与爆炸行的字段、换弹头/换爆炸/**加破片**配方 |

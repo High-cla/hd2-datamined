@@ -16,7 +16,7 @@
 | `dlbin_seal.py` | `.dl_bin` 密封盒：解/封、配对→keystream、LDLD 结构 | PyNaCl | ✓ 已实机 |
 | `dlbin_keyhunt.py` | 在 `game.dll` 里定位打开 `.dl_bin` 的 X25519 密钥 | PyNaCl + cryptography | ⚠ 研究工具；仓库不含任何密钥材料 |
 | `typelib.py` | 解析 DataLibrary 类型库（LTLD v4），查表结构 | `dlbin_seal.py` | ✓ |
-| `table_export.py` | 把整张表导成**人类可读**的 CSV + Markdown（名字 + 每字段 hex/f32 + 统计 + 一阶嵌套）；`LAYOUTS` 里带 `weapon_customization` 的字段名与槽位枚举注解 | PyNaCl + `typelib.py` | ✓✓ 实机数据（252 行 × 13 字段 + slots/sort_group 两列，弹种 82 条全部命中 AmmoType） |
+| `table_export.py` | 把整张表导成**人类可读**的 CSV + Markdown（名字 + 每字段 hex/f32 + 统计 + 一阶嵌套）；`LAYOUTS` 里带 `weapon_customization` / `stratagem_settings` 两套字段名与枚举注解 | PyNaCl + `typelib.py` | ✓✓ 实机数据（252 行 × 13 字段 + slots/sort_group 两列，弹种 82 条全部命中 AmmoType） |
 | `table_row_names.py` | 从表的**尾部字符串块**抽出逐行名字（6 张表全覆盖：weapon_customization 252 / stratagem 153 / status_effect 73 / planet_override 44 / language 15 / stratagem_upgrade 1） | PyNaCl + `typelib.py` | ✓ 实机数据抽全（输出 `refs/table-row-names.json`） |
 | `table_dictionary.py` | **全表字典**：解封 55 张表 → 组/行数/步长/尾块 + 每个类型的字段偏移树（需自备 `recipient.sk`） | PyNaCl + `typelib.py` | ✓ 55/55 表解析（18 张几何完全闭合） |
 | `entities_modeb.py` | 实体表：武器单元格编辑、可选弹种（模式 A/B）、双弹药池、hashmap 维护 | `murmur64.py` | ✓✓ 已实机（主宰/惩罚者/扫荡者） |
