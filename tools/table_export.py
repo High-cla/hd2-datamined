@@ -79,6 +79,37 @@ LAYOUTS = {
                    272: "StratagemCustomizationTypeInfo", 372: "UnitCustomizationCollectionType",
                    392: "ui_cell"},
     },
+    # Field maps derived from filediver's plaintext dump of the same table (refs/helldiversdata/), by
+    # matching its named values against our rows.  See docs/STRATAGEM-REFERENCE-CHAIN-25988413.md.
+    #
+    # projectile_settings (272 B): 18 fields land on an offset with a >=99% match rate against the
+    # 246-item dump, using name_upper as the join key.  Fields marked "(order)" were not matched
+    # directly (their JSON value is a string, or too few items differ); their offset follows from
+    # filediver's field order between two matched neighbours.
+    "projectile_settings": {
+        "fields": {0: "row_id", 4: "name_upper", 8: "name_cased", 12: "short_name",
+                   16: "hud_icon", 24: "calibre", 28: "num_projectiles", 32: "speed (order)",
+                   36: "mass", 40: "drag (order)", 44: "gravity_multiplier",
+                   48: "simulation_steps (order)", 52: "life_time",
+                   56: "life_time_randomness (order)", 60: "damage_info_type (order)",
+                   64: "penetration_slowdown",
+                   144: "explosion_type_on_impact", 148: "explosion_proximity",
+                   152: "explosion_delay", 156: "explosion_type_expire", 160: "arming_distance",
+                   180: "max_ricochets", 192: "ricochet_angle_loss",
+                   208: "audio_ricochet_event", 212: "audio_trail_event_start",
+                   216: "audio_trail_event_stop"},
+    },
+    # explosion_settings (152 B): filediver's eight non-zero cone_angle entries plus the two
+    # OrbitalShot records pin the layout.  +144/+156 of a projectile row resolve to the +0 id of
+    # these rows, which is what makes the stratagem -> projectile -> explosion chain readable.
+    "explosion_settings": {
+        "fields": {0: "row_id", 4: "damage_type (order)",
+                   16: "inner_radius", 20: "outer_radius", 24: "stagger_radius",
+                   28: "cone_angle", 32: "camera_shake_radius",
+                   40: "shake_assets_offset", 48: "shake_assets_count",
+                   56: "particle_effect_path", 64: "audio_event",
+                   80: "num_shrapnel_projectiles", 84: "shrapnel_projectile"},
+    },
 }
 
 # Per-row string pointers, keyed by (table, stride) because one file can hold groups with different
@@ -93,7 +124,14 @@ POINTERS = {
     ("language_settings", 208): {"name": (32, 48), "locale": 48, "code": 8, "short": 200},
     ("stratagem_upgrade_settings", 64): {"name": 0},
 }
-FLOATS = {104}                     # slots whose f32 reading is the meaningful one
+# Offsets whose f32 reading is the meaningful one, per table: the typelib marks primitives as type 0
+# and does not say whether a 4-byte slot is an int or a float, but the field maps below do know.
+FLOATS = {
+    "stratagem_settings": {104},                                     # cooldown_s
+    "projectile_settings": {24, 32, 36, 40, 44, 52, 56, 64,
+                            148, 152, 160, 192},                     # calibre .. ricochet_angle_loss
+    "explosion_settings": {16, 20, 24, 28, 32},                      # radii / cone / camera shake
+}
 
 
 def resolve_pointer(plain: bytes, pool_at: int, payload: int, row_at: int, offsets) -> str:
@@ -297,7 +335,7 @@ def main() -> int:
             for field in fields:
                 key = f"+{field['offset']}"
                 if field["offset"] + field["size"] <= stride:
-                    if layout and field["offset"] in FLOATS and field["size"] == 4:
+                    if field["offset"] in FLOATS.get(a.table, ()) and field["size"] == 4:
                         value = struct.unpack_from("<f", plain, base + field["offset"])[0]
                         record[key] = f"{value:.6g}"
                     else:
