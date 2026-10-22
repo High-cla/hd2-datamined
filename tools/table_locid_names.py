@@ -75,6 +75,8 @@ def main() -> int:
     ap.add_argument("--strings", action="append", default=None)
     ap.add_argument("--language", default="us")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--names-only", action="store_true",
+                    help="输出只含名字（发布口径：不发描述/长文本）")
     ap.add_argument("--samples", type=int, default=12)
     a = ap.parse_args()
     if not a.table:
@@ -205,8 +207,26 @@ def main() -> int:
     if a.out:
         dest = pathlib.Path(a.out)
         dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
-        print(f"\n写入 {dest}")
+        if a.names_only:
+            # 发布口径（用户要求）：只发名字，不发描述/长文本。
+            # 保留 index / name / 名字来源槽 / 名字 id —— 都是数字或短名，不是游戏文本。
+            slim = {"strings": stats, "tables": {}}
+            for name, data in out["tables"].items():
+                rows = []
+                for row in data["data"]:
+                    if not row.get("name"):
+                        continue
+                    src = row.get("name_source", "")
+                    rows.append({"index": row["index"], "name": row["name"],
+                                 "from": src,
+                                 "id": row.get(f"{src}_id", 0) or 0})
+                slim["tables"][name] = {"rows": data["rows"],
+                                        "named": len(rows), "data": rows}
+            out = slim
+        out_text = json.dumps(out, ensure_ascii=False, indent=1)
+        dest.write_text(out_text, encoding="utf-8")
+        print(f"\n写入 {dest}（{len(out_text)/1024:.0f} KB"
+              + ("，只含名字" if a.names_only else "") + "）")
     return 0
 
 

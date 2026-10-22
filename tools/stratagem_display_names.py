@@ -136,6 +136,8 @@ def main() -> int:
                     help="directory of unpacked .strings blobs (repeatable)")
     ap.add_argument("--language", default="us")
     ap.add_argument("--out", default="refs/stratagem-display-names.json")
+    ap.add_argument("--names-only", action="store_true",
+                    help="输出只含名字（发布口径：不发描述/长描述）")
     ap.add_argument("--wiki-db", default="refs/wiki/wiki.sqlite",
                     help="optional: attach the matching wiki page title to each row")
     a = ap.parse_args()
@@ -265,11 +267,18 @@ def main() -> int:
     sources = {}
     for r in rows:
         sources[r.get("display_source", "")] = sources.get(r.get("display_source", ""), 0) + 1
+    payload = rows
+    if a.names_only:
+        # 发布口径（用户要求）：只发名字，不发描述/长描述文本。
+        keep = ("internal_name", "upper", "display_name", "display_source",
+                "name_id", "upper_id", "wiki_title", "wiki_match")
+        payload = [{k: r[k] for k in keep if k in r} for r in rows]
     out.write_text(json.dumps({"count": len(rows), "named": len(named), "covered": counts,
-                               "display_sources": sources, "rows": rows},
+                               "display_sources": sources, "rows": payload},
                               indent=1, ensure_ascii=False), encoding="utf-8")
     print(f"rows {len(rows)}   slots covered: " +
-          "  ".join(f"{k}={v}" for k, v in counts.items()) + f"   -> {out}")
+          "  ".join(f"{k}={v}" for k, v in counts.items()) + f"   -> {out}"
+          + ("（只含名字）" if a.names_only else ""))
     print("display_name 来源: " + "  ".join(f"{k or '(空)'}={v}" for k, v in
                                             sorted(sources.items(), key=lambda kv: -kv[1])))
     print("\nsample:")

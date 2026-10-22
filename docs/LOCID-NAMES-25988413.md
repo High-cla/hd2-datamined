@@ -188,11 +188,41 @@ distribute the weight of ammunition, samples, and cool rocks.`）。
 的差别是名义口径（Super Earth 的 `380mm` 命名）与真实口径（406 mm = 16 英寸）之差，
 ⚠ 按命名习惯解释，不作数值依据。
 
-### 4.2 没有独立交叉验证的表（⚠）
+### 4.2 与 wiki 页面交叉验证（✓ 补上了）
 
-`customization_armor_sets` / `customization_passive_bonuses` / `planet_data` 的名字**只有**
-本地化 ID 这一条证据链。本地 wiki 库只有战备页和武器页（237 页），没有护甲页和星球页，
-所以这三张表**没有外部对照**。星球名曾尝试用 `+0` 的资源路径互证，结果是否证的：
+上一版这里写的是"这三张表没有外部对照，因为本地 wiki 库只有战备页和武器页"。现在补上了：
+把 wiki 的 `Category:Armor`、`Category:Planets`、`Category:Armor Passives` 一起抓下来
+（`tools/fetch_wiki_pages.py`，50 标题/请求 + 1 s 间隔），本地库从 237 页扩到 **763 页**，
+再按扁平化 + 后缀 + 包含 + 模糊四条规则做匹配（`tools/wiki_match_tables.py`）：
+
+| 表 | 唯一名字 | 匹配到页面 | 其中精确 | 后缀/包含/模糊 | wiki 上确实没页面 |
+|---|---:|---:|---:|---:|---:|
+| `customization_armor_sets` | 237 | **217** | 213 | 1 / 2 / 1 | 20 |
+| `customization_passive_bonuses` | 33 | **32** | 32 | 0 | 1（`STANDARD ISSUE`） |
+| `planet_data` | 395 | **277** | 276 | 1 / 0 / 0 | 118 |
+
+没页面的那些逐个查过（`refs/wiki/unmatched-existence.json`）：**21 个护甲/1 个被动/118 个星球
+在 wiki 上确实不存在**（查标题 API 直接 `missing`），不是我们匹配没做到 —— 它们是发布数据里有、
+wiki 还没建页的条目（未实装 / 从未在银河战争里出现过的星球）。
+
+**最硬的一条交叉验证：星球描述逐字相等。** 我们的 `planet_data +16` 是地形描述，wiki 的
+`{{Infobox Planet | description=}}` 也是它。两边都有的 258 个星球里：
+
+```
+描述逐字相同      218
+描述不同           40   —— 全是 wiki 校对（游戏原文 "perenially"/"The arid,..."，
+                           wiki 改成 "perennially"/"This arid,..."）
+```
+
+名字 → 页面 → 描述三样同时对上，说明 `+8` 的名字槽与 `+16` 的描述槽确实属于同一个星球。
+
+另外还暴露了两处**游戏文本里的错字**（wiki 已修正，值得记下来）：
+`Patient Zero's Rememberance`（游戏）/ `Remembrance`（wiki）、
+`Greatcloak of Rebar Resolve`（游戏）/ `Rebar Resolve`（wiki 短标题）。
+
+### 4.3 没有独立交叉验证的部分（⚠）
+
+`+0` 的资源路径曾想用来互证星球名，结果是否证的（路径编码的是地形，不是名字）：
 
 ```
 KLEN DAHTH II  <-> planet_desert_sandy_klen_dahth_2      ✓ 一致（罗马数字 vs 阿拉伯数字）
@@ -301,6 +331,48 @@ de 德语       it 意语   pl 波兰语 tc 繁中   ko 韩语   pt 葡语     r
 
 "共用"这一列本身就是改数值前必须看的东西：它告诉你这个爆炸是不是共享资源。
 
+### 6.1 `explosion +8` 是什么：`fallback_damage_loc_name`（✓ 定案）
+
+上一版只写了"这个槽有 3 行命中，样本太少，不当作名字字段"。现在查清了 —— 它确实是
+本地化 ID，但**不是名字，而是"伤害归因的兜底文本"**。
+
+三条独立证据：
+
+**① 社区 schema 里这个字段就叫这个名字。** `refs/helldiversdata/generated_explosion_settings.json`
+（filediver 的旧版明文 dump，字段名是它给的）里 `+4` 是 `damage_type`，紧接着的
+`+8` 字段名是 **`fallback_damage_loc_name`**，值就是"本地化 ID 或 0"。
+
+**② 旧 dump 里非零的正好是我们已知的两行。** 249 条记录里只有 2 条非零，且值相同（`1236481912`
+= `0x49B33778` = 我们解出的 `'Environment'`）：
+
+```
+行239  ExplosionType_Spikeplant_Shrapnel_Explosion   fallback=1236481912
+行240  ExplosionType_Iceplant_Shatter                fallback=1236481912
+```
+
+**③ 当前 build 的 424 行里只有一个新增项。** 除了上面两个环境道具，多出一行：
+
+| 爆炸行 | `+0` type | `+4` damage | `+8` | 解出的文本 | 半径 r1/r2/r3 |
+|---:|---:|---:|---|---|---|
+| 376 | 21 | 499（100 伤害） | `0x49B33778` | `Environment` | 2.0 / 6.5 / 8.0 |
+| 377 | 104 | 500（15 伤害） | `0x49B33778` | `Environment` | 2.5 / 4.95 / 3.0 |
+| 394 | **68** | **503（500 伤害）** | `0x73904477` | `Unknowable Forces` | 5.0 / 6.0 / 4.0 |
+
+`Unknowable Forces` 这条文本**在整个 24,846 条语料里只出现这一次**，15 种语言的译文都是
+"未知力量/Forces mystérieuses/Unbekannte Kräfte"这类措辞。它和 wiki 的 lore 对得上：
+[The Void](https://helldivers.wiki.gg/wiki/The_Void) 是 Illuminate 的异象，"任何进入 Void 空间的
+探测器都会很快停止发送信号"，游戏里也有 `ENTER THE VOID` / `CONSUMING VOID` 这类文本。
+所以第 394 行（500 伤害、半径 5/6/4、无破片）**很可能是 Void 的致死体积**，
+归因文本用 `Unknowable Forces` 而不是 `Environment`。
+
+把三行放在一起，语义就闭合了：**非武器来源的爆炸，用 `+8` 指定"死亡归因"显示什么** ——
+环境道具显示 `Environment`，Void 显示 `Unknowable Forces`；其余 421 行都是 0，
+也就是"归因给武器/战备本身的名字"。
+
+⚠ 未定：type 68 这个爆炸类型在旧 dump（249 行）里不存在，也没有 `ExplosionType_*` 名字；
+"它是 Void 的致死体积"是从文本主题 + 500 伤害 + 无消费方推出来的，没有直接证据把它
+绑到具体实体/地形上。
+
 ---
 
 ## 7. 下一步（只做了测量，没做解码）
@@ -347,7 +419,8 @@ u32 槽位 11,814,849   命中 17,500   去重 2,124   随机期望 68.3
 * `projectile +12`（弹头短名）只有 36/355 命中，剩下 319 行的短名是空还是另有来源，没查。
 * `380mm HE Cannon Round` 的 `caliber=406.00`：名义口径与真实口径不一致，按命名习惯解释，
   没有独立证据。
-* armor/passive/planet 三张表的名字没有外部对照（本地 wiki 库没有这些页）。
+* armor/passive/planet 三张表的名字与 wiki 页面对上了（217 / 32 / 277），但**没页面的条目
+  （20 / 1 / 118）只能确认 wiki 上不存在，不能确认它们在游戏里是否可获取**。
 * `generated_entities` 里测出 17,500 个命中槽、2,124 个不同 ID（随机期望 68），
   但实体组是哈希表结构，字段位置没定位（§7）。
 
@@ -358,10 +431,12 @@ u32 槽位 11,814,849   命中 17,500   去重 2,124   随机期望 68.3
 | 工具 | 用途 |
 |---|---|
 | `table_locid_scan.py` | 扫一张表的每个 4 字节槽，按 `(stride, offset)` 跨组聚合，报告"本地化 ID 命中数 / 去重数 / 样本文本"。两种组头都认（§3），stride 取自 typelib。**发现**名字槽用它 |
-| `table_locid_names.py` | 按槽位表把名字倒出来，输出 JSON（`name` / `name_source` / 原始 ID），带文本匹配与大写回退 |
+| `table_locid_names.py` | 按槽位表把名字倒出来，输出 JSON（`name` / `name_source` / 原始 ID），带文本匹配与大写回退。`--names-only` 输出发布口径（只含名字，不含描述） |
 | `explosion_names_from_chain.py` | 投掷物 → 爆炸的引用链命名，输出每个爆炸行的消费方列表（共用关系一目了然） |
 | `strings_inventory.py` | 清点 `.strings` 语料：语言分布、每个 bundle 的 distinct 英文 blob 数、ID 并集。**只读文件头 16 字节**，扫 GB 级目录也是秒级 |
-| `stratagem_display_names.py` | 战备表专用：五个槽位（大写/显示/描述/长描述/状态）+ wiki 页面匹配 + 死引用回填，产出 `refs/stratagem-display-names.json` |
+| `stratagem_display_names.py` | 战备表专用：五个槽位（大写/显示/描述/长描述/状态）+ wiki 页面匹配 + 死引用回填；`--names-only` 走发布口径 |
+| `wiki_match_tables.py` | 把表里的名字和本地 wiki 页面标题对上：精确 / 后缀 / 包含 / 模糊四条规则，输出每张表的覆盖率与未匹配清单（`refs/wiki/name-matches.json`）|
+| `plaintext_cache_audit.py` | 检查明文缓存里有没有被我们自己 mod 污染的条目：拿 `refs/dlbin/demo/vanilla_*`（部署前备份）+ 当前 build 两条独立证据交叉查，`--fix` 用原版覆盖 |
 
 复跑（`<sk>` 是你自己的 recipient.sk，仓库不含密钥材料）：
 

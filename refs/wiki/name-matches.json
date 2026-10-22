@@ -1,0 +1,2306 @@
+{
+ "customization_armor_sets": {
+  "kinds": [
+   "armor",
+   "cape",
+   "cosmetic"
+  ],
+  "rows": 422,
+  "named_rows": 389,
+  "unique_names": 237,
+  "wiki_pages_of_kind": 208,
+  "exact": 213,
+  "suffix": 1,
+  "contains": 2,
+  "fuzzy": 1,
+  "matched": 217,
+  "unmatched": [
+   "B-16 Battle-Scarred Veteran",
+   "B-02 Gloom Warden",
+   "KDM-763 Pacesetter",
+   "KDM-73 Dragoon",
+   "Beacon of Mercy",
+   "JUSTICE FOR ALL",
+   "VETERAN'S BANNER",
+   "Void Veteran",
+   "Hero of the Children",
+   "Prosperous Green",
+   "Red Planet's Memory",
+   "Proud Gold",
+   "Patriot Blue",
+   "DEFENDER OF THE WALL",
+   "Bugslayer",
+   "Scraps of Sovereignty",
+   "Vector of Victory",
+   "PODIUM OF PROSPERITY",
+   "Tyranny's Bane",
+   "Wings of Valor"
+  ],
+  "matches": [
+   {
+    "name": "FS-37 Ravager",
+    "title": "FS-37 Ravager"
+   },
+   {
+    "name": "FS-55 Devastator",
+    "title": "FS-55 Devastator"
+   },
+   {
+    "name": "CW-4 Arctic Ranger",
+    "title": "CW-4 Arctic Ranger"
+   },
+   {
+    "name": "CW-22 Kodiak",
+    "title": "CW-22 Kodiak"
+   },
+   {
+    "name": "CW-22 KODIAK",
+    "title": "CW-22 Kodiak"
+   },
+   {
+    "name": "SA-25 Steel Trooper",
+    "title": "SA-25 Steel Trooper"
+   },
+   {
+    "name": "SA-12 Servo-Assisted",
+    "title": "SA-12 Servo Assisted"
+   },
+   {
+    "name": "SA-32 Dynamo",
+    "title": "SA-32 Dynamo"
+   },
+   {
+    "name": "CE-74 Breaker",
+    "title": "CE-74 Breaker"
+   },
+   {
+    "name": "DP-00 Tactical",
+    "title": "DP-00 Tactical"
+   },
+   {
+    "name": "CE-35 Trench Engineer",
+    "title": "CE-35 Trench Engineer"
+   },
+   {
+    "name": "CE-67 Titan",
+    "title": "CE-67 Titan"
+   },
+   {
+    "name": "CE-27 Ground Breaker",
+    "title": "CE-27 Ground Breaker"
+   },
+   {
+    "name": "CM-09 Bonesnapper",
+    "title": "CM-09 Bonesnapper"
+   },
+   {
+    "name": "CM-21 Trench Paramedic",
+    "title": "CM-21 Trench Paramedic"
+   },
+   {
+    "name": "CM-17 Butcher",
+    "title": "CM-17 Butcher"
+   },
+   {
+    "name": "CM-10 Clinician",
+    "title": "CM-10 Clinician"
+   },
+   {
+    "name": "B-22 Model Citizen",
+    "title": "B-22 Model Citizen"
+   },
+   {
+    "name": "FS-61 Dreadnought",
+    "title": "FS-61 Dreadnought"
+   },
+   {
+    "name": "CE-07 Demolition Specialist",
+    "title": "CE-07 Demolition Specialist"
+   },
+   {
+    "name": "SC-15 Drone Master",
+    "title": "SC-15 Drone Master"
+   },
+   {
+    "name": "FS-38 Eradicator",
+    "title": "FS-38 Eradicator"
+   },
+   {
+    "name": "EX-03 Prototype 3",
+    "title": "EX-03 Prototype 3"
+   },
+   {
+    "name": "EX-16 Prototype 16",
+    "title": "EX-16 Prototype 16"
+   },
+   {
+    "name": "FS-34 Exterminator",
+    "title": "FS-34 Exterminator"
+   },
+   {
+    "name": "DP-40 Hero of the Federation",
+    "title": "DP-40 Hero of the Federation"
+   },
+   {
+    "name": "TR-9 Cavalier of Democracy",
+    "title": "TR-9 Cavalier of Democracy"
+   },
+   {
+    "name": "DP-11 Champion of the People",
+    "title": "DP-11 Champion of the People"
+   },
+   {
+    "name": "CM-14 Physician",
+    "title": "CM-14 Physician"
+   },
+   {
+    "name": "TR-117 Alpha Commander",
+    "title": "TR-117 Alpha Commander"
+   },
+   {
+    "name": "IX-VOIDWALKER",
+    "title": "IX-Voidwalker"
+   },
+   {
+    "name": "B-27 Fortified Commando",
+    "title": "B-27 Fortified Commando"
+   },
+   {
+    "name": "EX-00 Prototype X",
+    "title": "EX-00 Prototype X"
+   },
+   {
+    "name": "CE-81 Juggernaut",
+    "title": "CE-81 Juggernaut"
+   },
+   {
+    "name": "DP-8 Mountain-Scaled",
+    "title": "DP-8 Mountain-Scaled"
+   },
+   {
+    "name": "SC-37 Legionnaire",
+    "title": "SC-37 Legionnaire"
+   },
+   {
+    "name": "B-08 Light Gunner",
+    "title": "B-08 Light Gunner"
+   },
+   {
+    "name": "A-9 Helljumper",
+    "title": "A-9 Helljumper"
+   },
+   {
+    "name": "A-35 Recon",
+    "title": "A-35 Recon"
+   },
+   {
+    "name": "DP-53 Savior of the Free",
+    "title": "DP-53 Savior of the Free"
+   },
+   {
+    "name": "SC-30 Trailblazer Scout",
+    "title": "SC-30 Trailblazer Scout"
+   },
+   {
+    "name": "B-24 Enforcer",
+    "title": "B-24 Enforcer"
+   },
+   {
+    "name": "FS-05 Marksman",
+    "title": "FS-05 Marksman"
+   },
+   {
+    "name": "FS-11 Executioner",
+    "title": "FS-11 Executioner"
+   },
+   {
+    "name": "SC-34 Infiltrator",
+    "title": "SC-34 Infiltrator"
+   },
+   {
+    "name": "B-01 Tactical",
+    "title": "B-01 Tactical"
+   },
+   {
+    "name": "TR-7 Ambassador of the Brand",
+    "title": "TR-7 Ambassador of the Brand"
+   },
+   {
+    "name": "TR-40 Gold Eagle",
+    "title": "TR-40 Gold Eagle"
+   },
+   {
+    "name": "AF-52 Lockdown",
+    "title": "AF-52 Lockdown"
+   },
+   {
+    "name": "AF-91 Field Chemist",
+    "title": "AF-91 Field Chemist"
+   },
+   {
+    "name": "UF-84 Doubt Killer",
+    "title": "UF-84 Doubt Killer"
+   },
+   {
+    "name": "SR-64 Cinderblock",
+    "title": "SR-64 Cinderblock"
+   },
+   {
+    "name": "IE-57 Hell-Bent",
+    "title": "IE-57 Hell-Bent"
+   },
+   {
+    "name": "GS-11 Democracy's Deputy",
+    "title": "GS-11 Democracy's Deputy"
+   },
+   {
+    "name": "RE-824 Bearer of the Standard",
+    "title": "RE-824 Bearer of the Standard"
+   },
+   {
+    "name": "AD-11 Livewire",
+    "title": "AD-11 Livewire"
+   },
+   {
+    "name": "BP-77 Grand Juror",
+    "title": "BP-77 Grand Juror"
+   },
+   {
+    "name": "DS-10 Big Game Hunter",
+    "title": "DS-10 Big Game Hunter"
+   },
+   {
+    "name": "CW-9 White Wolf",
+    "title": "CW-9 White Wolf"
+   },
+   {
+    "name": "CE-64 Grenadier",
+    "title": "CE-64 Grenadier"
+   },
+   {
+    "name": "PH-56 Jaguar",
+    "title": "PH-56 Jaguar"
+   },
+   {
+    "name": "CE-101 Guerilla Gorilla ",
+    "title": "CE-101 Guerilla Gorilla"
+   },
+   {
+    "name": "I-44 Salamander",
+    "title": "I-44 Salamander"
+   },
+   {
+    "name": "I-92 Fire Fighter",
+    "title": "I-92 Fire Fighter"
+   },
+   {
+    "name": "KDM-500 OUTRIDER",
+    "title": "KDM-500 Outrider"
+   },
+   {
+    "name": "KDM-500 Outrider",
+    "title": "KDM-500 Outrider"
+   },
+   {
+    "name": "RS-6 Fiend Destroyer",
+    "title": "RS-6 Fiend Destroyer"
+   },
+   {
+    "name": "O-44 BONDED PILOT",
+    "title": "O-44 Bonded Pilot"
+   },
+   {
+    "name": "O-44 Bonded Pilot",
+    "title": "O-44 Bonded Pilot"
+   },
+   {
+    "name": "SS-500 Pale Prosecutor",
+    "title": "SS-500 Pale Prosecutor"
+   },
+   {
+    "name": "RS-100 SANCTIONER",
+    "title": "RS-100 Sanctioner"
+   },
+   {
+    "name": "RS-100 Sanctioner",
+    "title": "RS-100 Sanctioner"
+   },
+   {
+    "name": "BFM-77 Reformer",
+    "title": "BFM-77 Reformer"
+   },
+   {
+    "name": "CPR-80 Bulwark",
+    "title": "CPR-80 Bulwark"
+   },
+   {
+    "name": "SA-04 Combat Technician",
+    "title": "SA-04 Combat Technician"
+   },
+   {
+    "name": "AF-50 Noxious Ranger",
+    "title": "AF-50 Noxious Ranger"
+   },
+   {
+    "name": "AF-02 Haz-Master",
+    "title": "AF-02 Haz-Master"
+   },
+   {
+    "name": "UF-50 Bloodhound",
+    "title": "UF-50 Bloodhound"
+   },
+   {
+    "name": "UF-16 Inspector",
+    "title": "UF-16 Inspector"
+   },
+   {
+    "name": "SR-24 Street Scout",
+    "title": "SR-24 Street Scout"
+   },
+   {
+    "name": "SR-18 Roadblock",
+    "title": "SR-18 Roadblock"
+   },
+   {
+    "name": "IE-3 Martyr",
+    "title": "IE-3 Martyr"
+   },
+   {
+    "name": "IE-12 Righteous",
+    "title": "IE-12 Righteous"
+   },
+   {
+    "name": "GS-17 Frontier Marshal",
+    "title": "GS-17 Frontier Marshal"
+   },
+   {
+    "name": "GS-66 Lawmaker",
+    "title": "GS-66 Lawmaker"
+   },
+   {
+    "name": "RE-2310 Honorary Guard",
+    "title": "RE-2310 Honorary Guard"
+   },
+   {
+    "name": "RE-1861 Parade Commander",
+    "title": "RE-1861 Parade Commander"
+   },
+   {
+    "name": "AD-26 Bleeding Edge",
+    "title": "AD-26 Bleeding Edge"
+   },
+   {
+    "name": "AD-49 Apollonian",
+    "title": "AD-49 Apollonian"
+   },
+   {
+    "name": "BP-20 Correct Officer",
+    "title": "BP-20 Correct Officer"
+   },
+   {
+    "name": "BP-32 Jackboot",
+    "title": "BP-32 Jackboot"
+   },
+   {
+    "name": "DS-42 Federation's Blade",
+    "title": "DS-42 Federation's Blade"
+   },
+   {
+    "name": "DS-191 Scorpion",
+    "title": "DS-191 Scorpion"
+   },
+   {
+    "name": "RS-20 Constrictor",
+    "title": "RS-20 Constrictor"
+   },
+   {
+    "name": "RS-40 Beast of Prey",
+    "title": "RS-40 Beast of Prey"
+   },
+   {
+    "name": "SA-7 Headfirst",
+    "title": "SA-7 Headfirst"
+   },
+   {
+    "name": "SA-8 Ram",
+    "title": "SA-8 Ram"
+   },
+   {
+    "name": "PH-9 Predator",
+    "title": "PH-9 Predator"
+   },
+   {
+    "name": "PH-202 Twigsnapper",
+    "title": "PH-202 Twigsnapper"
+   },
+   {
+    "name": "I-09 Heatseeker",
+    "title": "I-09 Heatseeker"
+   },
+   {
+    "name": "I-102 Draconaught",
+    "title": "I-102 Draconaught"
+   },
+   {
+    "name": "AC-1 Dutiful",
+    "title": "AC-1 Dutiful"
+   },
+   {
+    "name": "AC-2 Obedient",
+    "title": "AC-2 Obedient"
+   },
+   {
+    "name": "O-3 Free Spirit",
+    "title": "O-3 Free Spirit"
+   },
+   {
+    "name": "O-2 Heavy Operator",
+    "title": "O-2 Heavy Operator"
+   },
+   {
+    "name": "TG-8 Sharpshooter",
+    "title": "TG-8 Sharpshooter"
+   },
+   {
+    "name": "TG-122 Demo-Trooper",
+    "title": "TG-122 Demo-Trooper"
+   },
+   {
+    "name": "SS-33 Mimetic Marshal",
+    "title": "SS-33 Mimetic Marshal"
+   },
+   {
+    "name": "SS-15 Focal Point",
+    "title": "SS-15 Focal Point"
+   },
+   {
+    "name": "RS-89 SHADOW PARAGON",
+    "title": "RS-89 Shadow Paragon"
+   },
+   {
+    "name": "RS-89 Shadow Paragon",
+    "title": "RS-89 Shadow Paragon"
+   },
+   {
+    "name": "RS-67 Null Cipher",
+    "title": "RS-67 Null Cipher"
+   },
+   {
+    "name": "BFM-16 TANKER",
+    "title": "BFM-16 Tanker"
+   },
+   {
+    "name": "BFM-16 Tanker",
+    "title": "BFM-16 Tanker"
+   },
+   {
+    "name": "BFM-220 Ironclad",
+    "title": "BFM-220 Ironclad"
+   },
+   {
+    "name": "CPG-48 SAPPER",
+    "title": "CPG-48 Sapper"
+   },
+   {
+    "name": "CPG-48 Sapper",
+    "title": "CPG-48 Sapper"
+   },
+   {
+    "name": "CPH-26 COMMANDANT",
+    "title": "CPH-26 Commandant"
+   },
+   {
+    "name": "CPH-26 Commandant",
+    "title": "CPH-26 Commandant"
+   },
+   {
+    "name": "FS-23 Battle Master",
+    "title": "FS-23 Battle Master"
+   },
+   {
+    "name": "TR-62 Knight",
+    "title": "TR-62 Knight"
+   },
+   {
+    "name": "CW-36 Winter Warrior",
+    "title": "CW-36 Winter Warrior"
+   },
+   {
+    "name": "Light of Eternal Liberty",
+    "title": "Light of Eternal Liberty"
+   },
+   {
+    "name": "TYRANT HUNTER",
+    "title": "Tyrant Hunter"
+   },
+   {
+    "name": "Bastion of Integrity",
+    "title": "Bastion of Integrity"
+   },
+   {
+    "name": "CLOAK OF POSTERITY'S GRATITUDE",
+    "title": "Cloak of Posterity's Gratitude"
+   },
+   {
+    "name": "BOTSLAYER",
+    "title": "Botslayer"
+   },
+   {
+    "name": "MARTYRIS REX",
+    "title": "Martyris Rex"
+   },
+   {
+    "name": "Agent of Oblivion",
+    "title": "Agent of Oblivion"
+   },
+   {
+    "name": "EAGLE'S FURY",
+    "title": "Eagle's Fury"
+   },
+   {
+    "name": "Drape of Glory",
+    "title": "Drape of Glory"
+   },
+   {
+    "name": "JUDGMENT DAY",
+    "title": "Judgment Day"
+   },
+   {
+    "name": "FALLEN HERO'S VENGEANCE",
+    "title": "Fallen Hero's Vengeance"
+   },
+   {
+    "name": "BLAZING SAMARITAN",
+    "title": "Blazing Samaritan"
+   },
+   {
+    "name": "Will of the People",
+    "title": "Will of the People"
+   },
+   {
+    "name": "MANTLE OF TRUE CITIZENSHIP",
+    "title": "Mantle of True Citizenship"
+   },
+   {
+    "name": "FREEDOM'S TAPESTRY",
+    "title": "Freedom's Tapestry"
+   },
+   {
+    "name": "HARBINGER OF TRUE EQUALITY",
+    "title": "Harbinger of True Equality"
+   },
+   {
+    "name": "Protector of the Heart",
+    "title": "Protector of the Heart"
+   },
+   {
+    "name": "EMBLEM OF FREEDOM",
+    "title": "Emblem of Freedom"
+   },
+   {
+    "name": "Thundering Hooves of Loyalty",
+    "title": "Thundering Hooves of Loyalty"
+   },
+   {
+    "name": "Reckoning's Cheer",
+    "title": "Reckoning's Cheer"
+   },
+   {
+    "name": "United in Equality",
+    "title": "United in Equality"
+   },
+   {
+    "name": "Against the Tyrant Cloud",
+    "title": "Against the Tyrant Cloud"
+   },
+   {
+    "name": "Veridical Ideology",
+    "title": "Veridical Ideology"
+   },
+   {
+    "name": "MESSAGE OF MORALE",
+    "title": "Message of Morale"
+   },
+   {
+    "name": "Ingress-81",
+    "title": "Ingress-81"
+   },
+   {
+    "name": "Cover of Darkness",
+    "title": "Cover of Darkness"
+   },
+   {
+    "name": "Stone-Wrought Perseverance",
+    "title": "Stone-Wrought Perseverance"
+   },
+   {
+    "name": "Vision of Freedom",
+    "title": "Vision of Freedom"
+   },
+   {
+    "name": "Veil of the Valorous Vagabond",
+    "title": "Veil of the Valorous Vagabond"
+   },
+   {
+    "name": "Seal of General Consensus",
+    "title": "Seal of General Consensus"
+   },
+   {
+    "name": "Schema Laid Bare",
+    "title": "Schema Laid Bare"
+   },
+   {
+    "name": "Badge of Order",
+    "title": "Badge of Order"
+   },
+   {
+    "name": "Eternal Corona",
+    "title": "Eternal Corona"
+   },
+   {
+    "name": "De-Forester's Sailcloth",
+    "title": "De-Forester's Sailcloth"
+   },
+   {
+    "name": "Diagram of the Noblest Payload",
+    "title": "Diagram of the Noblest Payload"
+   },
+   {
+    "name": "Arctic Decree",
+    "title": "Arctic Decree"
+   },
+   {
+    "name": "Gilded Quill",
+    "title": "Gilded Quill"
+   },
+   {
+    "name": "Tread of Liberty",
+    "title": "Tread of Liberty"
+   },
+   {
+    "name": "Testament to Attrition",
+    "title": "Testament to Attrition"
+   },
+   {
+    "name": "Standard of Safe Distance",
+    "title": "Standard of Safe Distance"
+   },
+   {
+    "name": "Pride of the Whistleblower",
+    "title": "Pride of the Whistleblower"
+   },
+   {
+    "name": "Proof of Faultless Virtue",
+    "title": "Proof of Faultless Virtue"
+   },
+   {
+    "name": "Holder of the Yellow Line",
+    "title": "Holder of the Yellow Line"
+   },
+   {
+    "name": "Fre Liberam",
+    "title": "Fre Liberam"
+   },
+   {
+    "name": "Per Democrasum",
+    "title": "Per Democrasum"
+   },
+   {
+    "name": "Reaper of Bounties",
+    "title": "Reaper of Bounties"
+   },
+   {
+    "name": "Way of the Bandolier",
+    "title": "Way of the Bandolier"
+   },
+   {
+    "name": "Federation's Embrace",
+    "title": "Federation's Embrace"
+   },
+   {
+    "name": "Humble Regalia",
+    "title": "Humble Regalia"
+   },
+   {
+    "name": "Conductor of Brilliance",
+    "title": "Conductor of Brilliance"
+   },
+   {
+    "name": "Over Artifice Triumphant",
+    "title": "Over Artifice Triumphant"
+   },
+   {
+    "name": "Miranda's Legacy",
+    "title": "Miranda's Legacy"
+   },
+   {
+    "name": "Mother Eagle's Wings",
+    "title": "Mother Eagle's Wings"
+   },
+   {
+    "name": "Rightful Occupier",
+    "title": "Rightful Occupier"
+   },
+   {
+    "name": "Windswept Wayfinder",
+    "title": "Windswept Wayfinder"
+   },
+   {
+    "name": "Dissident's Nightmare",
+    "title": "Dissident's Nightmare"
+   },
+   {
+    "name": "Pinions of Everlasting Glory",
+    "title": "Pinions of Everlasting Glory"
+   },
+   {
+    "name": "Order of the Venerated Ballot",
+    "title": "Order of the Venerated Ballot"
+   },
+   {
+    "name": "MARK OF THE CRIMSON FANG",
+    "title": "Mark of the Crimson Fang"
+   },
+   {
+    "name": "EXECUTIONER'S CANOPY",
+    "title": "Executioner's Canopy"
+   },
+   {
+    "name": "PURIFYING ECLIPSE",
+    "title": "Purifying Eclipse"
+   },
+   {
+    "name": "THE BREACH",
+    "title": "The Breach"
+   },
+   {
+    "name": "Strength in Our Arms",
+    "title": "Strength in Our Arms"
+   },
+   {
+    "name": "Defender of Our Dream",
+    "title": "Defender of Our Dream"
+   },
+   {
+    "name": "Mark of the Constrictor",
+    "title": "Mark of the Constrictor"
+   },
+   {
+    "name": "Foe Rent Asunder",
+    "title": "Foe Rent Asunder"
+   },
+   {
+    "name": "Free-Spirited Spangles",
+    "title": "Free-Spirited Spangles"
+   },
+   {
+    "name": "Watchful Compatriot",
+    "title": "Watchful Compatriot"
+   },
+   {
+    "name": "Honored Heirloom",
+    "title": "Honored Heirloom"
+   },
+   {
+    "name": "Eye of the Clandestine",
+    "title": "Eye of the Clandestine"
+   },
+   {
+    "name": "Camo Cloak",
+    "title": "Camo Cloak"
+   },
+   {
+    "name": "City Fighter's Resolve",
+    "title": "City Fighter's Resolve"
+   },
+   {
+    "name": "Rags of the Fashionable",
+    "title": "Rags of the Fashionable"
+   },
+   {
+    "name": "Wedgeful Tricorn",
+    "title": "Wedgeful Tricorn"
+   },
+   {
+    "name": "Mimetic Mesh",
+    "title": "Mimetic Mesh"
+   },
+   {
+    "name": "Boundary Banner",
+    "title": "Boundary Banner"
+   },
+   {
+    "name": "Pillar of the Abyss",
+    "title": "Pillar of the Abyss"
+   },
+   {
+    "name": "Triangulation Veil",
+    "title": "Triangulation Veil"
+   },
+   {
+    "name": "Standard of Rapid Evacuation",
+    "title": "Standard of Rapid Evacuation"
+   },
+   {
+    "name": "Shroud of the Juggernaut",
+    "title": "Shroud of the Juggernaut"
+   },
+   {
+    "name": "Dignity of Toil",
+    "title": "Dignity of Toil"
+   },
+   {
+    "name": "Crest of the Unsullied",
+    "title": "Crest of the Unsullied"
+   },
+   {
+    "name": "Tideturner",
+    "title": "Tideturner"
+   },
+   {
+    "name": "EYE OF FREEDOM",
+    "title": "Eye of Freedom"
+   },
+   {
+    "name": "EYE OF LIBERTY",
+    "title": "Eye of Liberty"
+   },
+   {
+    "name": "PILLARS OF FREEDOM",
+    "title": "Pillars of Freedom"
+   },
+   {
+    "name": "Unblemished Allegiance",
+    "title": "Unblemished Allegiance"
+   },
+   {
+    "name": "Cresting Honor",
+    "title": "Cresting Honor"
+   },
+   {
+    "name": "Liberty's Herald",
+    "title": "Liberty's Herald"
+   },
+   {
+    "name": "Foesmasher",
+    "title": "Foesmasher"
+   },
+   {
+    "name": "Independence Bringer",
+    "title": "Independence Bringer"
+   },
+   {
+    "name": "INFILTRATOR",
+    "title": "SC-34 Infiltrator",
+    "by": "title-ends-with-name"
+   },
+   {
+    "name": "THE CAPE OF STARS AND SUFFRAGE",
+    "title": "Stars and Suffrage",
+    "by": "name-ends-with-title"
+   },
+   {
+    "name": "Greatcloak of Rebar Resolve",
+    "title": "Rebar Resolve",
+    "by": "name-ends-with-title"
+   },
+   {
+    "name": "Patient Zero's Rememberance",
+    "title": "Patient Zero's Remembrance",
+    "by": "fuzzy-spelling"
+   }
+  ]
+ },
+ "customization_passive_bonuses": {
+  "kinds": [
+   "armor-passive"
+  ],
+  "rows": 33,
+  "named_rows": 33,
+  "unique_names": 33,
+  "wiki_pages_of_kind": 32,
+  "exact": 32,
+  "suffix": 0,
+  "contains": 0,
+  "fuzzy": 0,
+  "matched": 32,
+  "unmatched": [
+   "STANDARD ISSUE"
+  ],
+  "matches": [
+   {
+    "name": "EXTRA PADDING",
+    "title": "Extra Padding"
+   },
+   {
+    "name": "SERVO-ASSISTED",
+    "title": "Servo-Assisted"
+   },
+   {
+    "name": "ENGINEERING KIT",
+    "title": "Engineering Kit"
+   },
+   {
+    "name": "MED-KIT",
+    "title": "Med-Kit"
+   },
+   {
+    "name": "ADRENO-DEFIBRILLATOR",
+    "title": "Adreno-Defibrillator"
+   },
+   {
+    "name": "KINETIC DISPLACEMENT MITIGATION",
+    "title": "Kinetic Displacement Mitigation"
+   },
+   {
+    "name": "DESERT STORMER",
+    "title": "Desert Stormer"
+   },
+   {
+    "name": "ACCLIMATED",
+    "title": "Acclimated"
+   },
+   {
+    "name": "ELECTRICAL CONDUIT",
+    "title": "Electrical Conduit"
+   },
+   {
+    "name": "INFLAMMABLE",
+    "title": "Inflammable"
+   },
+   {
+    "name": "FORTIFIED",
+    "title": "Fortified"
+   },
+   {
+    "name": "ADVANCED FILTRATION",
+    "title": "Advanced Filtration"
+   },
+   {
+    "name": "DEMOCRACY PROTECTS",
+    "title": "Democracy Protects"
+   },
+   {
+    "name": "SIEGE-READY",
+    "title": "Siege-Ready"
+   },
+   {
+    "name": "ROCK-SOLID",
+    "title": "Rock Solid"
+   },
+   {
+    "name": "BALLISTIC PADDING",
+    "title": "Ballistic Padding"
+   },
+   {
+    "name": "OXYGENATOR",
+    "title": "Oxygenator"
+   },
+   {
+    "name": "FEET FIRST",
+    "title": "Feet First"
+   },
+   {
+    "name": "PEAK PHYSIQUE",
+    "title": "Peak Physique"
+   },
+   {
+    "name": "INTEGRATED EXPLOSIVES",
+    "title": "Integrated Explosives"
+   },
+   {
+    "name": "GUNSLINGER",
+    "title": "Gunslinger"
+   },
+   {
+    "name": "UNFLINCHING",
+    "title": "Unflinching"
+   },
+   {
+    "name": "TRUE GRIT",
+    "title": "True Grit"
+   },
+   {
+    "name": "SUPPLEMENTAL ADRENALINE",
+    "title": "Supplemental Adrenaline"
+   },
+   {
+    "name": "STATIONARY SHROUD",
+    "title": "Stationary Shroud"
+   },
+   {
+    "name": "REDUCED SIGNATURE",
+    "title": "Reduced Signature"
+   },
+   {
+    "name": "REINFORCED EPAULETTES",
+    "title": "Reinforced Epaulettes"
+   },
+   {
+    "name": "SCOUT",
+    "title": "Scout"
+   },
+   {
+    "name": "BLUNT-FORCE MITIGATION",
+    "title": "Blunt-Force Mitigation"
+   },
+   {
+    "name": "CONCUSSIVE PADDING, REINFORCED",
+    "title": "Concussive Padding, Reinforced"
+   },
+   {
+    "name": "CONCUSSIVE PADDING, HAZMAT",
+    "title": "Concussive Padding, Hazmat"
+   },
+   {
+    "name": "CONCUSSIVE PADDING, GRENADIER",
+    "title": "Concussive Padding, Grenadier"
+   }
+  ]
+ },
+ "planet_data": {
+  "kinds": [
+   "planet"
+  ],
+  "rows": 438,
+  "named_rows": 399,
+  "unique_names": 395,
+  "wiki_pages_of_kind": 280,
+  "exact": 276,
+  "suffix": 1,
+  "contains": 0,
+  "fuzzy": 0,
+  "matched": 277,
+  "unmatched": [
+   "MERIDIAN IIa",
+   "THE BUG QUARANTINE",
+   "ARLIA",
+   "ADHAFERA SECUNDUS",
+   "ALADFAR CXI",
+   "CHARA",
+   "CURSA",
+   "KARON BAY",
+   "OROTH",
+   "HETT",
+   "WORTHY I",
+   "PINE TAR",
+   "LONE",
+   "PEONY",
+   "CALEFACTORIA",
+   "SERENDIPITY XI",
+   "BANKABILITY",
+   "ARGENTIS",
+   "PROBARE",
+   "CYGNIA III",
+   "COLUMBIDAE",
+   "PIPIONEM",
+   "SUPERIORIA LV",
+   "TANDEM",
+   "RETRIBUTARY",
+   "DEFENSIBLE",
+   "WATCHDOG 5",
+   "AQUILA XXXII",
+   "ELIGIBLE",
+   "PROBABILITY",
+   "LINK B",
+   "HOPEFUL",
+   "BICEP",
+   "ADRENAL 8",
+   "NEW WISDOM",
+   "NEW INSIGHT",
+   "WAYWARD",
+   "TERRENE",
+   "ARABILITY",
+   "FAMILY-FRIEND",
+   "NASCENCE",
+   "FLEDGE",
+   "SAMMELSURIUM",
+   "BALLOT",
+   "RESILIENCE",
+   "GILE",
+   "LAMB'S PATCH",
+   "FRAKENEERIA",
+   "SHIRAHAMA",
+   "ANDWELL",
+   "LYNX LYNX",
+   "ALMINA IV",
+   "AUSPICE",
+   "RAYSTING",
+   "NOSSER",
+   "SATELLARIA",
+   "DOUBLET II",
+   "GENERATION",
+   "CIVILITY",
+   "SCUTUM CANIS LUPUS",
+   "LOGISTICAE",
+   "STOLTHET",
+   "AVILA",
+   "MANDILARIA",
+   "EMBOLD",
+   "LAMBAST",
+   "THRASH IV",
+   "MIQÉ",
+   "TOR E",
+   "PHANTOM 1",
+   "SPOYLE",
+   "WILE",
+   "PIEA",
+   "HUSARIA",
+   "OSTEHOVEL",
+   "MINERVA",
+   "PESTIS",
+   "AMITTERE",
+   "VINGE",
+   "KORV",
+   "CONLON COLONY",
+   "DEECON",
+   "SVITJOD",
+   "VACCA",
+   "OTUR",
+   "SIRIUS II",
+   "HAMMARBY",
+   "MOMO-1",
+   "LINDOME",
+   "BOHUS",
+   "NIBIRU",
+   "GUNNAR",
+   "URECTEM",
+   "MÖNSTERÅS II",
+   "MONHEIM",
+   "DUNOONIA",
+   "PAYONG",
+   "PENNYBRIDGE",
+   "UNKNOWN SYSTEM",
+   "UNREGISTERED SYSTEM",
+   "UNMAPPED SYSTEM",
+   "RUINED SYSTEM",
+   "ANOMALOUS SYSTEM",
+   "CONCEALED SYSTEM",
+   "E-710-RICH SYSTEM",
+   "ANNIHILATED SYSTEM",
+   "VITAL SYSTEM",
+   "UNINHABITABLE SYSTEM",
+   "UNDISCLOSED LOCATION",
+   "DEV_01",
+   "DEV_02",
+   "DEV_03",
+   "DEV_04",
+   "DEV_05",
+   "DEV_06",
+   "DEV_07",
+   "DEV_08",
+   "DEV_09"
+  ],
+  "matches": [
+   {
+    "name": "SUPER EARTH",
+    "title": "Super Earth"
+   },
+   {
+    "name": "KLEN DAHTH II",
+    "title": "Klen Dahth II"
+   },
+   {
+    "name": "PATHFINDER V",
+    "title": "Pathfinder V"
+   },
+   {
+    "name": "WIDOW'S HARBOR",
+    "title": "Widow's Harbor"
+   },
+   {
+    "name": "NEW HAVEN",
+    "title": "New Haven"
+   },
+   {
+    "name": "PILEN V",
+    "title": "Pilen V"
+   },
+   {
+    "name": "HYDROFALL PRIME",
+    "title": "Hydrofall Prime"
+   },
+   {
+    "name": "ZEA RUGOSIA",
+    "title": "Zea Rugosia"
+   },
+   {
+    "name": "DARROWSPORT",
+    "title": "Darrowsport"
+   },
+   {
+    "name": "FORNSKOGUR II",
+    "title": "Fornskogur II"
+   },
+   {
+    "name": "MIDASBURG",
+    "title": "Midasburg"
+   },
+   {
+    "name": "CERBERUS IIIc",
+    "title": "Cerberus IIIc"
+   },
+   {
+    "name": "PROSPERITY FALLS",
+    "title": "Prosperity Falls"
+   },
+   {
+    "name": "OKUL VI",
+    "title": "Okul VI"
+   },
+   {
+    "name": "MARTYR'S BAY",
+    "title": "Martyr's Bay"
+   },
+   {
+    "name": "FREEDOM PEAK",
+    "title": "Freedom Peak"
+   },
+   {
+    "name": "FORT UNION",
+    "title": "Fort Union"
+   },
+   {
+    "name": "KELVINOR",
+    "title": "Kelvinor"
+   },
+   {
+    "name": "WRAITH",
+    "title": "Wraith"
+   },
+   {
+    "name": "IGLA",
+    "title": "Igla"
+   },
+   {
+    "name": "NEW KIRUNA",
+    "title": "New Kiruna"
+   },
+   {
+    "name": "FORT JUSTICE",
+    "title": "Fort Justice"
+   },
+   {
+    "name": "ZEGEMA PARADISE",
+    "title": "Zegema Paradise"
+   },
+   {
+    "name": "PROVIDENCE",
+    "title": "Providence"
+   },
+   {
+    "name": "PRIMORDIA",
+    "title": "Primordia"
+   },
+   {
+    "name": "SULFURA",
+    "title": "Sulfura"
+   },
+   {
+    "name": "NUBLARIA I",
+    "title": "Nublaria I"
+   },
+   {
+    "name": "KRAKATWO",
+    "title": "Krakatwo"
+   },
+   {
+    "name": "VOLTERRA",
+    "title": "Volterra"
+   },
+   {
+    "name": "CRUCIBLE",
+    "title": "Crucible"
+   },
+   {
+    "name": "VEIL",
+    "title": "Veil"
+   },
+   {
+    "name": "MARRE IV",
+    "title": "Marre IV"
+   },
+   {
+    "name": "FORT SANCTUARY",
+    "title": "Fort Sanctuary"
+   },
+   {
+    "name": "SEYSHEL BEACH",
+    "title": "Seyshel Beach"
+   },
+   {
+    "name": "HELLMIRE",
+    "title": "Hellmire"
+   },
+   {
+    "name": "EFFLUVIA",
+    "title": "Effluvia"
+   },
+   {
+    "name": "SOLGHAST",
+    "title": "Solghast"
+   },
+   {
+    "name": "DILUVIA",
+    "title": "Diluvia"
+   },
+   {
+    "name": "VIRIDIA PRIME",
+    "title": "Viridia Prime"
+   },
+   {
+    "name": "OBARI",
+    "title": "Obari"
+   },
+   {
+    "name": "MYRADESH",
+    "title": "Myradesh"
+   },
+   {
+    "name": "ATRAMA",
+    "title": "Atrama"
+   },
+   {
+    "name": "EMERIA",
+    "title": "Emeria"
+   },
+   {
+    "name": "BARABOS",
+    "title": "Barabos"
+   },
+   {
+    "name": "FENMIRE",
+    "title": "Fenmire"
+   },
+   {
+    "name": "MASTIA",
+    "title": "Mastia"
+   },
+   {
+    "name": "SHALLUS",
+    "title": "Shallus"
+   },
+   {
+    "name": "KRAKABOS",
+    "title": "Krakabos"
+   },
+   {
+    "name": "IRIDICA",
+    "title": "Iridica"
+   },
+   {
+    "name": "AZTERRA",
+    "title": "Azterra"
+   },
+   {
+    "name": "AZUR SECUNDUS",
+    "title": "Azur Secundus"
+   },
+   {
+    "name": "IVIS",
+    "title": "Ivis"
+   },
+   {
+    "name": "SLIF",
+    "title": "Slif"
+   },
+   {
+    "name": "CARAMOOR",
+    "title": "Caramoor"
+   },
+   {
+    "name": "KHARST",
+    "title": "Kharst"
+   },
+   {
+    "name": "EUKORIA",
+    "title": "Eukoria"
+   },
+   {
+    "name": "MYRIUM",
+    "title": "Myrium"
+   },
+   {
+    "name": "KERTH SECUNDUS",
+    "title": "Kerth Secundus"
+   },
+   {
+    "name": "PARSH",
+    "title": "Parsh"
+   },
+   {
+    "name": "REAF",
+    "title": "Reaf"
+   },
+   {
+    "name": "IRULTA",
+    "title": "Irulta"
+   },
+   {
+    "name": "EMORATH",
+    "title": "Emorath"
+   },
+   {
+    "name": "ILDUNA PRIME",
+    "title": "Ilduna Prime"
+   },
+   {
+    "name": "MAW",
+    "title": "Maw"
+   },
+   {
+    "name": "MERIDIA",
+    "title": "Meridia"
+   },
+   {
+    "name": "BOREA",
+    "title": "Borea"
+   },
+   {
+    "name": "CURIA",
+    "title": "Curia"
+   },
+   {
+    "name": "TARSH",
+    "title": "Tarsh"
+   },
+   {
+    "name": "SHELT",
+    "title": "Shelt"
+   },
+   {
+    "name": "IMBER",
+    "title": "Imber"
+   },
+   {
+    "name": "BLISTICA",
+    "title": "Blistica"
+   },
+   {
+    "name": "RATCH",
+    "title": "Ratch"
+   },
+   {
+    "name": "JULHEIM",
+    "title": "Julheim"
+   },
+   {
+    "name": "VALGAARD",
+    "title": "Valgaard"
+   },
+   {
+    "name": "ARKTURUS",
+    "title": "Arkturus"
+   },
+   {
+    "name": "ESKER",
+    "title": "Esker"
+   },
+   {
+    "name": "TERREK",
+    "title": "Terrek"
+   },
+   {
+    "name": "CIRRUS",
+    "title": "Cirrus"
+   },
+   {
+    "name": "CRIMSICA",
+    "title": "Crimsica"
+   },
+   {
+    "name": "HEETH",
+    "title": "Heeth"
+   },
+   {
+    "name": "VELD",
+    "title": "Veld"
+   },
+   {
+    "name": "ALTA V",
+    "title": "Alta V"
+   },
+   {
+    "name": "URSICA XI",
+    "title": "Ursica XI"
+   },
+   {
+    "name": "INARI",
+    "title": "Inari"
+   },
+   {
+    "name": "SKAASH",
+    "title": "Skaash"
+   },
+   {
+    "name": "MORADESH",
+    "title": "Moradesh"
+   },
+   {
+    "name": "RASP",
+    "title": "Rasp"
+   },
+   {
+    "name": "BASHYR",
+    "title": "Bashyr"
+   },
+   {
+    "name": "REGNUS",
+    "title": "Regnus"
+   },
+   {
+    "name": "MOG",
+    "title": "Mog"
+   },
+   {
+    "name": "VALMOX",
+    "title": "Valmox"
+   },
+   {
+    "name": "IRO",
+    "title": "Iro"
+   },
+   {
+    "name": "GRAFMERE",
+    "title": "Grafmere"
+   },
+   {
+    "name": "NEW STOCKHOLM",
+    "title": "New Stockholm"
+   },
+   {
+    "name": "OASIS",
+    "title": "Oasis"
+   },
+   {
+    "name": "GENESIS PRIME",
+    "title": "Genesis Prime"
+   },
+   {
+    "name": "OUTPOST 32",
+    "title": "Outpost 32"
+   },
+   {
+    "name": "CALYPSO",
+    "title": "Calypso"
+   },
+   {
+    "name": "ELYSIAN MEADOWS",
+    "title": "Elysian Meadows"
+   },
+   {
+    "name": "ALDERIDGE COVE",
+    "title": "Alderidge Cove"
+   },
+   {
+    "name": "TRANDOR",
+    "title": "Trandor"
+   },
+   {
+    "name": "EAST IRIDIUM TRADING BAY",
+    "title": "East Iridium Trading Bay"
+   },
+   {
+    "name": "LIBERTY RIDGE",
+    "title": "Liberty Ridge"
+   },
+   {
+    "name": "BALDRICK PRIME",
+    "title": "Baldrick Prime"
+   },
+   {
+    "name": "THE WEIR",
+    "title": "The Weir"
+   },
+   {
+    "name": "KUPER",
+    "title": "Kuper"
+   },
+   {
+    "name": "OSLO STATION",
+    "title": "Oslo Station"
+   },
+   {
+    "name": "PÖPLI IX",
+    "title": "Pöpli IX"
+   },
+   {
+    "name": "GUNVALD",
+    "title": "Gunvald"
+   },
+   {
+    "name": "DOLPH",
+    "title": "Dolph"
+   },
+   {
+    "name": "BEKVAM III",
+    "title": "Bekvam III"
+   },
+   {
+    "name": "DUMA TYR",
+    "title": "Duma Tyr"
+   },
+   {
+    "name": "VERNEN WELLS",
+    "title": "Vernen Wells"
+   },
+   {
+    "name": "AESIR PASS",
+    "title": "Aesir Pass"
+   },
+   {
+    "name": "AURORA BAY",
+    "title": "Aurora Bay"
+   },
+   {
+    "name": "PENTA",
+    "title": "Penta"
+   },
+   {
+    "name": "GAELLIVARE",
+    "title": "Gaellivare"
+   },
+   {
+    "name": "VOG-SOJOTH",
+    "title": "Vog-Sojoth"
+   },
+   {
+    "name": "KIRRIK",
+    "title": "Kirrik"
+   },
+   {
+    "name": "MORTAX PRIME",
+    "title": "Mortax Prime"
+   },
+   {
+    "name": "WILFORD STATION",
+    "title": "Wilford Station"
+   },
+   {
+    "name": "PIONEER II",
+    "title": "Pioneer II"
+   },
+   {
+    "name": "ERSON SANDS",
+    "title": "Erson Sands"
+   },
+   {
+    "name": "SOCORRO III",
+    "title": "Socorro III"
+   },
+   {
+    "name": "BORE ROCK",
+    "title": "Bore Rock"
+   },
+   {
+    "name": "FENRIR III",
+    "title": "Fenrir III"
+   },
+   {
+    "name": "TURING",
+    "title": "Turing"
+   },
+   {
+    "name": "ANGEL'S VENTURE",
+    "title": "Angel's Venture"
+   },
+   {
+    "name": "DARIUS II",
+    "title": "Darius II"
+   },
+   {
+    "name": "ACAMAR IV",
+    "title": "Acamar IV"
+   },
+   {
+    "name": "ACHERNAR SECUNDUS",
+    "title": "Achernar Secundus"
+   },
+   {
+    "name": "ACHIRD III",
+    "title": "Achird III"
+   },
+   {
+    "name": "ACRAB XI",
+    "title": "Acrab XI"
+   },
+   {
+    "name": "ACRUX IX",
+    "title": "Acrux IX"
+   },
+   {
+    "name": "ACUBENS PRIME",
+    "title": "Acubens Prime"
+   },
+   {
+    "name": "ADHARA",
+    "title": "Adhara"
+   },
+   {
+    "name": "AFOYAY BAY",
+    "title": "Afoyay Bay"
+   },
+   {
+    "name": "AIN-5",
+    "title": "Ain-5"
+   },
+   {
+    "name": "ALAIRT III",
+    "title": "Alairt III"
+   },
+   {
+    "name": "ALAMAK VII",
+    "title": "Alamak VII"
+   },
+   {
+    "name": "ALARAPH",
+    "title": "Alaraph"
+   },
+   {
+    "name": "ALATHFAR XI",
+    "title": "Alathfar XI"
+   },
+   {
+    "name": "ANDAR",
+    "title": "Andar"
+   },
+   {
+    "name": "ASPEROTH PRIME",
+    "title": "Asperoth Prime"
+   },
+   {
+    "name": "BELLATRIX",
+    "title": "Bellatrix"
+   },
+   {
+    "name": "BOTEIN",
+    "title": "Botein"
+   },
+   {
+    "name": "OSUPSAM",
+    "title": "Osupsam"
+   },
+   {
+    "name": "BRINK-2",
+    "title": "Brink-2"
+   },
+   {
+    "name": "BUNDA SECUNDUS",
+    "title": "Bunda Secundus"
+   },
+   {
+    "name": "CANOPUS",
+    "title": "Canopus"
+   },
+   {
+    "name": "CAPH",
+    "title": "Caph"
+   },
+   {
+    "name": "CASTOR",
+    "title": "Castor"
+   },
+   {
+    "name": "DURGEN",
+    "title": "Durgen"
+   },
+   {
+    "name": "DRAUPNIR",
+    "title": "Draupnir"
+   },
+   {
+    "name": "MORT",
+    "title": "Mort"
+   },
+   {
+    "name": "INGMAR",
+    "title": "Ingmar"
+   },
+   {
+    "name": "CHARBAL-VII",
+    "title": "Charbal-VII"
+   },
+   {
+    "name": "CHARON PRIME",
+    "title": "Charon Prime"
+   },
+   {
+    "name": "CHOEPESSA IV",
+    "title": "Choepessa IV"
+   },
+   {
+    "name": "CHOOHE",
+    "title": "Choohe"
+   },
+   {
+    "name": "CHORT BAY",
+    "title": "Chort Bay"
+   },
+   {
+    "name": "CLAORELL",
+    "title": "Claorell"
+   },
+   {
+    "name": "CLASA",
+    "title": "Clasa"
+   },
+   {
+    "name": "DEMIURG",
+    "title": "Demiurg"
+   },
+   {
+    "name": "DENEB SECUNDUS",
+    "title": "Deneb Secundus"
+   },
+   {
+    "name": "ELECTRA BAY",
+    "title": "Electra Bay"
+   },
+   {
+    "name": "ENULIALE",
+    "title": "Enuliale"
+   },
+   {
+    "name": "EPSILON PHOENCIS VI",
+    "title": "Epsilon Phoencis VI"
+   },
+   {
+    "name": "ERATA PRIME",
+    "title": "Erata Prime"
+   },
+   {
+    "name": "ESTANU",
+    "title": "Estanu"
+   },
+   {
+    "name": "FORI PRIME",
+    "title": "Fori Prime"
+   },
+   {
+    "name": "FURY",
+    "title": "Fury"
+   },
+   {
+    "name": "GACRUX",
+    "title": "Gacrux"
+   },
+   {
+    "name": "GAR HAREN",
+    "title": "Gar Haren"
+   },
+   {
+    "name": "GATRIA",
+    "title": "Gatria"
+   },
+   {
+    "name": "GEMMA",
+    "title": "Gemma"
+   },
+   {
+    "name": "GRAND ERRANT",
+    "title": "Grand Errant"
+   },
+   {
+    "name": "HADAR",
+    "title": "Hadar"
+   },
+   {
+    "name": "HAKA",
+    "title": "Haka"
+   },
+   {
+    "name": "HALDUS",
+    "title": "Haldus"
+   },
+   {
+    "name": "HALIES PORT",
+    "title": "Halies Port"
+   },
+   {
+    "name": "HERTHON SECUNDUS",
+    "title": "Herthon Secundus"
+   },
+   {
+    "name": "HESOE PRIME",
+    "title": "Hesoe Prime"
+   },
+   {
+    "name": "HEZE BAY",
+    "title": "Heze Bay"
+   },
+   {
+    "name": "HORT",
+    "title": "Hort"
+   },
+   {
+    "name": "HYDROBIUS",
+    "title": "Hydrobius"
+   },
+   {
+    "name": "KARLIA",
+    "title": "Karlia"
+   },
+   {
+    "name": "KEID",
+    "title": "Keid"
+   },
+   {
+    "name": "KHANDARK",
+    "title": "Khandark"
+   },
+   {
+    "name": "K",
+    "title": "K"
+   },
+   {
+    "name": "KLAKA 5",
+    "title": "Klaka 5"
+   },
+   {
+    "name": "KNETH PORT",
+    "title": "Kneth Port"
+   },
+   {
+    "name": "KRAZ",
+    "title": "Kraz"
+   },
+   {
+    "name": "KUMA",
+    "title": "Kuma"
+   },
+   {
+    "name": "LASTOFE",
+    "title": "Lastofe"
+   },
+   {
+    "name": "LENG SECUNDUS",
+    "title": "Leng Secundus"
+   },
+   {
+    "name": "LESATH",
+    "title": "Lesath"
+   },
+   {
+    "name": "MAIA",
+    "title": "Maia"
+   },
+   {
+    "name": "MALEVELON CREEK",
+    "title": "Malevelon Creek"
+   },
+   {
+    "name": "MANTES",
+    "title": "Mantes"
+   },
+   {
+    "name": "MARFARK",
+    "title": "Marfark"
+   },
+   {
+    "name": "MARTALE",
+    "title": "Martale"
+   },
+   {
+    "name": "MATAR BAY",
+    "title": "Matar Bay"
+   },
+   {
+    "name": "MEISSA",
+    "title": "Meissa"
+   },
+   {
+    "name": "MEKBUDA",
+    "title": "Mekbuda"
+   },
+   {
+    "name": "MENKENT",
+    "title": "Menkent"
+   },
+   {
+    "name": "MERAK",
+    "title": "Merak"
+   },
+   {
+    "name": "MERGA IV",
+    "title": "Merga IV"
+   },
+   {
+    "name": "MINCHIR",
+    "title": "Minchir"
+   },
+   {
+    "name": "MINTORIA",
+    "title": "Mintoria"
+   },
+   {
+    "name": "MORDIA 9",
+    "title": "Mordia 9"
+   },
+   {
+    "name": "MOX",
+    "title": "Mox"
+   },
+   {
+    "name": "NABATEA SECUNDUS",
+    "title": "Nabatea Secundus"
+   },
+   {
+    "name": "NAVI VII",
+    "title": "Navi VII"
+   },
+   {
+    "name": "NIVEL 43",
+    "title": "Nivel 43"
+   },
+   {
+    "name": "OSHAUNE",
+    "title": "Oshaune"
+   },
+   {
+    "name": "OVERGOE PRIME",
+    "title": "Overgoe Prime"
+   },
+   {
+    "name": "PANDION-XXIV",
+    "title": "Pandion-XXIV"
+   },
+   {
+    "name": "PARTION",
+    "title": "Partion"
+   },
+   {
+    "name": "PEACOCK",
+    "title": "Peacock"
+   },
+   {
+    "name": "PHACT BAY",
+    "title": "Phact Bay"
+   },
+   {
+    "name": "PHERKAD SECUNDUS",
+    "title": "Pherkad Secundus"
+   },
+   {
+    "name": "POLARIS PRIME",
+    "title": "Polaris Prime"
+   },
+   {
+    "name": "POLLUX 31",
+    "title": "Pollux 31"
+   },
+   {
+    "name": "PRASA",
+    "title": "Prasa"
+   },
+   {
+    "name": "PROPUS",
+    "title": "Propus"
+   },
+   {
+    "name": "RAS ALGETHI",
+    "title": "Ras Algethi"
+   },
+   {
+    "name": "RD-4",
+    "title": "RD-4"
+   },
+   {
+    "name": "ROGUE 5",
+    "title": "Rogue 5"
+   },
+   {
+    "name": "RIRGA BAY",
+    "title": "Rirga Bay"
+   },
+   {
+    "name": "SEASSE",
+    "title": "Seasse"
+   },
+   {
+    "name": "SENGE 23",
+    "title": "Senge 23"
+   },
+   {
+    "name": "SETIA",
+    "title": "Setia"
+   },
+   {
+    "name": "SHETE",
+    "title": "Shete"
+   },
+   {
+    "name": "SIEMNOT",
+    "title": "Siemnot"
+   },
+   {
+    "name": "SIRIUS",
+    "title": "Sirius"
+   },
+   {
+    "name": "SKAT BAY",
+    "title": "Skat Bay"
+   },
+   {
+    "name": "SPHERION",
+    "title": "Spherion"
+   },
+   {
+    "name": "STOR THA PRIME",
+    "title": "Stor Tha Prime"
+   },
+   {
+    "name": "STOUT",
+    "title": "Stout"
+   },
+   {
+    "name": "TERMADON",
+    "title": "Termadon"
+   },
+   {
+    "name": "TIBIT",
+    "title": "Tibit"
+   },
+   {
+    "name": "TIEN KWAN",
+    "title": "Tien Kwan"
+   },
+   {
+    "name": "TROOST",
+    "title": "Troost"
+   },
+   {
+    "name": "UBANEA",
+    "title": "Ubanea"
+   },
+   {
+    "name": "USTOTU",
+    "title": "Ustotu"
+   },
+   {
+    "name": "VANDALON IV",
+    "title": "Vandalon IV"
+   },
+   {
+    "name": "VARYLIA 5",
+    "title": "Varylia 5"
+   },
+   {
+    "name": "WASAT",
+    "title": "Wasat"
+   },
+   {
+    "name": "VEGA BAY",
+    "title": "Vega Bay"
+   },
+   {
+    "name": "WEZEN",
+    "title": "Wezen"
+   },
+   {
+    "name": "VINDEMITARIX PRIME",
+    "title": "Vindemitarix Prime"
+   },
+   {
+    "name": "X-45",
+    "title": "X-45"
+   },
+   {
+    "name": "YED PRIOR",
+    "title": "Yed Prior"
+   },
+   {
+    "name": "ZEFIA",
+    "title": "Zefia"
+   },
+   {
+    "name": "ZOSMA",
+    "title": "Zosma"
+   },
+   {
+    "name": "ZZANIAH PRIME",
+    "title": "Zzaniah Prime"
+   },
+   {
+    "name": "SKITTER",
+    "title": "Skitter"
+   },
+   {
+    "name": "EUPHORIA III",
+    "title": "Euphoria III"
+   },
+   {
+    "name": "DIASPORA X",
+    "title": "Diaspora X"
+   },
+   {
+    "name": "GEMSTONE BLUFFS",
+    "title": "Gemstone Bluffs"
+   },
+   {
+    "name": "ZAGON PRIME",
+    "title": "Zagon Prime"
+   },
+   {
+    "name": "OMICRON",
+    "title": "Omicron"
+   },
+   {
+    "name": "CYBERSTAN",
+    "title": "Cyberstan"
+   },
+   {
+    "name": "FRONTERIA",
+    "title": "Fronteria"
+   },
+   {
+    "name": "LUXURIANT",
+    "title": "Luxuriant"
+   },
+   {
+    "name": "BIG ROCK",
+    "title": "Big Rock"
+   },
+   {
+    "name": "BASQUINE VIII",
+    "title": "Basquine VIII"
+   },
+   {
+    "name": "BRILLIANCE",
+    "title": "Brilliance"
+   },
+   {
+    "name": "ZYGOS",
+    "title": "Zygos"
+   },
+   {
+    "name": "SANGIS",
+    "title": "Sangis"
+   },
+   {
+    "name": "UVP ALPHA",
+    "title": "UVP Alpha"
+   },
+   {
+    "name": "UVP BETA",
+    "title": "UVP Beta"
+   },
+   {
+    "name": "UVP GAMMA",
+    "title": "UVP Gamma"
+   },
+   {
+    "name": "UVP DELTA",
+    "title": "UVP Delta"
+   },
+   {
+    "name": "VOID SOURCE PLANET",
+    "title": "Void Source Planet"
+   },
+   {
+    "name": "ERRANT",
+    "title": "Grand Errant",
+    "by": "title-ends-with-name"
+   }
+  ]
+ }
+}

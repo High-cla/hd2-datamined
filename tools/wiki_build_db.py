@@ -44,18 +44,39 @@ import sqlite3
 # section -> template names that fill it (spelling variants appear in the source)
 TEMPLATES = {
     "infobox": ("Infobox Stratagem", "Infobox Weapon", "Infobox_Weapon",
-                "Infobox Support Weapon", "Infobox Throwable", "Infobox Any"),
+                "Infobox Support Weapon", "Infobox Throwable", "Infobox Any",
+                # 下表是后加的：护甲 / 护甲被动 / 星球 三类页面用的是各自的信息框，
+                # 参数结构与战备/武器同构（都是 |key=value），所以走同一套解析。
+                # 注意顺序：find_template 做的是子串匹配，"Infobox Armor" 会吞掉
+                # "Infobox Armor Passive"，所以更长的模板名必须排在前面。
+                "Infobox Armor Passive", "Infobox Armor", "Infobox Planet",
+                # 护甲页那一类里混着披风/外观：Category:Armor 的成员实际包含 cape 与 cosmetic，
+                # 不加这几个模板，91 个本该匹配上的名字会被记成"没有页面"（假阴性）。
+                "Infobox CapeCard", "Infobox Cosmetic"),
     "stats": ("Stratagem Stats Table",),
+}
+# 信息框模板名 -> page.kind。没列到的按 stratagem/weapon 的旧规则兜底。
+KIND_BY_TEMPLATE = {
+    "Infobox Armor": "armor",
+    "Infobox Armor Passive": "armor-passive",
+    "Infobox Planet": "planet",
+    "Infobox CapeCard": "cape",
+    "Infobox Cosmetic": "cosmetic",
 }
 ATTACK_KEY = re.compile(r"\{\{\s*Attack[_ ]Data[_ ]?(?:Stratagem|Weapon)\s*\|\s*([^}|]+)")
 NUMBER = re.compile(r"-?\d+(?:\.\d+)?")
 
 
 def find_template(text: str, name: str) -> str | None:
-    """Return the full {{name ...}} block, matching nested braces."""
-    start = text.find("{{" + name)
-    if start < 0:
+    """Return the full {{name ...}} block, matching nested braces.
+
+    模板名**大小写不敏感**：wiki 上确实存在 `{{infobox Planet`（小写 i）这种写法，
+    按大小写敏感去匹配会把它当成"没有信息框"，于是页面有内容却被记成没抓到。
+    """
+    hit = re.search(re.escape("{{" + name), text, re.IGNORECASE)
+    if not hit:
         return None
+    start = hit.start()
     depth, i = 0, start
     while i < len(text) - 1:
         pair = text[i:i + 2]
@@ -187,7 +208,8 @@ def main() -> int:
                 block = find_template(text, name)
                 if block:
                     if kind is None:
-                        kind = "stratagem" if name.endswith("Stratagem") else "weapon"
+                        kind = KIND_BY_TEMPLATE.get(
+                            name, "stratagem" if name.endswith("Stratagem") else "weapon")
                     break
             if not block:
                 continue

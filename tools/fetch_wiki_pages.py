@@ -31,6 +31,7 @@ from __future__ import annotations
 import argparse
 import json
 import pathlib
+import sys
 import time
 import urllib.parse
 import urllib.request
@@ -68,7 +69,12 @@ def category_members(name: str) -> list[str]:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--category", action="append", required=True)
+    ap.add_argument("--category", action="append", default=[],
+                    help="按分类抓取（可重复）")
+    ap.add_argument("--titles", default="",
+                    help="额外按标题抓取，逗号分隔（用于按名字补页：分类里没有但确实存在的页面）")
+    ap.add_argument("--titles-file", default="",
+                    help="同上，一行一个标题")
     ap.add_argument("--out", default="refs/wiki/pages")
     ap.add_argument("--batch", type=int, default=50)
     ap.add_argument("--sleep", type=float, default=1.0)
@@ -78,7 +84,15 @@ def main() -> int:
     out = pathlib.Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
 
+    if not a.category and not a.titles and not a.titles_file:
+        print("至少要给 --category 或 --titles/--titles-file", file=sys.stderr)
+        return 2
     titles: list[str] = []
+    if a.titles_file:
+        raw = pathlib.Path(a.titles_file).read_text(encoding="utf-8")
+        titles.extend(t.strip() for t in raw.splitlines() if t.strip())
+    if a.titles:
+        titles.extend(t.strip() for t in a.titles.split(",") if t.strip())
     for category in a.category:
         members = category_members(category)
         kept = [t for t in members

@@ -29,8 +29,9 @@
 | `fetch_wiki_modules.py` | 按需拉取 wiki 的 `Module:Decodedata-*` 数据模块（当字段名字典用；wiki 会挡默认 UA，故不随仓库分发） | 标准库 | ✓ 12/12 可拉 |
 | `probe_stratagem_fields.py` | 把两份 wiki 战备视图的全部数值字段逐一对到本表槽（含最佳槽报告，能区分"没有"和"有但值不同"） | PyNaCl | ✓ 定位 `+104`/`+80`/`+84` |
 | `find_bombs_salvos_pair.py` | 战备 `num_bombs`×`num_salvos` 的**联合**反查：扫所有有序槽对、扫乘积、再按 u8/u16/u32/f32 四种宽度找标志值 | PyNaCl | ✗ 全落空（证明这两项不在战备行里）|
-| `fetch_wiki_pages.py` | 用 MediaWiki API 批量缓存 wiki 页面源码（战备/武器），50 页一请求 + sleep | 标准库 | ✓ 233 页 |
-| `wiki_build_db.py` | 把页面源码的模板参数 + 模块 JSON 落成 SQLite（`page`/`param`/`entity`/`stratagem`/`weapon`）；标题走 `_titles.json` 以免斜杠丢失 | 标准库 | ✓ 237 页 / 3,904 参数 / 235 武器行 |
+| `fetch_wiki_pages.py` | 用 MediaWiki API 批量缓存 wiki 页面源码，50 页一请求 + sleep；支持 `--category` 与按标题补抓（`--titles` / `--titles-file`） | 标准库 | ✓ 763 页（战备/武器/护甲/披风/外观/护甲被动/星球） |
+| `wiki_build_db.py` | 把页面源码的模板参数 + 模块 JSON 落成 SQLite（`page`/`param`/`entity`/`stratagem`/`weapon`）；`page.kind` 由信息框模板判定；标题走 `_titles.json` 以免斜杠丢失 | 标准库 | ✓ 763 页 / 9,312 参数 / 235 武器行 |
+| `wiki_match_tables.py` | 把表里解出的名字和 wiki 页面标题对上（精确 / 后缀 / 包含 / 模糊四条规则），输出覆盖率与未匹配清单 | 标准库 | ✓ 护甲 217/237、被动 32/33、星球 277/395；未匹配的都查过确实无页面 |
 | `wiki_query.py` | 查本地库：任意页（战备/武器）全貌 + 攻击链解析（含嵌套 weapon）+ 与解密表并排对照（`--sk` 时自动用别名表兜底）；支持 `--page` / `--field` / `--entity` / `--sql` | PyNaCl（仅 `--sk` 时） | ✓ 见 `docs/WIKI-LOCAL-DB.md` |
 | `build_stratagem_alias.py` | 用行内 `+24` 本地化键 → slug → HD2Runtime `uiIcon.nativeType` 建战备别名表（不依赖显示名），产出 `refs/stratagem-alias.json` | PyNaCl + HD2Runtime SDK zip | ✓ 38 条 / 0 歧义；冷却 34/35 一致 |
 | `stratagem_display_names.py` | 从 `.strings` 资源解出每行的**游戏内文本**：五个槽位（`+40` 大写名 / `+44` 显示名 / `+48` 描述 / `+52` 长描述 / `+56` 状态标签），并附上匹配到的 wiki 页面标题；死引用会按"文本匹配 → 大写回退"回填并标明来源 | PyNaCl + 由 srkit 解出的 strings 目录 | ✓ 显示名 145/153（135 直接 + 1 文本匹配 + 9 大写回退），wiki 页 115/145 |

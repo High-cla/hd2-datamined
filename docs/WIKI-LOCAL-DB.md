@@ -22,29 +22,52 @@
 渲染出来的 HTML 表格是这两层的 **JOIN 结果**。分层存下来，join 随时可重做，也能直接和我们的
 解密表对照；抓 HTML 则只能得到 join 后的死数据，拿不到 key。
 
-## 2. 流水线（三个工具）
+## 2. 流水线（四个工具）
 
 ```bash
 # 1) 页面源码（走 MediaWiki API，50 个标题一批，批间 sleep 1s）
 python tools/fetch_wiki_pages.py --category Stratagems --category Weapons
+python tools/fetch_wiki_pages.py --category Armor --category Planets --category "Armor Passives"
+#    分类里没有但确实存在的页面，可以按标题补抓：--titles "A,B" / --titles-file list.txt
 
 # 2) 数据模块（字段名字典 + 详细攻击数据）
 python tools/fetch_wiki_modules.py --out refs/wiki/modules
 
 # 3) 建库
 python tools/wiki_build_db.py
+
+# 4) 把表里解出来的名字和页面标题对上，量化覆盖率（精确/后缀/包含/模糊四条规则）
+python tools/wiki_match_tables.py
 ```
 
-规模：**237 页**（战备 87 + 武器 144）、**3,904 个模板参数**、**3,629 个模块实体**、
-**98 条合并战备行 + 235 条合并武器行**，SQLite 1.7 MB。
+规模：**763 页**（战备 87 + 武器 145 + 护甲 114 + 披风 79 + 外观 15 + 护甲被动 32 + 星球 280）、
+**9,312 个模板参数**、**3,629 个模块实体**、**98 条合并战备行 + 235 条合并武器行**，SQLite 2.3 MB。
+
+### 页面种类（`page.kind`）
+
+`kind` 来自页面用的信息框模板，所以"某类页面有没有抓到"可以直接用 SQL 查：
+
+| kind | 页数 | 模板 |
+|---|---:|---|
+| `stratagem` | 87 | `Infobox Stratagem` |
+| `weapon` | 145 | `Infobox Weapon` / `Infobox_Weapon` / `Infobox Support Weapon` / `Infobox Throwable` |
+| `armor` | 114 | `Infobox Armor` |
+| `cape` | 79 | `Infobox CapeCard` |
+| `cosmetic` | 15 | `Infobox Cosmetic` |
+| `armor-passive` | 32 | `Infobox Armor Passive` |
+| `planet` | 280 | `Infobox Planet` |
+
+两个解析坑（都会造成"页面抓到了却没算进去"的假阴性）：`find_template` 是子串匹配，
+`Infobox Armor` 会吞掉 `Infobox Armor Passive`（更长的模板名必须排前面）；
+模板名**大小写不敏感**，wiki 上确实有 `{{infobox Planet` 这种小写写法。
 
 ### 表结构
 
 | 表 | 行数 | 内容 |
 |---|---:|---|
-| `page` | 233 | title / kind / last_updated / attack_key / n_params |
-| `param` | 3,914 | section(infobox·stats) / title / key / value / **num** |
-| `entity` | 4,038 | section / key / json（模块里的弹丸/爆炸/伤害等） |
+| `page` | 763 | title / kind / last_updated / attack_key / n_params |
+| `param` | 9,312 | section(infobox·stats) / title / key / value / **num** |
+| `entity` | 3,629 | section / key / json（模块里的弹丸/爆炸/伤害等） |
 | `stratagem` | 98 | key / json（战备合并视图，含 `attacks` 攻击树） |
 | `weapon` | 235 | key / json（武器合并视图，同样含 `attacks`） |
 
