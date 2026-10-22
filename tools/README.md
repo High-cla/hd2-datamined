@@ -29,6 +29,9 @@
 | `fetch_wiki_modules.py` | 按需拉取 wiki 的 `Module:Decodedata-*` 数据模块（当字段名字典用；wiki 会挡默认 UA，故不随仓库分发） | 标准库 | ✓ 12/12 可拉 |
 | `probe_stratagem_fields.py` | 把两份 wiki 战备视图的全部数值字段逐一对到本表槽（含最佳槽报告，能区分"没有"和"有但值不同"） | PyNaCl | ✓ 定位 `+104`/`+80`/`+84` |
 | `find_bombs_salvos_pair.py` | 战备 `num_bombs`×`num_salvos` 的**联合**反查：扫所有有序槽对、扫乘积、再按 u8/u16/u32/f32 四种宽度找标志值 | PyNaCl | ✗ 全落空（证明这两项不在战备行里）|
+| `fetch_wiki_pages.py` | 用 MediaWiki API 批量缓存 wiki 页面源码（战备/武器），50 页一请求 + sleep | 标准库 | ✓ 233 页 |
+| `wiki_build_db.py` | 把页面源码的模板参数 + 模块 JSON 落成 SQLite（`page`/`param`/`entity`/`stratagem`） | 标准库 | ✓ 3,914 参数 / 4,038 实体 |
+| `wiki_query.py` | 查本地库：单战备全貌 + 攻击链解析 + 与解密表并排对照；也支持 `--field` / `--entity` / `--sql` | PyNaCl（仅 `--sk` 时） | ✓ 见 `docs/WIKI-LOCAL-DB.md` |
 | `table_dictionary.py` | **全表字典**：解封 55 张表 → 组/行数/步长/尾块 + 每个类型的字段偏移树（需自备 `recipient.sk`） | PyNaCl + `typelib.py` | ✓ 55/55 表解析（18 张几何完全闭合） |
 | `entities_modeb.py` | 实体表：武器单元格编辑、可选弹种（模式 A/B）、双弹药池、hashmap 维护 | `murmur64.py` | ✓✓ 已实机（主宰/惩罚者/扫荡者） |
 | `proj_copy_row.py` | 整行搬运 272 B 射弹行（换弹头），带 5 道门禁 | `murmur64.py` | ✓✓ 已实机（Eruptor 弹头 → 主宰） |

@@ -1,0 +1,9 @@
+# Local research cache -- wiki content is CC BY-SA and is NOT redistributed here.
+# Regenerate with:
+#   python tools/fetch_wiki_pages.py --category Stratagems --category Weapons
+#   python tools/fetch_wiki_modules.py --out refs/wiki/modules
+#   python tools/wiki_build_db.py
+pages/
+modules/
+wiki.sqlite
+*.raw
