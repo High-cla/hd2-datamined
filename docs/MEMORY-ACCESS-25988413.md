@@ -115,6 +115,7 @@ VERDICT: FILTERED  handle granted, PROCESS_VM_READ stripped -> external dump is 
 | `NtReadVirtualMemory`（ntdll 直调） | 绕过 kernel32 的包装层 | 同一句柄 → 同样被拒。对照组：对**自有进程的已映射地址**调用返回 `STATUS 0` 并读回 `ABCDEFGH`，证明调用本身写得对 |
 | `QueryWorkingSetEx` | 只查页的驻留状态，不是读内容 | `err=5` |
 | `PssCaptureSnapshot`（`PSS_CAPTURE_VA_CLONE`） | 内核自己克隆地址空间，看起来可以完全不看源句柄的 VM_READ | **`rc=5` ERROR_ACCESS_DENIED**（`0x0410` 与 `0x1F0FFF` 两种句柄都试了） |
+| `PssCaptureSnapshot`（`PSS_CAPTURE_VA_SPACE`） | 只快照**布局**，也许连源句柄的 VM_READ 都不需要 | **`rc=0`，真的成功**（外部实测 2026-10-22；我们当时只试了 `VA_CLONE` 这一档）。但它给的是区域元数据 ≈ `VirtualQueryEx` 已有的东西；**读内容**要 `PssQuerySnapshot(PSS_QUERY_VA_CLONE_INFORMATION)` 的克隆句柄，那必须先 `VA_CLONE` → `rc=5`。⇒ 观测成立，**不是绕过** |
 | 线程句柄 + `GetThreadContext` | 线程是另一种内核对象，也许只保护了 process | `OpenThread` 三档（`THREAD_GET_CONTEXT` / `THREAD_QUERY_INFORMATION` / `ALL`）**都成功**；`GetThreadContext` 一律 **`err=5`** |
 | 从 EAC 服务进程复制句柄（`PROCESS_DUP_HANDLE`） | EAC 自己必然持有游戏的 VM_READ 句柄 | 那个进程连 `QUERY_LIMITED_INFORMATION` 都 **`err=5`** —— 它自身是受保护的 |
 | `EnumProcessModules` | — | `err=5`（它内部要读 PEB） |
@@ -132,7 +133,7 @@ VERDICT: FILTERED  handle granted, PROCESS_VM_READ stripped -> external dump is 
 
 真正能替代 `PROCESS_VM_READ` 的不是某个函数，而是位置：
 
-1. **同进程** —— 读自己不需要这个权限。需要往进程里放代码（C 模块），未尝试。
+1. **同进程** —— 读自己不需要这个权限。需要往进程里放代码（C 模块）——**已试并否证，见 §12**。
 2. **让进程自己吐** —— 游戏自带的 `sie::CrashReportClient::CreateMinidumps(HANDLE, …)` 是进程内的，
    字符串里有 `full-minidump.dmp` / `--full-dump`，但它只在崩溃时跑。
 3. **内核驱动 / 硬件 DMA** —— 超出范围。
@@ -247,14 +248,19 @@ Lua 5.1 的 `package.loadlib` = `LoadLibraryA` + `GetProcAddress`，而且**失�
 | `dshtest_unsigned.dll`（相对/绝对路径都一样）| **577** | **"Windows 无法验证此文件的数字签名"** |
 | `dshtest_signed.dll` | **193** | "%1 不是有效的 Win32 应用程序" |
 
+⚠ `193` 的字面意思是"PE 格式坏"，但**这里不是**：同一份字节在普通进程里能正常加载（见下面的对照
+实验），所以 193 是**白名单拒绝码**，不是映像真的坏了。含义见 §12g 的两道闸门。
+
 **对照实验（关键）**：同样这两个文件，在**普通 Python 进程里都能加载**
 （`ctypes.WinDLL` 两个都拿到句柄）。⇒ 夹具是好的，**拒绝它的是游戏进程**。
 
 ### 12d. 结论
 
-- **✗ 我们自己放进去的 DLL 无法被映射进游戏进程**，且**与签名无关**：
+- **✗ 我们自己放进去的 DLL 无法被映射进游戏进程。**
   未签名 → 577（签名无法验证）；带签名但不在信任列表 → 193。
-  这是 EAC 的镜像加载策略，不是文件损坏、不是路径问题、不是 `loadlib` 坏了（126 证明它工作）。
+  **签名不是"无关"，而是"只能换错误码"**：自签、以及自签后再把证书装进 `LocalMachine\Root`
+  让 `Get-AuthenticodeSignature` 报 `Valid`，结果**仍是 577**（§12g）。
+  这是加载策略，不是文件损坏、不是路径问题、不是 `loadlib` 坏了（126 证明它工作）。
 - 因此：**`ffi` 式的进程内内存读写无法恢复**。EAC 把"外部句柄"和"进程内原生代码"两条都堵了。
 - 想绕过它就得篡改反作弊本身（停驱动 / 改加载策略）——那是明确的作弊规避，**不做**。
 
@@ -273,3 +279,50 @@ Lua 5.1 的 `package.loadlib` = `LoadLibraryA` + `GetProcAddress`，而且**失�
 | **资源侧（`patch_N` 覆盖 + srkit）** | ✓ **唯一还能改东西的路** |
 
 ⇒ 结论：**"读游戏数值"这件事在本 build 上没有任何存活通道**；要做 mod 就只能走资源侧。
+
+### 12g. 2026-10-22 外部复现：两道闸门 · `bin/plugins` 同命 · 一条未做的决胜实验
+
+外部的独立小组在**同一个 build** 上把同一件事往下推了一步（
+[issue #1](https://github.com/deepseekv41flash/hd2-25988413/issues/1)），其中**一条我们没做**：
+
+**自签 + 受信根也不行。** `New-SelfSignedCertificate -Type CodeSigningCert` 签自己的 DLL →
+证书导入 `Cert:\LocalMachine\Root`（管理员）→ `Get-AuthenticodeSignature` 从 `UnknownError`
+变成 **`Valid`** → `loadlib` **仍然 `577`**。
+
+⇒ 这**不是**"链到任意受信任根就行"，而是签名链校验钉在**它自己的根/发布者集合**上，与机器的
+信任库无关。他也复现了我们的对照组（系统 DLL 改名 → **193**），和我们 §12c 一模一样。
+
+四组数据放一起，只有一个模型能同时解释（⚠ 假设，未被单独证实）：
+
+| 输入 | 返回 | 挂在哪 |
+|---|---|---|
+| 不存在的文件 | **126** | 没到闸门 |
+| 未签名 / 自签（哪怕进了 `Root`） | **577** | **闸门 1**：签名链用**自钉根集**，不用系统信任库 |
+| 微软签名的异名副本 | **193** | 闸门 1 过，**闸门 2**：文件不在白名单（名字/哈希） |
+| 游戏自带、Arrowhead 签名、原地不动 | ✓ 映射 | 两闸都过 |
+
+本机核对（2026-10-22）：`System32\version.dll` = `Valid / CN=Microsoft Windows`；
+`bin\plugins\level_generation_pluginw64_release.dll`（625,752 B）与 `wwise_pluginw64_release.dll`
+= `Valid / CN=Arrowhead Game Studios AB`。注意 **625,752** 这个字节数与外部报告一致。
+
+**`bin/plugins` 同一条闸。** 外部把 `level_generation_pluginw64_release.dll` 换成只导出
+`get_plugin_api` 的桩（`DllMain` 写日志），正常 Steam 启动、游戏正常进：**两版桩的日志都没生成**，
+工作集 6.4 GB → 4.59 GB ⇒ 未签名文件在那个目录里**根本没有被 `LoadLibrary`**。
+
+⚠ 那次判定用的是 `DllMain` 日志，属于**间接证据**（日志路径不可写/缓冲都会假阴性）。本仓库有更硬的
+判定通道：`VirtualQueryEx` + `GetMappedFileNameW` 能直接列出**已映射**的文件（不需要加载成功，
+§8 已实测 170 个映射文件）——再次验证时应当用这个。
+
+⚠ 未验证、仅备查：外部转述"`bin/plugins` 的插件表要求 `debug_draw`(0x90) 与 `render`(0xa0) 非 NULL"
+（引自 `BingusNativeBridge` v0.1.1 提交）。我们无签名加载能力，无法自证。
+
+**还没做的决胜实验**（一次启动可得，用来钉死闸门 2 的粒度）：
+把游戏自带的、在名单内的 DLL（例如上面那个 Arrowhead 签名的插件 DLL）**复制成异名**再 `loadlib`：
+
+| 结果 | 含义 |
+|---|---|
+| `127` "找不到指定的程序" | 闸门 2 按**内容哈希** ⇒ 异名同内容可以映射 |
+| `193` | 闸门 2 按**路径/文件名** ⇒ 只有原位置那份可用 |
+
+⚠ 但要说清楚：**两种结果都到不了执行** —— 能映射的是别人签名的代码，我们改一个字节哈希就变。
+这个实验只有诊断价值，没有执行价值。**不要**把它读成"有希望"。

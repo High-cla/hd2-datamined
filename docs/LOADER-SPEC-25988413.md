@@ -44,13 +44,19 @@ io / os / debug / package / string / table / math / coroutine = present
 loadstring = function   require = function   os.getenv = function   io.open = function
 debug.getinfo / sethook / getregistry / getupvalue = present
 package.loaders = 5 searchers
-package.loadlib = function (real: a missing DLL yields the Win32 "module not found" error)
+package.loadlib = function (real, and gated: missing DLL -> 126, unsigned DLL -> 577,
+                            signed-but-unknown DLL -> 193; see the closing section)
 package.cpath   = .\?.dll;<game>\bin\?.dll;<game>\bin\loadall.dll
 package.path    = <env LUA_PATH>;.\?.lua;<game>\bin\lua\?.lua;<game>\bin\?.lua;...
 ```
 
-Two consequences that are easy to miss:
+Three consequences that are easy to miss:
 
+- **`package.loadlib` is real but useless here.** It does call `LoadLibraryA` (a missing path returns
+  126), but the process refuses to map any image it does not already ship. Measured 2026-10-21, then
+  independently reproduced 2026-10-22 by an outside group who additionally signed their DLL with a
+  self-signed cert imported into `LocalMachine\Root` — still refused. Do not read this line as "a DLL is
+  loadable". The closing section has the numbers; `MEMORY-ACCESS-25988413.md` §12 has the model.
 - **`\x` string escapes do not exist in stock Lua 5.1.** Any payload generating bytes (like our probes
   embedding chunks) must use `\ddd`. Our builder already does.
 - **`loadstring` failure is a return value, not an exception.** `ok, value, message = pcall(loadstring, s)`
@@ -87,9 +93,11 @@ What is still open, in the order worth testing:
 2. **A declared manifest reached by `require`.** Every mod already ships a resource; if the loader knows a
    naming convention it can `require` candidates and treat "no lua resource `X`" as "not installed". A
    fixed candidate list works, but only if the manager and the loader agree on one.
-3. **`package.loadlib` + a small native DLL** that does the directory walk. Mechanically available
-   (`cpath` includes `<game>\bin\?.dll`), and under Easy Anti-Cheat it is exactly the kind of thing that
-   should not be shipped without a deliberate decision.
+3. ~~**`package.loadlib` + a small native DLL** that does the directory walk.~~ **measured 2026-10-21
+   and refuted.** `cpath` does include `<game>\bin\?.dll`, but the missing piece was never "write a 46 KB
+   C module" — the process refuses to map images it does not already ship (unsigned → `577`,
+   signed-but-not-allowlisted → `193`, self-signed → still `577`). See the closing section and
+   `MEMORY-ACCESS-25988413.md` §12.
 4. **Out-of-band generation**: a manager (HDArsenal / HD2MM) writes one aggregate lua resource containing
    the list of installed mods, and the loader reads that single known resource. No enumeration needed at
    runtime. This is the option with the least new surface area, and it matches how the existing managers
@@ -159,7 +167,7 @@ loader's `ffi` use was discovery, not game manipulation. A port can be memory-fr
 4. Provides the shared services modules already expect: a log file (`io.open` works), a registration table,
    and an `after_startup` hook.
 5. Writes a startup log that names, per module, one of: started / failed (with the error) / not found.
-6. Runs no memory writes and no native code unless that decision is made explicitly.
+6. Runs no native code at all — that door is measured shut (§3 candidate 3), not merely "not yet decided".
 
 Nothing in that list needs `ffi`. The port is possible; only discovery needs a new answer.
 
@@ -261,3 +269,35 @@ SWEEP RESULT: 0 found, 0 loaded, 6 absent
 ⚠ 严格说这是**一次观察**（gap 态 0/0/6 vs 连续态 3/3/3，同一台机器、同一份资源），
 要坐实还需要一次对照：保持 `patch_0+1` 连续并确认命中，再删 `patch_1` 只留 `patch_0+...`。
 下一次启动就能顺手拿到这个对照。
+
+## ✗ 结案：`package.loadlib` 这条路（2026-10-22，含外部复现）
+
+§3 的候选 3 现在有完整答案了，而且**不是"要谨慎使用"，是"用不了"**：
+
+| 输入 | 返回 | 挂在哪 |
+|---|---|---|
+| 不存在的路径 | `126` | 没到闸门（顺带证明 `loadlib` 真的是 `LoadLibraryA`）|
+| 未签名 DLL | `577` ERROR_INVALID_IMAGE_HASH | **闸门 1**：签名链 |
+| **自签 + 导入 `LocalMachine\Root` + `Get-AuthenticodeSignature` 报 `Valid`** | **`577`** | 闸门 1 用的是**它自己钉的根/发布者集合**，不是系统信任库 |
+| 微软签名（`Valid`）的异名副本 | `193` ERROR_BAD_EXE_FORMAT | 闸门 1 过，**闸门 2**：文件白名单（名字/哈希）|
+| 游戏自带、Arrowhead 签名、原地不动 | ✓ 映射 | 两闸都过 |
+
+第 1、2 行是本仓库 2026-10-21 的实测（`MEMORY-ACCESS-25988413.md` §12c）；第 3 行是外部独立小组在
+**同一个 build** 上补的（[issue #1](https://github.com/deepseekv41flash/hd2-25988413/issues/1)，
+2026-10-22）；第 4 行两边各自独立撞出**同一个码**（193）—— 两个小组、两套夹具、同一结果。
+
+⇒ **签名不是"无关"，是"只能换错误码"（577 ↔ 193），换不到加载。** 想让 Lua 侧拿回 `rd()` /
+`VirtualQuery`，前置条件不是"写一个几十 KB 的 C 模块"，而是先过这两道闸；而闸门 1 钉的是发布者
+集合，自签、自签受信、改字节，全都过不去。
+
+`bin/plugins` 是同一条闸：把 Arrowhead 签名的 `level_generation_pluginw64_release.dll`（625,752 B）
+换成只导出 `get_plugin_api` 的桩后，桩**从未被映射**（游戏照常进、工作集 6.4 GB → 4.59 GB）。
+所以"走引擎插件路径"也不是后门。
+
+**还没做的决胜实验**（一次启动可得）：把游戏自带的、在名单内的 DLL 复制成异名再 `loadlib` ——
+返回 `127`（"找不到指定的程序"）说明闸门 2 按**内容哈希**，返回 `193` 说明按**路径/文件名**。
+⚠ 但两种结果都**到不了执行**：能映射的是**别人签名的代码**，我们改一个字节哈希就变。这个实验只有
+诊断价值。
+
+⇒ 移植的可行集合收缩为 **§3 的 2 与 4**（命名约定 / 管理器写清单），两者都不需要任何原生代码。
+这与 `MEMORY-ACCESS-25988413.md` §12f 的"读的最终账"一致：**资源侧是唯一还能改东西的路**。
