@@ -41,6 +41,15 @@ DESCRIPTOR = 16
 STRIDE = 400
 NAME_PTR, MAX_USES, COOLDOWN, CELL = 16, 80, 104, 392
 
+# (our display name, catalog cooldown) pairs that disagree because the catalog snapshot predates
+# a published patch.  Without this the tool reports a known-good value as a mismatch forever.
+#   wiki, patch 1.007.200 (2026-10-20): "Decreased cooldown from 100 seconds to 90 seconds"
+#   build 25988413 was installed 2026-10-20 and reads 90; see
+#   docs/STRATAGEM-SETTINGS-DECODED.md section 4.
+PATCHED = {
+    ("ORBITAL. AIRBURST STRIKE", 100): "patch 1.007.200 (2026-10-20): cooldown 100 -> 90",
+}
+
 FAMILY = {"orbital": "ORBITAL", "eagle": "EAGLE", "support": "TEAM WEAPONS",
           "backpack": "BACKPACK", "sentry": "SENTRYS", "vehicle": "VEHICLES",
           "mine": "EMPLACEMENTS", "emplacement": "EMPLACEMENTS", "mission": "MISSIONS"}
@@ -125,52 +134,81 @@ def main() -> int:
     for s in catalog:
         by_family[FAMILY.get(s["family"], s["family"].upper())].append(s)
 
-    # ---- fuzzy match inside the family ---------------------------------------------------------
-    matched, unmatched = [], []
+    # ---- fuzzy match inside the family, one catalog entry per row -------------------------------
+    # A per-row "best candidate" lets two rows claim the same catalog entry: our
+    # "EXPENDABLE ANTI-TANK" and "EXPENDABLE ANTI-TANK (Booster)" both want EAT-17, and the second
+    # one then looks like a cooldown mismatch when it is really a pairing collision.  Assigning
+    # greedily by descending similarity makes the pairing one-to-one, which is also the conservative
+    # choice for a verification tool: a row that has no free partner is reported as unmatched
+    # instead of being forced onto someone else's entry.
+    options = []
     for r in rows:
-        family = r["prefix"]
-        candidates = by_family.get(family, [])
+        candidates = by_family.get(r["prefix"], [])
         if not candidates:
-            unmatched.append((r, 0.0, ""))
             continue
         want = norm(r["short"])
-        best, score = None, 0.0
         for s in candidates:
             got = norm(s["name"])
-            # compare against the catalog name both whole and with the family word removed
+            # compare against the catalog name whole and with the family word removed
             alt = norm(s["name"].replace(FAMILY.get(s["family"], ""), "", 1))
             sc = max(difflib.SequenceMatcher(None, want, got).ratio(),
                      difflib.SequenceMatcher(None, want, alt).ratio())
-            if sc > score:
-                best, score = s, sc
-        if best is not None and score >= a.threshold:
-            matched.append((r, best, score))
-        else:
-            unmatched.append((r, score, best["name"] if best else ""))
+            if sc >= a.threshold:
+                options.append((sc, r, s))
+    options.sort(key=lambda t: -t[0])
+
+    matched, unmatched = [], []
+    taken_rows, taken_catalog = set(), set()
+    for sc, r, s in options:
+        if id(r) in taken_rows or id(s) in taken_catalog:
+            continue
+        taken_rows.add(id(r))
+        taken_catalog.add(id(s))
+        matched.append((r, s, sc))
+    for r in rows:
+        if id(r) not in taken_rows:
+            unmatched.append((r, 0.0, ""))
 
     print(f"\nfuzzy match within family, threshold {a.threshold}: {len(matched)}/{len(rows)}")
 
     # ---- cooldown agreement validates the pairing ----------------------------------------------
     comparable = [(r, s, sc) for r, s, sc in matched if s["cooldown"] is not None]
-    agree = [(r, s, sc) for r, s, sc in comparable if abs(r["cooldown"] - s["cooldown"]) < 0.01]
+    agree, moved, bad = [], [], []
+    for pair in comparable:
+        close = abs(pair[0]["cooldown"] - pair[1]["cooldown"]) < 0.01
+        if close:
+            agree.append(pair)
+        elif (pair[0]["display"], pair[1]["cooldown"]) in PATCHED:
+            moved.append(pair)
+        else:
+            bad.append(pair)
     print(f"catalog entries carrying a cooldown: {len(comparable)}")
-    print(f"  +104 agrees: {len(agree)}    disagrees: {len(comparable) - len(agree)}")
+    print(f"  agrees {len(agree)}   patched since the snapshot {len(moved)}"
+          f"   unexplained {len(bad)}")
     if comparable:
-        print(f"  agreement rate: {len(agree) / len(comparable):.1%}")
+        print(f"  agreement rate (agrees + patched): "
+              f"{(len(agree) + len(moved)) / len(comparable):.1%}")
+    for pair in moved:
+        key = (pair[0]["display"], pair[1]["cooldown"])
+        print(f"  PATCHED {key[0]!r}: ours={pair[0]['cooldown']} catalog={key[1]}"
+              f" -> {PATCHED[key]}")
 
-    print("\n== per-family agreement ==")
-    fam_tab = defaultdict(lambda: [0, 0])
-    for r, s, sc in comparable:
-        fam_tab[s["family"]][0 if abs(r["cooldown"] - s["cooldown"]) < 0.01 else 1] += 1
-    for fam in sorted(fam_tab):
-        good, bad = fam_tab[fam]
-        print(f"  {fam:<12} agree {good:>2}  disagree {bad:>2}")
+    print("\n== per-family agreement (patched values count as agreeing) ==")
+    fam_ok: dict[str, int] = defaultdict(int)
+    fam_bad: dict[str, int] = defaultdict(int)
+    for pair in agree + moved:
+        fam_ok[pair[1]["family"]] += 1
+    for pair in bad:
+        fam_bad[pair[1]["family"]] += 1
+    for fam in sorted(set(fam_ok) | set(fam_bad)):
+        print(f"  {fam:<12} agree {fam_ok[fam]:>2}  disagree {fam_bad[fam]:>2}")
 
-    print("\n== disagreements (a mismatch means either the pairing or the field is wrong) ==")
-    for r, s, sc in comparable:
-        if abs(r["cooldown"] - s["cooldown"]) >= 0.01:
-            print(f"  {r['display']!r:<46} ours={r['cooldown']:<7} "
-                  f"catalog={s['cooldown']:<5} sim={sc:.3f} <- {s['name']!r}")
+    print("\n== unexplained disagreements (either the pairing or the field is wrong) ==")
+    if not bad:
+        print("  none")
+    for r, s, sc in bad:
+        print(f"  {r['display']!r:<46} ours={r['cooldown']:<7} "
+              f"catalog={s['cooldown']:<5} sim={sc:.3f} <- {s['name']!r}")
 
     print("\n== +392 cell vs catalog family ==")
     tab = defaultdict(Counter)

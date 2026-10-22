@@ -16,7 +16,7 @@
 | 判定 | 结论 |
 |---|---|
 | ✓ 实测 | **`+16` / `+24` / `+32` 是每行自带的 payload 相对 u64 指针**，分别指向显示名 / `_name` 键 / `_desc` 键。153/153 行解析出显示名，151 个不同值 |
-| ✓ 实测 | **`+104` 是冷却秒数（f32）**。按名字逐条对 HD2Runtime 的 96 条目录，轨道系 11/12 精确相等 |
+| ✓ 实测 | **`+104` 是冷却秒数（f32）**。按名字逐条对 HD2Runtime 的 96 条目录，轨道系 **12/12** 对上（其中 Airburst 的 90 与 wiki 补丁 1.007.200 的 100→90 逐字吻合） |
 | ✓ 实测 | **`+392` 是"解锁格位"编号 1–36**。同一格 = 同一解锁槽的不同型号，0 = 不在战备面板上 |
 | ⚠ 推断 | wiki 的红/蓝/绿三色 = `+392` 的三个区间（1–10 / 11–28 / 29–36）；黄色不是区间，是"不在面板上"那批 |
 | ✗ 否证 | `+56`、`+60` 都不是 wiki 的许可分类 |
@@ -82,8 +82,11 @@ row 0  +16 -> 'BACKPACK. SUPPLY BACKPACK'
 ## 4. `+104` = 冷却秒数（按名字逐条验）
 
 前一轮只是"数值集合与 wiki 吻合"。现在有名字，可以逐条对。用 HD2Runtime 0.28.1 的
-`StratagemAuthoringCapabilities.json`（96 条具名战备，带 `cooldown`）做同系族内模糊配对，
-阈值 0.80：**配对 22 条，冷却相同 20 条**。
+`StratagemAuthoringCapabilities.json`（96 条具名战备，带 `cooldown`）做同系族内模糊配对。
+阈值 0.80，且**一对一**分配（两行抢同一个目录条目时直接报未配对，不硬塞——否则
+`EXPENDABLE ANTI-TANK` 与它的 `(Booster)` 变体会共用 EAT-17，看起来像冷却不符）：
+
+**配对 21 条 —— 20 条冷却精确相等 + 1 条为已定案的补丁差异，未解释 0 条。**
 
 轨道系全部 12 条（这是最有判别力的一族，冷却跨 70–300）：
 
@@ -92,7 +95,7 @@ row 0  +16 -> 'BACKPACK. SUPPLY BACKPACK'
 | ORBITAL. PRECISION STRIKE | 80 | 80 ✓ |
 | ORBITAL. GATLING BARRAGE | 70 | 70 ✓ |
 | ORBITAL. GAS STRIKE | 75 | 75 ✓ |
-| ORBITAL. AIRBURST STRIKE | **90** | **100** ⚠ |
+| ORBITAL. AIRBURST STRIKE | **90** | 100（补丁前快照）**✓ 见下** |
 | ORBITAL. 120MM HE STRIKE | 180 | 180 ✓ |
 | ORBITAL. NAPALM BARRAGE | 240 | 240 ✓ |
 | ORBITAL. 380MM HE BARRAGE | 240 | 240 ✓ |
@@ -102,9 +105,19 @@ row 0  +16 -> 'BACKPACK. SUPPLY BACKPACK'
 | ORBITAL. LASER | 300 | 300 ✓ |
 | ORBITAL. RAILCANNON | 180 | 180 ✓ |
 
-**Airburst 是唯一分歧**：本机 90.0，目录 100。90.0 是干净值、不是解码噪声，所以这更像
-**两个 build 的数值差异**（⚠ 未定），不是字段读错。鹰式一族全是 15 s，冷却对配对没有判别力，
-只能作旁证。
+**Airburst 的 90 vs 100 已定案：不是分歧，是补丁。** 三条独立时间线正好对齐：
+
+| 时间 | 来源 | Airburst 冷却 |
+|---|---|---|
+| 2026-09-26 | HD2Runtime 目录快照（`F5FEE03DCFDB-20260926T222226Z`） | 100 |
+| 2026-10-20 | wiki **补丁 1.007.200** 变更记录：`Decreased cooldown from 100 seconds to 90 seconds` | 100 → **90** |
+| 2026-10-20 17:15（本地） | 本机 Steam manifest `LastUpdated`，`buildid 25988413` | **90**（本表读数） |
+
+⇒ 本 build 就是补丁后的构建，`+104` 读到的 90 是**正确值**；目录的 100 只是补丁前快照。
+这条其实比目录本身更有力地证明了 `+104` = 冷却：字段精确跟上了官方一次 10 秒的改动。
+
+同一份补丁记录还写着 `Decreased explosion cone angle from 35 to 27`——那是 `explosion_settings` 里的量，
+本表不存，**未核对**（⚠ 需要爆炸表 → 战备的引用链，或一份补丁前的爆炸表做差分）。
 
 ## 5. `+392` = 解锁格位（1–36）
 
@@ -235,4 +248,8 @@ python tools/stratagem_join.py --sk <你的>/recipient.sk \
 * 冷却 / 系族 / 战备名：**HD2Runtime 0.28.1** `StratagemAuthoringCapabilities.json`
   （96 条具名战备，MIT）。
 * 四色分类：<https://helldivers.wiki.gg/wiki/Stratagems>。
+* **补丁 1.007.200（2026-10-20）**：wiki 变更记录 `Decreased cooldown from 100 seconds to 90 seconds`
+  （Orbital Airburst Strike），与 `+104` 的读数逐字吻合。
+* 本 build 的安装时间：本机 `steamapps/appmanifest_553850.acf` → `buildid 25988413`,
+  `LastUpdated 1792487737` = 2026-10-20 17:15（本地）/ 09:15Z。
 * `+80 = max_uses` 与 `0xFFFFFFFF`：HD2Runtime 0.26.0 发布说明。
