@@ -90,3 +90,51 @@ end
   但那要真装一次）。
 * 要做"我们 + 护甲多被动"：需要能执行 Lua 的 loader（当前没有），或者把它的效果翻译成表修改
   （它的 `Source/boot.lua` 是明文，可读，逻辑是"给被动加 stat 行"那种），这属于新的逆向工作。
+
+## 6. 为什么 SSEO 与"护甲多被动"不能共存（拆开 boot.lua 后定案）
+
+护甲多被动**不是**运行时改内存的 mod，它做的和我们一模一样 —— 直接改表文件。它的 `Source/boot.lua`
+里写得很清楚（原文节选）：
+
+```lua
+local target = "data/game/generated_customization_passive_bonuses.dl_bin"
+local backup = "ArmoryForge-Multi.original.dl_bin"
+local applied_path = "ArmoryForge-Multi.applied.dl_bin"
+...
+if #list == 0 then
+    desired = ORIGINAL_SEALED
+else
+    local ok, plain = pcall(merger.build, ORIGINAL_PLAINTEXT, list)   -- 从【内嵌原版明文】重建
+    local ok2, boxed = pcall(sealer.seal, plain)                      -- 自己重封装
+```
+
+它还内嵌了 MurmurHash64A + 校正字求解器（`local murmur = (function() ...`）、`ORIGINAL_PLAINTEXT`
+（原版明文）与 `ORIGINAL_SEALED`（原版封包），以及 `merger` / `sealer`。
+
+**冲突原因一句话：两个 mod 都独占同一个文件，而且各自只认自己的"原版"基线。**
+
+| 谁 | 写什么 | 基线从哪来 | 后果 |
+|---|---|---|---|
+| 护甲多被动 | `data/game/generated_customization_passive_bonuses.dl_bin` | **内嵌的** `ORIGINAL_PLAINTEXT`（构建时写死的原版），**从不读盘上当前文件** | 它一应用，盘上任何第三方改动（SSEO 的被动数值）**被整体重建覆盖**；取消选择时写回 `ORIGINAL_SEALED`，等于把文件打回原版 |
+| SSEO | 同一批 `generated_*.dl_bin` | `Offline/originals/`（只认自己写过的哈希） | 它会把护甲多被动改过的文件**当成原版**存起来，之后 Restore 还原出的是对方的版本 |
+
+所以这是**基线所有权冲突**，不是"加载顺序"问题。谁最后写谁赢，而任何一方的"还原/取消"都会把另一方抹掉。
+**这也解释了为什么写一个运行时加载器没用** —— 护甲多被动自己就靠覆盖 `boot` 拿到了执行权，
+它缺的不是加载，是"和另一个 writer 共享同一个文件"的机制。
+
+### 6.1 要让它们共存，只有两条路（都不需要 loader）
+
+**A. 换基线（一次性，最省事）**
+把护甲多被动 `boot.lua` 里那段 `ORIGINAL_PLAINTEXT` 替换成"已经含 SSEO 改动"的表明文，重新打成
+`patch_0`。它启动时就会在 SSEO 的数值基础上再叠被动 —— 两者都在。
+代价：绑死一次快照；SSEO 以后重装/改值，得重做这一步。
+
+**B. 单一 owner 的表合成器（推荐，属于我们这条路线）**
+让**一个**工具独占那张表：取原版基线 → 应用护甲多被动的 delta（它本质是"给选中被动追加 stat 行"）
+→ 再叠加 SSEO 的 delta（它只改数值、不改结构）→ 只封装一次、只写一次、只留一份备份。
+我们具备全部零件：`lupa`（真 Lua 5.1，可直接跑它的 `merger.build` 得到合并明文）、
+`dlbin_seal.py`（封装）、`murmur64.py`（校正字）、`refs/dlbin/demo/vanilla_*`（原版基线）。
+这其实就是把 `patch_compose` 的思路从"资源补丁"扩展到"表 delta"。
+
+**C. 不可行**：写运行时加载器让两者"同时加载" —— 它们不在同一个命名空间里（一个改包内资源靠引擎合并，
+一个直接改 `data/game` 文件），没有可以插入的中间层；冲突发生在文件内容层，不在加载层。
