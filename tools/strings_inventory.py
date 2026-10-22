@@ -86,7 +86,11 @@ def main() -> int:
             except OSError:
                 continue
             total += 1
-            us_by_root[base.name].add(hashlib.sha1(head + data).hexdigest()[:12])
+            rel = path.relative_to(base)
+            # 一颗目录树里可能装着多个 bundle（bundles/01、bundles/02…），按第一层分开数，
+            # 否则"每个 bundle 是不是同一批英文副本"这个问题就没法回答。
+            key = f"{base.name}/{rel.parts[0]}" if len(rel.parts) > 1 else base.name
+            us_by_root[key].add(hashlib.sha1(head + data).hexdigest()[:12])
             if count <= 0 or len(head) + len(data) < 16 + 8 * count:
                 us_missing[str(path)] += 1
                 continue
