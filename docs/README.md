@@ -5,6 +5,7 @@
 | [BUILD-25988413.md](BUILD-25988413.md) | 本 build 的总体变化与工具链状态 |
 | [DLBIN-SEALED-BOX.md](DLBIN-SEALED-BOX.md) | `.dl_bin` 封装（sealed box）与内容哈希闸门的由来 |
 | [ENTITY-TABLE-25988413.md](ENTITY-TABLE-25988413.md) | ★ 实体/组件表离线改写：块布局、校正字、可选弹种、LoadoutEntry 否证 |
+| [EXPLOSION-PROJECTILE-25988413.md](EXPLOSION-PROJECTILE-25988413.md) | ★ 爆炸/弹头线：射弹行与爆炸行的字段、换弹头/换爆炸/**加破片**配方 |
 | [ENGINE-API-25988413.md](ENGINE-API-25988413.md) | 引擎侧 API 面 |
 | [LUA-API-25988413.md](LUA-API-25988413.md) | Lua 侧 API 面（本 build） |
 | [LUA51-TOOLING-25988413.md](LUA51-TOOLING-25988413.md) | Lua 5.1 工具链 |
