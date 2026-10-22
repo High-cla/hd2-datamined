@@ -33,6 +33,23 @@ import sys
 HEADER = 48
 DESCRIPTOR = 16
 
+# Field names and enum values verified against xypwn/filediver's datalibrary/weapon_customization.go
+# (rawWeaponCustomizableItem: 88 bytes, offsets match this table exactly) and datalibrary/enum/.
+SLOTS = {0: "None", 1: "Underbarrel", 2: "Optics", 3: "PaintScheme", 4: "Muzzle", 5: "Magazine",
+         6: "AmmoType", 7: "AmmoTypeAlt", 8: "Internals", 9: "Triggers"}
+SORT_GROUPS = {0: "None", 1: "Paint_Default", 2: "Paint_Solid", 3: "Paint_Camo"}
+LAYOUTS = {
+    "weapon_customization_settings": {
+        "stride": 88,
+        "fields": {0: "DebugNameOffset", 8: "ID", 12: "NameUpper", 16: "NameCased",
+                   20: "Description", 24: "Fluff", 32: "AddPath", 40: "Icon",
+                   48: "SlotsOffset", 56: "SlotsCount", 64: "UIWidgetColorsOffset",
+                   72: "UIWidgetColorsCount", 80: "SortGroups"},
+        "slots_at": (48, 56),          # (offset field, count field) of the slot enum array
+        "sort_at": 80,
+    },
+}
+
 
 def unseal(blob: bytes, box) -> bytes:
     return box.decrypt(blob) if len(blob) > HEADER else blob
@@ -124,6 +141,7 @@ def main() -> int:
         return names.get(tid) or f"0x{tid:08X}"
 
     plain = unseal(table_path.read_bytes(), box)
+    layout = LAYOUTS.get(a.table)
     records: list[dict] = []
     element_type = None
     stride = 0
@@ -161,6 +179,15 @@ def main() -> int:
             base = rows_at + index * stride
             record = {"row": index,
                       "name": row_names[index] if index < len(row_names) else ""}
+            if layout:
+                slot_off, slot_cnt = struct.unpack_from("<QQ", plain, base + layout["slots_at"][0])
+                sort_value = struct.unpack_from("<I", plain, base + layout["sort_at"])[0]
+                names_out = []
+                if 0 < slot_cnt <= 8 and 0 < slot_off < group["payload"]:
+                    names_out = [SLOTS.get(struct.unpack_from("<I", plain, p0 + slot_off + k * 4)[0],
+                                           "?") for k in range(slot_cnt)]
+                record["slots"] = "|".join(names_out)
+                record["sort_group"] = SORT_GROUPS.get(sort_value, f"0x{sort_value:08X}")
             for field in fields:
                 key = f"+{field['offset']}"
                 if field["offset"] + field["size"] <= stride:
@@ -170,7 +197,8 @@ def main() -> int:
                     record[key] = ""
             records.append(record)
 
-    columns = ["row", "name"] + [f"+{f['offset']}" for f in fields]
+    extra = ["slots", "sort_group"] if layout else []
+    columns = ["row", "name"] + extra + [f"+{f['offset']}" for f in fields]
     out_csv = pathlib.Path(a.out + ".csv")
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     with out_csv.open("w", newline="", encoding="utf-8") as handle:
@@ -183,8 +211,9 @@ def main() -> int:
         key = f"+{field['offset']}"
         values = [r[key] for r in records if r.get(key)]
         distinct = len(set(values))
-        stats.append((key, field["size"], type_name(field["type_id"]), len(values), distinct,
-                      "; ".join(list(dict.fromkeys(values))[:3])))
+        label = layout["fields"].get(field["offset"], "") if layout else ""
+        stats.append((key, field["size"], (label + " / " if label else "") + type_name(field["type_id"]),
+                      len(values), distinct, "; ".join(list(dict.fromkeys(values))[:3])))
 
     lines = [f"# `generated_{a.table}.dl_bin` — whole-table export", "",
              f"{len(records)} row(s), stride {stride} B, element **{type_name(element_type)}** "
