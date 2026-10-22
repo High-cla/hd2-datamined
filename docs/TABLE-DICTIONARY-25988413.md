@@ -10,10 +10,29 @@
 
 | 几何状态 | 表数 | 含义 |
 |---|---:|---|
-| **完全闭合**（`array`） | 18 | `16 + 行数×步长 == payload`，行数从组头直接读出 |
-| 闭合 + 尾块（`array+tail`） | 2 | 行之外还有一段未判型的数据（explosion 的 3,664 B） |
-| **hashmap+行** | 5 | 组头里的 count 是**哈希槽数**，行数据跟在槽数组后面 |
-| 其它（`raw` / 混合 / 特殊） | 30 | 没有 `0x10` 描述符，或像 entities 那样是 275 个组件块 |
+| **行数从组头直接读出** | **23** | 组头 `u64 0x10 + u64 count` 里的 count **就是行数** |
+| 其中带尾部字符串块 | 13 | `16 + 行数×步长 < payload`，多出来的是**变长字符串**（名字/本地化键） |
+| 无描述符（`raw`） | 32 | 没有 `0x10` 头，行数是 `payload ÷ 步长` 推的；entities 是 275 个组件块 |
+
+> **修正**：上一版把 5 张表（stamp / weapon_customization / stratagem / planet_override /
+> stratagem_upgrade）写成"hashmap，count 是槽数"——**这是错的**。它们其实是「行数组 + 尾部字符串块」，
+> count 就是行数。见下一节。
+
+## 0.5 那 5 张"哈希图"表已经解开
+
+模型：`payload = 16 + 行数 × 步长 + 字符串块`，**36/36 个组全部成立**；行里存的是指向字符串块的偏移。
+
+| 表 | 行数 | 步长 | 字符串块 | 尾部里是什么 |
+|---|---:|---:|---:|---|
+| `stamp_settings` | **4,096** | 112 B | 219,332 B | 印章名 |
+| `weapon_customization_settings` | **252** | 88 B | 8,284 B | 弹药名，如 `PISTOL-SMG 9x20mm. EXPLOSIVE` |
+| `stratagem_settings` | **153** | 400 B | 20,700 B | 战备名与本地化键，如 `nui_stratagem_backpack_ammo_name` |
+| `planet_override_settings` | **44** | 40 B | 33,190 B | 行星名，如 `superearth` |
+| `stratagem_upgrade_settings` | **1** | 64 B | 25 B | `AMMO RACK MOUNTED TURRET` |
+
+证据：`weapon_customization` 第 0 组的首行第一个 u64 是 `0x2168` = `16 + 97×88`，
+正好等于字符串块的起点；后面每行的这个字段依次是 `0x218C / 0x21B8 / 0x21DC …`，都落在字符串块里，
+且每一处开头就是一条可读的弹药名。`stratagem` 的表把同样的偏移放在行内 `+24`（`0x1460 / 0x147A / 0x149B`）。
 
 ## 1. 已验证的几何（我们自己的工具实测过）
 
@@ -43,8 +62,8 @@
 
 ## 3. 已知限制（别把本字典当全知）
 
-1. **`hashmap+rows` 的 count 不是行数**——它是哈希槽数（stamp 4,096、stratagem 153、
-   weapon_customization 252、planet_override 44）。真实行数要解析槽数组后才知道。
+1. ~~hashmap 的 count 是槽数~~ —— **已更正**：那 5 张表的 count 就是行数，见 §0.5。剩余 32 张
+   没有描述符的表，行数仍是推算值，可能有 ±1 零头。
 2. **`raw` 表没有 `0x10` 描述符**，行数是 `payload // 步长` 推的，可能有 ±1 的零头。
 3. **entities 不是行表**：275 个组件块，每块是「哈希图 + 行数组」，本字典只给出块与类型。
 4. **类型名来自公开哈希表，不是游戏自带**：`dl_library.dl_typelib` 是**去字符串**的（1208 个
@@ -76,57 +95,57 @@ python tools/table_dictionary.py \
 | table | plain B | groups | count | layout | element type(s) |
 |---|---:|---:|---:|---|---|
 | `generated_entities.dl_bin` | 47,259,396 | 275 | 275 | raw+raw-array | EntitySettingsHashmap×131072B, EntityNetworkDataArray×15072B, VisibilityComponentData×3392B |
-| `generated_destruction_settings.dl_bin` | 1,643,910 | 1647 | 16,156 | array+raw+raw-array | DestructionSettings×168B, DestructionTemplates×16B, DestructionHashMap×16B |
+| `generated_destruction_settings.dl_bin` | 1,643,910 | 1647 | 16,156 | raw+raw-array+rows | DestructionSettings×168B, DestructionTemplates×16B, DestructionHashMap×16B |
 | `generated_planet_territory_graphs.dl_bin` | 1,574,628 | 11 | 28,105 | raw+raw-array | SavedPlanetTerritoryGraph×56B |
-| `generated_stamp_settings.dl_bin` | 678,124 | 1 | 4,096 | hashmap+rows | StampHashEntry×112B |
+| `generated_stamp_settings.dl_bin` | 678,124 | 1 | 4,096 | rows+blob | StampHashEntry×112B |
 | `generated_zone_data.dl_bin` | 518,478 | 88 | 517 | raw+raw-array | ZoneSettings×912B |
 | `generated_customization_armor_sets.dl_bin` | 453,204 | 422 | 6,821 | raw | HelldiverCustomizationKit×64B |
 | `generated_location_groups.dl_bin` | 397,106 | 13 | 7,080 | raw+raw-array | LevelGenerationLocation×56B |
 | `generated_planet_data.dl_bin` | 369,540 | 438 | 438 | raw | LevelGenerationPlanetData×624B |
-| `generated_credits_settings.dl_bin` | 368,228 | 1 | 4,515 | array+tail | CreditsRowData×64B |
+| `generated_credits_settings.dl_bin` | 368,228 | 1 | 4,515 | rows+blob | CreditsRowData×64B |
 | `generated_entity_deltas.dl_bin` | 352,345 | 1 | 4,403 | raw | ComponentEntityDeltaStorage×80B |
-| `generated_surface_effect_settings.dl_bin` | 305,804 | 1 | 7,644 | array | SurfaceEffectInfo×40B |
+| `generated_surface_effect_settings.dl_bin` | 305,804 | 1 | 7,644 | rows | SurfaceEffectInfo×40B |
 | `generated_region_settings.dl_bin` | 259,627 | 87 | 310 | raw+raw-array | GenerationRegionSettings×3272B, GenerationRegionGroup×64B |
-| `generated_animation_event_trigger_settings.dl_bin` | 165,068 | 1 | 213 | array+tail | AnimationEventTriggerSetting×24B |
+| `generated_animation_event_trigger_settings.dl_bin` | 165,068 | 1 | 213 | rows+blob | AnimationEventTriggerSetting×24B |
 | `generated_weather_settings.dl_bin` | 162,908 | 184 | 190 | raw | WeatherSettings×648B |
 | `generated_galactic_presence_settings.dl_bin` | 155,853 | 137 | 137 | raw | 0xF8F9EC3E×1000B |
-| `generated_projectile_settings.dl_bin` | 96,604 | 1 | 355 | array | ProjectileInfo×272B |
+| `generated_projectile_settings.dl_bin` | 96,604 | 1 | 355 | rows | ProjectileInfo×272B |
 | `generated_solar_system_settings.dl_bin` | 91,764 | 1 | 3,822 | raw | SolarSystemSettings×24B |
 | `generated_satellite_groups.dl_bin` | 83,413 | 36 | 3,429 | raw+raw-array | LevelGenerationSatelliteGroup×24B |
-| `generated_stratagem_settings.dl_bin` | 82,384 | 12 | 153 | array+tail+hashmap+rows | StratagemInfo×400B |
-| `generated_hit_effect_settings.dl_bin` | 72,620 | 1 | 1,512 | array | HitEffectInfo×48B |
-| `generated_explosion_settings.dl_bin` | 68,156 | 1 | 424 | array+tail | ExplosionInfo×152B |
-| `generated_unit_effect_settings.dl_bin` | 63,004 | 1 | 408 | array+tail | UnitEffectSetting×112B |
+| `generated_stratagem_settings.dl_bin` | 82,384 | 12 | 153 | rows+blob | StratagemInfo×400B |
+| `generated_hit_effect_settings.dl_bin` | 72,620 | 1 | 1,512 | rows | HitEffectInfo×48B |
+| `generated_explosion_settings.dl_bin` | 68,156 | 1 | 424 | rows+blob | ExplosionInfo×152B |
+| `generated_unit_effect_settings.dl_bin` | 63,004 | 1 | 408 | rows+blob | UnitEffectSetting×112B |
 | `generated_planet_region_settings.dl_bin` | 61,485 | 369 | 369 | raw | PlanetRegionSettings×128B |
-| `generated_damage_settings.dl_bin` | 50,336 | 2 | 662 | array+raw-array | DamageArmorAngles×32B, DamageInfo×76B |
-| `generated_planet_override_settings.dl_bin` | 35,474 | 13 | 44 | array+tail+hashmap+rows+unknown | PlanetOverrides×40B |
-| `generated_weapon_customization_settings.dl_bin` | 30,824 | 9 | 252 | array+tail+hashmap+rows | WeaponCustomizableItem×88B |
+| `generated_damage_settings.dl_bin` | 50,336 | 2 | 662 | raw-array+rows | DamageArmorAngles×32B, DamageInfo×76B |
+| `generated_planet_override_settings.dl_bin` | 35,474 | 13 | 44 | rows+blob+unknown | PlanetOverrides×40B |
+| `generated_weapon_customization_settings.dl_bin` | 30,824 | 9 | 252 | rows+blob | WeaponCustomizableItem×88B |
 | `generated_unit_customization_settings.dl_bin` | 27,744 | 12 | 339 | raw | UnitCustomizationSettings×80B |
-| `generated_weather_color_set_settings.dl_bin` | 25,916 | 1 | 132 | array | WeatherColorSet×196B |
-| `generated_planet_types_settings.dl_bin` | 16,844 | 1 | 88 | array+tail | SolarSystemObjectType×24B |
-| `generated_collision_event_settings.dl_bin` | 14,444 | 1 | 180 | array | CollisionEventSetting×80B |
-| `generated_status_effect_settings.dl_bin` | 14,020 | 2 | 102 | array+array+tail | StatusEffectInfo×160B, StatusEffectTemplate×40B |
+| `generated_weather_color_set_settings.dl_bin` | 25,916 | 1 | 132 | rows | WeatherColorSet×196B |
+| `generated_planet_types_settings.dl_bin` | 16,844 | 1 | 88 | rows+blob | SolarSystemObjectType×24B |
+| `generated_collision_event_settings.dl_bin` | 14,444 | 1 | 180 | rows | CollisionEventSetting×80B |
+| `generated_status_effect_settings.dl_bin` | 14,020 | 2 | 102 | rows+rows+blob | StatusEffectInfo×160B, StatusEffectTemplate×40B |
 | `generated_sky_settings.dl_bin` | 12,484 | 40 | 480 | raw-array | SkySettings×24B |
 | `generated_environment_settings.dl_bin` | 10,962 | 17 | 17 | raw | EnvironmentSettings×576B |
 | `generated_generation_settings.dl_bin` | 10,396 | 1 | 22 | raw | LevelGenerationSettings×464B |
 | `generated_scenario_settings.dl_bin` | 8,092 | 39 | 149 | raw-array | ScenarioSettings×48B |
 | `generated_font_settings.dl_bin` | 5,980 | 6 | 50 | raw | FontSettings×112B |
 | `generated_customization_passive_bonuses.dl_bin` | 4,016 | 33 | 40 | raw+raw-array | HelldiverCustomizationPassiveBonusSettings×56B |
-| `generated_language_settings.dl_bin` | 3,948 | 1 | 15 | array+tail | LanguageListEntry×208B |
-| `generated_beam_settings.dl_bin` | 3,404 | 1 | 30 | array | BeamInfo×112B |
+| `generated_language_settings.dl_bin` | 3,948 | 1 | 15 | rows+blob | LanguageListEntry×208B |
+| `generated_beam_settings.dl_bin` | 3,404 | 1 | 30 | rows | BeamInfo×112B |
 | `generated_video_flow_settings.dl_bin` | 2,060 | 1 | 63 | raw | VideoFlowSettings×32B |
-| `generated_planet_color_set_settings.dl_bin` | 1,964 | 1 | 30 | array | 0x80EB67CF×64B |
+| `generated_planet_color_set_settings.dl_bin` | 1,964 | 1 | 30 | rows | 0x80EB67CF×64B |
 | `generated_modifier_settings.dl_bin` | 1,764 | 15 | 52 | raw+raw-array | Modifier×24B |
-| `generated_arc_settings.dl_bin` | 1,708 | 1 | 16 | array | ArcInfo×104B |
+| `generated_arc_settings.dl_bin` | 1,708 | 1 | 16 | rows | ArcInfo×104B |
 | `generated_distant_war_effect_settings.dl_bin` | 1,468 | 7 | 26 | raw+raw-array | DistantWarEffectPool×48B |
-| `generated_video_ui_settings.dl_bin` | 1,124 | 1 | 9 | array | VideoUIElement×120B |
-| `generated_candidate_descs.dl_bin` | 812 | 1 | 12 | array+tail | CandidateDescription×40B |
+| `generated_video_ui_settings.dl_bin` | 1,124 | 1 | 9 | rows | VideoUIElement×120B |
+| `generated_candidate_descs.dl_bin` | 812 | 1 | 12 | rows+blob | CandidateDescription×40B |
 | `generated_font_lookup.dl_bin` | 604 | 6 | 19 | raw-array | FontLookup×24B |
 | `generated_policy_settings.dl_bin` | 480 | 1 | 14 | raw | PolicySettings×32B |
 | `generated_route_settings.dl_bin` | 436 | 3 | 3 | raw-array | RouteSettings×112B |
-| `generated_corporation_logos.dl_bin` | 364 | 1 | 8 | array | CorporationLogo×40B |
-| `generated_add_resource_dependencies.dl_bin` | 180 | 2 | 6 | array | 0x06F9ABD0×16B |
-| `generated_stratagem_upgrade_settings.dl_bin` | 133 | 1 | 1 | hashmap+rows | StratagemCustomizationInfo×64B |
+| `generated_corporation_logos.dl_bin` | 364 | 1 | 8 | rows | CorporationLogo×40B |
+| `generated_add_resource_dependencies.dl_bin` | 180 | 2 | 6 | rows | 0x06F9ABD0×16B |
+| `generated_stratagem_upgrade_settings.dl_bin` | 133 | 1 | 1 | rows+blob | StratagemCustomizationInfo×64B |
 | `generated_body_settings.dl_bin` | 116 | 2 | 2 | raw-array | HelldiverBody×32B |
 | `generated_layer_package_indirection_settings.dl_bin` | 108 | 1 | 5 | raw-array | PackageLayerTagIndirection×16B |
 | `generated_resource_swap.dl_bin` | 24 | 0 | 0 |  |  |
@@ -143,7 +162,7 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 8 | 0x00000000 (`0x00000000`) | 0x4D1C334D294DFA97 · f32 4.57365e-14/1.63788e+08 |
+| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000010 · f32 2.24208e-44/0 |
 | 8 | 16 | AnimationEventTrigger (`0x37B7C916`) |  |
 
 ### ArcInfo  (`generated_arc_settings.dl_bin`, stride 104 B, rows 16)
@@ -151,26 +170,26 @@ python tools/table_dictionary.py \
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
 | 0 | 4 | ArcType (`0xA064A858`) |  |
-| 4 | 4 | 0x00000000 (`0x00000000`) | 0x43960000 · f32 300 |
-| 8 | 4 | 0x00000000 (`0x00000000`) | 0x425C0000 · f32 55 |
-| 12 | 4 | 0x00000000 (`0x00000000`) | 0x42200000 · f32 40 |
-| 16 | 4 | 0x00000000 (`0x00000000`) | 0x42200000 · f32 40 |
-| 20 | 4 | 0x00000000 (`0x00000000`) | 0x42700000 · f32 60 |
-| 24 | 4 | 0x00000000 (`0x00000000`) | 0x40400000 · f32 3 |
-| 28 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
-| 32 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
+| 4 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 8 | 4 | 0x00000000 (`0x00000000`) | 0x00000010 · f32 2.242078e-44 |
+| 12 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 16 | 4 | 0x00000000 (`0x00000000`) | 0x00000007 · f32 9.809089e-45 |
+| 20 | 4 | 0x00000000 (`0x00000000`) | 0x43960000 · f32 300 |
+| 24 | 4 | 0x00000000 (`0x00000000`) | 0x425C0000 · f32 55 |
+| 28 | 4 | 0x00000000 (`0x00000000`) | 0x42200000 · f32 40 |
+| 32 | 4 | 0x00000000 (`0x00000000`) | 0x42200000 · f32 40 |
 | 36 | 4 | DamageInfoType (`0x39D2F78D`) |  |
-| 40 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 48 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 56 | 4 | 0x00000000 (`0x00000000`) | 0x3E800000 · f32 0.25 |
-| 64 | 8 | 0x00000000 (`0x00000000`) | 0x6C3208B3FAB4A0B4 · f32 -4.68936e+35/8.6092e+26 |
+| 40 | 8 | 0x00000000 (`0x00000000`) | 0x0000000140400000 · f32 3/1.4013e-45 |
+| 48 | 8 | 0x00000000 (`0x00000000`) | 0x000000CE00000001 · f32 1.4013e-45/2.88667e-43 |
+| 56 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 64 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
 | 72 | 4 | HitEffectDamageType (`0xB43002D3`) |  |
-| 76 | 4 | 0x00000000 (`0x00000000`) | 0xF265E30B · f32 nan/inf |
-| 80 | 8 | 0x00000000 (`0x00000000`) | 0x69B4296484F7539A · f32 -5.81462e-36/2.72253e+25 |
-| 88 | 4 | 0x00000000 (`0x00000000`) | 0x0000000A · f32 1.401298e-44 |
-| 92 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
-| 96 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
-| 100 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
+| 76 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 80 | 8 | 0x00000000 (`0x00000000`) | 0x6C3208B3FAB4A0B4 · f32 -4.68936e+35/8.6092e+26 |
+| 88 | 4 | 0x00000000 (`0x00000000`) | 0x00000003 · f32 4.203895e-45 |
+| 92 | 1 | 0x00000000 (`0x00000000`) | 0x0B |
+| 96 | 4 | 0x00000000 (`0x00000000`) | 0x84F7539A · f32 -5.81462e-36 |
+| 100 | 1 | 0x00000000 (`0x00000000`) | 0x64 |
 
 ### BeamInfo  (`generated_beam_settings.dl_bin`, stride 112 B, rows 30)
 
@@ -178,27 +197,27 @@ python tools/table_dictionary.py \
 |---:|---:|---|---|
 | 0 | 4 | BeamType (`0xAD8F0477`) |  |
 | 4 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 8 | 4 | 0x00000000 (`0x00000000`) | 0x447A0000 · f32 1000 |
+| 8 | 4 | 0x00000000 (`0x00000000`) | 0x0000001E · f32 4.203895e-44 |
 | 12 | 4 | DamageInfoType (`0x39D2F78D`) |  |
-| 16 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 16 | 4 | 0x00000000 (`0x00000000`) | 0x0000000B · f32 1.541428e-44 |
 | 20 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 24 | 4 | 0x00000000 (`0x00000000`) | 0x3F800000 · f32 1 |
-| 28 | 4 | 0x00000000 (`0x00000000`) | 0x3F800000 · f32 1 |
-| 32 | 4 | 0x00000000 (`0x00000000`) | 0x3F800000 · f32 1 |
-| 36 | 4 | 0x00000000 (`0x00000000`) | 0x3F800000 · f32 1 |
-| 40 | 4 | 0x00000000 (`0x00000000`) | 0x3DCCCCCD · f32 0.1 |
+| 24 | 4 | 0x00000000 (`0x00000000`) | 0x447A0000 · f32 1000 |
+| 28 | 4 | 0x00000000 (`0x00000000`) | 0x00000200 · f32 7.174648e-43 |
+| 32 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 36 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 40 | 4 | 0x00000000 (`0x00000000`) | 0x3F800000 · f32 1 |
 | 44 | 4 | SurfaceImpactType (`0xCF328969`) |  |
-| 48 | 8 | 0x00000000 (`0x00000000`) | 0xDBAF8323AA29198D · f32 -1.50191e-13/-9.88046e+16 |
-| 56 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 64 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 48 | 8 | 0x00000000 (`0x00000000`) | 0x3F8000003F800000 · f32 1/1 |
+| 56 | 8 | 0x00000000 (`0x00000000`) | 0x000000163DCCCCCD · f32 0.1/3.08286e-44 |
+| 64 | 8 | 0x00000000 (`0x00000000`) | 0xDBAF8323AA29198D · f32 -1.50191e-13/-9.88046e+16 |
 | 72 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 76 | 4 | 0x00000000 (`0x00000000`) | 0x305355A4 · f32 7.688306e-10 |
+| 76 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 80 | 4 | RaycastTemplate (`0xD7658573`) |  |
-| 84 | 4 | 0x00000000 (`0x00000000`) | 0x91291BB7 · f32 -1.334029e-28 |
+| 84 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 88 | 4 | HitEffectDamageType (`0xB43002D3`) |  |
-| 92 | 4 | 0x00000000 (`0x00000000`) | 0xBF800000 · f32 -1 |
+| 92 | 4 | 0x00000000 (`0x00000000`) | 0x305355A4 · f32 7.688306e-10 |
 | 96 | 4 | ExplosionType (`0x11BEEE03`) |  |
-| 100 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
+| 100 | 1 | 0x00000000 (`0x00000000`) | 0xB7 |
 | 104 | 4 | DangerLevel (`0x6A3EC669`) |  |
 | 108 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 
@@ -217,20 +236,20 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 4 | 0x00000000 (`0x00000000`) | 0x369DF8DB · f32 4.707935e-06 |
-| 8 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 16 | 4 | 0x00000000 (`0x00000000`) | 0x05DB1E3A · f32 2.060576e-35 |
-| 20 | 4 | 0x00000000 (`0x00000000`) | 0x497B7D33 · f32 1030099 |
+| 0 | 4 | 0x00000000 (`0x00000000`) | 0x00000010 · f32 2.242078e-44 |
+| 8 | 8 | 0x00000000 (`0x00000000`) | 0x000000000000000C · f32 1.68156e-44/0 |
+| 16 | 4 | 0x00000000 (`0x00000000`) | 0x369DF8DB · f32 4.707935e-06 |
+| 20 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 24 | 16 | CandidateTierSpeech (`0xEF6859E9`) |  |
 
 ### CollisionEventSetting  (`generated_collision_event_settings.dl_bin`, stride 80 B, rows 180)
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 8 | 0x00000000 (`0x00000000`) | 0x5AE9276989F2BD5E · f32 -5.84375e-33/3.28135e+16 |
-| 8 | 4 | 0x00000000 (`0x00000000`) | 0xB149E493 · f32 -2.937928e-09 |
+| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000010 · f32 2.24208e-44/0 |
+| 8 | 4 | 0x00000000 (`0x00000000`) | 0x000000B4 · f32 2.522337e-43 |
 | 12 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 16 | 4 | 0x00000000 (`0x00000000`) | 0x3D23D70A · f32 0.04 |
+| 16 | 4 | 0x00000000 (`0x00000000`) | 0x89F2BD5E · f32 -5.843746e-33 |
 | 24 | 48 | EffectSetting (`0x10CEE58B`) |  |
 | 72 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 76 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
@@ -240,8 +259,8 @@ python tools/table_dictionary.py \
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
 | 0 | 4 | Corporation (`0x4102A6B0`) |  |
-| 8 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 16 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 8 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000008 · f32 1.12104e-44/0 |
+| 16 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000001 · f32 1.4013e-45/0 |
 | 24 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
 | 32 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
 
@@ -249,16 +268,16 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 8 | 0x00000000 (`0x00000000`) | 0x00000000000468D0 · f32 4.04942e-40/0 |
+| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000010 · f32 2.24208e-44/0 |
 | 8 | 4 | MenuFontStyle (`0x360D7FBD`) |  |
-| 12 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
-| 16 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 24 | 8 | 0x00000000 (`0x00000000`) | 0x00000000000468D1 · f32 4.04943e-40/0 |
-| 32 | 8 | 0x00000000 (`0x00000000`) | 0x00000000000468D2 · f32 4.04944e-40/0 |
-| 40 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 48 | 8 | 0x00000000 (`0x00000000`) | 0x310518090508CB05 · f32 6.43198e-36/1.93677e-09 |
-| 56 | 4 | 0x00000000 (`0x00000000`) | 0x44800000 · f32 1024 |
-| 60 | 4 | 0x00000000 (`0x00000000`) | 0x43DD0000 · f32 442 |
+| 12 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 16 | 4 | 0x00000000 (`0x00000000`) | 0x000468D0 · f32 4.049416e-40 |
+| 24 | 8 | 0x00000000 (`0x00000000`) | 0x0000000100000011 · f32 2.38221e-44/1.4013e-45 |
+| 32 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 40 | 4 | 0x00000000 (`0x00000000`) | 0x000468D1 · f32 4.04943e-40 |
+| 48 | 8 | 0x00000000 (`0x00000000`) | 0x00000000000468D2 · f32 4.04944e-40/0 |
+| 56 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 60 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 
 ### HelldiverCustomizationKit  (`generated_customization_armor_sets.dl_bin`, stride 64 B, rows 6,821)
 
@@ -300,11 +319,11 @@ python tools/table_dictionary.py \
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
 | 0 | 4 | DamageInfoType (`0x39D2F78D`) |  |
-| 4 | 8 | 0x00000000 (`0x00000000`) | 0x0000003200000032 · f32 7.00649e-44/7.00649e-44 |
-| 12 | 16 | 0x00000000 (`0x00000000`) | 0500000005000000 |
-| 28 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 32 | 4 | 0x00000000 (`0x00000000`) | 0x00000014 · f32 2.802597e-44 |
-| 36 | 4 | 0x00000000 (`0x00000000`) | 0x0000000A · f32 1.401298e-44 |
+| 4 | 8 | 0x00000000 (`0x00000000`) | 0x0000029500000000 · f32 0/9.26258e-43 |
+| 12 | 16 | 0x00000000 (`0x00000000`) | 0000000001000000 |
+| 28 | 4 | 0x00000000 (`0x00000000`) | 0x00000005 · f32 7.006492e-45 |
+| 32 | 4 | 0x00000000 (`0x00000000`) | 0x00000005 · f32 7.006492e-45 |
+| 36 | 4 | 0x00000000 (`0x00000000`) | 0x00000005 · f32 7.006492e-45 |
 | 40 | 4 | ElementType (`0x86B0A9AC`) |  |
 | 44 | 32 | DamageStatusEffectInfo (`0xB99AE45C`) |  |
 
@@ -2317,43 +2336,43 @@ python tools/table_dictionary.py \
 |---:|---:|---|---|
 | 0 | 4 | ExplosionType (`0x11BEEE03`) |  |
 | 4 | 4 | DamageInfoType (`0x39D2F78D`) |  |
-| 8 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 8 | 4 | 0x00000000 (`0x00000000`) | 0x000001A8 · f32 5.941505e-43 |
 | 12 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
-| 16 | 4 | 0x00000000 (`0x00000000`) | 0x40800000 · f32 4 |
-| 20 | 4 | 0x00000000 (`0x00000000`) | 0x41200000 · f32 10 |
-| 24 | 4 | 0x00000000 (`0x00000000`) | 0x41300000 · f32 11 |
+| 16 | 4 | 0x00000000 (`0x00000000`) | 0x00000113 · f32 3.853571e-43 |
+| 20 | 4 | 0x00000000 (`0x00000000`) | 0x0000012A · f32 4.175869e-43 |
+| 24 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 28 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 32 | 4 | 0x00000000 (`0x00000000`) | 0x42340000 · f32 45 |
-| 40 | 16 | 0x00000000 (`0x00000000`) | d0fb000000000000 |
-| 56 | 8 | 0x00000000 (`0x00000000`) | 0x000000006350FC14 · f32 3.85509e+21/0 |
-| 64 | 4 | 0x00000000 (`0x00000000`) | 0x80313676 · f32 -4.519476e-39 |
+| 32 | 4 | 0x00000000 (`0x00000000`) | 0x40800000 · f32 4 |
+| 40 | 16 | 0x00000000 (`0x00000000`) | 0000304100000000 |
+| 56 | 8 | 0x00000000 (`0x00000000`) | 0x000000000000FBD0 · f32 9.03333e-41/0 |
+| 64 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
 | 68 | 1 | TerrainDeformationType (`0xC801688F`) |  |
 | 72 | 4 | SurfaceImpactType (`0xCF328969`) |  |
 | 76 | 4 | HitEffectDamageType (`0xB43002D3`) |  |
-| 80 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 80 | 4 | 0x00000000 (`0x00000000`) | 0x80313676 · f32 -4.519476e-39 |
 | 84 | 4 | ProjectileType (`0xA2B5F333`) |  |
 | 88 | 1 | NoiseTemplate (`0x39117D3A`) |  |
 | 92 | 4 | WindEffectTemplate (`0x8436CA1B`) |  |
 | 96 | 4 | FireTemplate (`0x1ABF81A2`) |  |
 | 100 | 4 | StatusEffectTemplateType (`0x375DAB6F`) |  |
-| 104 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 104 | 4 | 0x00000000 (`0x00000000`) | 0x0000000E · f32 1.961818e-44 |
 | 108 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 112 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 116 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
-| 116 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
-| 116 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
-| 116 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
-| 116 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
-| 116 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
+| 116 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 116 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 116 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 116 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 116 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 116 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 120 | 4 | ArcType (`0xA064A858`) |  |
-| 124 | 1 | 0x00000000 (`0x00000000`) | 0x02 |
-| 124 | 1 | 0x00000000 (`0x00000000`) | 0x02 |
+| 124 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 124 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 128 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 132 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
-| 132 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
-| 136 | 4 | 0x00000000 (`0x00000000`) | 0x42000000 · f32 32 |
-| 140 | 1 | 0x00000000 (`0x00000000`) | 0x03 |
-| 140 | 1 | 0x00000000 (`0x00000000`) | 0x03 |
+| 132 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
+| 132 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
+| 136 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 140 | 1 | 0x00000000 (`0x00000000`) | 0x02 |
+| 140 | 1 | 0x00000000 (`0x00000000`) | 0x02 |
 | 144 | 4 | 0x22C3CE6D (`0x22C3CE6D`) |  |
 
 ### FontLookup  (`generated_font_lookup.dl_bin`, stride 24 B, rows 19)
@@ -2544,31 +2563,31 @@ python tools/table_dictionary.py \
 | 0 | 4 | HitEffectDamageType (`0xB43002D3`) |  |
 | 4 | 4 | HitEffectReceiverType (`0x091B24E9`) |  |
 | 8 | 4 | HitEffectLevel (`0x796C944A`) |  |
-| 16 | 8 | 0x00000000 (`0x00000000`) | 0xEBD575F01AD8623F · f32 8.94942e-23/-5.16116e+26 |
+| 16 | 8 | 0x00000000 (`0x00000000`) | 0x0000000100000001 · f32 1.4013e-45/1.4013e-45 |
 | 24 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 32 | 4 | 0x00000000 (`0x00000000`) | 0x7EDBD5A1 · f32 nan/inf |
-| 36 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 40 | 4 | 0x00000000 (`0x00000000`) | 0x54EFD2E3 · f32 nan/inf |
+| 32 | 4 | 0x00000000 (`0x00000000`) | 0x1AD8623F · f32 8.949423e-23 |
+| 36 | 4 | 0x00000000 (`0x00000000`) | 0xEBD575F0 · f32 nan/inf |
+| 40 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 44 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 
 ### LanguageListEntry  (`generated_language_settings.dl_bin`, stride 208 B, rows 15)
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 4 | 0x00000000 (`0x00000000`) | 0xA6702562 · f32 -8.331739e-16 |
+| 0 | 4 | 0x00000000 (`0x00000000`) | 0x00000010 · f32 2.242078e-44 |
 | 4 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 8 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000C40 · f32 4.39447e-42/0 |
-| 16 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000C43 · f32 4.39868e-42/0 |
-| 24 | 4 | 0x00000000 (`0x00000000`) | 0x57627294 · f32 nan/inf |
-| 32 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000C46 · f32 4.40288e-42/0 |
-| 40 | 4 | 0x00000000 (`0x00000000`) | 0x0008737E · f32 7.761148e-40 |
+| 8 | 8 | 0x00000000 (`0x00000000`) | 0x000000000000000F · f32 2.10195e-44/0 |
+| 16 | 8 | 0x00000000 (`0x00000000`) | 0x00000000A6702562 · f32 -8.33174e-16/0 |
+| 24 | 4 | 0x00000000 (`0x00000000`) | 0x00000C40 · f32 4.394472e-42 |
+| 32 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000C43 · f32 4.39868e-42/0 |
+| 40 | 4 | 0x00000000 (`0x00000000`) | 0x57627294 · f32 nan/inf |
 | 44 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
-| 46 | 2 | 0x00000000 (`0x00000000`) | 0x0001 |
-| 48 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000C4E · f32 4.41409e-42/0 |
-| 56 | 8 | 0x00000000 (`0x00000000`) | 0xFFFFFFFFFFFFFFFF · f32 nan/nan |
+| 46 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 48 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000C46 · f32 4.40288e-42/0 |
+| 56 | 8 | 0x00000000 (`0x00000000`) | 0x000100000008737E · f32 7.76115e-40/9.18355e-41 |
 | 64 | 64 | LanguageLocaleInfo (`0x59CF9D40`) |  |
 | 128 | 72 | LanguageListSettingsInfo (`0xCC6AA6FD`) |  |
-| 200 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000C6C · f32 4.45613e-42/0 |
+| 200 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
 
 ### PackageLayerTagIndirection  (`generated_layer_package_indirection_settings.dl_bin`, stride 16 B, rows 5)
 
@@ -2603,7 +2622,7 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 4 | 0x00000000 (`0x00000000`) | 0x9C99E8F7 · f32 -1.018491e-21 |
+| 0 | 4 | 0x00000000 (`0x00000000`) | 0x00000010 · f32 2.242078e-44 |
 | 4 | 12 | CApiVector3 (`0x85B82A43`) |  |
 | 16 | 12 | CApiVector3 (`0x85B82A43`) |  |
 | 28 | 12 | CApiVector3 (`0x85B82A43`) |  |
@@ -2660,9 +2679,9 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000038 · f32 7.84727e-44/0 |
-| 8 | 4 | 0x00000000 (`0x00000000`) | 0x20512E9A · f32 1.771841e-19 |
-| 16 | 8 | 0x00000000 (`0x00000000`) | 0xDA62DB36134D2E4D · f32 2.58975e-27/-1.59636e+16 |
+| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000010 · f32 2.24208e-44/0 |
+| 8 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
+| 16 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000038 · f32 7.84727e-44/0 |
 | 24 | 16 | ResourceOverride (`0xB950E768`) |  |
 
 ### PlanetRegionSettings  (`generated_planet_region_settings.dl_bin`, stride 128 B, rows 369)
@@ -2698,7 +2717,7 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 8 | 0x00000000 (`0x00000000`) | 0x7D32EF15646DB46A · f32 1.75395e+22/1.48652e+37 |
+| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000010 · f32 2.24208e-44/0 |
 | 8 | 16 | SolarSystemObjectTypeSettings (`0x0FD71230`) |  |
 
 ### PolicySettings  (`generated_policy_settings.dl_bin`, stride 32 B, rows 14)
@@ -2713,71 +2732,71 @@ python tools/table_dictionary.py \
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
 | 0 | 4 | ProjectileType (`0xA2B5F333`) |  |
-| 4 | 4 | 0x00000000 (`0x00000000`) | 0xCAE08F72 · f32 -7358393 |
-| 8 | 4 | 0x00000000 (`0x00000000`) | 0x45683D6B · f32 3715.839 |
-| 12 | 4 | 0x00000000 (`0x00000000`) | 0xF1CD5269 · f32 nan/inf |
-| 16 | 8 | 0x00000000 (`0x00000000`) | 0x6A6598587D4BC8F5 · f32 1.69298e+37/6.93909e+25 |
-| 24 | 4 | 0x00000000 (`0x00000000`) | 0x41C80000 · f32 25 |
-| 28 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
-| 32 | 4 | 0x00000000 (`0x00000000`) | 0x43960000 · f32 300 |
-| 36 | 4 | 0x00000000 (`0x00000000`) | 0x42C80000 · f32 100 |
-| 40 | 4 | 0x00000000 (`0x00000000`) | 0x3F000000 · f32 0.5 |
-| 44 | 4 | 0x00000000 (`0x00000000`) | 0x3F800000 · f32 1 |
-| 48 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
-| 52 | 4 | 0x00000000 (`0x00000000`) | 0x3EB33333 · f32 0.35 |
-| 56 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 4 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 8 | 4 | 0x00000000 (`0x00000000`) | 0x00000163 · f32 4.97461e-43 |
+| 12 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 16 | 8 | 0x00000000 (`0x00000000`) | 0xCAE08F7200000123 · f32 4.07778e-43/-7.35839e+06 |
+| 24 | 4 | 0x00000000 (`0x00000000`) | 0x45683D6B · f32 3715.839 |
+| 28 | 4 | 0x00000000 (`0x00000000`) | 0xF1CD5269 · f32 nan/inf |
+| 32 | 4 | 0x00000000 (`0x00000000`) | 0x7D4BC8F5 · f32 nan/inf |
+| 36 | 4 | 0x00000000 (`0x00000000`) | 0x6A659858 · f32 nan/inf |
+| 40 | 4 | 0x00000000 (`0x00000000`) | 0x41C80000 · f32 25 |
+| 44 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
+| 48 | 4 | 0x00000000 (`0x00000000`) | 0x43960000 · f32 300 |
+| 52 | 4 | 0x00000000 (`0x00000000`) | 0x42C80000 · f32 100 |
+| 56 | 4 | 0x00000000 (`0x00000000`) | 0x3F000000 · f32 0.5 |
 | 60 | 4 | DamageInfoType (`0x39D2F78D`) |  |
-| 64 | 4 | 0x00000000 (`0x00000000`) | 0x3E800000 · f32 0.25 |
-| 72 | 8 | 0x00000000 (`0x00000000`) | 0x00000000DD8A445D · f32 -1.2454e+18/0 |
-| 80 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 88 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 64 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
+| 72 | 8 | 0x00000000 (`0x00000000`) | 0x000000F400000000 · f32 0/3.41917e-43 |
+| 80 | 8 | 0x00000000 (`0x00000000`) | 0x9FC318BE3E800000 · f32 0.25/-8.26266e-20 |
+| 88 | 4 | 0x00000000 (`0x00000000`) | 0xDD8A445D · f32 nan/inf |
 | 96 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
 | 104 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
 | 112 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
 | 120 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 128 | 8 | 0x00000000 (`0x00000000`) | 0x71E52F800636B336 · f32 3.43621e-35/2.26974e+30 |
-| 136 | 4 | 0x00000000 (`0x00000000`) | 0x42B40000 · f32 90 |
-| 140 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
+| 128 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 136 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 140 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 144 | 4 | ExplosionType (`0x11BEEE03`) |  |
-| 148 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 152 | 4 | 0x00000000 (`0x00000000`) | 0x3F000000 · f32 0.5 |
+| 148 | 4 | 0x00000000 (`0x00000000`) | 0x71E52F80 · f32 nan/inf |
+| 152 | 4 | 0x00000000 (`0x00000000`) | 0x42B40000 · f32 90 |
 | 156 | 4 | ExplosionType (`0x11BEEE03`) |  |
 | 160 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 164 | 4 | 0x00000000 (`0x00000000`) | 0xBF800000 · f32 -1 |
-| 168 | 4 | 0x00000000 (`0x00000000`) | 0x3DCCCCCD · f32 0.1 |
+| 164 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 168 | 4 | 0x00000000 (`0x00000000`) | 0x3F000000 · f32 0.5 |
 | 172 | 4 | SurfaceImpactType (`0xCF328969`) |  |
 | 176 | 4 | SurfaceImpactType (`0xCF328969`) |  |
-| 180 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
-| 184 | 4 | 0x00000000 (`0x00000000`) | 0x42B40000 · f32 90 |
-| 188 | 4 | 0x00000000 (`0x00000000`) | 0x41200000 · f32 10 |
-| 192 | 4 | 0x00000000 (`0x00000000`) | 0x3F400000 · f32 0.75 |
-| 196 | 4 | 0x00000000 (`0x00000000`) | 0x40A00000 · f32 5 |
-| 200 | 4 | 0x00000000 (`0x00000000`) | 0x41A00000 · f32 20 |
-| 204 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 208 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 212 | 4 | 0x00000000 (`0x00000000`) | 0x272E960C · f32 2.422869e-15 |
-| 216 | 4 | 0x00000000 (`0x00000000`) | 0xAAE87DCE · f32 -4.129877e-13 |
-| 220 | 4 | 0x00000000 (`0x00000000`) | 0xBF800000 · f32 -1 |
+| 180 | 4 | 0x00000000 (`0x00000000`) | 0xBF800000 · f32 -1 |
+| 184 | 4 | 0x00000000 (`0x00000000`) | 0x3DCCCCCD · f32 0.1 |
+| 188 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 192 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 196 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
+| 200 | 4 | 0x00000000 (`0x00000000`) | 0x42B40000 · f32 90 |
+| 204 | 4 | 0x00000000 (`0x00000000`) | 0x41200000 · f32 10 |
+| 208 | 4 | 0x00000000 (`0x00000000`) | 0x3F400000 · f32 0.75 |
+| 212 | 4 | 0x00000000 (`0x00000000`) | 0x40A00000 · f32 5 |
+| 216 | 4 | 0x00000000 (`0x00000000`) | 0x41A00000 · f32 20 |
+| 220 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 224 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 228 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 228 | 1 | 0x00000000 (`0x00000000`) | 0x0C |
 | 232 | 4 | ProjectileStatusEffectVolumeTemplate (`0xDCC38AB6`) |  |
 | 236 | 4 | HitEffectDamageType (`0xB43002D3`) |  |
 | 240 | 4 | FireTemplate (`0x1ABF81A2`) |  |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
-| 244 | 2 | 0x00000000 (`0x00000000`) | 0x00BC |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
+| 244 | 2 | 0x00000000 (`0x00000000`) | 0x0000 |
 | 248 | 4 | RaycastTemplate (`0xD7658573`) |  |
-| 252 | 4 | 0x00000000 (`0x00000000`) | 0x393D9518 · f32 0.0001807999 |
+| 252 | 4 | 0x00000000 (`0x00000000`) | 0x00000003 · f32 4.203895e-45 |
 | 256 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 256 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 260 | 12 | CApiVector3 (`0x85B82A43`) |  |
@@ -2885,7 +2904,7 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000010 · f32 2.24208e-44/0 |
 | 8 | 104 | Stamp (`0x0E1E2405`) |  |
 
 ### StatusEffectInfo  (`generated_status_effect_settings.dl_bin`, stride 160 B, rows 73)
@@ -2893,15 +2912,15 @@ python tools/table_dictionary.py \
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
 | 0 | 4 | StatusEffectType (`0x525E8B93`) |  |
-| 8 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000002DB0 · f32 1.63896e-41/0 |
+| 8 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000049 · f32 1.02295e-43/0 |
 | 16 | 4 | StatusEffectShaderVariablePreset (`0x89FA9121`) |  |
-| 24 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 24 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000002DB0 · f32 1.63896e-41/0 |
 | 32 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 36 | 4 | 0x00000000 (`0x00000000`) | 0x3F800000 · f32 1 |
-| 40 | 4 | 0x00000000 (`0x00000000`) | 0x41000000 · f32 8 |
+| 36 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 40 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 44 | 4 | DamageInfoType (`0x39D2F78D`) |  |
 | 48 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
-| 56 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 56 | 8 | 0x00000000 (`0x00000000`) | 0x0000000041000000 · f32 8/0 |
 | 64 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 68 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 72 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
@@ -2917,10 +2936,10 @@ python tools/table_dictionary.py \
 | 104 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 104 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 112 | 16 | 0x17B9083A (`0x17B9083A`) |  |
-| 128 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 132 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 128 | 4 | 0x00000000 (`0x00000000`) | 0xFFFFFFFF · f32 nan/inf |
+| 132 | 4 | 0x00000000 (`0x00000000`) | 0xFFFFFFFF · f32 nan/inf |
 | 136 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
-| 140 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
+| 140 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 144 | 16 | 0x9DDD1BE2 (`0x9DDD1BE2`) |  |
 
 ### StatusEffectTemplate  (`generated_status_effect_settings.dl_bin`, stride 40 B, rows 29)
@@ -2936,69 +2955,69 @@ python tools/table_dictionary.py \
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
 | 0 | 4 | StratagemType (`0x7BDC408A`) |  |
-| 4 | 4 | 0x00000000 (`0x00000000`) | 0x71B6D7DA · f32 nan/inf |
-| 8 | 4 | 0x00000000 (`0x00000000`) | 0x9CD89259 · f32 -1.433151e-21 |
-| 16 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000001460 · f32 7.30917e-42/0 |
-| 24 | 8 | 0x00000000 (`0x00000000`) | 0x000000000000147A · f32 7.34561e-42/0 |
-| 32 | 8 | 0x00000000 (`0x00000000`) | 0x000000000000149B · f32 7.39185e-42/0 |
-| 40 | 4 | 0x00000000 (`0x00000000`) | 0x8FA7FCF1 · f32 -1.65649e-29 |
-| 44 | 4 | 0x00000000 (`0x00000000`) | 0x86C357B9 · f32 -7.347974e-35 |
-| 48 | 4 | 0x00000000 (`0x00000000`) | 0xECEDB008 · f32 nan/inf |
-| 52 | 4 | 0x00000000 (`0x00000000`) | 0xD99B7CA6 · f32 nan/inf |
-| 56 | 4 | 0x00000000 (`0x00000000`) | 0x2D96F9E6 · f32 1.7164e-11 |
+| 4 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 8 | 4 | 0x00000000 (`0x00000000`) | 0x0000000D · f32 1.821688e-44 |
+| 16 | 8 | 0x00000000 (`0x00000000`) | 0x71B6D7DA00000068 · f32 1.45735e-43/1.81079e+30 |
+| 24 | 8 | 0x00000000 (`0x00000000`) | 0x000000009CD89259 · f32 -1.43315e-21/0 |
+| 32 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000001460 · f32 7.30917e-42/0 |
+| 40 | 4 | 0x00000000 (`0x00000000`) | 0x0000147A · f32 7.345607e-42 |
+| 44 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 48 | 4 | 0x00000000 (`0x00000000`) | 0x0000149B · f32 7.391849e-42 |
+| 52 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 56 | 4 | 0x00000000 (`0x00000000`) | 0x8FA7FCF1 · f32 -1.65649e-29 |
 | 60 | 4 | StratagemCategoryType (`0xCBDB3EC8`) |  |
 | 64 | 16 | StratagemButtonDirection (`0x561A8A65`) |  |
-| 80 | 4 | 0x00000000 (`0x00000000`) | 0xFFFFFFFF · f32 nan/inf |
-| 84 | 4 | 0x00000000 (`0x00000000`) | 0x40A00000 · f32 5 |
-| 88 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 80 | 4 | 0x00000000 (`0x00000000`) | 0x000014BC · f32 7.438092e-42 |
+| 84 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 88 | 4 | 0x00000000 (`0x00000000`) | 0x00000006 · f32 8.407791e-45 |
 | 92 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 96 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 100 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 104 | 4 | 0x00000000 (`0x00000000`) | 0x43F00000 · f32 480 |
+| 96 | 4 | 0x00000000 (`0x00000000`) | 0xFFFFFFFF · f32 nan/inf |
+| 100 | 4 | 0x00000000 (`0x00000000`) | 0x40A00000 · f32 5 |
+| 104 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 108 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 112 | 4 | StratagemOriginType (`0xE43FFD52`) |  |
 | 116 | 4 | StratagemCallInType (`0xF28148FD`) |  |
 | 120 | 2 | StratagemCallInLogic (`0x4216A409`) |  |
 | 124 | 4 | StratagemObjectiveDropRequirement (`0x4D883209`) |  |
-| 128 | 1 | 0x00000000 (`0x00000000`) | 0x03 |
-| 128 | 1 | 0x00000000 (`0x00000000`) | 0x03 |
-| 136 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 144 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 128 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 128 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 136 | 8 | 0x00000000 (`0x00000000`) | 0x00000000000000C0 · f32 2.69049e-43/0 |
+| 144 | 1 | 0x00000000 (`0x00000000`) | 0x03 |
 | 148 | 4 | StratagemCooldownType (`0x783CA8AF`) |  |
-| 152 | 16 | 0x00000000 (`0x00000000`) | d814000000000000 |
-| 168 | 8 | 0x00000000 (`0x00000000`) | 0x519980A75EBD50AD · f32 6.8208e+18/8.24111e+10 |
-| 176 | 8 | 0x00000000 (`0x00000000`) | 0xE91AC7A0F72AC1FD · f32 -3.46338e+33/-1.16948e+25 |
+| 152 | 16 | 0x00000000 (`0x00000000`) | 0000000000000000 |
+| 168 | 8 | 0x00000000 (`0x00000000`) | 0x00000000000014D8 · f32 7.47733e-42/0 |
+| 176 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000002 · f32 2.8026e-45/0 |
 | 184 | 4 | StratagemHUDType (`0x7A6E836B`) |  |
-| 188 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
-| 192 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
+| 188 | 4 | 0x00000000 (`0x00000000`) | 0x519980A7 · f32 8.241105e+10 |
+| 192 | 1 | 0x00000000 (`0x00000000`) | 0xFD |
 | 196 | 4 | StratagemType (`0x7BDC408A`) |  |
 | 200 | 4 | StratagemType (`0x7BDC408A`) |  |
-| 204 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 208 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 204 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
+| 208 | 1 | 0x00000000 (`0x00000000`) | 0x01 |
 | 212 | 4 | StratagemBeaconColor (`0xE9BD1A8F`) |  |
 | 216 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 220 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 224 | 4 | 0x00000000 (`0x00000000`) | 0x26A8BCEB · f32 1.170855e-15 |
-| 228 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 232 | 4 | 0x00000000 (`0x00000000`) | 0xC12168C5 · f32 -10.08808 |
-| 240 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 248 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 224 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 228 | 4 | 0x00000000 (`0x00000000`) | 0x00000002 · f32 2.802597e-45 |
+| 232 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 240 | 8 | 0x00000000 (`0x00000000`) | 0x0000000026A8BCEB · f32 1.17085e-15/0 |
+| 248 | 4 | 0x00000000 (`0x00000000`) | 0xC12168C5 · f32 -10.08808 |
 | 252 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 256 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 | 260 | 4 | StratagemInfoFlag (`0x8A0F47AE`) |  |
-| 264 | 4 | 0x00000000 (`0x00000000`) | 0x056F39B8 · f32 1.124833e-35 |
+| 264 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 268 | 4 | StratagemType (`0x7BDC408A`) |  |
 | 272 | 1 | StratagemCustomizationTypeInfo (`0xC53E09EF`) |  |
 | 280 | 16 | 0xB6CAFF2E (`0xB6CAFF2E`) |  |
-| 296 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
-| 296 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
-| 300 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 296 | 1 | 0x00000000 (`0x00000000`) | 0xFF |
+| 296 | 1 | 0x00000000 (`0x00000000`) | 0xFF |
+| 300 | 4 | 0x00000000 (`0x00000000`) | 0xFFFFFFFF · f32 nan/inf |
 | 304 | 16 | CApiVector3 (`0x85B82A43`) |  |
 | 320 | 16 | 0x00000000 (`0x00000000`) | ffffffffffffffff |
 | 336 | 16 | 0x00000000 (`0x00000000`) | ffffffffffffffff |
 | 352 | 16 | 0x00000000 (`0x00000000`) | ffffffffffffffff |
-| 368 | 1 | 0x00000000 (`0x00000000`) | 0x02 |
-| 368 | 1 | 0x00000000 (`0x00000000`) | 0x02 |
+| 368 | 1 | 0x00000000 (`0x00000000`) | 0xFF |
+| 368 | 1 | 0x00000000 (`0x00000000`) | 0xFF |
 | 372 | 4 | UnitCustomizationCollectionType (`0x57D3AD67`) |  |
 | 376 | 16 | 0xB24E0C4B (`0xB24E0C4B`) |  |
 | 392 | 4 | 0x6011FA2B (`0x6011FA2B`) |  |
@@ -3007,18 +3026,18 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000050 · f32 1.12104e-43/0 |
-| 8 | 4 | 0x00000000 (`0x00000000`) | 0x188C40A6 · f32 3.625443e-24 |
+| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000010 · f32 2.24208e-44/0 |
+| 8 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
 | 12 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 16 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 16 | 4 | 0x00000000 (`0x00000000`) | 0x00000050 · f32 1.121039e-43 |
 | 20 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 24 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 24 | 8 | 0x00000000 (`0x00000000`) | 0x00000000188C40A6 · f32 3.62544e-24/0 |
 | 32 | 4 | StratagemCustomizationType (`0x6F107CC3`) |  |
 | 36 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 40 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 44 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 48 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 56 | 8 | 0x00000000 (`0x00000000`) | 0x414054D365ACDF30 · f32 1.02046e+23/12.0207 |
+| 48 | 4 | 0x00000000 (`0x00000000`) | 0x00000005 · f32 7.006492e-45 |
+| 56 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
 
 ### SurfaceEffectInfo  (`generated_surface_effect_settings.dl_bin`, stride 40 B, rows 7,644)
 
@@ -3026,12 +3045,12 @@ python tools/table_dictionary.py \
 |---:|---:|---|---|
 | 0 | 4 | SurfaceMaterialType (`0x725893BA`) |  |
 | 4 | 4 | SurfaceImpactType (`0xCF328969`) |  |
-| 8 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
-| 16 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 8 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000001DDC · f32 1.07115e-41/0 |
+| 16 | 8 | 0x00000000 (`0x00000000`) | 0x0000000100000001 · f32 1.4013e-45/1.4013e-45 |
 | 24 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 28 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 32 | 1 | 0x00000000 (`0x00000000`) | 0x02 |
-| 32 | 1 | 0x00000000 (`0x00000000`) | 0x02 |
+| 32 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
+| 32 | 1 | 0x00000000 (`0x00000000`) | 0x00 |
 
 ### UnitCustomizationSettings  (`generated_unit_customization_settings.dl_bin`, stride 80 B, rows 339)
 
@@ -3052,7 +3071,7 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 8 | 0x00000000 (`0x00000000`) | 0xA6CD8A90185B6567 · f32 2.83563e-24/-1.42623e-15 |
+| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000010 · f32 2.24208e-44/0 |
 | 8 | 4 | UnitEffectOrphanStrategy (`0x322F2168`) |  |
 | 16 | 16 | EffectSetting (`0x10CEE58B`) |  |
 | 32 | 16 | UnitSound (`0xCB0D97E9`) |  |
@@ -3072,44 +3091,44 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 4 | 0x00000000 (`0x00000000`) | 0x6D322709 · f32 nan/inf |
-| 4 | 4 | 0x00000000 (`0x00000000`) | 0x40CC329C · f32 6.381178 |
+| 0 | 4 | 0x00000000 (`0x00000000`) | 0x00000010 · f32 2.242078e-44 |
+| 4 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 8 | 4 | FontType (`0x7F2E7339`) |  |
-| 12 | 4 | 0x00000000 (`0x00000000`) | 0x00000028 · f32 5.605194e-44 |
+| 12 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 16 | 12 | CApiVector3 (`0x85B82A43`) |  |
-| 28 | 4 | 0x00000000 (`0x00000000`) | 0x3F800000 · f32 1 |
-| 32 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 40 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
+| 28 | 4 | 0x00000000 (`0x00000000`) | 0x00000028 · f32 5.605194e-44 |
+| 32 | 4 | 0x00000000 (`0x00000000`) | 0x3F800000 · f32 1 |
+| 40 | 8 | 0x00000000 (`0x00000000`) | 0x3F8000003F800000 · f32 1/1 |
 | 48 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 52 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 56 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 60 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 64 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 68 | 4 | 0x00000000 (`0x00000000`) | 0x44408000 · f32 770 |
-| 72 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
+| 68 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 72 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 76 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
 | 80 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 84 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 88 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 84 | 4 | 0x00000000 (`0x00000000`) | 0x44408000 · f32 770 |
+| 88 | 4 | 0x00000000 (`0x00000000`) | 0x00000001 · f32 1.401298e-45 |
 | 92 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 96 | 4 | 0x00000000 (`0x00000000`) | 0x40828F5C · f32 4.08 |
-| 100 | 4 | 0x00000000 (`0x00000000`) | 0x40D9999A · f32 6.8 |
-| 104 | 4 | 0x00000000 (`0x00000000`) | 0x3E4CCCCD · f32 0.2 |
-| 108 | 4 | 0x00000000 (`0x00000000`) | 0x3E4CCCCD · f32 0.2 |
-| 112 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 116 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 96 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 100 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 104 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 108 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 112 | 4 | 0x00000000 (`0x00000000`) | 0x40828F5C · f32 4.08 |
+| 116 | 4 | 0x00000000 (`0x00000000`) | 0x40D9999A · f32 6.8 |
 
 ### WeaponCustomizableItem  (`generated_weapon_customization_settings.dl_bin`, stride 88 B, rows 252)
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000002168 · f32 1.19839e-41/0 |
-| 8 | 4 | 0x00000000 (`0x00000000`) | 0x5CD7F1BF · f32 nan/inf |
-| 12 | 4 | 0x00000000 (`0x00000000`) | 0xBF6D1C14 · f32 -0.9262097 |
-| 16 | 4 | 0x00000000 (`0x00000000`) | 0x9321CA5B · f32 -2.042083e-27 |
-| 20 | 4 | 0x00000000 (`0x00000000`) | 0xCBF63D7F · f32 -3.22752e+07 |
-| 24 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
-| 32 | 8 | 0x00000000 (`0x00000000`) | 0x0BCD6F93EAB8DB93 · f32 -1.1174e+26/7.9131e-32 |
+| 0 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000010 · f32 2.24208e-44/0 |
+| 8 | 4 | 0x00000000 (`0x00000000`) | 0x00000061 · f32 1.35926e-43 |
+| 12 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 16 | 4 | 0x00000000 (`0x00000000`) | 0x00002168 · f32 1.19839e-41 |
+| 20 | 4 | 0x00000000 (`0x00000000`) | 0x00000000 · f32 0 |
+| 24 | 4 | 0x00000000 (`0x00000000`) | 0x5CD7F1BF · f32 nan/inf |
+| 32 | 8 | 0x00000000 (`0x00000000`) | 0xCBF63D7F9321CA5B · f32 -2.04208e-27/-3.22752e+07 |
 | 40 | 8 | 0x00000000 (`0x00000000`) | 0x0000000000000000 · f32 0/0 |
 | 48 | 16 | WeaponCustomizationSlot (`0x62AB45E5`) |  |
 | 64 | 16 | CApiVector3 (`0x85B82A43`) |  |
@@ -3119,7 +3138,7 @@ python tools/table_dictionary.py \
 
 | offset | size | type | row 0, both readings |
 |---:|---:|---|---|
-| 0 | 4 | 0x00000000 (`0x00000000`) | 0x7E635920 · f32 nan/inf |
+| 0 | 4 | 0x00000000 (`0x00000000`) | 0x00000010 · f32 2.242078e-44 |
 | 4 | 12 | CApiVector3 (`0x85B82A43`) |  |
 | 16 | 12 | CApiVector3 (`0x85B82A43`) |  |
 | 28 | 12 | CApiVector3 (`0x85B82A43`) |  |

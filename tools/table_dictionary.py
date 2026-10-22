@@ -168,13 +168,16 @@ def geometry(plain: bytes, payload_at: int, payload: int, stride: int | None) ->
             used = count * stride
             if DESCRIPTOR + used <= payload:
                 tail = payload - DESCRIPTOR - used
-                power2 = count & (count - 1) == 0
-                layout = "array" if tail == 0 else ("hashmap+rows" if power2 else "array+tail")
-                return {"rows": count, "tail": tail, "layout": layout, "stride": stride}
+                # 2026-10-22: the leftover is a variable-length string blob, not a hashmap.  Verified on
+                # 36/36 groups of the five tables that used to look like hashmap+rows: the row's first
+                # u64 points into that blob, and the blob holds display names ("PISTOL-SMG 9x20mm.
+                # EXPLOSIVE", "nui_stratagem_backpack_ammo_name", "superearth"...).
+                return {"rows": count, "tail": tail, "from_header": True,
+                        "layout": "rows" if tail == 0 else "rows+blob", "stride": stride}
     if stride and payload >= stride:
-        return {"rows": payload // stride, "tail": payload % stride,
+        return {"rows": payload // stride, "tail": payload % stride, "from_header": False,
                 "layout": "raw" if payload % stride else "raw-array", "stride": stride}
-    return {"rows": None, "tail": None, "layout": "unknown", "stride": stride}
+    return {"rows": None, "tail": None, "from_header": False, "layout": "unknown", "stride": stride}
 
 
 def classify_primitive(blob: bytes) -> str:
@@ -240,7 +243,7 @@ def analyse_table(name: str, plain: bytes, dic: Dictionary) -> dict:
         "plain_size": len(plain),
         "groups": len(groups),
         "rows": rows_total,
-        "rows_exact": bool(groups) and leftover_total == 0,
+        "rows_exact": bool(groups) and all(d.get("from_header") for d in details),
         "layouts": sorted({d["layout"] for d in details}),
         "leftover_bytes": leftover_total,
         "types": list(seen_types.values()),
@@ -251,14 +254,15 @@ def analyse_table(name: str, plain: bytes, dic: Dictionary) -> dict:
 def write_markdown(tables: list[dict], dic: Dictionary, path: pathlib.Path,
                    plains: dict[str, bytes] | None = None) -> None:
     lines = ["# Table dictionary — build 25988413 (read-only)", "",
-             "`count` is read from each group's payload header (`u64 0x10, u64 count`); for a group",
-             "whose layout is `hashmap+rows` it is the **hashmap slot count**, not the number of rows.",
+             "`count` is read from each group's payload header (`u64 0x10, u64 count`) and **is the row",
+             "count** - including for the five tables whose payload also carries a trailing string blob.",
              "", "layout legend:", "",
              "| layout | meaning |", "|---|---|",
-             "| `array` | `16 + count*stride == payload`, exactly. Rows are clean and contiguous. |",
-             "| `array+tail` | same, plus a second unmapped block after the rows (explosion: 3,664 B). |",
-             "| `hashmap+rows` | count is a power of two: a hashmap slot array sits between the descriptor and the rows. |",
+             "| `rows` | `16 + count*stride == payload`, exactly. |",
+             "| `rows+blob` | `16 + count*stride <= payload`; the leftover is a **variable-length string blob** "
+             "(display names / localisation keys), and the rows hold offsets into it. |",
              "| `raw` | no `0x10` descriptor; the payload is rows directly. |", "",
+             "`array+tail` (explosion, 3,664 B) is the one table whose leftover is not strings.", "",
              "| table | plain B | groups | count | layout | element type(s) |",
              "|---|---:|---:|---:|---|---|"]
     for t in sorted(tables, key=lambda x: -x["plain_size"]):
