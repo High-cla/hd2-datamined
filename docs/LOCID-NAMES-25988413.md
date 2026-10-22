@@ -369,9 +369,15 @@ de 德语       it 意语   pl 波兰语 tc 繁中   ko 韩语   pt 葡语     r
 环境道具显示 `Environment`，Void 显示 `Unknowable Forces`；其余 421 行都是 0，
 也就是"归因给武器/战备本身的名字"。
 
-⚠ 未定：type 68 这个爆炸类型在旧 dump（249 行）里不存在，也没有 `ExplosionType_*` 名字；
-"它是 Void 的致死体积"是从文本主题 + 500 伤害 + 无消费方推出来的，没有直接证据把它
-绑到具体实体/地形上。
+**复核定案（不是孤儿）**：在全部 273 个实体块里找"值集完全落在爆炸类型 id 内"的列，
+只有一列含 68 —— `BombardmentComponentData +64`（23 行命中 / 17 个不同爆炸类型，
+`[68, 76, 79, 82, 86, 89, …]`）。引用它的那条记录属于实体 `0xAEDC4A073FB4B925`，
+组件是 `Bombardment + LoadoutPackage + OrbitalShip + StratagemFiresupport` ——
+**某个战备的火力支援弹幕**。所以 68 是"某战备的弹幕爆炸"，不是没人引用的孤儿；
+`Unknowable Forces` 是这个弹幕的归因文本。
+
+⚠ 仍未定：具体是哪一个战备（该实体没有百科名，`dev_name` 也为空）；以及它是否与 Void 相关
+（"500 伤害 + Void 主题措辞"只是高度指向，没有直接证据）。
 
 ---
 

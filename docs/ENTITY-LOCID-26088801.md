@@ -352,3 +352,87 @@ python tools/entity_locid_scan.py --dump-slot 56:0
 3. 想给 UI 文案做本地化替换：§6 那 12 个组件的 131 个槽已经定位（HUD/交互/目标），
    这是"改写游戏内提示文字"的现成入口。
 4. 解块 0 尾部的 u16 组件索引 → 能得到"实体 → 组件列表"，配合本表可以按组件类型批量筛选实体。
+
+---
+
+## 9. 复核补充（Lead，2026-10-22 晚）
+
+### 9.1 `+8` 不是"大写名"，是**归属/父级显示名**
+
+原文把 `+8` 当大写名（`name_upper`）。复核发现：517 条同时有 `+0/+8` 的条目里 **498 条**
+`+8 == +0.upper()`，剩下 **19 条不是**，而其中 **18 条** 的 `+8` 正好是**另一个实体的名字**：
+
+| 条目名（子） | `+8`（父） | 父实体类型 |
+|---|---|---|
+| `Fusion Repeater` | `FACTORY STRIDER` | unit |
+| `Ballistic Missile` | `CANNON TURRET` | unit |
+| `Chemical Backpack` ×2 | `BACKPACK` | backpack |
+| `Larva Container` | `SPECIMEN VESSEL` | （名字变体，百科里没有同名实体） |
+| `Wretch` | `WRETCH ` | enemy（尾随空格） |
+
+结构性佐证：这两个"子"实体的组件里都有
+`AttachableComponentData` + `TurretComponentData` + `WieldableComponentData` + `WeaponData` ——
+它们是**可挂载的炮塔/部件**，不是独立单位。wiki 的
+[Factory Strider](https://helldivers.wiki.gg/wiki/Factory_Strider) 也明写它"armed with twin
+fusion gatling guns and a large burst-cannon"，伤害表里就有 `Fusion Gatling Guns` 与
+`Repeater Cannon Impact / Blast`。
+
+所以正确读法是：**`+8` = 这个实体"挂在谁身上"的显示名**。独立物品时它等于自己名字的大写
+（`LIBERATOR`），部件/炮塔时它是**宿主**的名字（`FACTORY STRIDER`）。这也解释了为什么它
+覆盖只有 73%、且与 `+0` 不成大小写关系。
+
+### 9.2 爆炸类型 68 **不是孤儿**：被 `BombardmentComponentData +64` 引用
+
+在全部 273 个可拆块里找"值集完全落在爆炸类型 id 集合内"的列，命中 851 列；其中**只有一列**
+含 68：
+
+```
+BombardmentComponentData +64   23 行命中，17 个不同值：[68, 76, 79, 82, 86, 89, ...]
+```
+
+引用 68 的那一行（第 10 行）属于实体 `0xAEDC4A073FB4B925`，它的组件是：
+
+```
+BombardmentComponentData + LoadoutPackageComponentData
++ OrbitalShipComponentData + StratagemFiresupportComponentData
+```
+
+即**某个战备的火力支援弹幕**（轨道舰 + 火力支援 + 弹幕定义）。结合 §6.1 的
+`fallback_damage_loc_name = 'Unknowable Forces'`，68 是"某战备的弹幕爆炸"，
+归因文本写成"未知力量" —— 不是没人引用的孤儿，只是引用它的是**数据侧的战备弹幕**而不是投掷物。
+（具体是哪一个战备仍未定：这条实体没有百科名，`dev_name` 也是空的。）
+
+### 9.3 块 0 尾部那 27,050 个 u16：**不是块序号**（解码失败，但有替代品）
+
+试了最自然的假设——"每实体一条组件块序号表"——**不成立**：
+
+```
+u16 个数 27,050（= 54,100 B / 2，与组件引用总数吻合）
+去重 324 个值，值域 0..52,942（块序号只可能 0..274）
+直方图与各组件块的键数逐块比较：完全一致 0/273
+```
+
+所以它是引擎侧的组件类型索引（另一套编号），当前没有映射表可以翻译它。
+
+**替代方案已经做出来了**：不用这个数组，直接拿**每个组件块自己的哈希图**反查
+（`refs/entity-components.json`，`tools/entity_components.py`）：
+
+```
+有组件记录的实体 1,932（另有 7 个块的类型没被 typelib 描述）
+组件种类 272       最多的是 UnitComponentData 1,719 / Ability 994 / Behavior 993 / Attachable 812
+```
+
+**无名实体的成分**（1,289 个，支持"占位/未发布"的猜测但不全是）：
+
+| 特征 | 数量 |
+|---|---:|
+| 组件数 ≤ 3（空壳/纯标记） | 422 |
+| 含 `InteractableComponentData` | 254 |
+| 含 `HealthComponentData` | 260 |
+| 含 `DestructibleComponentData` | 216 |
+| 含 `WeaponDataComponentData` | 92 |
+| 含 `LoadoutEntryComponentData` | 8 |
+| 含 `EncyclopediaEntryComponentData` 却没有名字 | **32** |
+
+最后一行值得注意：**32 个实体有百科条目组件但名字槽是 0** —— 它们不是"没有名字"，是"百科条目
+还没填名字"，典型的未完成/占位内容。
