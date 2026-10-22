@@ -1,0 +1,474 @@
+{
+ "tables": {
+  "generated_add_resource_dependencies.dl_bin": {
+   "size": 228,
+   "old_size": 180,
+   "plaintext_sha256": "95e58846207015483086811d9bad4fa548c1feda3c3d1531bdc5434992de0373",
+   "old_plaintext_sha256": "95e58846207015483086811d9bad4fa548c1feda3c3d1531bdc5434992de0373",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_animation_event_trigger_settings.dl_bin": {
+   "size": 165116,
+   "status": "no-old-copy"
+  },
+  "generated_arc_settings.dl_bin": {
+   "size": 1756,
+   "old_size": 1708,
+   "plaintext_sha256": "b9319245ea9c018376878243f5516f816ed46b27441dde98b762c795035551fc",
+   "old_plaintext_sha256": "b9319245ea9c018376878243f5516f816ed46b27441dde98b762c795035551fc",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_beam_settings.dl_bin": {
+   "size": 3452,
+   "old_size": 3404,
+   "plaintext_sha256": "19989b016123c1f0816107e1352fa740e67ff5b134e77129fe04ce72a66b8a30",
+   "old_plaintext_sha256": "19989b016123c1f0816107e1352fa740e67ff5b134e77129fe04ce72a66b8a30",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_body_settings.dl_bin": {
+   "size": 164,
+   "status": "no-old-copy"
+  },
+  "generated_candidate_descs.dl_bin": {
+   "size": 860,
+   "old_size": 812,
+   "plaintext_sha256": "c12c82a09bf7bf291d067d417b40f4f664345fb11e5589d87ff573f49e3e8300",
+   "old_plaintext_sha256": "c12c82a09bf7bf291d067d417b40f4f664345fb11e5589d87ff573f49e3e8300",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_collision_event_settings.dl_bin": {
+   "size": 14492,
+   "status": "no-old-copy"
+  },
+  "generated_corporation_logos.dl_bin": {
+   "size": 412,
+   "status": "no-old-copy"
+  },
+  "generated_credits_settings.dl_bin": {
+   "size": 368276,
+   "status": "no-old-copy"
+  },
+  "generated_customization_armor_sets.dl_bin": {
+   "size": 453252,
+   "old_size": 453204,
+   "plaintext_sha256": "9dab2ea0b40a11e5d3b16eb5bd3d3e7d87fe61f34c0a060313162c82d3fe6274",
+   "old_plaintext_sha256": "9dab2ea0b40a11e5d3b16eb5bd3d3e7d87fe61f34c0a060313162c82d3fe6274",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_customization_passive_bonuses.dl_bin": {
+   "size": 4064,
+   "old_size": 4992,
+   "plaintext_sha256": "6ba67061fa05b1aa98cd9cbea19df182a80c6c07c5294440c6da41f3bbb8ad40",
+   "old_plaintext_sha256": "ca5b6b33dfe0b4b6f2dfe0366ea21bd6161d0f556a81e456a9e201bf9e28db40",
+   "seal_bytes": 48,
+   "status": "changed",
+   "new": {
+    "bytes": 4016,
+    "groups": 33
+   },
+   "old": {
+    "bytes": 4992,
+    "groups": 33
+   },
+   "groups_added": 0,
+   "groups_differing": 31,
+   "group_diff_sample": [
+    {
+     "group": 0,
+     "old": {
+      "type_id": 1674448875,
+      "payload": 104,
+      "count": 3909884262665565598
+     },
+     "new": {
+      "type_id": 1674448875,
+      "payload": 72,
+      "count": 3909884262665565598
+     }
+    },
+    {
+     "group": 1,
+     "old": {
+      "type_id": 1674448875,
+      "payload": 120,
+      "count": 7220701343999486723
+     },
+     "new": {
+      "type_id": 1674448875,
+      "payload": 88,
+      "count": 7220701343999486723
+     }
+    },
+    {
+     "group": 2,
+     "old": {
+      "type_id": 1674448875,
+      "payload": 120,
+      "count": 8971604784772864229
+     },
+     "new": {
+      "type_id": 1674448875,
+      "payload": 88,
+      "count": 8971604784772864229
+     }
+    },
+    {
+     "group": 4,
+     "old": {
+      "type_id": 1674448875,
+      "payload": 136,
+      "count": 877357772513077712
+     },
+     "new": {
+      "type_id": 1674448875,
+      "payload": 120,
+      "count": 877357772513077712
+     }
+    },
+    {
+     "group": 5,
+     "old": {
+      "type_id": 1674448875,
+      "payload": 136,
+      "count": 18405820598090931089
+     },
+     "new": {
+      "type_id": 1674448875,
+      "payload": 104,
+      "count": 18405820598090931089
+     }
+    },
+    {
+     "group": 6,
+     "old": {
+      "type_id": 1674448875,
+      "payload": 136,
+      "count": 14181612098193013467
+     },
+     "new": {
+      "type_id": 1674448875,
+      "payload": 104,
+      "count": 14181612098193013467
+     }
+    }
+   ]
+  },
+  "generated_damage_settings.dl_bin": {
+   "size": 50384,
+   "old_size": 50336,
+   "plaintext_sha256": "c28bce58c816a8008ca9e4a761eca6249c34680cb23c6f988a2435ec677c598d",
+   "old_plaintext_sha256": "c28bce58c816a8008ca9e4a761eca6249c34680cb23c6f988a2435ec677c598d",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_destruction_settings.dl_bin": {
+   "size": 1643958,
+   "status": "no-old-copy"
+  },
+  "generated_distant_war_effect_settings.dl_bin": {
+   "size": 1516,
+   "status": "no-old-copy"
+  },
+  "generated_entities.dl_bin": {
+   "size": 47259444,
+   "old_size": 47259396,
+   "plaintext_sha256": "dc6d52a14900942b2f59f56bf8ab1552259832202dcb0745c3c84a009ff5f98b",
+   "old_plaintext_sha256": "dc6d52a14900942b2f59f56bf8ab1552259832202dcb0745c3c84a009ff5f98b",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_entity_deltas.dl_bin": {
+   "size": 352393,
+   "old_size": 352345,
+   "plaintext_sha256": "78841155dfe02f567cbc7c21239a16fd5273910a9f0ce9537fc9a9c86b3f9ca7",
+   "old_plaintext_sha256": "78841155dfe02f567cbc7c21239a16fd5273910a9f0ce9537fc9a9c86b3f9ca7",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_environment_settings.dl_bin": {
+   "size": 11010,
+   "status": "no-old-copy"
+  },
+  "generated_explosion_settings.dl_bin": {
+   "size": 68204,
+   "old_size": 68156,
+   "plaintext_sha256": "96d0b30f5ef3e68d882beca7058f16defce345d1631656ed1ee5f8907b3eea79",
+   "old_plaintext_sha256": "96d0b30f5ef3e68d882beca7058f16defce345d1631656ed1ee5f8907b3eea79",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_font_lookup.dl_bin": {
+   "size": 652,
+   "status": "no-old-copy"
+  },
+  "generated_font_settings.dl_bin": {
+   "size": 6028,
+   "status": "no-old-copy"
+  },
+  "generated_galactic_presence_settings.dl_bin": {
+   "size": 155901,
+   "status": "no-old-copy"
+  },
+  "generated_generation_settings.dl_bin": {
+   "size": 10444,
+   "status": "no-old-copy"
+  },
+  "generated_hit_effect_settings.dl_bin": {
+   "size": 72668,
+   "old_size": 72620,
+   "plaintext_sha256": "3cdf78281377b8d6280312cd26778472b2c7c7d60c7303ed45c61b48e3169032",
+   "old_plaintext_sha256": "3cdf78281377b8d6280312cd26778472b2c7c7d60c7303ed45c61b48e3169032",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_language_settings.dl_bin": {
+   "size": 3996,
+   "status": "no-old-copy"
+  },
+  "generated_layer_package_indirection_settings.dl_bin": {
+   "size": 156,
+   "status": "no-old-copy"
+  },
+  "generated_location_groups.dl_bin": {
+   "size": 397154,
+   "status": "no-old-copy"
+  },
+  "generated_modifier_settings.dl_bin": {
+   "size": 1812,
+   "old_size": 1764,
+   "plaintext_sha256": "a59b96b1b2bbfe46ea5efa2400872e0db44e32c783eb7ca8b993b7e3a3a3d322",
+   "old_plaintext_sha256": "a59b96b1b2bbfe46ea5efa2400872e0db44e32c783eb7ca8b993b7e3a3a3d322",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_planet_color_set_settings.dl_bin": {
+   "size": 2012,
+   "status": "no-old-copy"
+  },
+  "generated_planet_data.dl_bin": {
+   "size": 369588,
+   "old_size": 369540,
+   "plaintext_sha256": "a17701ac3b0f2221bae7d85507bf97469ffa83b620f06001602737c68070d296",
+   "old_plaintext_sha256": "a17701ac3b0f2221bae7d85507bf97469ffa83b620f06001602737c68070d296",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_planet_override_settings.dl_bin": {
+   "size": 35522,
+   "status": "no-old-copy"
+  },
+  "generated_planet_region_settings.dl_bin": {
+   "size": 61533,
+   "status": "no-old-copy"
+  },
+  "generated_planet_territory_graphs.dl_bin": {
+   "size": 1574676,
+   "status": "no-old-copy"
+  },
+  "generated_planet_types_settings.dl_bin": {
+   "size": 16892,
+   "status": "no-old-copy"
+  },
+  "generated_policy_settings.dl_bin": {
+   "size": 528,
+   "old_size": 480,
+   "plaintext_sha256": "6ecbfe937809ebe1a8bafaa388e9c6e623367dbc870759e1b316bb714354d989",
+   "old_plaintext_sha256": "6ecbfe937809ebe1a8bafaa388e9c6e623367dbc870759e1b316bb714354d989",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_projectile_settings.dl_bin": {
+   "size": 96652,
+   "old_size": 96604,
+   "plaintext_sha256": "a2f3046fb251bd7ce456e88db4df1d7e1def3b778df4a020ce3a631d7454ae82",
+   "old_plaintext_sha256": "a2f3046fb251bd7ce456e88db4df1d7e1def3b778df4a020ce3a631d7454ae82",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_region_settings.dl_bin": {
+   "size": 259675,
+   "old_size": 259627,
+   "plaintext_sha256": "8a075df5971ee4f86a39759d4cfbe30f3af85e65f3af87152988b71ff6e9fee1",
+   "old_plaintext_sha256": "8a075df5971ee4f86a39759d4cfbe30f3af85e65f3af87152988b71ff6e9fee1",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_resource_swap.dl_bin": {
+   "size": 72,
+   "status": "no-old-copy"
+  },
+  "generated_route_settings.dl_bin": {
+   "size": 484,
+   "status": "no-old-copy"
+  },
+  "generated_satellite_groups.dl_bin": {
+   "size": 83461,
+   "status": "no-old-copy"
+  },
+  "generated_scenario_settings.dl_bin": {
+   "size": 8140,
+   "status": "no-old-copy"
+  },
+  "generated_sky_settings.dl_bin": {
+   "size": 12532,
+   "status": "no-old-copy"
+  },
+  "generated_solar_system_settings.dl_bin": {
+   "size": 91812,
+   "status": "no-old-copy"
+  },
+  "generated_stamp_settings.dl_bin": {
+   "size": 678172,
+   "status": "no-old-copy"
+  },
+  "generated_status_effect_settings.dl_bin": {
+   "size": 14068,
+   "old_size": 14020,
+   "plaintext_sha256": "19a98ff7151ddad048cbf1b292fd2d4c59d9fcad1b546a57446d7329de487a2e",
+   "old_plaintext_sha256": "19a98ff7151ddad048cbf1b292fd2d4c59d9fcad1b546a57446d7329de487a2e",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_stratagem_settings.dl_bin": {
+   "size": 82432,
+   "old_size": 82384,
+   "plaintext_sha256": "925fc5da32a1e3a822807ea7571fd0979c571e5e4ea16142ee6a4968d40ca078",
+   "old_plaintext_sha256": "925fc5da32a1e3a822807ea7571fd0979c571e5e4ea16142ee6a4968d40ca078",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_stratagem_upgrade_settings.dl_bin": {
+   "size": 181,
+   "old_size": 133,
+   "plaintext_sha256": "6632186bd3f3407422d20f63a0faecbaee3641aaffaf24d37b6080e38e6489a9",
+   "old_plaintext_sha256": "6632186bd3f3407422d20f63a0faecbaee3641aaffaf24d37b6080e38e6489a9",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_surface_effect_settings.dl_bin": {
+   "size": 305852,
+   "status": "no-old-copy"
+  },
+  "generated_unit_customization_settings.dl_bin": {
+   "size": 27792,
+   "old_size": 27744,
+   "plaintext_sha256": "e287dec5d09541c4e047539861a6b69eeba2f6fa6a4bb7548f58ebdc6a5dff18",
+   "old_plaintext_sha256": "e287dec5d09541c4e047539861a6b69eeba2f6fa6a4bb7548f58ebdc6a5dff18",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_unit_effect_settings.dl_bin": {
+   "size": 63052,
+   "status": "no-old-copy"
+  },
+  "generated_video_flow_settings.dl_bin": {
+   "size": 2108,
+   "status": "no-old-copy"
+  },
+  "generated_video_ui_settings.dl_bin": {
+   "size": 1172,
+   "status": "no-old-copy"
+  },
+  "generated_weapon_customization_settings.dl_bin": {
+   "size": 30872,
+   "old_size": 30824,
+   "plaintext_sha256": "b6de74a8c70d27a91f85ce24602007d583896efec4e65d7ebd8a0cbcef266c0a",
+   "old_plaintext_sha256": "b6de74a8c70d27a91f85ce24602007d583896efec4e65d7ebd8a0cbcef266c0a",
+   "seal_bytes": 48,
+   "status": "same"
+  },
+  "generated_weather_color_set_settings.dl_bin": {
+   "size": 25964,
+   "status": "no-old-copy"
+  },
+  "generated_weather_settings.dl_bin": {
+   "size": 162956,
+   "status": "no-old-copy"
+  },
+  "generated_zone_data.dl_bin": {
+   "size": 518526,
+   "old_size": 518478,
+   "plaintext_sha256": "a736fbd25606ccd3ddd9e5242002e42d20ee0652b70c44a9dda322b2675ce788",
+   "old_plaintext_sha256": "a736fbd25606ccd3ddd9e5242002e42d20ee0652b70c44a9dda322b2675ce788",
+   "seal_bytes": 48,
+   "status": "same"
+  }
+ },
+ "binaries": {
+  "bin/helldivers2.exe": {
+   "size": 28743256,
+   "sha256": "0acc07debe04714ae04281e1a66bd2eb9d3d85232953e32a93c8a3dd0874eabe",
+   "old_size": 28743256,
+   "old_sha256": "2ce8b3d74c5573088e4211b060ced0963f1fc1e74526e2645399780b8fb13ff7",
+   "changed": true
+  },
+  "data/game/game.dll": {
+   "size": 49075800,
+   "sha256": "6d1d4d3bc6fc84801d9f8f1b310e13a603d07409f3d9495d74b42e1d0bb1c08f",
+   "old_size": 49075800,
+   "old_sha256": "a457433f0eb766fbe15a6de5a16f0fbbb1fd3c840c5607a5f0b2ebf53b112949",
+   "changed": true
+  },
+  "data/bundle_database.data": {
+   "size": 186515,
+   "sha256": "38625a74a24cf324c01d66dbd73564ae28af1877e321a30a98fceaab4e47105b",
+   "old_size": 186515,
+   "old_sha256": "38625a74a24cf324c01d66dbd73564ae28af1877e321a30a98fceaab4e47105b",
+   "changed": false
+  },
+  "data/bundles.nxa": {
+   "size": 6505737,
+   "sha256": "f8308d880df0f720f5baaf2acaa34003036e13c377ec9ff1021f51c179aa9933",
+   "old_size": 6505586,
+   "old_sha256": "de3256e8119fdd29e05c832efddd5c78aaf62d824e956c0a13ccb758dca8e5a9",
+   "changed": true
+  }
+ },
+ "summary": {
+  "changed": [
+   "generated_customization_passive_bonuses.dl_bin"
+  ],
+  "unchanged": 21,
+  "decrypt_failed": [],
+  "no_old_copy": [
+   "generated_animation_event_trigger_settings.dl_bin",
+   "generated_body_settings.dl_bin",
+   "generated_collision_event_settings.dl_bin",
+   "generated_corporation_logos.dl_bin",
+   "generated_credits_settings.dl_bin",
+   "generated_destruction_settings.dl_bin",
+   "generated_distant_war_effect_settings.dl_bin",
+   "generated_environment_settings.dl_bin",
+   "generated_font_lookup.dl_bin",
+   "generated_font_settings.dl_bin",
+   "generated_galactic_presence_settings.dl_bin",
+   "generated_generation_settings.dl_bin",
+   "generated_language_settings.dl_bin",
+   "generated_layer_package_indirection_settings.dl_bin",
+   "generated_location_groups.dl_bin",
+   "generated_planet_color_set_settings.dl_bin",
+   "generated_planet_override_settings.dl_bin",
+   "generated_planet_region_settings.dl_bin",
+   "generated_planet_territory_graphs.dl_bin",
+   "generated_planet_types_settings.dl_bin",
+   "generated_resource_swap.dl_bin",
+   "generated_route_settings.dl_bin",
+   "generated_satellite_groups.dl_bin",
+   "generated_scenario_settings.dl_bin",
+   "generated_sky_settings.dl_bin",
+   "generated_solar_system_settings.dl_bin",
+   "generated_stamp_settings.dl_bin",
+   "generated_surface_effect_settings.dl_bin",
+   "generated_unit_effect_settings.dl_bin",
+   "generated_video_flow_settings.dl_bin",
+   "generated_video_ui_settings.dl_bin",
+   "generated_weather_color_set_settings.dl_bin",
+   "generated_weather_settings.dl_bin"
+  ]
+ }
+}

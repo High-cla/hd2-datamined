@@ -39,6 +39,9 @@
 | `explosion_names_from_chain.py` | 爆炸行没有名字字段，改从引用链命名：投掷物 `+144/+156` → 爆炸 `+0`，输出每个爆炸行的消费方（共用关系一目了然） | PyNaCl（无）+ `typelib.py` | ✓ 210 条边 / 0 悬空；103 个爆炸行有名字（97 唯一 + 6 共用）|
 | `strings_inventory.py` | 清点 `.strings` 语料：语言分布（`ThinHash` 反查 15 种语言）、每个 bundle 的 distinct 英文 blob 数、ID 并集。**只读文件头 16 字节** | 标准库 | ✓ 证明英文语料是全局唯一那 18 个 blob |
 | `table_dictionary.py` | **全表字典**：解封 55 张表 → 组/行数/步长/尾块 + 每个类型的字段偏移树（需自备 `recipient.sk`） | PyNaCl + `typelib.py` | ✓ 55/55 表解析（18 张几何完全闭合） |
+| `build_diff.py` | 更新后逐表回答"改了什么"：文件层（size/sha256）→ 封装层（解封后比**明文**哈希）→ 结构层（组数/行数/步长）。只读 | PyNaCl | ✓ 25988413→26088801：55 张表 0 变化，exe/dll 哈希变 |
+| `build_geometry_diff.py` | 用旧 build 的字典几何（`refs/table-geometry.json`）对照当前 55 张表：多大/多组/多少行，哪张被动过一目了然 | PyNaCl | ✓ 同一次更新：identical 21 / structure-same 33 / changed 0 |
+| `build_cache.py` | 把当前 build 的 55 张表 + 类型库解封成明文缓存，**按 buildid 另存**（`refs/dlbin/plaintext-<buildid>/`）。更新后第一件事就是跑它 | PyNaCl | ✓ 26088801：56/56 解封 |
 | `entities_modeb.py` | 实体表：武器单元格编辑、可选弹种（模式 A/B）、双弹药池、hashmap 维护 | `murmur64.py` | ✓✓ 已实机（主宰/惩罚者/扫荡者） |
 | `proj_copy_row.py` | 整行搬运 272 B 射弹行（换弹头），带 5 道门禁 | `murmur64.py` | ✓✓ 已实机（Eruptor 弹头 → 主宰） |
 | `expl_set.py` | 写爆炸行字段（半径 / 破片数 `+80` / 破片射弹 `+84`），带 6 道门禁 | `murmur64.py` | ✓✓ 已实机（毒气爆炸加 30 破片） |
