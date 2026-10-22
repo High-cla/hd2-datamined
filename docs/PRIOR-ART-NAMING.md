@@ -78,3 +78,48 @@ nui_stratagem_backpack_ammo_name   ->  游戏内显示名   ->  wiki 页面标�
 | 仓库树里搜 `stratagem` 路径 | **零命中**——filediver 不含 stratagem 表 |
 
 **没有现成的"内部名 ↔ wiki 名"映射表**。社区的做法是各自解 strings 表，然后自己 join。
+
+## 5. 验收结果：这条路通了，而且比预期好
+
+按 §3 的路线做了小步验证（`tools/stratagem_display_names.py`），三步全过：
+
+**① 格式确认。** `srkit list <bundle> --type strings` 在 bundle.00 里就有 265 个字符串资源；
+`srkit unpack --type strings` 批量取出后，头部是 `ae f3 85 3e | version 1 | count | language`，
+后面是 `count × id` 表 + `count × offset` 表 + NUL 分隔的 UTF-8 文本。
+
+**② 哈希确认。** 头部 `language` 字段在英文那份里是 **`0x03F97B57`**，正好等于
+`murmur64a("us", seed 0)` 的高 32 位；另一份是 `0x6F4515CB` = `ThinHash("gb")`。
+与 filediver 的 `Sum(x).Thin()` 完全一致。
+
+**③ 关键发现：行里直接存的是本地化 ID，不是键哈希。**
+
+| 偏移 | 内容 | 证据 |
+|---:|---|---|
+| `+40` | 大写名 ID | `SUPPLY PACK` |
+| **`+44`** | **显示名 ID** | **`Supply Pack`** |
+| `+48` | 描述 ID | 该条描述正文 |
+
+拿 `nui_stratagem_backpack_ammo_name` 去算哈希查表是**不通的**（full64 / thin-hi / thin-lo / BE
+四种形式都不在表里）——因为表里存的是构建期分配的递增 ID，不是键哈希。**换成"行里读 ID"就通了。**
+
+### 覆盖率（仅 bundle.00）
+
+| 指标 | 数量 |
+|---|---:|
+| 行总数 | 153 |
+| 显示名解出 | **135** |
+| 其中对上 wiki 页面 | **107**（37 精确 + 70 带厂商前缀，如 `SH-20 Ballistic Shield Backpack`）|
+| 无独立页面 | 28（`Rover`、`Eagle Fly By`、`Drilling Charge` 等非面板条目）|
+
+对比之前的别名桥（38 条），这是 **2.8 倍**，而且不是猜——是行自己的 ID。
+
+剩余 18 行（多为任务物件）的 ID 在别的 bundle 里，把更多 bundle 解出来即可补齐。
+
+```bash
+python -m srkit unpack "<game>/data/bundles.00.nxa" -o <dir> --type strings --no-gpu --no-stream
+python tools/stratagem_display_names.py --sk <recipient.sk> --strings <dir>
+```
+
+（§4 里那三个待确认项现在都有答案：哈希是 murmur64a/seed 0 取高 32 位；`.strings` 用
+`srkit unpack --type strings` 定位；不需要手写 bundle 索引解析。）
+

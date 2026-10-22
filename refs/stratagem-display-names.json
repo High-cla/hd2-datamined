@@ -1,0 +1,2668 @@
+{
+ "count": 153,
+ "named": 135,
+ "rows": [
+  {
+   "internal_name": "BACKPACK. SUPPLY BACKPACK",
+   "name_id": 2260948921,
+   "upper_id": 2410151153,
+   "desc_id": 3975000072,
+   "upper": "SUPPLY PACK",
+   "display_name": "Supply Pack",
+   "description": "Supply boxes containing ammunition, with a backpack that allows the user to distribute boxes to fellow Helldivers.",
+   "cells": {
+    "type_value": 104,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 21
+   },
+   "wiki_title": "B-1 Supply Pack",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK. BALLISTIC SHIELD BACKPACK",
+   "name_id": 3265833747,
+   "upper_id": 430638869,
+   "desc_id": 1818586518,
+   "upper": "BALLISTIC SHIELD BACKPACK",
+   "display_name": "Ballistic Shield Backpack",
+   "description": "A backpack which can be wielded as a one-handed ballistic shield, protecting against small arms fire.",
+   "cells": {
+    "type_value": 99,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 240.0,
+    "cell": 23
+   },
+   "wiki_title": "SH-20 Ballistic Shield Backpack",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK. DIRECTIONAL ENERGY SHIELD",
+   "name_id": 3051489675,
+   "upper_id": 1141542311,
+   "desc_id": 2968071618,
+   "upper": "DIRECTIONAL SHIELD",
+   "display_name": "Directional Shield",
+   "description": "A one-handed device that deploys a wide energy barrier in front of the user. The barrier is semipermeable and blocks high-speed projectiles from the outside only, leaving the user free to shoot through it.",
+   "cells": {
+    "type_value": 70,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 300.0,
+    "cell": 23
+   },
+   "wiki_title": "SH-51 Directional Shield",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK.  GENERATOR PACK",
+   "name_id": 1111626971,
+   "upper_id": 2859707695,
+   "desc_id": 2714093614,
+   "upper": "SHIELD GENERATOR PACK",
+   "display_name": "Shield Generator Pack",
+   "description": "Encloses the wearer in a spherical shield which blocks high-speed projectiles.",
+   "cells": {
+    "type_value": 44,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 23
+   },
+   "wiki_title": "SH-32 Shield Generator Pack",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK. JUMPPACK BACKPACK",
+   "name_id": 2872120750,
+   "upper_id": 2204198870,
+   "desc_id": 3461754799,
+   "upper": "JUMP PACK",
+   "display_name": "Jump Pack",
+   "description": "Enables the user to jump higher than 'gravity' and 'safety' would normally allow. Must be charged before use.",
+   "cells": {
+    "type_value": 137,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 22
+   },
+   "wiki_title": "LIFT-850 Jump Pack",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK. HOVERPACK BACKPACK",
+   "name_id": 2768994609,
+   "upper_id": 3727877127,
+   "desc_id": 3871291455,
+   "upper": "HOVER PACK",
+   "display_name": "",
+   "description": "Offers its user brief fixed-height flight, stable enough for pinpoint marksmanship.",
+   "cells": {
+    "type_value": 57,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 22
+   }
+  },
+  {
+   "internal_name": "BACKPACK. GUARD DOG (Drone)",
+   "name_id": 3939201276,
+   "upper_id": 1615718868,
+   "desc_id": 4200594030,
+   "upper": "GUARD DOG",
+   "display_name": "Guard Dog",
+   "description": "An autonomous drone equipped with a Liberator assault rifle, providing 360° cover. Returns to backpack to rearm.",
+   "cells": {
+    "type_value": 76,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 24
+   },
+   "wiki_title": "AX/AR-23 Guard Dog",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK. Laser Rifle (Drone)",
+   "name_id": 2902819083,
+   "upper_id": 3575690541,
+   "desc_id": 1177236491,
+   "upper": "ROVER",
+   "display_name": "Rover",
+   "description": "An autonomous drone equipped with a laser rifle, providing 360° cover. Returns to backpack to cool down.",
+   "cells": {
+    "type_value": 118,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 24
+   }
+  },
+  {
+   "internal_name": "BACKPACK. GUARD DOG GAS PROJECTOR (Drone)",
+   "name_id": 2938726003,
+   "upper_id": 2499481182,
+   "desc_id": 1310660946,
+   "upper": "DOG BREATH",
+   "display_name": "Dog Breath",
+   "description": "A drone that defends its user by firing caustic gas at nearby enemies, blinding and slowing them temporarily. Returns to backpack to refill.",
+   "cells": {
+    "type_value": 146,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 24
+   },
+   "wiki_title": "AX/TX-13 Dog Breath",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK. GUARD DOG FLAMETHROWER (Drone)",
+   "name_id": 2184600406,
+   "upper_id": 3321311549,
+   "desc_id": 296742774,
+   "upper": "HOT DOG",
+   "display_name": "Hot Dog",
+   "description": "An autonomous drone equipped with a flamethrower. Returns to backpack to refill fuel canisters.",
+   "cells": {
+    "type_value": 59,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 24
+   },
+   "wiki_title": "AX/FLAM-75 Hot Dog",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK. HELLBOMB",
+   "name_id": 2306470396,
+   "upper_id": 861327809,
+   "desc_id": 2210047765,
+   "upper": "PORTABLE HELLBOMB",
+   "display_name": "Portable Hellbomb",
+   "description": "A backpack-mounted Hellbomb that can be armed by the wearer or an ally, starting a countdown. Users are recommended to remove the backpack before the countdown reaches zero.",
+   "cells": {
+    "type_value": 123,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 300.0,
+    "cell": 21
+   },
+   "wiki_title": "B-100 Portable Hellbomb",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK. DISPLACEMENT BACKPACK",
+   "name_id": 2771179215,
+   "upper_id": 3940822269,
+   "desc_id": 1512212255,
+   "upper": "WARP PACK",
+   "display_name": "Warp Pack",
+   "description": "A Dark Fluid-powered backpack that generates a portable micro-wormhole. This safe and well-understood technology allows the wearer to warp short distances. Warning: do not use while pack is overloaded.",
+   "cells": {
+    "type_value": 24,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 22
+   },
+   "wiki_title": "LIFT-182 Warp Pack",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "BACKPACK. GUARD DOG (Drone) Stun",
+   "name_id": 2696171705,
+   "upper_id": 2744645738,
+   "desc_id": 2167250335,
+   "upper": "K-9",
+   "display_name": "K-9",
+   "description": "A humane, autonomous drone equipped with a modified Arc Thrower. Capable of projecting arcs of lightning through multiple targets. Does not need to recharge between shots.",
+   "cells": {
+    "type_value": 2,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 480.0,
+    "cell": 24
+   }
+  },
+  {
+   "internal_name": "CONSUMABLES. RESUPPLY",
+   "name_id": 1673875834,
+   "upper_id": 1263463686,
+   "desc_id": 2806852005,
+   "upper": "RESUPPLY",
+   "display_name": "Resupply",
+   "description": "A Hellpod containing four supply packs, to replenish personal ammunition and stims in the field.",
+   "cells": {
+    "type_value": 34,
+    "uses": 4294967295,
+    "callin": 7.5,
+    "cooldown": 180.0,
+    "cell": 0
+   },
+   "wiki_title": "Resupply",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "CONSUMABLES. HEALTH PACK RACK",
+   "name_id": 2673704303,
+   "upper_id": 2273284544,
+   "desc_id": 323223727,
+   "upper": "MEDICAL SUPPLIES",
+   "display_name": "Medical Supplies",
+   "description": "",
+   "cells": {
+    "type_value": 80,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 300.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "EAGLE. AIR SUPPORT",
+   "name_id": 862552343,
+   "upper_id": 3407205415,
+   "desc_id": 3222052854,
+   "upper": "EAGLE STRAFING RUN",
+   "display_name": "Eagle Strafing Run",
+   "description": "A strafing run of the battlefield to clear small targets, delivered almost instantly.",
+   "cells": {
+    "type_value": 31,
+    "uses": 4,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 7
+   },
+   "wiki_title": "Eagle Strafing Run",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "EAGLE. 500KG BOMB",
+   "name_id": 2994328991,
+   "upper_id": 1057738842,
+   "desc_id": 898053559,
+   "upper": "EAGLE 500KG BOMB",
+   "display_name": "Eagle 500kg Bomb",
+   "description": "A large bomb obliterating almost any target close to impact. Make sure to clear the area.",
+   "cells": {
+    "type_value": 3,
+    "uses": 1,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 7
+   },
+   "wiki_title": "Eagle 500kg Bomb",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "EAGLE. 110mm ROCKET PODS",
+   "name_id": 677845368,
+   "upper_id": 814764658,
+   "desc_id": 3175686507,
+   "upper": "EAGLE 110MM ROCKET PODS",
+   "display_name": "Eagle 110mm Rocket Pods",
+   "description": "A barrage of rocket pods, which the Eagle pilot will release on the largest target near the stratagem beacon.",
+   "cells": {
+    "type_value": 143,
+    "uses": 3,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 8
+   },
+   "wiki_title": "Eagle 110mm Rocket Pods",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "EAGLE. AIRSTRIKE",
+   "name_id": 1584817746,
+   "upper_id": 1481032983,
+   "desc_id": 2253302537,
+   "upper": "EAGLE AIRSTRIKE",
+   "display_name": "Eagle Airstrike",
+   "description": "A barrage of bombs creating a non-targeted carpet of explosions.",
+   "cells": {
+    "type_value": 18,
+    "uses": 2,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 9
+   },
+   "wiki_title": "Eagle Airstrike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "EAGLE. NAPALM AIRSTRIKE",
+   "name_id": 1278805896,
+   "upper_id": 1829446953,
+   "desc_id": 459824368,
+   "upper": "EAGLE NAPALM AIRSTRIKE",
+   "display_name": "Eagle Napalm Airstrike",
+   "description": "A barrage of napalm bombs, creating a wall of fire which will stop the enemy in their tracks.",
+   "cells": {
+    "type_value": 136,
+    "uses": 2,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 9
+   },
+   "wiki_title": "Eagle Napalm Airstrike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "EAGLE. CLUSTERBOMBS",
+   "name_id": 3901855692,
+   "upper_id": 662406178,
+   "desc_id": 1419287698,
+   "upper": "EAGLE CLUSTER BOMB",
+   "display_name": "Eagle Cluster Bomb",
+   "description": "A targeted air strike unable to destroy buildings, but efficient at clearing smaller targets.",
+   "cells": {
+    "type_value": 68,
+    "uses": 4,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 9
+   },
+   "wiki_title": "Eagle Cluster Bomb",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "EAGLE. AIRSTRIKE SMOKE",
+   "name_id": 2087441269,
+   "upper_id": 4146936660,
+   "desc_id": 2577236392,
+   "upper": "EAGLE SMOKE STRIKE",
+   "display_name": "Eagle Smoke Strike",
+   "description": "A barrage of smoke grenades, creating a thick smoke screen to block enemies' line of sight.",
+   "cells": {
+    "type_value": 39,
+    "uses": 2,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 10
+   },
+   "wiki_title": "Eagle Smoke Strike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "EAGLE. Gas AIRSTRIKE",
+   "name_id": 513886541,
+   "upper_id": 1847228075,
+   "desc_id": 1374645675,
+   "upper": "EAGLE GAS AIRSTRIKE ",
+   "display_name": "Eagle Gas Airstrike ",
+   "description": "A barrage of gas bombs that leave a corrosive gas cloud in their wake.",
+   "cells": {
+    "type_value": 129,
+    "uses": 2,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 9
+   },
+   "wiki_title": "Eagle Gas Airstrike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "EAGLE. REARM",
+   "name_id": 2109771423,
+   "upper_id": 2306949512,
+   "desc_id": 830421671,
+   "upper": "EAGLE REARM",
+   "display_name": "Eagle Rearm",
+   "description": "Order the Eagle Fighter to return to the ship, where it can restock its armaments.",
+   "cells": {
+    "type_value": 51,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 150.0,
+    "cell": 7
+   },
+   "wiki_title": "Eagle Rearm",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "EAGLE. (NOT USED) ADDITIONAL STRAFING RUNS",
+   "name_id": 2283799497,
+   "upper_id": 3236255620,
+   "desc_id": 2285331910,
+   "upper": "",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 36,
+    "uses": 3,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 7
+   }
+  },
+  {
+   "internal_name": "EAGLE. (NOT USED) AIR-TO-AIR MISSLES",
+   "name_id": 391548033,
+   "upper_id": 618026027,
+   "desc_id": 3073176943,
+   "upper": "EAGLE AIR-TO-AIR MISSILES",
+   "display_name": "Eagle Air-to-Air Missiles",
+   "description": "Aspect-seeking air-to-air missiles, to eliminate most flying targets in the vicinity.",
+   "cells": {
+    "type_value": 150,
+    "uses": 2,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 7
+   }
+  },
+  {
+   "internal_name": "EMPLACEMENTS. DEFENSE WALL GRENADE LAUNCHER",
+   "name_id": 3625143144,
+   "upper_id": 1044194585,
+   "desc_id": 189153727,
+   "upper": "GRENADIER BATTLEMENT",
+   "display_name": "Grenadier Battlement",
+   "description": "A stationary ballistic cover with a mounted grenade launcher. Can protect multiple Helldivers from small arms fire.",
+   "cells": {
+    "type_value": 61,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 120.0,
+    "cell": 33
+   },
+   "wiki_title": "E/GL-21 Grenadier Battlement",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "EMPLACEMENTS. SHIELD GENERATOR RELAY",
+   "name_id": 4198351113,
+   "upper_id": 1557897402,
+   "desc_id": 3644933986,
+   "upper": "SHIELD GENERATOR RELAY",
+   "display_name": "Shield Generator Relay",
+   "description": "A stationary energy shield which provides cover against projectiles. Has a limited lifetime once deployed.",
+   "cells": {
+    "type_value": 22,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 90.0,
+    "cell": 33
+   },
+   "wiki_title": "FX-12 Shield Generator Relay",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "EMPLACEMENTS. HEAVY MACHINEGUN EMPLACEMENT",
+   "name_id": 90063288,
+   "upper_id": 1366895198,
+   "desc_id": 2279292804,
+   "upper": "HMG EMPLACEMENT",
+   "display_name": "HMG Emplacement",
+   "description": "A manned gun emplacement offering superior firepower against lightly armored targets. Slow to turn, so place it wisely.",
+   "cells": {
+    "type_value": 148,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 180.0,
+    "cell": 34
+   },
+   "wiki_title": "E/MG-101 HMG Emplacement",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "EMPLACEMENTS. ANTI-PERSONNEL MINE DEPLOYER",
+   "name_id": 351997015,
+   "upper_id": 2248440908,
+   "desc_id": 3253166361,
+   "upper": "ANTI-PERSONNEL MINEFIELD",
+   "display_name": "Anti-Personnel Minefield",
+   "description": "Deploys a defensive anti-personnel minefield, to halt enemy advance.",
+   "cells": {
+    "type_value": 122,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 120.0,
+    "cell": 36
+   },
+   "wiki_title": "MD-6 Anti-Personnel Minefield",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "EMPLACEMENTS. INCENDIARY MINE DEPLOYER",
+   "name_id": 17580256,
+   "upper_id": 2772178636,
+   "desc_id": 790986208,
+   "upper": "INCENDIARY MINES",
+   "display_name": "Incendiary Mines",
+   "description": "Deploys a defensive incendiary minefield, which will set both terrain and targets alight when triggered.",
+   "cells": {
+    "type_value": 142,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 120.0,
+    "cell": 36
+   },
+   "wiki_title": "MD-I4 Incendiary Mines",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "EMPLACEMENTS. ANTI-TANK MINE DEPLOYER",
+   "name_id": 1747218844,
+   "upper_id": 721197452,
+   "desc_id": 3345385259,
+   "upper": "ANTI-TANK MINES",
+   "display_name": "Anti-tank Mines",
+   "description": "Scatters powerful anti-tank mines that deal heavy, armor-penetrating damage. Minefield is less densely packed relative to smaller mines.",
+   "cells": {
+    "type_value": 12,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 120.0,
+    "cell": 36
+   },
+   "wiki_title": "MD-17 Anti-Tank Mines",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "EMPLACEMENTS. GAS MINE DEPLOYER",
+   "name_id": 974448089,
+   "upper_id": 3892287098,
+   "desc_id": 763226325,
+   "upper": "GAS MINES",
+   "display_name": "Gas Mines",
+   "description": "Deploys mines that release gas on activation, temporarily blinding and slowing most enemies.",
+   "cells": {
+    "type_value": 47,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 120.0,
+    "cell": 36
+   },
+   "wiki_title": "MD-8 Gas Mines",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "EMPLACEMENTS. TESLA TOWER",
+   "name_id": 4049901344,
+   "upper_id": 2489495420,
+   "desc_id": 325063728,
+   "upper": "TESLA TOWER",
+   "display_name": "Tesla Tower",
+   "description": "A turret which fires electrical charges at targets in close range. To avoid friendly fire, remain prone.",
+   "cells": {
+    "type_value": 107,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 120.0,
+    "cell": 35
+   },
+   "wiki_title": "A/ARC-3 Tesla Tower",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "EMPLACEMENTS. ANTI TANK EMPLACEMENT",
+   "name_id": 1387831894,
+   "upper_id": 1153871814,
+   "desc_id": 1109767528,
+   "upper": "ANTI-TANK EMPLACEMENT",
+   "display_name": "Anti-Tank Emplacement",
+   "description": "A powerful manned gun emplacement, capable of taking out armored targets at long ranges.",
+   "cells": {
+    "type_value": 9,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 180.0,
+    "cell": 34
+   },
+   "wiki_title": "E/AT-12 Anti-Tank Emplacement",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "EAGLE FLY BY",
+   "name_id": 1555547319,
+   "upper_id": 2849040043,
+   "desc_id": 2373066199,
+   "upper": "EAGLE FLY BY ",
+   "display_name": "Eagle Fly By",
+   "description": "A display of Democratic power as Eagles fly overhead. Provides morale support in the field.",
+   "cells": {
+    "type_value": 50,
+    "uses": 5,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 7
+   }
+  },
+  {
+   "internal_name": "ORBITAL CONFETTI",
+   "name_id": 2620110255,
+   "upper_id": 1912361092,
+   "desc_id": 826650508,
+   "upper": "ORBITAL CONFETTI",
+   "display_name": "Orbital Confetti",
+   "description": "A display of brightly colored confetti. Good for Democratic morale, but provides no strategic value.",
+   "cells": {
+    "type_value": 145,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 80.0,
+    "cell": 2
+   }
+  },
+  {
+   "internal_name": "MISSIONS. SHOULDER MOUNTED CAMERA",
+   "name_id": 2363192702,
+   "upper_id": 2071327434,
+   "desc_id": 2864982245,
+   "upper": "TACTICAL VIDEO CAMERA",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 81,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 10.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. Cyborg Carry Data",
+   "name_id": 3463544321,
+   "upper_id": 1683937559,
+   "desc_id": 1976891343,
+   "upper": "SSSD DELIVERY",
+   "display_name": "SSSD Delivery",
+   "description": "A Hellpod containing a Super Solid State Drive, the peak of secure data storage. Used by Helldivers for everything from transfer of patriotic data to the sabotage of enemy mainframes.",
+   "cells": {
+    "type_value": 79,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 10.0,
+    "cell": 0
+   },
+   "wiki_title": "SSSD Delivery",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. Carry Data",
+   "name_id": 3463544321,
+   "upper_id": 1683937559,
+   "desc_id": 1976891343,
+   "upper": "SSSD DELIVERY",
+   "display_name": "SSSD Delivery",
+   "description": "A Hellpod containing a Super Solid State Drive, the peak of secure data storage. Used by Helldivers for everything from transfer of patriotic data to the sabotage of enemy mainframes.",
+   "cells": {
+    "type_value": 82,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 10.0,
+    "cell": 0
+   },
+   "wiki_title": "SSSD Delivery",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. DRILLING CHARGE",
+   "name_id": 1476954631,
+   "upper_id": 716273285,
+   "desc_id": 397482148,
+   "upper": "DRILLING CHARGE",
+   "display_name": "Drilling Charge",
+   "description": "",
+   "cells": {
+    "type_value": 132,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 10.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. EXTRACTION",
+   "name_id": 1171875332,
+   "upper_id": 3109644149,
+   "desc_id": 4118375536,
+   "upper": "EXTRACTION BEACON",
+   "display_name": "Extraction Beacon",
+   "description": "",
+   "cells": {
+    "type_value": 152,
+    "uses": 4294967295,
+    "callin": 120.0,
+    "cooldown": 300.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. HELLBOMB",
+   "name_id": 124960475,
+   "upper_id": 3989310204,
+   "desc_id": 3384196968,
+   "upper": "HELLBOMB",
+   "display_name": "Hellbomb",
+   "description": "The Hellbomb is a tactical nuke powerful enough to destroy any perceivable target in its blast zone. For safety and budgetary reasons, it has to be armed manually once deployed.",
+   "cells": {
+    "type_value": 43,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. BUG PLUG",
+   "name_id": 621653032,
+   "upper_id": 1998289914,
+   "desc_id": 3122737775,
+   "upper": "HIVE BREAKER DRILL",
+   "display_name": "HIVE BREAKER DRILL",
+   "description": "A drill capable of piercing the tough walls of Terminid hives, and deploying a nuclear charge to collapse all tunnels.",
+   "cells": {
+    "type_value": 75,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 120.0,
+    "cell": 0
+   },
+   "wiki_title": "Hive Breaker Drill",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. CARGO CONTAINER",
+   "name_id": 2486779978,
+   "upper_id": 4270246281,
+   "desc_id": 3438445098,
+   "upper": "CARGO CONTAINER",
+   "display_name": "",
+   "description": "Call in a large container to load up with liberated goods for secure extraction.",
+   "cells": {
+    "type_value": 74,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 120.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. CARGO CONTAINER",
+   "name_id": 2486779978,
+   "upper_id": 4270246281,
+   "desc_id": 3438445098,
+   "upper": "CARGO CONTAINER",
+   "display_name": "",
+   "description": "Call in a large container to load up with liberated goods for secure extraction.",
+   "cells": {
+    "type_value": 141,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 120.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. MOBILE COMMS RELAY",
+   "name_id": 3593734022,
+   "upper_id": 2240506575,
+   "desc_id": 2752607517,
+   "upper": "PORTABLE COMMS RELAY",
+   "display_name": "",
+   "description": "A compact comms relay hub that can be effortlessly deployed on demand.",
+   "cells": {
+    "type_value": 105,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 120.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. SPIRE STERILIZER",
+   "name_id": 3964760731,
+   "upper_id": 2281275566,
+   "desc_id": 2361953887,
+   "upper": "SPIRE STERILIZER",
+   "display_name": "Spire Sterilizer",
+   "description": "Add a description here!!",
+   "cells": {
+    "type_value": 125,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. RAISE FLAG",
+   "name_id": 2281165846,
+   "upper_id": 2378431612,
+   "desc_id": 1301909390,
+   "upper": "SUPER EARTH FLAG",
+   "display_name": "Super Earth Flag",
+   "description": "The main ingredient in Super Earth liberation.",
+   "cells": {
+    "type_value": 11,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   },
+   "wiki_title": "Super Earth Flag",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. RAISE FLAG NO CLEAR AREA",
+   "name_id": 2281165846,
+   "upper_id": 2378431612,
+   "desc_id": 1301909390,
+   "upper": "SUPER EARTH FLAG",
+   "display_name": "Super Earth Flag",
+   "description": "The main ingredient in Super Earth liberation.",
+   "cells": {
+    "type_value": 88,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   },
+   "wiki_title": "Super Earth Flag",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. BUG THUMPER",
+   "name_id": 1923094316,
+   "upper_id": 73853870,
+   "desc_id": 2545832384,
+   "upper": "THUMPER",
+   "display_name": "Thumper",
+   "description": "The thumper is equipped with a piston, used for sending out strong vibrations into the ground, which disrupt nearby bug nests.",
+   "cells": {
+    "type_value": 17,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. PROSPECTING DRILL",
+   "name_id": 2631236711,
+   "upper_id": 120574149,
+   "desc_id": 121536852,
+   "upper": "PROSPECTING DRILL",
+   "display_name": "Prospecting Drill",
+   "description": "An advanced, mostly self-operating prospecting drill fitted into a Hellpod. Handles soil sample extraction, analysis and data upload with minimal necessary input from an operator.",
+   "cells": {
+    "type_value": 73,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   },
+   "wiki_title": "Prospecting Drill",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. SEISMIC PROBE",
+   "name_id": 2198451684,
+   "upper_id": 324859132,
+   "desc_id": 4044431460,
+   "upper": "SEISMIC PROBE",
+   "display_name": "Seismic Probe",
+   "description": "A Seismic Probe fitted into a Hellpod. Is preprogrammed so that only the simplest calibration and execution secuence is needed once deployed to the surface.",
+   "cells": {
+    "type_value": 19,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   },
+   "wiki_title": "Seismic Probe",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. Scrambler",
+   "name_id": 1839035128,
+   "upper_id": 1857062393,
+   "desc_id": 1857062393,
+   "upper": "SCRAMBLER",
+   "display_name": "Scrambler",
+   "description": "SCRAMBLER",
+   "cells": {
+    "type_value": 111,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 180.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. EXTRACTION BEACON",
+   "name_id": 822640880,
+   "upper_id": 3488153744,
+   "desc_id": 145883417,
+   "upper": "EXTRACTION",
+   "display_name": "Extraction",
+   "description": "",
+   "cells": {
+    "type_value": 7,
+    "uses": 4294967295,
+    "callin": 7.0,
+    "cooldown": 180.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. IMMEDIATE EXTRACTION BEACON",
+   "name_id": 3901583393,
+   "upper_id": 491152859,
+   "desc_id": 3051942155,
+   "upper": "",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 114,
+    "uses": 4294967295,
+    "callin": 7.0,
+    "cooldown": 180.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. EMERGENCY EXTRACTION BEACON",
+   "name_id": 822640880,
+   "upper_id": 3488153744,
+   "desc_id": 145883417,
+   "upper": "EXTRACTION",
+   "display_name": "Extraction",
+   "description": "",
+   "cells": {
+    "type_value": 101,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 180.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. REINFORCEMENT BEACON",
+   "name_id": 3241609005,
+   "upper_id": 3973386260,
+   "desc_id": 1413448488,
+   "upper": "REINFORCE",
+   "display_name": "Reinforce",
+   "description": "A replacement for a fallen comrade.",
+   "cells": {
+    "type_value": 127,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 6.0,
+    "cell": 0
+   },
+   "wiki_title": "Reinforce",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. ORBITAL ILLUMINATION FLARE",
+   "name_id": 1365642266,
+   "upper_id": 1071932953,
+   "desc_id": 1401993058,
+   "upper": "ORBITAL ILLUMINATION FLARE",
+   "display_name": "Orbital Illumination Flare",
+   "description": "A flare that illuminates the battlefield.",
+   "cells": {
+    "type_value": 5,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 30.0,
+    "cell": 0
+   },
+   "wiki_title": "Orbital Illumination Flare",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. SOS Beacon",
+   "name_id": 1477555005,
+   "upper_id": 2283448041,
+   "desc_id": 4084206755,
+   "upper": "SOS BEACON",
+   "display_name": "SOS Beacon",
+   "description": "Call in an emergency beacon to show other Helldivers that you need assistance.",
+   "cells": {
+    "type_value": 149,
+    "uses": 1,
+    "callin": 2.0,
+    "cooldown": 180.0,
+    "cell": 0
+   },
+   "wiki_title": "SoS Beacon",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. Upload Discovery",
+   "name_id": 2087215146,
+   "upper_id": 1418558378,
+   "desc_id": 1193192688,
+   "upper": "UPLOAD DATA",
+   "display_name": "Upload Data",
+   "description": "",
+   "cells": {
+    "type_value": 131,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 1.0,
+    "cell": 0
+   },
+   "wiki_title": "Upload Data",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS CLAN STATION. Nuke",
+   "name_id": 3894610137,
+   "upper_id": 3599477113,
+   "desc_id": 4215408457,
+   "upper": "",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 135,
+    "uses": 1,
+    "callin": 4.0,
+    "cooldown": 1200.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS CLAN STATION. Carpet Bombing Run",
+   "name_id": 1679090488,
+   "upper_id": 1265258834,
+   "desc_id": 692079485,
+   "upper": "CARPET BOMB",
+   "display_name": "Carpet Bomb",
+   "description": "",
+   "cells": {
+    "type_value": 106,
+    "uses": 1,
+    "callin": 0.0,
+    "cooldown": 900.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. REMOTE EXPLOSIVES",
+   "name_id": 2294760818,
+   "upper_id": 249660316,
+   "desc_id": 3764280239,
+   "upper": "",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 89,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. JAMMED PINATA",
+   "name_id": 2649749292,
+   "upper_id": 4066337545,
+   "desc_id": 2647942171,
+   "upper": "JAMMED PIÑATA",
+   "display_name": "Jammed Piñata",
+   "description": "",
+   "cells": {
+    "type_value": 87,
+    "uses": 1,
+    "callin": 5.0,
+    "cooldown": 0.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. SEAF GUN",
+   "name_id": 472605007,
+   "upper_id": 1044595250,
+   "desc_id": 232489632,
+   "upper": "SEAF ARTILLERY",
+   "display_name": "SEAF Artillery",
+   "description": "",
+   "cells": {
+    "type_value": 29,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 15.0,
+    "cell": 0
+   },
+   "wiki_title": "SEAF Artillery",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. DARK FLUID BACKPACK",
+   "name_id": 2370772246,
+   "upper_id": 2370772246,
+   "desc_id": 1622894175,
+   "upper": "DARK FLUID VESSEL",
+   "display_name": "DARK FLUID VESSEL",
+   "description": "An experimental vessel containing 40 grams of weapons-grade Dark Fluid suspended in a magnetic field.",
+   "cells": {
+    "type_value": 30,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 20.0,
+    "cell": 0
+   },
+   "wiki_title": "Dark Fluid Vessel",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "MISSIONS. TCS 03 THUMPER",
+   "name_id": 1369983896,
+   "upper_id": 3177142887,
+   "desc_id": 478919492,
+   "upper": "TECTONIC DRILL",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 67,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. DATA JACK",
+   "name_id": 1159822780,
+   "upper_id": 3731882316,
+   "desc_id": 312223767,
+   "upper": "DATA JACK",
+   "display_name": "Data Jack",
+   "description": "This Data Jack is carefully engineered to slot seamlessly into Illuminate Access Nodes. Once engaged, it initiates a sophisticated system disruption sequence, requiring little more than user confirmation.",
+   "cells": {
+    "type_value": 49,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 15.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "BACKPACK. HELLBOMB",
+   "name_id": 2306470396,
+   "upper_id": 861327809,
+   "desc_id": 2210047765,
+   "upper": "PORTABLE HELLBOMB",
+   "display_name": "Portable Hellbomb",
+   "description": "A backpack-mounted Hellbomb that can be armed by the wearer or an ally, starting a countdown. Users are recommended to remove the backpack before the countdown reaches zero.",
+   "cells": {
+    "type_value": 32,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 300.0,
+    "cell": 21
+   },
+   "wiki_title": "B-100 Portable Hellbomb",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "MISSIONS. OIL RIG EXTRACT",
+   "name_id": 1360402559,
+   "upper_id": 1787745812,
+   "desc_id": 191612866,
+   "upper": "ACTIVATE DRILL",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 37,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 20.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. CALL IN DESTROYER",
+   "name_id": 2708159994,
+   "upper_id": 3305068834,
+   "desc_id": 2193262763,
+   "upper": "CALL IN SUPER DESTROYER",
+   "display_name": "",
+   "description": "Call in your Super Destroyer, enabling the usage of stratagems for a limited time. One use per mission.",
+   "cells": {
+    "type_value": 126,
+    "uses": 1,
+    "callin": 0.0,
+    "cooldown": 120.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "MISSIONS. POISON DRILL",
+   "name_id": 966239659,
+   "upper_id": 1436471677,
+   "desc_id": 1003245530,
+   "upper": "AQUIFER DRILL",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 97,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 120.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "ORBITAL. PRECISION STRIKE",
+   "name_id": 188575064,
+   "upper_id": 4018205223,
+   "desc_id": 3022121013,
+   "upper": "ORBITAL PRECISION STRIKE",
+   "display_name": "Orbital Precision Strike",
+   "description": "A single precision shot from the Destroyer's 'ATLAS' cannon.",
+   "cells": {
+    "type_value": 121,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 80.0,
+    "cell": 1
+   },
+   "wiki_title": "Orbital Precision Strike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. GAS STRIKE",
+   "name_id": 179374902,
+   "upper_id": 887029485,
+   "desc_id": 2094967063,
+   "upper": "ORBITAL GAS STRIKE",
+   "display_name": "Orbital Gas Strike",
+   "description": "A projectile which releases a cloud of caustic gas, blinding and slowing most enemies.",
+   "cells": {
+    "type_value": 42,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 75.0,
+    "cell": 6
+   },
+   "wiki_title": "Orbital Gas Strike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. AIRBURST STRIKE",
+   "name_id": 3593752689,
+   "upper_id": 643358088,
+   "desc_id": 1385818198,
+   "upper": "ORBITAL AIRBURST STRIKE",
+   "display_name": "Orbital Airburst Strike",
+   "description": "A projectile which explodes while airborne, creating a deadly rain of shrapnel. Not effective against heavy armor.",
+   "cells": {
+    "type_value": 86,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 90.0,
+    "cell": 2
+   },
+   "wiki_title": "Orbital Airburst Strike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. GATLING BARRAGE",
+   "name_id": 1248707192,
+   "upper_id": 2016029820,
+   "desc_id": 1132758889,
+   "upper": "ORBITAL GATLING BARRAGE",
+   "display_name": "Orbital Gatling Barrage",
+   "description": "A barrage of high explosive rounds, fired from the Destroyer's high speed rotary autocannons.",
+   "cells": {
+    "type_value": 4,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 70.0,
+    "cell": 2
+   },
+   "wiki_title": "Orbital Gatling Barrage",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. 120MM HE STRIKE",
+   "name_id": 1653299843,
+   "upper_id": 1336596117,
+   "desc_id": 905887718,
+   "upper": "ORBITAL 120MM HE BARRAGE",
+   "display_name": "Orbital 120mm HE Barrage",
+   "description": "A precision artillery salvo over a small area, perfect for taking out concentrated enemy units.",
+   "cells": {
+    "type_value": 139,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 180.0,
+    "cell": 3
+   },
+   "wiki_title": "Orbital 120mm HE Barrage",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. NAPALM BARRAGE",
+   "name_id": 549159351,
+   "upper_id": 3103421391,
+   "desc_id": 2876315862,
+   "upper": "ORBITAL NAPALM BARRAGE",
+   "display_name": "Orbital Napalm Barrage",
+   "description": "Launches a prolonged barrage of napalm shells over a wide area, setting a swath of land ablaze in mere moments.",
+   "cells": {
+    "type_value": 109,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 240.0,
+    "cell": 3
+   },
+   "wiki_title": "Orbital Napalm Barrage",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. 380MM HE BARRAGE",
+   "name_id": 2843766581,
+   "upper_id": 4043773877,
+   "desc_id": 2549590927,
+   "upper": "ORBITAL 380MM HE BARRAGE",
+   "display_name": "Orbital 380mm HE Barrage",
+   "description": "A prolonged barrage, wreaking extended destruction over a large area. Communication with teammates is advised.",
+   "cells": {
+    "type_value": 128,
+    "uses": 4294967295,
+    "callin": 6.0,
+    "cooldown": 240.0,
+    "cell": 4
+   },
+   "wiki_title": "Orbital 380mm HE Barrage",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. WALKING BARRAGE",
+   "name_id": 831074521,
+   "upper_id": 316604262,
+   "desc_id": 2367237658,
+   "upper": "ORBITAL WALKING BARRAGE",
+   "display_name": "Orbital Walking Barrage",
+   "description": "A linear artillery barrage which moves at intervals, driving the enemy out from cover while allowing an advance.",
+   "cells": {
+    "type_value": 21,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 240.0,
+    "cell": 4
+   },
+   "wiki_title": "Orbital Walking Barrage",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. WALKING BARRAGE SMOKE",
+   "name_id": 1772852609,
+   "upper_id": 3460715746,
+   "desc_id": 3773653766,
+   "upper": "ORBITAL WALKING BARRAGE SMOKE",
+   "display_name": "Orbital Walking Barrage Smoke",
+   "description": "A linear artillery barrage which moves at intervals while firing smoke bombs to obscure enemy visibility.",
+   "cells": {
+    "type_value": 64,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 120.0,
+    "cell": 4
+   }
+  },
+  {
+   "internal_name": "ORBITAL. SMOKE STRIKE",
+   "name_id": 2769005858,
+   "upper_id": 704804706,
+   "desc_id": 1684652607,
+   "upper": "ORBITAL SMOKE STRIKE",
+   "display_name": "Orbital Smoke Strike",
+   "description": "Creates a large, thick smoke screen to block targets' line of sight.",
+   "cells": {
+    "type_value": 77,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 75.0,
+    "cell": 6
+   },
+   "wiki_title": "Orbital Smoke Strike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. STATIC FIELD CONDUTORS",
+   "name_id": 1447724304,
+   "upper_id": 2006588957,
+   "desc_id": 968200865,
+   "upper": "ORBITAL EMS STRIKE",
+   "display_name": "Orbital EMS Strike",
+   "description": "A \"compliance weapon\" to modify enemy behavior. The projectile temporarily stuns all targets within the strike radius.",
+   "cells": {
+    "type_value": 35,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 75.0,
+    "cell": 6
+   },
+   "wiki_title": "Orbital EMS Strike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. LASER",
+   "name_id": 181783696,
+   "upper_id": 3335448467,
+   "desc_id": 1202939756,
+   "upper": "ORBITAL LASER",
+   "display_name": "Orbital Laser",
+   "description": "The Destroyer's laser cannon will sweep over the designated area, vaporizing all targets within the effective radius.",
+   "cells": {
+    "type_value": 110,
+    "uses": 3,
+    "callin": 2.0,
+    "cooldown": 300.0,
+    "cell": 5
+   },
+   "wiki_title": "Orbital Laser",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "ORBITAL. RAILCANNON",
+   "name_id": 3194889632,
+   "upper_id": 826884584,
+   "desc_id": 3169729221,
+   "upper": "ORBITAL RAILCANNON STRIKE",
+   "display_name": "Orbital Railcannon Strike",
+   "description": "A high-velocity railcannon round fired at the largest target in close proximity to the beacon. Targeting is automatic.",
+   "cells": {
+    "type_value": 60,
+    "uses": 4294967295,
+    "callin": 1.0,
+    "cooldown": 180.0,
+    "cell": 5
+   },
+   "wiki_title": "Orbital Railcannon Strike",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "PRESIDENT REWARDS. AMMO CACHE",
+   "name_id": 1673875834,
+   "upper_id": 1263463686,
+   "desc_id": 2806852005,
+   "upper": "RESUPPLY",
+   "display_name": "Resupply",
+   "description": "A Hellpod containing four supply packs, to replenish personal ammunition and stims in the field.",
+   "cells": {
+    "type_value": 112,
+    "uses": 4294967295,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   },
+   "wiki_title": "Resupply",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "PRESIDENT REWARDS. HEALTH PACK RACK",
+   "name_id": 2673704303,
+   "upper_id": 2273284544,
+   "desc_id": 323223727,
+   "upper": "MEDICAL SUPPLIES",
+   "display_name": "Medical Supplies",
+   "description": "",
+   "cells": {
+    "type_value": 93,
+    "uses": 1,
+    "callin": 5.0,
+    "cooldown": 30.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "PRESIDENT REWARDS. COMBAT WALKER",
+   "name_id": 734964784,
+   "upper_id": 3200900560,
+   "desc_id": 1244754797,
+   "upper": "PATRIOT EXOSUIT",
+   "display_name": "Patriot Exosuit",
+   "description": "An Exosuit equipped with a rocket launcher and a gatling gun, offering reliable flexibility against both heavy units and swarms of small targets.",
+   "cells": {
+    "type_value": 38,
+    "uses": 1,
+    "callin": 0.0,
+    "cooldown": 600.0,
+    "cell": 0
+   },
+   "wiki_title": "EXO-45 Patriot Exosuit",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "PRESIDENT REWARDS. MEDIC BACKPACK",
+   "name_id": 3085348034,
+   "upper_id": 2927578997,
+   "desc_id": 3613714996,
+   "upper": "MEDIC BACKPACK",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 20,
+    "uses": 1,
+    "callin": 5.0,
+    "cooldown": 600.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "PRESIDENT REWARDS. JUMPPACK BACKPACK",
+   "name_id": 2872120750,
+   "upper_id": 2204198870,
+   "desc_id": 3461754799,
+   "upper": "JUMP PACK",
+   "display_name": "Jump Pack",
+   "description": "Enables the user to jump higher than 'gravity' and 'safety' would normally allow. Must be charged before use.",
+   "cells": {
+    "type_value": 147,
+    "uses": 1,
+    "callin": 5.0,
+    "cooldown": 90.0,
+    "cell": 0
+   },
+   "wiki_title": "LIFT-850 Jump Pack",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "PRESIDENT REWARDS. ROCKET SENTRY",
+   "name_id": 3009882761,
+   "upper_id": 3633384189,
+   "desc_id": 1776173825,
+   "upper": "ROCKET SENTRY",
+   "display_name": "Rocket Sentry",
+   "description": "A powerful automated turret, effective against armored targets. The turret will primarily aim at larger enemies.",
+   "cells": {
+    "type_value": 72,
+    "uses": 1,
+    "callin": 5.0,
+    "cooldown": 45.0,
+    "cell": 0
+   },
+   "wiki_title": "A/MLS-4X Rocket Sentry",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "PRESIDENT REWARDS. MACHINEGUN",
+   "name_id": 3663193426,
+   "upper_id": 1936822397,
+   "desc_id": 1385974777,
+   "upper": "MACHINE GUN",
+   "display_name": "Machine Gun",
+   "description": "A machine gun designed for stationary use. Trades higher power for increased recoil and reduced accuracy.",
+   "cells": {
+    "type_value": 85,
+    "uses": 1,
+    "callin": 5.0,
+    "cooldown": 600.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "TEAM WEAPONS. AUTOMATIC CANNON",
+   "name_id": 727076238,
+   "upper_id": 3284848821,
+   "desc_id": 847218420,
+   "upper": "AUTOCANNON",
+   "display_name": "Autocannon",
+   "description": "A fully-automatic cannon effective against light vehicle armor. Includes support backpack required for reloading.",
+   "cells": {
+    "type_value": 25,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 20
+   },
+   "wiki_title": "AC-8 Autocannon",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. GRENADE LAUNCHER",
+   "name_id": 449613082,
+   "upper_id": 1035420766,
+   "desc_id": 3007597551,
+   "upper": "GRENADE LAUNCHER",
+   "display_name": "Grenade Launcher",
+   "description": "A grenade launcher effective against armored infantry. Not intended for use against vehicle armor or fortified buildings.",
+   "cells": {
+    "type_value": 83,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 15
+   }
+  },
+  {
+   "internal_name": "TEAM WEAPONS. GRENADE LAUNCHER TACTICAL",
+   "name_id": 1712527709,
+   "upper_id": 839881134,
+   "desc_id": 440691790,
+   "upper": "DE-ESCALATOR",
+   "display_name": "De-Escalator",
+   "description": "A humane grenade launcher firing high-powered arc grenades.",
+   "cells": {
+    "type_value": 134,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 15
+   },
+   "wiki_title": "GL-52 De-Escalator",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. BELT FED GRENADE LAUNCHER",
+   "name_id": 2606087619,
+   "upper_id": 3796576739,
+   "desc_id": 1611333158,
+   "upper": "BELT-FED GRENADE LAUNCHER",
+   "display_name": "Belt-Fed Grenade Launcher",
+   "description": "A grenade launcher that can be fired continuously to deliver a nonstop barrage of explosives.",
+   "cells": {
+    "type_value": 130,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 20
+   },
+   "wiki_title": "GL-28 Belt-Fed Grenade Launcher",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. RAILGUN ",
+   "name_id": 3834075640,
+   "upper_id": 3276705068,
+   "desc_id": 3266438902,
+   "upper": "RAILGUN",
+   "display_name": "Railgun",
+   "description": "An experimental weapon which prioritizes armor penetration. Must be charged between shots - so choose targets carefully.",
+   "cells": {
+    "type_value": 58,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 14
+   },
+   "wiki_title": "RS-422 Railgun",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. HARPOON GUN ",
+   "name_id": 167214020,
+   "upper_id": 2728146884,
+   "desc_id": 2846526723,
+   "upper": "SPEARGUN",
+   "display_name": "Speargun",
+   "description": "A speargun firing heavy-duty projectiles. These projectiles release a cloud of gas on impact, and must be carefully loaded one at a time.",
+   "cells": {
+    "type_value": 116,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 14
+   },
+   "wiki_title": "S-11 Speargun",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. RECOILLESS RIFLE",
+   "name_id": 1764965163,
+   "upper_id": 689663659,
+   "desc_id": 3192210987,
+   "upper": "RECOILLESS RIFLE",
+   "display_name": "Recoilless Rifle",
+   "description": "A recoilless rifle effective against vehicle armor. Includes support backpack required for reloading.",
+   "cells": {
+    "type_value": 133,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 20
+   },
+   "wiki_title": "GR-8 Recoilless Rifle",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. LASER CANNON",
+   "name_id": 2089910714,
+   "upper_id": 4285698599,
+   "desc_id": 594530405,
+   "upper": "LASER CANNON",
+   "display_name": "Laser Cannon",
+   "description": "A laser weapon firing a continuous beam. Doesn't require ammunition, but will need heat sink replaced if it overheats.",
+   "cells": {
+    "type_value": 65,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 17
+   },
+   "wiki_title": "LAS-98 Laser Cannon",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. LASER PULSE CANNON",
+   "name_id": 2557128977,
+   "upper_id": 3774930640,
+   "desc_id": 1021642579,
+   "upper": "QUASAR CANNON",
+   "display_name": "Quasar Cannon",
+   "description": "Charges up to fire a powerful, explosive energy burst. Has a long cooldown period after firing.",
+   "cells": {
+    "type_value": 153,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 17
+   },
+   "wiki_title": "LAS-99 Quasar Cannon",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. SNIPER",
+   "name_id": 3313983701,
+   "upper_id": 3162817893,
+   "desc_id": 326359764,
+   "upper": "ANTI-MATERIEL RIFLE",
+   "display_name": "Anti-Materiel Rifle",
+   "description": "A high-caliber sniper rifle effective over long distances against light vehicle armor. This rifle must be aimed downscope.",
+   "cells": {
+    "type_value": 144,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 14
+   },
+   "wiki_title": "APW-1 Anti-Materiel Rifle",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. EXPENDABLE ANTI-TANK",
+   "name_id": 1885509695,
+   "upper_id": 2093520486,
+   "desc_id": 2066801016,
+   "upper": "EXPENDABLE ANTI-TANK",
+   "display_name": "Expendable Anti-Tank",
+   "description": "A single-use weapon specialized for damaging vehicle armor. Discarded after every use.",
+   "cells": {
+    "type_value": 151,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 70.0,
+    "cell": 19
+   },
+   "wiki_title": "EAT-17 Expendable Anti-Tank",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. EXPENDABLE ANTI-TANK (Booster)",
+   "name_id": 1885509695,
+   "upper_id": 2093520486,
+   "desc_id": 2066801016,
+   "upper": "EXPENDABLE ANTI-TANK",
+   "display_name": "Expendable Anti-Tank",
+   "description": "A single-use weapon specialized for damaging vehicle armor. Discarded after every use.",
+   "cells": {
+    "type_value": 15,
+    "uses": 2,
+    "callin": 2.0,
+    "cooldown": 0.0,
+    "cell": 19
+   },
+   "wiki_title": "EAT-17 Expendable Anti-Tank",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. EXPENDABLE NAPALM LAUNCHER",
+   "name_id": 3123874207,
+   "upper_id": 4072880577,
+   "desc_id": 1911326461,
+   "upper": "EXPENDABLE NAPALM",
+   "display_name": "Expendable Napalm",
+   "description": "A single-use weapon that fires a missile containing napalm cluster bombs that release upon impact.",
+   "cells": {
+    "type_value": 40,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 140.0,
+    "cell": 19
+   },
+   "wiki_title": "EAT-700 Expendable Napalm",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. EXPENDABLE MASSIVE ROCKET LAUNCHER",
+   "name_id": 3257725864,
+   "upper_id": 2486763325,
+   "desc_id": 141003101,
+   "upper": "LEVELLER",
+   "display_name": "Leveller",
+   "description": "A single-use weapon firing a high-yield missile. Discarded after every use.",
+   "cells": {
+    "type_value": 16,
+    "uses": 4294967295,
+    "callin": 2.0,
+    "cooldown": 140.0,
+    "cell": 19
+   },
+   "wiki_title": "EAT-411 Leveller",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. COMMANDO",
+   "name_id": 2008789512,
+   "upper_id": 103056538,
+   "desc_id": 865908403,
+   "upper": "COMMANDO",
+   "display_name": "Commando",
+   "description": "An expendable missile launcher equipped with four laser-guided missiles.",
+   "cells": {
+    "type_value": 6,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 120.0,
+    "cell": 19
+   },
+   "wiki_title": "MLS-4X Commando",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. FLAMETHROWER",
+   "name_id": 1941940848,
+   "upper_id": 3821189171,
+   "desc_id": 3579339289,
+   "upper": "FLAMETHROWER",
+   "display_name": "Flamethrower",
+   "description": "An incendiary weapon for close range. Will ignite targets, terrain, and any flammable teammates.",
+   "cells": {
+    "type_value": 115,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 16
+   },
+   "wiki_title": "FLAM-40 Flamethrower",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. HEAVY MACHINEGUN",
+   "name_id": 2050119908,
+   "upper_id": 1688248653,
+   "desc_id": 2064918640,
+   "upper": "HEAVY MACHINE GUN",
+   "display_name": "Heavy Machine Gun",
+   "description": "A very powerful but difficult-to-wield machine gun with intense recoil.",
+   "cells": {
+    "type_value": 33,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 13
+   },
+   "wiki_title": "MG-206 Heavy Machine Gun",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. MACHINEGUN",
+   "name_id": 3663193426,
+   "upper_id": 1936822397,
+   "desc_id": 1385974777,
+   "upper": "MACHINE GUN",
+   "display_name": "Machine Gun",
+   "description": "A machine gun designed for stationary use. Trades higher power for increased recoil and reduced accuracy.",
+   "cells": {
+    "type_value": 95,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 12
+   }
+  },
+  {
+   "internal_name": "TEAM WEAPONS. LIGHT MACHINE GUN",
+   "name_id": 225756131,
+   "upper_id": 4124031159,
+   "desc_id": 781284349,
+   "upper": "STALWART",
+   "display_name": "Stalwart",
+   "description": "A compact, low caliber machine gun. Trades power for ease of use, with faster reloading than heavier machine guns.",
+   "cells": {
+    "type_value": 13,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 13
+   },
+   "wiki_title": "M-105 Stalwart",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. EXPENDABLE MACHINEGUN",
+   "name_id": 4291272963,
+   "upper_id": 987248759,
+   "desc_id": 1446123923,
+   "upper": "BULLET STORM",
+   "display_name": "Bullet Storm",
+   "description": "A single-use weapon sporting caseless ammunition stacked in multiple barrels. An electrical firing mechanism releases the rounds in rapid succession upon firing, after which the weapon is to be discarded.",
+   "cells": {
+    "type_value": 102,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 70.0,
+    "cell": 19
+   },
+   "wiki_title": "MGX-42 Bullet Storm",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. AIR BURST ROCKET LAUNCHER",
+   "name_id": 2297621495,
+   "upper_id": 2292840975,
+   "desc_id": 2694439458,
+   "upper": "AIRBURST ROCKET LAUNCHER",
+   "display_name": "Airburst Rocket Launcher",
+   "description": "Fires a rocket that detonates within proximity of a target, and deploys a cluster of explosive bomblets.",
+   "cells": {
+    "type_value": 56,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 20
+   },
+   "wiki_title": "RL-77 Airburst Rocket Launcher",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. C4",
+   "name_id": 2772570910,
+   "upper_id": 4226754563,
+   "desc_id": 715614302,
+   "upper": "C4 PACK",
+   "display_name": "C4 Pack",
+   "description": "A backpack containing six adhesive C4 charges and a handheld wireless electronic detonator. Charges can be deployed and detonated individually, or as multiple simultaneous blasts.",
+   "cells": {
+    "type_value": 14,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 21
+   },
+   "wiki_title": "B/MD C4 Pack",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. MINI MISSILE SILO",
+   "name_id": 568371220,
+   "upper_id": 999321846,
+   "desc_id": 2579238661,
+   "upper": "SOLO SILO",
+   "display_name": "Solo Silo",
+   "description": "A silo that fits one single, powerful missile. Comes with a handheld targeting remote.",
+   "cells": {
+    "type_value": 92,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 180.0,
+    "cell": 19
+   },
+   "wiki_title": "MS-11 Solo Silo",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. SPEAR",
+   "name_id": 2193864165,
+   "upper_id": 4200412969,
+   "desc_id": 2566951657,
+   "upper": "SPEAR",
+   "display_name": "Spear",
+   "description": "An anti-tank homing missile which must lock onto its target before launch. Effective against large and armored enemies.",
+   "cells": {
+    "type_value": 78,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 20
+   }
+  },
+  {
+   "internal_name": "TEAM WEAPONS. WASP",
+   "name_id": 2816181366,
+   "upper_id": 1085917305,
+   "desc_id": 4278423406,
+   "upper": "W.A.S.P. LAUNCHER",
+   "display_name": "W.A.S.P. Launcher",
+   "description": "A versatile missile launcher loaded with seven lock-on homing missiles. These can either be fired from the launcher directly or as an airburst. Includes support backpack required for reloading.\nProduced by Stål Arms.",
+   "cells": {
+    "type_value": 100,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 20
+   },
+   "wiki_title": "StA-X3 W.A.S.P. Launcher",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. ARC THROWER ",
+   "name_id": 3765721070,
+   "upper_id": 448803819,
+   "desc_id": 4158786502,
+   "upper": "ARC THROWER",
+   "display_name": "Arc Thrower",
+   "description": "Projects an arc of lightning at close range. Charges up to project bolts, and may discharge through multiple targets.",
+   "cells": {
+    "type_value": 71,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 18
+   },
+   "wiki_title": "ARC-3 Arc Thrower",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. CHEM GUN",
+   "name_id": 1223276667,
+   "upper_id": 926933616,
+   "desc_id": 714923769,
+   "upper": "STERILIZER",
+   "display_name": "Sterilizer",
+   "description": "Atomizes caustic chemicals into a fine mist that liquifies sensitive electronics and tissues. Blinds and slows most enemies.",
+   "cells": {
+    "type_value": 63,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 16
+   },
+   "wiki_title": "TX-41 Sterilizer",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. MELEE FLAG",
+   "name_id": 1764323819,
+   "upper_id": 3861046095,
+   "desc_id": 994779380,
+   "upper": "ONE TRUE FLAG",
+   "display_name": "One True Flag",
+   "description": "The eternal colors of Super Earth can never be tainted. Only quenched, by the blood of its enemies.",
+   "cells": {
+    "type_value": 117,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 11
+   },
+   "wiki_title": "CQC-1 One True Flag",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. CHAINSAW GREATSWORD",
+   "name_id": 3689697660,
+   "upper_id": 4000631345,
+   "desc_id": 1362515695,
+   "upper": "DEFOLIATION TOOL",
+   "display_name": "Defoliation Tool",
+   "description": "A useful field-clearing tool for removing trees, obstacles, and unlucky foes.",
+   "cells": {
+    "type_value": 53,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 11
+   },
+   "wiki_title": "CQC-9 Defoliation Tool",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. SLEDGE HAMMER",
+   "name_id": 4009668453,
+   "upper_id": 3139950515,
+   "desc_id": 2030754614,
+   "upper": "BREACHING HAMMER",
+   "display_name": "Breaching Hammer",
+   "description": "A sledgehammer that can be wielded with or without an explosive charge attached to its head.",
+   "cells": {
+    "type_value": 103,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 11
+   },
+   "wiki_title": "CQC-20 Breaching Hammer",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. PLASMA BLASTER",
+   "name_id": 2108743119,
+   "upper_id": 3391732123,
+   "desc_id": 3280319132,
+   "upper": "EPOCH",
+   "display_name": "Epoch",
+   "description": "A powerful plasma weapon that fires one blast at a time, each blast exploding on impact. Must be charged to fire. Warning: do not overcharge.",
+   "cells": {
+    "type_value": 46,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 15
+   }
+  },
+  {
+   "internal_name": "TEAM WEAPONS. MINIGUN",
+   "name_id": 1999223573,
+   "upper_id": 369958519,
+   "desc_id": 3308224804,
+   "upper": "MAXIGUN",
+   "display_name": "Maxigun",
+   "description": "A belt-fed minigun with an exceptional ammo capacity. Cannot be reloaded with standard non-belted munitions.",
+   "cells": {
+    "type_value": 113,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 20
+   },
+   "wiki_title": "M-1000 Maxigun",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. HEAVY FLAMETHROWER",
+   "name_id": 563225959,
+   "upper_id": 3705134773,
+   "desc_id": 3988593673,
+   "upper": "CREMATOR",
+   "display_name": "Cremator",
+   "description": "Incendiary support fed by a massive backpack fuel tank. This heavy flamethrower enables a continuous column of fire to cleanse the battlefield.",
+   "cells": {
+    "type_value": 90,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 20
+   },
+   "wiki_title": "B/FLAM-80 Cremator",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. SHARK ENERGY WEAPON",
+   "name_id": 2228355350,
+   "upper_id": 2119966943,
+   "desc_id": 2265676492,
+   "upper": "MELTAGUN",
+   "display_name": "Meltagun",
+   "description": "Fires a short-ranged superheated blast of thermal energy that melts the heaviest armor and thickest chitin into slag. \n\nProduced by ST Construction.",
+   "cells": {
+    "type_value": 84,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 15
+   },
+   "wiki_title": "40-K Meltagun",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TEAM WEAPONS. SNIPER RIFLE DUO (APEX)",
+   "name_id": 2859365322,
+   "upper_id": 3726591119,
+   "desc_id": 2706019637,
+   "upper": "APEX",
+   "display_name": "Apex",
+   "description": "A colossal anti-materiel sniper rifle. While its immense kinetic recoil mandates its user crouch or lie prone, its backpack-fed 20mm rounds deliver final, un-appealable verdicts to armored threats.",
+   "cells": {
+    "type_value": 28,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 20
+   }
+  },
+  {
+   "internal_name": "TEAM WEAPONS. LASER RIFLE ION",
+   "name_id": 2100163737,
+   "upper_id": 4118717225,
+   "desc_id": 2779662342,
+   "upper": "NOVA",
+   "display_name": "Nova",
+   "description": "A sleek energy rifle requiring a brief charge cycle to fire a high-precision, non-explosive thermal projectile. Features infinite ammunition and an optimised cooldown cycle enabled by venting steam after each discharge.",
+   "cells": {
+    "type_value": 66,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 480.0,
+    "cell": 14
+   }
+  },
+  {
+   "internal_name": "SENTRYS. MACHINEGUN",
+   "name_id": 4028883813,
+   "upper_id": 867025332,
+   "desc_id": 1122588897,
+   "upper": "MACHINE GUN SENTRY",
+   "display_name": "Machine Gun Sentry",
+   "description": "An agile automated machine gun turret. Will fire at targets even if Helldivers will be caught in the crossfire.",
+   "cells": {
+    "type_value": 124,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 90.0,
+    "cell": 29
+   },
+   "wiki_title": "A/MG-43 Machine Gun Sentry",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "SENTRYS. GATLING",
+   "name_id": 600460786,
+   "upper_id": 1140023383,
+   "desc_id": 150097484,
+   "upper": "GATLING SENTRY",
+   "display_name": "Gatling Sentry",
+   "description": "An automated turret with an extremely high rate of fire. Caution: does not check if friendly units are in line of fire.",
+   "cells": {
+    "type_value": 69,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 150.0,
+    "cell": 29
+   },
+   "wiki_title": "A/G-16 Gatling Sentry",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "SENTRYS. MORTAR",
+   "name_id": 286244856,
+   "upper_id": 2602942644,
+   "desc_id": 2910711004,
+   "upper": "MORTAR SENTRY",
+   "display_name": "Mortar Sentry",
+   "description": "A turret firing powerful shells in a high arc. Effective at long ranges, and able to strike at targets behind cover.",
+   "cells": {
+    "type_value": 120,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 180.0,
+    "cell": 32
+   }
+  },
+  {
+   "internal_name": "SENTRYS. MORTAR STATICFIELD",
+   "name_id": 3735593908,
+   "upper_id": 3600967890,
+   "desc_id": 914930931,
+   "upper": "EMS MORTAR SENTRY",
+   "display_name": "EMS Mortar Sentry",
+   "description": "A turret firing static field generators that slow the advance of enemies.",
+   "cells": {
+    "type_value": 45,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 180.0,
+    "cell": 32
+   },
+   "wiki_title": "A/M-23 EMS Mortar Sentry",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "SENTRYS. MORTAR GAS",
+   "name_id": 1683917631,
+   "upper_id": 2478785269,
+   "desc_id": 1868841169,
+   "upper": "GAS MORTAR SENTRY",
+   "display_name": "Gas Mortar Sentry",
+   "description": "An automated turret that fires gas shells. Its targeting system prioritizes hostiles not yet exhibiting symptoms caused by gas inhalation. Users are advised to stay significantly upwind of the resulting crowd control.",
+   "cells": {
+    "type_value": 54,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 180.0,
+    "cell": 32
+   },
+   "wiki_title": "A/GM-17 Gas Mortar Sentry",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "SENTRYS. ROCKET",
+   "name_id": 3009882761,
+   "upper_id": 3633384189,
+   "desc_id": 1776173825,
+   "upper": "ROCKET SENTRY",
+   "display_name": "Rocket Sentry",
+   "description": "A powerful automated turret, effective against armored targets. The turret will primarily aim at larger enemies.",
+   "cells": {
+    "type_value": 55,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 150.0,
+    "cell": 31
+   },
+   "wiki_title": "A/MLS-4X Rocket Sentry",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "SENTRYS. AUTOCANNON",
+   "name_id": 2460445122,
+   "upper_id": 3791174808,
+   "desc_id": 587865164,
+   "upper": "AUTOCANNON SENTRY",
+   "display_name": "Autocannon Sentry",
+   "description": "An automated cannon turret firing anti-tank ammunition over long ranges. Sacrifices agility for range and power.",
+   "cells": {
+    "type_value": 140,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 150.0,
+    "cell": 31
+   },
+   "wiki_title": "A/AC-8 Autocannon Sentry",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "SENTRYS. FLAMETHROWER",
+   "name_id": 2006946784,
+   "upper_id": 2797269927,
+   "desc_id": 2049221350,
+   "upper": "FLAME SENTRY",
+   "display_name": "Flame Sentry",
+   "description": "An automated flamethrower turret. Warning: fuel canister prone to explosion when ruptured.",
+   "cells": {
+    "type_value": 8,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 100.0,
+    "cell": 30
+   },
+   "wiki_title": "A/FLAM-40 Flame Sentry",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "SENTRIES. LASER CANNON SENTRY",
+   "name_id": 2301866234,
+   "upper_id": 2713617172,
+   "desc_id": 3418552701,
+   "upper": "LASER SENTRY",
+   "display_name": "Laser Sentry",
+   "description": "A turret firing powerful and precise laser beams. Warning: overloading heat sink may cause adverse effects.",
+   "cells": {
+    "type_value": 23,
+    "uses": 4294967295,
+    "callin": 3.0,
+    "cooldown": 150.0,
+    "cell": 30
+   },
+   "wiki_title": "A/LAS-98 Laser Sentry",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TUTORIAL REINFORCEMENT BEACON",
+   "name_id": 3241609005,
+   "upper_id": 3973386260,
+   "desc_id": 1413448488,
+   "upper": "REINFORCE",
+   "display_name": "Reinforce",
+   "description": "A replacement for a fallen comrade.",
+   "cells": {
+    "type_value": 96,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 6.0,
+    "cell": 0
+   },
+   "wiki_title": "Reinforce",
+   "wiki_match": "exact"
+  },
+  {
+   "internal_name": "[TUTORIAL] EXTRACTION",
+   "name_id": 1171875332,
+   "upper_id": 3109644149,
+   "desc_id": 4118375536,
+   "upper": "EXTRACTION BEACON",
+   "display_name": "Extraction Beacon",
+   "description": "",
+   "cells": {
+    "type_value": 41,
+    "uses": 4294967295,
+    "callin": 120.0,
+    "cooldown": 300.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "VEHICLES. FAST RECON VEHICLE (FRV)",
+   "name_id": 196776936,
+   "upper_id": 2041442475,
+   "desc_id": 130433830,
+   "upper": "GUNNER FRV",
+   "display_name": "GUNNER FRV",
+   "description": "A lightly-armored Fast Recon Vehicle mounted with a heavy machinegun. ",
+   "cells": {
+    "type_value": 108,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 480.0,
+    "cell": 26
+   },
+   "wiki_title": "M-102 Gunner FRV",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "VEHICLES. FAST RECON VEHICLE (Resupply Auto Turret)",
+   "name_id": 3807063955,
+   "upper_id": 3947494337,
+   "desc_id": 3561843631,
+   "upper": "SUPPLY FRV",
+   "display_name": "Supply FRV",
+   "description": "A high-speed Fast Recon Vehicle equipped with an automated defense turret and a mounted supply rack, allowing frontline personnel to fully replenish ammunition and medical supplies on the move.",
+   "cells": {
+    "type_value": 26,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 480.0,
+    "cell": 26
+   },
+   "wiki_title": "M-103 Supply FRV",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "VEHICLES. FAST RECON VEHICLE (Ramming Flamethrower)",
+   "name_id": 4091309553,
+   "upper_id": 799811187,
+   "desc_id": 3550526620,
+   "upper": "INCINERATOR FRV",
+   "display_name": "Incinerator FRV",
+   "description": "A specialized Fast Recon Vehicle equipped with heavier armor, a spiked ramming grille, and a roof-mounted heavy flamethrower at the expense of seating; this FRV can enable up to three Helldivers to deliver high-speed Justice, and forcefully clear obstructed transport routes.",
+   "cells": {
+    "type_value": 138,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 480.0,
+    "cell": 26
+   },
+   "wiki_title": "M-104 Incinerator FRV",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "VEHICLES. COMBAT WALKER",
+   "name_id": 734964784,
+   "upper_id": 3200900560,
+   "desc_id": 1244754797,
+   "upper": "PATRIOT EXOSUIT",
+   "display_name": "Patriot Exosuit",
+   "description": "An Exosuit equipped with a rocket launcher and a gatling gun, offering reliable flexibility against both heavy units and swarms of small targets.",
+   "cells": {
+    "type_value": 27,
+    "uses": 3,
+    "callin": 0.0,
+    "cooldown": 420.0,
+    "cell": 28
+   },
+   "wiki_title": "EXO-45 Patriot Exosuit",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "VEHICLES. COMBAT WALKER OBSIDIAN",
+   "name_id": 183779452,
+   "upper_id": 1544072428,
+   "desc_id": 3085604271,
+   "upper": "EMANCIPATOR EXOSUIT",
+   "display_name": "Emancipator Exosuit",
+   "description": "An Exosuit equipped with dual autocannons, designed for sustained explosive firepower.",
+   "cells": {
+    "type_value": 10,
+    "uses": 3,
+    "callin": 0.0,
+    "cooldown": 420.0,
+    "cell": 28
+   },
+   "wiki_title": "EXO-49 Emancipator Exosuit",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "VEHICLES. COMBAT WALKER LUMBERER",
+   "name_id": 3662990498,
+   "upper_id": 831139041,
+   "desc_id": 1839032438,
+   "upper": "LUMBERER EXOSUIT",
+   "display_name": "Lumberer Exosuit",
+   "description": "A modern reinvention of the Lumberers of the first Galactic War, this Exosuit is equipped with a flamethrower and an anti-tank cannon. ",
+   "cells": {
+    "type_value": 94,
+    "uses": 3,
+    "callin": 0.0,
+    "cooldown": 420.0,
+    "cell": 28
+   },
+   "wiki_title": "EXO-51 Lumberer Exosuit",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "VEHICLES. COMBAT WALKER BREACHER",
+   "name_id": 2305804327,
+   "upper_id": 1386708865,
+   "desc_id": 982871080,
+   "upper": "BREAKTHROUGH EXOSUIT",
+   "display_name": "Breakthrough Exosuit",
+   "description": "An Exosuit equipped with a flak cannon and ballistic shield, optimized for mid-to-close combat range.",
+   "cells": {
+    "type_value": 91,
+    "uses": 3,
+    "callin": 0.0,
+    "cooldown": 420.0,
+    "cell": 28
+   },
+   "wiki_title": "EXO-55 Breakthrough Exosuit",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "SEAF Squad",
+   "name_id": 2400957530,
+   "upper_id": 799126270,
+   "desc_id": 3062114808,
+   "upper": "",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 119,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 120.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "VEHICLES. BASTION(tank)",
+   "name_id": 686081100,
+   "upper_id": 1916631053,
+   "desc_id": 3696388150,
+   "upper": "BASTION MK XVI",
+   "display_name": "Bastion Mk XVI",
+   "description": "A heavily-armored tank destroyer armed with a 120mm high-velocity cannon and a heavy coaxial machinegun.",
+   "cells": {
+    "type_value": 1,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 780.0,
+    "cell": 27
+   },
+   "wiki_title": "TD-220 Bastion MK XVI",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "VEHICLES. STORM(tank)",
+   "name_id": 2149115198,
+   "upper_id": 1825935594,
+   "desc_id": 4267625524,
+   "upper": "MAELSTROM",
+   "display_name": "Maelstrom",
+   "description": "A heavily-armored Infantry Fighting Vehicle (IFV) armed with front-mounted dual Gatling guns, equipped with a deployable smoke screen, and featuring rear-mounted missile silos—its projectiles laser-guided by the gunner's turret.",
+   "cells": {
+    "type_value": 52,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 780.0,
+    "cell": 27
+   },
+   "wiki_title": "TD-110 Maelstrom",
+   "wiki_match": "suffix"
+  },
+  {
+   "internal_name": "TANK. TANK RELOAD HE",
+   "name_id": 2664466741,
+   "upper_id": 1462990578,
+   "desc_id": 676338341,
+   "upper": "",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 48,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 6.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "TANK. TANK RELOAD AT",
+   "name_id": 3778618418,
+   "upper_id": 386985065,
+   "desc_id": 4204726992,
+   "upper": "",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 98,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 6.0,
+    "cell": 0
+   }
+  },
+  {
+   "internal_name": "TANK. TANK RELOAD CANISTER",
+   "name_id": 527728115,
+   "upper_id": 861212028,
+   "desc_id": 3734114937,
+   "upper": "",
+   "display_name": "",
+   "description": "",
+   "cells": {
+    "type_value": 62,
+    "uses": 4294967295,
+    "callin": 0.0,
+    "cooldown": 6.0,
+    "cell": 0
+   }
+  }
+ ]
+}
