@@ -316,13 +316,45 @@ Lua 5.1 的 `package.loadlib` = `LoadLibraryA` + `GetProcAddress`，而且**失�
 ⚠ 未验证、仅备查：外部转述"`bin/plugins` 的插件表要求 `debug_draw`(0x90) 与 `render`(0xa0) 非 NULL"
 （引自 `BingusNativeBridge` v0.1.1 提交）。我们无签名加载能力，无法自证。
 
-**还没做的决胜实验**（一次启动可得，用来钉死闸门 2 的粒度）：
-把游戏自带的、在名单内的 DLL（例如上面那个 Arrowhead 签名的插件 DLL）**复制成异名**再 `loadlib`：
+**决胜实验（2026-10-22 16:30，实机跑完）：闸门 2 认「文件身份」，不认「文件内容」。**
 
-| 结果 | 含义 |
-|---|---|
-| `127` "找不到指定的程序" | 闸门 2 按**内容哈希** ⇒ 异名同内容可以映射 |
-| `193` | 闸门 2 按**路径/文件名** ⇒ 只有原位置那份可用 |
+探针 = boot 覆盖（`patch_0`）+ 一个 marker 文件门控，跑完逐字节还原。六组夹具一次跑完：
 
-⚠ 但要说清楚：**两种结果都到不了执行** —— 能映射的是别人签名的代码，我们改一个字节哈希就变。
-这个实验只有诊断价值，没有执行价值。**不要**把它读成"有希望"。
+| 用例 | 夹具 | 返回 | 判定 |
+|---|---|---|---|
+| `control-missing` | 不存在的文件名 | **126** | 探针在工作 |
+| `control-symbol` | `kernel32.dll` + 假符号 | **127** | `loadlib` 真的走到 `LoadLibraryA` |
+| `unsigned-root` | 去掉证书表的 `version.dll` | **577** | 闸门 1 |
+| `signed-root` | 微软签名副本，放根目录 | **193** | 闸门 2 |
+| `signed-bin` | **同一份字节**，放 `<game>\bin\` | **193** | `bin\` 对它没有特权 |
+| `signed-newname` | **Arrowhead 签名、在名单内的插件 DLL 逐字节复制**，换名放根目录 | **193** | ★ **内容一致也没用** |
+
+原始日志（`%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\BootProbe.log`）：
+
+```
+--- loadlib gate matrix (opt-in marker dsh_loadlib_probe.on) ---
+LOADLIB control-missing | dsh_missing_module.dll | 找不到指定的模块。
+LOADLIB control-symbol | kernel32.dll | 找不到指定的程序。
+LOADLIB unsigned-root | dshtest_unsigned.dll | system error 577
+LOADLIB signed-root | dshtest_signed.dll | %1 不是有效的 Win32 应用程序。
+LOADLIB signed-bin | bin\dshtest_bin.dll | %1 不是有效的 Win32 应用程序。
+LOADLIB signed-newname | dshtest_copy.dll | %1 不是有效的 Win32 应用程序。
+```
+
+`dshtest_copy.dll` 就是 `bin\plugins\level_generation_pluginw64_release.dll` 的逐字节副本
+（625,752 B，md5 `3c2f18502b121138c5ce5b5ff95b879c`，签名 `Valid / Arrowhead`）。它**签名有效、
+内容一字不差、就在同目录结构里**，只换了个名字 —— 仍然是 193。
+
+⇒ 三条否证一起成立：
+
+- "找个签名好的 DLL 塞进去" ✗ —— 内容/签名够好不是条件；
+- "放进 `package.cpath` 里的 `bin\`" ✗ —— 目录没有特权；
+- 唯一能过的就是**游戏自己那份文件**，而改它任何一个字节哈希就变 ⇒ **到不了执行**。
+
+⚠ 没有分离的一格：`bin\plugins\` 里**同目录换名**（能区分"按文件名"还是"按目录"）。没做，因为两个
+答案都不改变"到不了执行"这个结论。夹具工具已经**支持**这一格了（`--in-place-name` →
+`bin\plugins\dshtest_p.dll`，同目录换名），下次启动顺手跑一下即可。
+
+> 附：`system error 577` 与 `%1 不是有效的 Win32 应用程序` 是 Lua 5.1 把
+> `LoadLibrary` 的失败文本原样传回来的结果 —— 同一个 API 对不同的失败给不同的**文本形状**，
+> 所以判读时不能只认中文串，还要认 `system error N`。

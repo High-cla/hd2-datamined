@@ -105,7 +105,7 @@ def strip_signature(data: bytes) -> bytes:
     return bytes(out)
 
 
-def plan(game_root: pathlib.Path, matrix: bool) -> list[tuple[str, pathlib.Path, bytes, str]]:
+def plan(game_root: pathlib.Path, matrix: bool, in_place: bool = False) -> list[tuple[str, pathlib.Path, bytes, str]]:
     """Return [(label, destination, payload, why)] -- everything is decided before anything is written."""
     original = SOURCE.read_bytes()
     print(f"source {SOURCE}  {len(original):,} B  md5 {md5(original)}")
@@ -120,7 +120,7 @@ def plan(game_root: pathlib.Path, matrix: bool) -> list[tuple[str, pathlib.Path,
         ("unsigned", game_root / "dshtest_unsigned.dll", strip_signature(original),
          "same bytes without a certificate -> expect 577"),
     ]
-    if matrix:
+    if matrix or in_place:
         items.append(("bin", game_root / "bin" / "dshtest_bin.dll", original,
                       "same signed bytes, different directory -> 127 means the path does not matter"))
         plugin = game_root / PLUGIN_RELATIVE
@@ -128,6 +128,9 @@ def plan(game_root: pathlib.Path, matrix: bool) -> list[tuple[str, pathlib.Path,
             raise SystemExit(f"!! plugin fixture source not found: {plugin}")
         items.append(("copy", game_root / "dshtest_copy.dll", plugin.read_bytes(),
                       "game-shipped signed bytes under a NEW name -> 127 means hash-keyed allowlist"))
+        if in_place:
+            items.append(("inplace", game_root / "bin" / "plugins" / "dshtest_p.dll", plugin.read_bytes(),
+                          "same DIRECTORY, new name -> separates 'name-keyed' from 'directory-keyed'"))
     return items
 
 
@@ -136,6 +139,9 @@ def main() -> int:
     ap.add_argument("--game-root", default=str(DEFAULT_GAME_ROOT))
     ap.add_argument("--matrix", action="store_true",
                     help="also build the path / allowlist fixtures (see the module docstring)")
+    ap.add_argument("--in-place-name", action="store_true",
+                    help="also build bin\\plugins\\dshtest_p.dll: same directory, new name "
+                         "(separates 'name-keyed' from 'directory-keyed'; implies --matrix)")
     ap.add_argument("--dry-run", action="store_true", help="print the plan, write nothing")
     ap.add_argument("--remove", action="store_true", help="delete every fixture this tool can create")
     a = ap.parse_args()
@@ -144,7 +150,7 @@ def main() -> int:
 
     if a.remove:
         for rel in ("dshtest_signed.dll", "dshtest_unsigned.dll", "dshtest_copy.dll",
-                    "bin/dshtest_bin.dll"):
+                    "bin/dshtest_bin.dll", "bin/plugins/dshtest_p.dll"):
             path = game_root / rel
             if path.exists():
                 path.unlink()
@@ -163,7 +169,7 @@ def main() -> int:
         print(f"!! {game_root / 'bin'} is not a directory")
         return 2
 
-    items = plan(game_root, a.matrix)
+    items = plan(game_root, a.matrix, a.in_place_name)
     print("\nfixtures:")
     for label, dest, payload, why in items:
         print(f"  {label:<9} {dest}")

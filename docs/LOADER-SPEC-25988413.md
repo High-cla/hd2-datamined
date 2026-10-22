@@ -280,6 +280,7 @@ SWEEP RESULT: 0 found, 0 loaded, 6 absent
 | 未签名 DLL | `577` ERROR_INVALID_IMAGE_HASH | **闸门 1**：签名链 |
 | **自签 + 导入 `LocalMachine\Root` + `Get-AuthenticodeSignature` 报 `Valid`** | **`577`** | 闸门 1 用的是**它自己钉的根/发布者集合**，不是系统信任库 |
 | 微软签名（`Valid`）的异名副本 | `193` ERROR_BAD_EXE_FORMAT | 闸门 1 过，**闸门 2**：文件白名单（名字/哈希）|
+| **游戏自带、Arrowhead 签名、逐字节复制后换名字 / 换目录** | **`193`** | ★ 闸门 2 认的是**文件身份**，不是内容（实测见下）|
 | 游戏自带、Arrowhead 签名、原地不动 | ✓ 映射 | 两闸都过 |
 
 第 1、2 行是本仓库 2026-10-21 的实测（`MEMORY-ACCESS-25988413.md` §12c）；第 3 行是外部独立小组在
@@ -294,10 +295,22 @@ SWEEP RESULT: 0 found, 0 loaded, 6 absent
 换成只导出 `get_plugin_api` 的桩后，桩**从未被映射**（游戏照常进、工作集 6.4 GB → 4.59 GB）。
 所以"走引擎插件路径"也不是后门。
 
-**还没做的决胜实验**（一次启动可得）：把游戏自带的、在名单内的 DLL 复制成异名再 `loadlib` ——
-返回 `127`（"找不到指定的程序"）说明闸门 2 按**内容哈希**，返回 `193` 说明按**路径/文件名**。
-⚠ 但两种结果都**到不了执行**：能映射的是**别人签名的代码**，我们改一个字节哈希就变。这个实验只有
-诊断价值。
+**决胜实验已做（2026-10-22 16:30 实机）：闸门 2 认身份，不认内容。** 探针用 boot 覆盖同一条配方，
+marker 文件门控，六组夹具一次跑完（明细与原始日志见 `MEMORY-ACCESS-25988413.md` §12g）：
 
-⇒ 移植的可行集合收缩为 **§3 的 2 与 4**（命名约定 / 管理器写清单），两者都不需要任何原生代码。
+```
+LOADLIB control-missing | dsh_missing_module.dll | 找不到指定的模块。          (126)
+LOADLIB control-symbol  | kernel32.dll           | 找不到指定的程序。          (127)
+LOADLIB unsigned-root   | dshtest_unsigned.dll   | system error 577           (577)
+LOADLIB signed-root     | dshtest_signed.dll     | %1 不是有效的 Win32 应用程序 (193)
+LOADLIB signed-bin      | bin\dshtest_bin.dll    | %1 不是有效的 Win32 应用程序 (193)
+LOADLIB signed-newname  | dshtest_copy.dll       | %1 不是有效的 Win32 应用程序 (193)
+```
+
+最后一行是全部意义所在：**把游戏自带、Arrowhead 签名有效的插件 DLL 逐字节复制、只换个名字**
+（625,752 B，md5 `3c2f1850…`），仍然是 `193`。签名有效、内容一致、同一台机器同一个 build —— 都
+不够，**必须就是它自己那份文件**。而改那份文件的任何一个字节，哈希就变。
+
+⇒ 所以"写个 C 模块"从来不是前置条件，"找个签名好的 DLL 塞进去"也不是后门。移植的可行集合收缩为
+**§3 的 2 与 4**（命名约定 / 管理器写清单），两者都不需要任何原生代码。
 这与 `MEMORY-ACCESS-25988413.md` §12f 的"读的最终账"一致：**资源侧是唯一还能改东西的路**。
