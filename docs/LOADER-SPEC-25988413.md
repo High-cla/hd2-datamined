@@ -284,7 +284,7 @@ SWEEP RESULT: 0 found, 0 loaded, 6 absent
 | 游戏自带、Arrowhead 签名、原地不动 | ✓ 映射 | 两闸都过 |
 
 第 1、2 行是本仓库 2026-10-21 的实测（`MEMORY-ACCESS-25988413.md` §12c）；第 3 行是外部独立小组在
-**同一个 build** 上补的（[issue #1](https://github.com/deepseekv41flash/hd2-25988413/issues/1)，
+**同一个 build** 上补的（[issue #1](https://github.com/deepseekv41flash/hd2-datamined/issues/1)，
 2026-10-22）；第 4 行两边各自独立撞出**同一个码**（193）—— 两个小组、两套夹具、同一结果。
 
 ⇒ **签名不是"无关"，是"只能换错误码"（577 ↔ 193），换不到加载。** 想让 Lua 侧拿回 `rd()` /

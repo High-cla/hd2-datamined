@@ -283,7 +283,7 @@ Lua 5.1 的 `package.loadlib` = `LoadLibraryA` + `GetProcAddress`，而且**失�
 ### 12g. 2026-10-22 外部复现：两道闸门 · `bin/plugins` 同命 · 一条未做的决胜实验
 
 外部的独立小组在**同一个 build** 上把同一件事往下推了一步（
-[issue #1](https://github.com/deepseekv41flash/hd2-25988413/issues/1)），其中**一条我们没做**：
+[issue #1](https://github.com/deepseekv41flash/hd2-datamined/issues/1)），其中**一条我们没做**：
 
 **自签 + 受信根也不行。** `New-SelfSignedCertificate -Type CodeSigningCert` 签自己的 DLL →
 证书导入 `Cert:\LocalMachine\Root`（管理员）→ `Get-AuthenticodeSignature` 从 `UnknownError`
