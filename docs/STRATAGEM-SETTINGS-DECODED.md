@@ -240,11 +240,25 @@ MISSIONS / EMPLACEMENTS / SENTRYS / PRESIDENT REWARDS 上，横跨 wiki 全部�
 | `health` / `armor` | 两者 | 5（恒 100 / 0） | ✗ 表里没有 |
 
 **`num_bombs` / `num_salvos` 不是"没找到"，是"确实不在"。** 这两项是成对语义
-（一次打几发 × 打几轮 = 本次战备的弹头总数，380mm 弹幕就是 3 × 5 = 15），所以单字段扫不到时
-改扫**相邻槽对**（8 条轨道战备，`num_bombs` = 1/1/1/1/60/3/3/5）：
+（一次打几发弹头 × 打几轮 = 本次战备的弹头总数），所以单字段扫不到时改扫**相邻槽对**。
+输入是 8 条轨道战备：
 
-* 所有有序槽对 (a,b) 里没有一个能同时满足 `row[a]==num_bombs` 且 `row[b]==num_salvos`；
-* 也没有任何槽存的是两者乘积；
+| 战备 | `num_bombs` | `num_salvos` | 乘积 |
+|---|---:|---:|---:|
+| ORBITAL PRECISION STRIKE | 1 | 1 | 1 |
+| ORBITAL GAS STRIKE | 1 | 1 | 1 |
+| ORBITAL AIRBURST STRIKE | 1 | 4 | 4 |
+| ORBITAL GATLING BARRAGE | **60** | **4** | 240 |
+| ORBITAL NAPALM BARRAGE | 5 | 5 | 25 |
+| ORBITAL 380MM HE BARRAGE | 3 | 5 | 15 |
+| ORBITAL WALKING BARRAGE | 3 | 5 | 15 |
+| ORBITAL SMOKE STRIKE | 1 | 6 | 6 |
+
+三条证据：
+
+* 扫遍**所有有序槽对** (a,b)，没有任何一格能同时满足 `row[a]==num_bombs` 且
+  `row[b]==num_salvos`；最佳只有 **2/8**（随机水平，不是"差一点"）；
+* 也没有任何槽存的是两者乘积（1/1/4/240/25/15/15/6）；
 * 拿最独特的 `num_bombs=60`（Gatling 弹幕）当靶子，在 Gatling 行 400 字节里按
   **u8 / u16 / u32 / f32 四种宽度**搜 `60`，**一处都没有**。
 

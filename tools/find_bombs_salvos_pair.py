@@ -97,7 +97,24 @@ for a in range(0, 396, 4):
             hits.append((ok, a, b))
 hits.sort(reverse=True)
 if not hits:
-    print("  none (tried every ordered pair, allowing one mismatch)")
+    print("  none reached 7/8")
+    print()
+    print("  top pairs by score (a negative result still needs a number):")
+    scored = []
+    for a in range(0, 396, 4):
+        for b in range(0, 396, 4):
+            if a == b:
+                continue
+            ok = 0
+            for _key, raw, bombs, salvos in targets:
+                ua = struct.unpack_from("<I", raw, a)[0]
+                ub = struct.unpack_from("<I", raw, b)[0]
+                if ua == bombs and ub == salvos:
+                    ok += 1
+            scored.append((ok, a, b))
+    scored.sort(reverse=True)
+    for ok, a, b in scored[:5]:
+        print(f"    +{a:<4},+{b:<4} {ok}/{len(targets)}")
 for ok, a, b in hits[:10]:
     print(f"  +{a:<4},+{b:<4} {ok}/{len(targets)}")
     for key, raw, bombs, salvos in targets:
