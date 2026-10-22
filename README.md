@@ -62,6 +62,11 @@ PY
 4. **独立弹药池**：`WeaponRoundsComponentData`，行内 `+64` = 两个弹丸 id、`+72` = 两个弹匣容量、`+80` = 两个备弹；全表 25 把里**只有 SG-20 Halt 是 B≠A，也正好只有它是 `fnid=4`**。
 5. **未发布物品**：`LoadoutEntryComponentData` 只有 `{id, type, dlc_pack_id, equipment_tags[5]}` 32 字节，**没有 selectable**；带 selectable 的结构在发布数据里 0 命中 ⇒ 不是离线可翻的开关。
 
+## 相关仓库
+
+- **[hd2-srkit](https://github.com/deepseekv41flash/hd2-srkit)** —— Stingray/HD2 资源解包打包工具（纯标准库，资源层：toc/bundle/DSAR、unit/texture/material/lua、空 unit 模板）。本仓库里的 `tools/` 是**数据表**层面的实验脚本，两者互补。
+  > 它**不**包含运行期内存改写与 Lua addon 构建管线 —— 那些在 build 25988413 已不可用（Lua 无 `ffi` + EAC 拒绝外部读内存），不发布以免误导。
+
 ## 免责声明
 
 - 仅供**单人/私人环境**的研究与学习。改动数据文件可能违反游戏服务条款，也可能导致崩溃、存档异常、或与他人的联机体验异常。
