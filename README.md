@@ -76,8 +76,7 @@ PY
 
 ## 许可证
 
-- 代码（`tools/`、`examples/`）：MIT
-- 文档（`docs/`、`refs/`、`README`）：CC BY 4.0
+[MIT License](LICENSE) —— 代码、文档、索引一并用 MIT。
 
 ## 版本
 
