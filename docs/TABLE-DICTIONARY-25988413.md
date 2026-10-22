@@ -30,28 +30,54 @@
 | `planet_override_settings` | **44** | 40 B | 33,190 B | 行星名，如 `superearth` |
 | `stratagem_upgrade_settings` | **1** | 64 B | 25 B | `AMMO RACK MOUNTED TURRET` |
 
-**名字怎么取（2026-10-22 修正）**：字符串块**不是**靠行内偏移寻址的。行里那个 u64 只是碰巧落在
-某条字符串内部（在不同行里偏移量是 8/16/8/12/4… 变化），按它取名字会被截掉前缀。
-真实结构是**按行序平行的名字数组**：块里第 i 条可读字符串就是第 i 行的名字。
-已验证覆盖每一行的有 6 张表：`weapon_customization` 252、`stratagem` 153、`status_effect` 73、
-`planet_override` 44、`language` 15、`stratagem_upgrade` 1。抽出来的名字在
-`refs/table-row-names.json`，工具是 `tools/table_row_names.py`。
+**名字怎么取：两种机制，指针优先（2026-10-22 二次修正）**
 
-**整表导出**：`tools/table_export.py` 把一张表导成 CSV + Markdown（名字 + 每字段 hex/f32 + 字段统计），
-首张产物在 `refs/exports/weapon-customization-rows.csv|md`（252 行 × 13 字段，行名就是弹药名）。
+行名有两条路，第二条更靠得住：
 
-样例（都是表里原样读出来的）：
+| 机制 | 做法 | 什么时候成立 |
+|---|---|---|
+| 位置 positional | 字符串块里第 i 条可读串 = 第 i 行 | 只在"块里恰好一行一条串"时成立 |
+| **指针 pointer** | 行内 u64 是 **payload 相对偏移**，直接指向块里的串 | 一直成立 |
+
+⚠ 早先曾判定"行内那个 u64 只是碰巧落在某条字符串内部，按它取会被截前缀"，**这个结论是错的**。
+它会随行变化，是因为它指向**不同的串**（显示名 / `_name` 键 / `_desc` 键），不是同一串的不同位置。
+
+判据不能是"能不能解析"——偏移 0 对每一行都"能解析"（都指向块首）。真正的判据是
+**每行解析出的是不是不同的串**：`hits ≈ 行数` 且 `distinct ≈ hits` ⇒ 是指针。
+
+**独立交叉验证**：`weapon_customization` 有 8 个组的块恰好一行一条串，两种机制都可用，
+指针名与位置名 **240/240 完全一致**。同表第 9 组（12 个染料）的块里混着颜色二进制，位置法会吐出
+`rh>`、`p=?ff&?` 这类碎片，指针法给出 12 个干净名字——**这就是要用指针的理由**。
+
+| 表 | 行数 | 指针 | 结果 |
+|---|---:|---|---|
+| `weapon_customization_settings` | 252 | `+0`（类型库里字段名就叫 `DebugNameOffset`） | 252/252 ✓ |
+| `stratagem_settings` | 153 | `+16` 显示名 / `+24` `_name` 键 / `+32` `_desc` 键 | 153/153 ✓ |
+| `planet_override_settings` | 44 | `+0` | 44/44 ✓ |
+| `status_effect_settings` | 73 | `+8` | 73/73 ✓ |
+| `language_settings` | 15 | `+32` 语言名 / `+48` locale / `+8` 代码 | 15/15 ✓ |
+| `stratagem_upgrade_settings` | 1 | `+0` | 1/1 ✓ |
+
+指针还**改正了两张表的错名**：`planet_override` 位置法有 10 行与指针不符，`status_effect` 有 2 行不符。
+`status_effect` 另外还有 29 行走 40 B 步长的组、块里没有名字指针，所以该表是 73/102 行有名字。
+
+产物：`refs/table-row-names.json`（每张表标明用的机制）、`refs/exports/<table>.csv|md`（六张表整表导出）。
+工具：`tools/row_pointer_sweep.py`（扫全部 55 张表的指针）、`tools/probe_row_name_offsets.py`（单表判据）、
+`tools/table_row_names.py`（抽名字）、`tools/table_export.py`（整表导出）。
+
+样例（表里原样读出来的）：
 
 | 表 | 前几条名字 |
 |---|---|
-| `status_effect_settings` | `Blind` / `Bleed` / `Deaf` / `Confusion` |
+| `status_effect_settings` | `Blind` / `Bleed` / `Deaf` |
 | `weapon_customization_settings` | `PISTOL-SMG 9x20mm. EXPLOSIVE` / `… FULL METAL JACKET` / `… HOLLOW POINT` |
-| `stratagem_settings` | `BACKPACK. SUPPLY BACKPACK` / `nui_stratagem_backpack_ammo_name`（名 + 本地化键成对出现）|
-| `planet_override_settings` | `superearth` / `moor_shared` / `moor_base` / `moor_tundra` |
-| `language_settings` | `english` / `en-US` / `English US` / `en-GB` |
+| `stratagem_settings` | `BACKPACK. SUPPLY BACKPACK` / `BACKPACK. BALLISTIC SHIELD BACKPACK` |
+| `planet_override_settings` | `superearth` / `moor_shared` / `moor_base` |
+| `language_settings` | `english` / `en-GB` / `brazilian` |
+| `stratagem_upgrade_settings` | `AMMO RACK MOUNTED TURRET` |
 
-⚠ 约 1% 的条目会带一个对齐填充字节（如 `sBACKPACK…`、`"moor_tundra`），是块内 padding 恰好可打印
-造成的，原样保留、不猜着裁。
+⚠ 早先记录的"约 1% 条目带一个对齐填充字节（如 `sBACKPACK…`、`"moor_tundra`）"**是位置法产生的错名**，
+改用指针后这个现象消失，不需要再"原样保留、不猜着裁"。
 
 ## 1. 已验证的几何（我们自己的工具实测过）
 

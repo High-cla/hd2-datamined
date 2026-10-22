@@ -2,7 +2,7 @@
 
 > 这张表是**武器配件总表**：252 行 = 弹种 82 + 弹匣 57 + 枪口 37 + 瞄具 22 + 下挂 20 +
 > 备选弹种 15 + 涂装 12 + 内部件 4 + 扳机 3。
-> 整表可读导出：`refs/exports/weapon-customization-rows.csv`（252 行 × 13 字段）。
+> 整表可读导出：`refs/exports/weapon_customization_settings.csv`（252 行 × 13 字段，含行名）。
 
 ## 1. 行结构（88 B，逐字段已对上）
 
@@ -11,7 +11,7 @@
 
 | 偏移 | 字段 | 类型 | 本机观测 |
 |---:|---|---|---|
-| `+0` | `DebugNameOffset` | u64 | 252 个不同值，指向名字区（这就是之前误当"字符串指针"的那个字段）|
+| **`+0`** | **`DebugNameOffset`** | **u64 指针** | **就是每行自带的名字指针**：252/252 行解析出显示名，248 个不同值。早先以为它"只是碰巧"，已否证 |
 | `+8` | `ID` | ThinHash (u32) | **252 个不同值** ⇒ 每件配件的唯一 id |
 | `+12` | `NameUpper` | u32 | 158 个不同值（大写名哈希）|
 | `+16` | `NameCased` | u32 | 158 个不同值（原样名哈希）|
@@ -85,4 +85,6 @@ python tools/table_export.py --table weapon_customization_settings \
 * 结构与字段名：**xypwn/filediver**，`datalibrary/weapon_customization.go`、
   `datalibrary/enum/weaponcustomizationslot.go`、`.../weaponcustomizationsortgroups.go`（MIT）。
 * 本表数据、偏移核对、槽位解码：本项目（`tools/table_export.py` + 密钥解封）。
-* 行名来自表内尾部的平行名字数组，抽取方式见 `tools/table_row_names.py` 与本仓库字典文档 §0.5。
+* 行名来自**每行自带的 `+0` 指针**（`DebugNameOffset`），不是尾部的平行数组：指针名与位置名
+  在 8 个组上 240/240 一致，而位置法在第 9 组（12 个染料，块里混着颜色二进制）会吐出碎片。
+  抽取方式见 `tools/table_row_names.py`、`tools/probe_row_name_offsets.py` 与字典文档 §0.5。

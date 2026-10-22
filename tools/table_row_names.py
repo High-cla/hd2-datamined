@@ -6,22 +6,26 @@ HOW THE NAMES ARE STORED (measured 2026-10-22, build 25988413)
 
         u64 0x10 | u64 row_count | row_count * stride bytes | readable string blob
 
-    The blob is NOT addressed by offsets from the rows (an earlier attempt assumed that and produced
-    truncated names: the row's leading u64 lands *inside* some string, at a varying delta, which is a
-    coincidence).  For the tables below the blob is a **parallel array**: the i-th printable string
-    belongs to row i, in row order.
+    There are TWO different mechanisms, and using the wrong one silently produces wrong names:
 
-    Fully covered (every row has a name):
-        weapon_customization_settings   252 rows
-        stratagem_settings              153 rows
-        status_effect_settings           73 rows
-        planet_override_settings         44 rows
-        language_settings                15 rows
-        stratagem_upgrade_settings        1 row
+    (a) PARALLEL ARRAY - the blob holds exactly one printable string per row, in row order.
+        The i-th string is row i's name.  This is only valid when len(strings) == row_count;
+        `>=` is NOT good enough, because a blob holding several strings per row still satisfies
+        `>=` and then hands out the first N strings, which are not names aligned to rows.
 
-    Tables whose blob holds fewer strings than rows (credits, stamp, explosion, unit_effect,
-    planet_types, animation_event_trigger, candidate_descs) are reported but NOT mapped: their blob
-    carries something other than one name per row.
+    (b) PER-ROW POINTERS - the row carries its own payload-relative u64 offsets into the blob.
+        Used by generated_stratagem_settings.dl_bin, whose blob mixes display names,
+        `nui_stratagem_*_name` keys and `_desc` keys (2-4 strings per row), measured as
+
+            +16 -> display name   153/153 rows resolve, 151 distinct
+            +24 -> _name key      128/153
+            +32 -> _desc key      128/153
+
+        tools/probe_row_name_offsets.py is what establishes this: it tests whether a slot resolves
+        to a DIFFERENT string per row, which is what rules out a small integer landing in the blob.
+
+    Each table's output records which mechanism was used, so a reader never has to guess whether
+    "one name per row" was actually true.
 
 READ-ONLY
     Decrypts the sealed table with the caller's key and writes one JSON.  Never writes to the game.
@@ -40,6 +44,18 @@ import sys
 
 HEADER = 48
 DESCRIPTOR = 16
+
+# Tables whose rows carry their own string pointers, keyed by (file, stride): one file can hold
+# groups with different strides (status_effect has stride-40 and stride-160 groups, and +8 is a name
+# pointer only in the latter).  A value may be a tuple: the first offset that resolves wins.
+POINTERS = {
+    ("generated_weapon_customization_settings.dl_bin", 88): {"name": 0},
+    ("generated_stratagem_settings.dl_bin", 400): {"name": 16, "name_key": 24, "desc_key": 32},
+    ("generated_status_effect_settings.dl_bin", 160): {"name": 8},
+    ("generated_planet_override_settings.dl_bin", 40): {"name": 0},
+    ("generated_language_settings.dl_bin", 208): {"name": (32, 48), "locale": 48, "code": 8},
+    ("generated_stratagem_upgrade_settings.dl_bin", 64): {"name": 0},
+}
 
 
 def unseal(blob: bytes, box) -> bytes:
@@ -75,6 +91,18 @@ def strings_in(blob: bytes) -> list[str]:
     if len(current) >= 3:
         out.append(current.decode("ascii"))
     return out
+
+
+def read_cstr(buf: bytes, at: int, limit: int = 250) -> str:
+    if at <= 0 or at >= len(buf):
+        return ""
+    end = buf.find(b"\0", at, min(len(buf), at + limit))
+    if end <= at:
+        return ""
+    raw = buf[at:end]
+    if any(byte < 32 or byte > 126 for byte in raw):
+        return ""
+    return raw.decode("ascii")
 
 
 def main() -> int:
@@ -116,7 +144,9 @@ def main() -> int:
     for path in sorted(game.glob("*.dl_bin")):
         plain = unseal(path.read_bytes(), box)
         names: list[str] = []
+        used_pointers = False
         rows = 0
+        exact = True
         for group in groups(plain):
             stride = stride_of(group["type_id"])
             if not stride:
@@ -125,28 +155,57 @@ def main() -> int:
             marker, count = struct.unpack_from("<QQ", plain, p0)
             if marker != DESCRIPTOR or count <= 0:
                 continue
+            rows += count                      # counted even without a pool, so `rows` is the file
             rows_end = DESCRIPTOR + count * stride
-            if rows_end >= group["payload"]:
+            pointer_spec = POINTERS.get((path.name, stride))
+            if pointer_spec:
+                used_pointers = True
+                offsets = pointer_spec["name"]
+                for index in range(count):
+                    base = p0 + DESCRIPTOR + index * stride
+                    text = ""
+                    for offset in (offsets if isinstance(offsets, tuple) else (offsets,)):
+                        target = struct.unpack_from("<Q", plain, base + offset)[0]
+                        if 0 < target < group["payload"]:
+                            text = read_cstr(plain, p0 + target)
+                            if text:
+                                break
+                    names.append(text)
                 continue
-            blob = plain[p0 + rows_end: p0 + group["payload"]]
-            found = strings_in(blob)
-            rows += count
-            if len(found) >= count:
-                names.extend(found[:count])
+            if rows_end >= group["payload"]:
+                exact = False              # rows fill the payload: no pool to read a name from
+                continue
+            found = strings_in(plain[p0 + rows_end: p0 + group["payload"]])
+            if len(found) != count:
+                exact = False        # several strings per row, or fewer: positional pairing is off
+                continue
+            names.extend(found)
         if not rows:
             continue
-        if len(names) >= rows:
-            report[path.name] = {"rows": rows, "named": len(names), "names": names}
-            print(f"{path.name:<48} rows {rows:>6}  named {len(names):>6}  COMPLETE")
+        method = "pointer" if used_pointers else "positional"
+        resolved = sum(1 for n in names if n)
+        if len(names) == rows and resolved == rows and (used_pointers or exact):
+            entry = {"rows": rows, "named": resolved, "method": method, "names": names}
+            if used_pointers:
+                entry["pointer_offsets"] = {label: off for (_f, _s), spec in POINTERS.items()
+                                            if _f == path.name for label, off in spec.items()}
+            report[path.name] = entry
+            print(f"{path.name:<48} rows {rows:>6}  named {resolved:>6}  COMPLETE ({method})")
         else:
-            partial[path.name] = {"rows": rows, "strings_in_blob": len(names)}
-            print(f"{path.name:<48} rows {rows:>6}  strings {len(names):>6}  (not one name per row)")
+            partial[path.name] = {"rows": rows, "strings_resolved": resolved,
+                                  "method": method, "positional_exact": exact}
+            print(f"{path.name:<48} rows {rows:>6}  resolved {resolved:>6}  "
+                  f"(not one name per row)")
 
     if a.json:
         out = pathlib.Path(a.json)
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps({"build": "25988413", "complete": report, "partial": partial},
-                                  indent=1, ensure_ascii=False), encoding="utf-8")
+        out.write_text(json.dumps({
+            "build": "25988413",
+            "methods": {"positional": "blob holds exactly one string per row, in row order",
+                        "pointer": "each row carries its own payload-relative u64 offsets"},
+            "complete": report, "partial": partial}, indent=1, ensure_ascii=False),
+            encoding="utf-8")
         print(f"json -> {out}  ({out.stat().st_size:,} B)")
     return 0
 
