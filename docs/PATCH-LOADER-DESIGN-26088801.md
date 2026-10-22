@@ -86,3 +86,91 @@ $ python tools/patch_compose.py merge --mods ...patch_3 ...patch_4 --out out/mer
    看哪些字段非零、是否与构建工具有关。
 3. §4.2 的覆盖顺序：设计一个两行改同一资源的对照实验（两个补丁分别把同一字段改成不同值），
    进游戏看谁生效 —— 这条决定了合成器的冲突策略要不要支持"分层覆盖"。
+
+---
+
+## 6. BSL 那套协议能保留到哪一步：目录协议 ✅，运行时挂载 ❌
+
+BSL 的"协议"其实是两层，拆开看就清楚了：
+
+| 层 | BSL 怎么做 | 我们这条路线 | 结论 |
+|---|---|---|---|
+| **分发/目录协议** | `mods/` 下每个 mod 一个目录 + 清单，loader 读清单决定加载什么、什么顺序 | 完全可以照搬 | ✅ 保留 |
+| **运行时挂载** | 拿到执行权后，用 `ffi` 枚举 `data/*.patch_N`，把资源挂进运行中的包 | 做不到：Lua 只能 `require` lua 资源，挂载数据包要引擎 API；`ffi` 已死；而且引擎是**启动时**按连续序号合并补丁的 | ❌ 换成"启动前部署" |
+
+所以答案是：**能，但不是运行时加载器，而是"启动前部署器"**。做法是把 BSL 的目录协议搬过来，
+在游戏启动前把它同步成一条连续的 `patch_N` 链。对玩家来说体验一样（放 mod、跑一次、开游戏），
+只是这一次不是在游戏里跑，而是在启动脚本里跑。
+
+### 6.1 mods 目录协议（照 BSL 的精神）
+
+```
+mods/
+  <任意目录名>/
+    mod.json          # 清单
+    patch.dl          # 我们的补丁文件（原 patch_N，改名随意）
+    patch.dl.gpu_resources   # 可选：附流，必须与 patch 同名
+    patch.dl.stream          # 可选：同上
+```
+
+`mod.json`：
+
+```json
+{
+  "name": "camera-probe",
+  "package": "9ba626afa44a3aa3",
+  "priority": 50,
+  "patch": "patch.dl"
+}
+```
+
+* `package`：目标包（现在都是 `9ba626afa44a3aa3`；不同包各成一条链，deploy 会按包分组）
+* `priority`：越大越优先。**同一个资源 id 被两个 mod 各写一份时，高优先级赢**，并在日志里记一条覆盖。
+  这是 BSL 时代不存在的问题（Lua mod 不抢资源），在我们这条路线上必须显式定义。
+
+### 6.2 deploy 语义
+
+```
+python tools/patch_compose.py deploy --mods-dir mods --data "<game>/data" [--dry-run] [--prune]
+```
+
+1. 扫 `mods/*/mod.json`，按包分组、按 `priority` 降序；
+2. 每组求并集（同 id 同内容去重；不同内容高优先级覆盖，逐条打印）；
+3. **合成一个补丁，写到 `<包>.patch_0`**（附 `.gpu_resources` / `.stream`）；
+4. 回读校验条目数与每条 `toc` 字节；
+5. `--prune`：把该包其它槽位**先备份**再删除 —— 因为链上只剩 `patch_0`，"序号必须连续"这条规则
+   天然满足，不会再出现"删了中间一个，后面全部失效"。
+
+一个补丁装全部，是这个方案最关键的一点：它把"槽位管理"这个坑从根上去掉了。
+代价是 mod 之间不再能单独启用/禁用某个补丁 —— 想禁用一个 mod，把它从 `mods/` 里移走重跑一次即可。
+
+### 6.3 实测（离线，用我们装着的两个补丁当 mod）
+
+```
+$ python tools/patch_compose.py deploy --mods-dir tmp/mods-test --data tmp/fake-data --dry-run
+包 9ba626afa44a3aa3: 2 个 mod（按优先级高→低）
+  hd2runtime-lite   priority=100   1 条  <- patch.dl
+  camera-probe      priority=50    6 条  <- patch.dl
+  并集 7 条
+
+$ python tools/patch_compose.py deploy --mods-dir tmp/mods-test --data tmp/fake-data
+PASS 写入 9ba626afa44a3aa3.patch_0  toc=421,232 B gpu=2,272,056 B，回读 7 条
+```
+
+### 6.4 和 BSL 的真实差距（要说清楚，别让人误以为等价）
+
+| 能力 | BSL（Lua mod） | 我们的部署器（数据 mod） |
+|---|---|---|
+| 放 mod 目录就能用 | ✓ | ✓（但要在启动前跑一次 deploy） |
+| 游戏内热加载 | ✗（本来也要重启） | ✗ |
+| 需要执行权 / ffi | ✓ 需要 | **不需要** |
+| Steam 更新后 | 要等 loader 适配 | 要**重跑 deploy**（基础资源变了，补丁里的旧字节可能不再匹配） |
+| mod 之间抢同一资源 | 不存在 | 由 `priority` 决定，日志可见 |
+| 单独禁用某个 mod | 删目录重跑 | 移走目录重跑（补丁会重新合成） |
+
+### 6.5 还能再往前一步（可选）
+
+* 做一个 `start-modded.cmd`：先 deploy，再启动游戏（Steam 启动选项指过去，或桌面快捷方式）。
+  对玩家来说这就是"加载器"的体验，但实现只是两行脚本。
+* 反过来也可以提供 `--check`：对比当前 `data/` 里的 `patch_0` 与 `mods/` 目录的合成结果，
+  不一致就提示"需要重新 deploy"（Steam 更新后最容易踩这个）。

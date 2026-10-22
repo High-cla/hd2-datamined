@@ -198,6 +198,102 @@ def cmd_install(args) -> int:
     return 0
 
 
+def cmd_deploy(args) -> int:
+    """BSL 风格的 mods 目录 -> 连续的单一补丁链（启动前跑一次，等价于"加载器"）。"""
+    import json
+    mods = []
+    for manifest in sorted(glob.glob(os.path.join(args.mods_dir, "*", "mod.json"))):
+        try:
+            meta = json.load(open(manifest, encoding="utf-8"))
+        except Exception as exc:                                   # noqa: BLE001
+            print(f"✗ {manifest}: 读不了（{exc}）")
+            return 2
+        root = os.path.dirname(manifest)
+        patch = meta.get("patch") or ""
+        path = patch if os.path.isabs(patch) else os.path.join(root, patch)
+        if not patch or not os.path.isfile(path):
+            print(f"✗ {manifest}: patch 文件不存在（{patch!r}）")
+            return 2
+        mods.append({"name": meta.get("name") or os.path.basename(root),
+                     "package": meta.get("package") or BASE,
+                     "priority": int(meta.get("priority", 100)),
+                     "path": path})
+    if not mods:
+        print(f"✗ {args.mods_dir} 下没有找到任何 <dir>/mod.json")
+        return 2
+    by_pkg: dict[str, list[dict]] = {}
+    for m in mods:
+        by_pkg.setdefault(m["package"], []).append(m)
+    plan = {}
+    for pkg, items in sorted(by_pkg.items()):
+        items.sort(key=lambda m: (-m["priority"], m["name"]))
+        print(f"\n包 {pkg}: {len(items)} 个 mod（按优先级高→低）")
+        merged, origin, overrides = {}, {}, []
+        for m in items:
+            entries = load_entries(m["path"])
+            print(f"  {m['name']:<28} priority={m['priority']:<5} {len(entries):4d} 条  <- {os.path.basename(m['path'])}")
+            for fid, e in entries.items():
+                if fid in merged:
+                    same = (merged[fid]["toc"] == e["toc"] and merged[fid]["gpu"] == e["gpu"])
+                    overrides.append((fid, origin[fid], m["name"], "同内容" if same else "覆盖"))
+                    if not same and m["priority"] > next(x["priority"] for x in items if x["name"] == origin[fid]):
+                        merged[fid] = e
+                        origin[fid] = m["name"]
+                    continue
+                merged[fid] = e
+                origin[fid] = m["name"]
+        for fid, a, b, kind in overrides:
+            print(f"    {'=' if kind == '同内容' else '！'} 0x{fid:016X}  {a} -> {b}（{kind}）")
+        print(f"  并集 {len(merged)} 条")
+        plan[pkg] = merged
+    if args.dry_run:
+        print("\n--dry-run：只打印计划，不写文件")
+        return 0
+
+    for pkg, merged in plan.items():
+        package = Package(name=pkg)
+        for fid in sorted(merged):
+            e = merged[fid]
+            entry = TocEntry(file_id=fid, type_id=e["type"], toc_data=bytearray(e["toc"]))
+            if e["gpu"]:
+                entry.gpu_data = bytearray(e["gpu"])
+            if e["stream"]:
+                entry.stream_data = bytearray(e["stream"])
+            package.add_entry(entry)
+        toc, gpu, stream = package.to_bytes()
+        # 备份并清掉该包的其它槽位：链上只留 patch_0，天然满足"必须连续"
+        others = [p for p in glob.glob(os.path.join(args.data, f"{pkg}.patch_*"))
+                  if not p.endswith(".gpu_resources") and not p.endswith(".stream")
+                  and not p.endswith(".patch_0")]
+        if others:
+            if not args.prune:
+                print(f"⚠ {pkg} 还有其它槽位 {[os.path.basename(o) for o in others]}；"
+                      f"加 --prune 会先备份再删除（链上只留 patch_0）")
+            else:
+                bk = os.path.join(args.data, "..", f"patch-backup-{os.urandom(3).hex()}")
+                os.makedirs(bk, exist_ok=True)
+                for o in others:
+                    for suf in ("", ".gpu_resources", ".stream"):
+                        if os.path.isfile(o + suf):
+                            shutil.copyfile(o + suf, os.path.join(bk, os.path.basename(o) + suf))
+                            os.remove(o + suf)
+                print(f"  已备份其它槽位到 {os.path.abspath(bk)} 后删除")
+        dest = os.path.join(args.data, f"{pkg}.patch_0")
+        with open(dest, "wb") as handle:
+            handle.write(toc)
+        with open(dest + ".gpu_resources", "wb") as handle:
+            handle.write(gpu)
+        with open(dest + ".stream", "wb") as handle:
+            handle.write(stream)
+        back = load_entries(dest)
+        ok = set(back) == set(merged) and all(back[f]["toc"] == merged[f]["toc"] for f in merged)
+        print(f"{'PASS' if ok else 'FAIL'} 写入 {os.path.basename(dest)}  "
+              f"toc={len(toc):,} B gpu={len(gpu):,} B，回读 {len(back)} 条")
+        if not ok:
+            return 1
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="数据文件路线 mod 的离线合成器 / 槽位分配器")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -210,6 +306,12 @@ def main() -> int:
     p.add_argument("--index", type=int, default=0)
     p.add_argument("--prefer", nargs="*", default=[], help="冲突时优先的 mod 文件名")
     p.set_defaults(func=cmd_merge)
+    p = sub.add_parser("deploy", help="按 mods 目录清单合成并写成一个连续补丁链")
+    p.add_argument("--mods-dir", required=True, help="每个 mod 一个子目录，内含 mod.json")
+    p.add_argument("--data", required=True, help="游戏 data 目录")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--prune", action="store_true", help="备份后删除该包其它槽位（链上只留 patch_0）")
+    p.set_defaults(func=cmd_deploy)
     p = sub.add_parser("install", help="把合成好的补丁放到下一个连续槽位")
     p.add_argument("--patch", required=True)
     p.add_argument("--data", default="")
