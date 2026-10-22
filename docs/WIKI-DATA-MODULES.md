@@ -120,8 +120,11 @@ Mass 30 kg / Velocity 400 m/s）对应的是 **`S_P13`**，不是 `Orbital_Preci
    也不是 `ProjectileType` 枚举下标。
 2. 弹丸表**重复行**：同一 `name_upper` 出现多行，导致按名连接有歧义。
 3. damage / beam / arc / status 四张表**尚未做值对接**（缺稳定连接键）。
-4. `stratagems data.json` 的 `num_bombs` / `num_salvos` / `area_size` / `fire_height`
-   （如 Precision Strike 的 1 / 1 / 1 / 3000）还没在我们 400 B 行里定位。
+4. ~~`stratagems data.json` 的 `num_bombs` / `num_salvos` / `area_size` / `fire_height`
+   还没在我们 400 B 行里定位~~ —— **已查清：它们不在战备行里**。连同
+   `bomb_interval` / `salvo_interval` / `calltime` / `health` / `armor` 一起反查全部落空；
+   战备表只携带 `cooldown`（`+104`）与 `uses`（`+80`）两个标量。见
+   `STRATAGEM-SETTINGS-DECODED.md` §7.6。
 
 ## 6. 复现
 

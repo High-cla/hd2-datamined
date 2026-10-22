@@ -220,6 +220,31 @@ MISSIONS / EMPLACEMENTS / SENTRYS / PRESIDENT REWARDS 上，横跨 wiki 全部�
 那条链的闭合方式（排除法 + 官方补丁）见该文档 §5，副产品是 `explosion_settings +28 = cone_angle`
 被三方对齐坐实（filediver 35 / 本表 27 / 补丁 35→27）。
 
+## 7.6 哪些字段在表里、哪些不在（拿 wiki 解码值反查）
+
+`Module:Decodedata-Attacks/stratagems data.json` 是一份按**大写显示名**索引的解码视图（正是我们
+`+16` 指针给出的那种名字），按名字对上 **14 条**（全是轨道/鹰式）。拿它的数值逐字段反查我们每一行
+的 100 个槽（u32 与 f32 两种读法都试，命中率按"可比较的对数"算，不是按全部配对数）：
+
+| wiki 字段 | 有值的对数 | 结果 |
+|---|---:|---|
+| `cooldown` | 14 | **`+104` f32，命中率 1.00** |
+| `uses` | 14 | **`+80` u32，命中率 1.00** |
+| `num_bombs` | 8 | ✗ 表里没有 |
+| `num_salvos` | 8 | ✗ 表里没有 |
+| `area_size` | 8 | ✗ 表里没有 |
+| `fire_height` | 8（恒 3000） | ✗ 表里没有 |
+| `bomb_interval` / `salvo_interval` / `calltime` | 12 / 8 / 14 | ✗ 表里没有 |
+| `health` / `armor` | 5（恒 100 / 0） | ✗ 表里没有 |
+
+⇒ **这张表只携带 `cooldown` 与 `uses` 两个标量玩法参数**，其余全部在资源侧（投送资源）。
+这也解释了 wiki 那两份数据为什么混在一起：`stratagems data.json` 是"设置行 + 资源"的合并视图。
+
+对改 mod 的直接含义：**想改炸弹数 / 齐射数 / 覆盖面积 / 投送高度 / 呼叫时间，改
+`stratagem_settings` 没有用**——那些值不在这张表里。
+
+工具：`tools/stratagem_field_align.py`（把 wiki 字段名对齐到本表偏移，两个分母都算清楚）。
+
 ## 8. 还没解决的
 
 * **枚举取值没有名字**。类型库给了成员的类型名（`StratagemCategoryType` 等），但没给取值名，
