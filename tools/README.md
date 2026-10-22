@@ -24,6 +24,8 @@
 | `stratagem_join.py` | 战备行与 HD2Runtime 目录逐名配对（同系族内模糊匹配、一对一），用冷却是否相等反向校验配对；目录快照早于补丁时按 `PATCHED` 表登记 | PyNaCl + HD2Runtime SDK zip | ✓ 21 配对：20 条精确 + 1 条已定案补丁差异（Airburst 100→90），未解释 0 |
 | `settings_field_align.py` | 用连接键把 filediver 明文 dump 的字段名对齐到本表偏移（带"常量字段/常量槽"双排除） | PyNaCl + `typelib.py` + filediver JSON | ✓ 弹丸表 18 字段（`name_upper` 连接，132 对）|
 | `table_xref_scan.py` | 通用跨表引用扫描：找出源表哪个槽命中目标表某列的值（用 `distinct` 判据排除小整数巧合） | PyNaCl + `typelib.py` | ✓ 用它否证"战备行引用弹丸行" |
+| `stratagem_attack_chain.py` | 走通一条链并逐环打印证据：战备行 `+0` → StratagemType 名 → 战备道具资源的 `projectile_type` → 弹丸行 → `+144/+156` → 爆炸行 `+28` | PyNaCl + `typelib.py` + wiki 模块 + filediver dump | ✓ 26 条命中，含 Airburst 的 cone=27 |
+| `probe_stratagem_projectile_link.py` | 排查战备行里弹丸类型的编码形式（`+0`/文件下标/`name_upper`/枚举下标），用于否证"战备行有指向弹丸的外键" | PyNaCl + `typelib.py` | ✗ 四种编码全不命中 |
 | `table_dictionary.py` | **全表字典**：解封 55 张表 → 组/行数/步长/尾块 + 每个类型的字段偏移树（需自备 `recipient.sk`） | PyNaCl + `typelib.py` | ✓ 55/55 表解析（18 张几何完全闭合） |
 | `entities_modeb.py` | 实体表：武器单元格编辑、可选弹种（模式 A/B）、双弹药池、hashmap 维护 | `murmur64.py` | ✓✓ 已实机（主宰/惩罚者/扫荡者） |
 | `proj_copy_row.py` | 整行搬运 272 B 射弹行（换弹头），带 5 道门禁 | `murmur64.py` | ✓✓ 已实机（Eruptor 弹头 → 主宰） |

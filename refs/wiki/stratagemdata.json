@@ -1,0 +1,2800 @@
+{
+	"weapon": {
+		"B-1 Supply Pack": {
+			"ref": "AmmoBackpack",
+			"name": "Supply Pack",
+			"stratcode": [
+				"Down",
+				"Left",
+				"Down",
+				"Up",
+				"Up",
+				"Down"
+			],
+			"calltime": 5,
+			"cooldown": 480,
+			"cap": 4,
+			"remove_time": 2.5,
+			"health": 200,
+			"armor": 2,
+			"type": "LoadoutItemType_Backpack",
+			"prefix": "B-1",
+			"capacity": 4,
+			"start_amount": 4,
+			"refill_amount": 1,
+			"holster_duration": 0.300000012,
+			"wield_duration": 0.5,
+			"pickup_duration": 0.5,
+			"equipment_type": "EquipmentType_BackpackSupply",
+			"key": "B-1 Supply Pack",
+			"attacks": []
+		},
+		"LIFT-182 Warp Pack": {
+			"ref": "WarpBackpack",
+			"name": "Warp Pack",
+			"stratcode": [
+				"Down",
+				"Left",
+				"Right",
+				"Right"
+			],
+			"calltime": 5,
+			"cooldown": 480,
+			"remove_time": 2.5,
+			"health": 200,
+			"armor": 2,
+			"type": "LoadoutItemType_Backpack",
+			"prefix": "B-1",
+			"capacity": 4,
+			"start_amount": 4,
+			"refill_amount": 1,
+			"holster_duration": 0.300000012,
+			"wield_duration": 0.5,
+			"pickup_duration": 0.5,
+			"equipment_type": "EquipmentType_BackpackWarp",
+			"key": "LIFT-182 Warp Pack",
+			"attacks": [
+				{
+					"type": "explosion",
+					"name": "Warp_Pack"
+				}
+			]
+		},
+		"AX/AR-23 \"Guard Dog\"": {
+			"ref": "DroneMG",
+			"name": "\"Guard Dog\"",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Left",
+				"Up",
+				"Right",
+				"Down"
+			],
+			"calltime": 5,
+			"cooldown": 480,
+			"remove_time": 2.5,
+			"health": 100,
+			"armor": 1,
+			"type": "LoadoutItemType_Backpack",
+			"prefix": "AX/AR-23",
+			"capacity": 8,
+			"start_amount": 8,
+			"refill_amount": 8,
+			"holster_duration": 0.300000012,
+			"wield_duration": 0.5,
+			"pickup_duration": 0.5,
+			"equipment_type": "EquipmentType_Pistol",
+			"key": "AX/AR-23 \"Guard Dog\"",
+			"distance": 50,
+			"can_die_naturally": 0,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"magazine_capacity": 45,
+			"chambered": 1,
+			"magazines": 6,
+			"magazines_refill": 6,
+			"magazines_max": 12,
+			"reload": 2.5,
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 16,
+				"vertical": 16
+			},
+			"noise_template": "NoiseTemplate_Weapon_Small",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic",
+				"Single",
+				"Burst"
+			],
+			"num_burst_rounds": 3,
+			"function_info": [
+				"Firemode"
+			],
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 660,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 5,
+			"burst_fire_rate": 660,
+			"projectile_type": "Rifle_5.5x50mm_ap",
+			"customizations": {},
+			"modifiers": [],
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Rifle_5.5x50mm_ap"
+				}
+			]
+		},
+		"AX/ARC-3 \"Guard Dog\" K-9": {
+			"ref": "Arc_Thrower",
+			"name": "\"Guard Dog\" K-9",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Left",
+				"Up",
+				"Right",
+				"Left"
+			],
+			"calltime": 5,
+			"cooldown": 480,
+			"remove_time": 2.5,
+			"health": 100,
+			"armor": 1,
+			"type": "LoadoutItemType_Backpack",
+			"prefix": "LAS-5",
+			"capacity": 4,
+			"start_amount": 4,
+			"refill_amount": 2,
+			"holster_duration": 0.400000006,
+			"wield_duration": 0.300000012,
+			"pickup_duration": 0.5,
+			"equipment_type": "EquipmentType_Energy",
+			"key": "ARC-3 Arc_Thrower",
+			"distance": 50,
+			"can_die_naturally": 0,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"reload": 3,
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2,
+					"vertical_recoil": 0.5,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 1,
+					"vertical_recoil": 0.5,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_Weapon_Medium",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"magazines": 3,
+			"magazines_refill": 6,
+			"magazines_max": 6,
+			"overheat_temperature": 200,
+			"warning_temperature": 150,
+			"emission_temperature": 50,
+			"temp_gain_per_shot": 2,
+			"temp_gain_per_second": 12.5,
+			"temp_gain_per_second_modifier": 100,
+			"temp_loss_per_second": 6.65999985,
+			"temp_loss_modifier_extreme_heat": 0.75,
+			"temp_loss_modifier_extreme_cold": 1.5,
+			"needs_reload_after_overheat": 1,
+			"firing_charge": 100,
+			"charge_gain_per_second": 400,
+			"charge_loss_per_second": 1000,
+			"noise_timer": 0.25,
+			"arc_type": "Drone_K-9_Arc",
+			"modifiers": [
+				{
+					"type": "WeaponStatModifierType_Add_Ergonomics",
+					"value": 0
+				},
+				{
+					"type": "WeaponStatModifierType_Add_Ergonomics",
+					"value": -6
+				},
+				{
+					"type": "WeaponStatModifierType_Add_Ergonomics",
+					"value": -5
+				}
+			],
+			"attacks": [
+				{
+					"type": "arc",
+					"name": "Drone_K-9_Arc"
+				}
+			]
+		},
+		"AX/LAS-5 \"Guard Dog\" Rover": {
+			"ref": "Drone_Laser_Rifle",
+			"name": "\"Guard Dog\" Rover",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Left",
+				"Up",
+				"Right",
+				"Right"
+			],
+			"calltime": 5,
+			"cooldown": 480,
+			"remove_time": 2.5,
+			"health": 100,
+			"armor": 1,
+			"type": "LoadoutItemType_Backpack",
+			"prefix": "LAS-5",
+			"capacity": 4,
+			"start_amount": 4,
+			"refill_amount": 2,
+			"holster_duration": 0.400000006,
+			"wield_duration": 0.300000012,
+			"pickup_duration": 0.5,
+			"equipment_type": "EquipmentType_Energy",
+			"key": "LAS-5 Scythe",
+			"distance": 50,
+			"can_die_naturally": 0,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"reload": 3,
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2,
+					"vertical_recoil": 0.5,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 1,
+					"vertical_recoil": 0.5,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_Weapon_Medium",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"magazines": 3,
+			"magazines_refill": 6,
+			"magazines_max": 6,
+			"overheat_temperature": 200,
+			"warning_temperature": 150,
+			"emission_temperature": 50,
+			"temp_gain_per_shot": 2,
+			"temp_gain_per_second": 12.5,
+			"temp_gain_per_second_modifier": 100,
+			"temp_loss_per_second": 6.65999985,
+			"temp_loss_modifier_extreme_heat": 0.75,
+			"temp_loss_modifier_extreme_cold": 1.5,
+			"needs_reload_after_overheat": 1,
+			"firing_charge": 100,
+			"charge_gain_per_second": 400,
+			"charge_loss_per_second": 1000,
+			"noise_timer": 0.25,
+			"beam_type": "MediumDrone",
+			"customizations": {
+				"beam_type": "BeamType_Medium"
+			},
+			"modifiers": [
+				{
+					"type": "WeaponStatModifierType_Add_Ergonomics",
+					"value": 0
+				},
+				{
+					"type": "WeaponStatModifierType_Add_Ergonomics",
+					"value": -6
+				},
+				{
+					"type": "WeaponStatModifierType_Add_Ergonomics",
+					"value": -5
+				}
+			],
+			"attacks": [
+				{
+					"type": "beam",
+					"name": "MediumDrone"
+				}
+			]
+		},
+		"AX/TX-13 \"Guard Dog\" Dog Breath": {
+			"ref": "Drone_GASPROJECTOR",
+			"name": "\"Guard Dog\" Dog Breath",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Left",
+				"Up",
+				"Right",
+				"Up"
+			],
+			"calltime": 5,
+			"cooldown": 480,
+			"source": "chemical-agents",
+			"sourcepage": 3,
+			"remove_time": 2.5,
+			"health": 100,
+			"armor": 1,
+			"type": "LoadoutItemType_Backpack",
+			"prefix": "AX/TX-13",
+			"capacity": 6,
+			"start_amount": 6,
+			"refill_amount": 6,
+			"holster_duration": 0.300000012,
+			"wield_duration": 0.5,
+			"pickup_duration": 0.5,
+			"equipment_type": "EquipmentType_Pistol",
+			"key": "AX/TX-13 \"Guard Dog\" Dog Breath",
+			"distance": 50,
+			"can_die_naturally": 0,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"magazine_capacity": 100,
+			"chambered": 1,
+			"magazines": 6,
+			"magazines_refill": 6,
+			"magazines_max": 12,
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 16,
+				"vertical": 16
+			},
+			"noise_template": "NoiseTemplate_Weapon_Small",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic",
+				"Single",
+				"Burst"
+			],
+			"num_burst_rounds": 3,
+			"function_info": [
+				"Firemode"
+			],
+			"customizations": {},
+			"modifiers": [],
+			"warmup_time": 0,
+			"cooldown_time": 15,
+			"spray_capsule_radius": 0,
+			"ammo_cost": 1,
+			"damage_type": "Drone_Chem_Gun",
+			"attacks": [
+				{
+					"type": "damage",
+					"name": "Drone_Chem_Gun"
+				}
+			]
+		},
+		"SH-20 Ballistic Shield Backpack": {
+			"ref": "BallisticShield",
+			"name": "Ballistic Shield Backpack",
+			"stratcode": [
+				"Down",
+				"Left",
+				"Down",
+				"Down",
+				"Up",
+				"Left"
+			],
+			"calltime": 5,
+			"cooldown": 300,
+			"remove_time": 2.5,
+			"health": 600,
+			"armor": 3,
+			"type": "LoadoutItemType_Backpack",
+			"prefix": "SH-20",
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_None",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"holster_duration": 0.5,
+			"wield_duration": 0.5,
+			"pickup_duration": 0.5,
+			"equipment_type": "EquipmentType_BackpackShield",
+			"is_one_handed": 1,
+			"key": "SH-20 Ballistic Shield Backpack",
+			"attacks": []
+		},
+		"SH-32 Shield Generator Pack": {
+			"ref": "EnergyShieldBackpack",
+			"name": "Shield Generator Pack",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Left",
+				"Right",
+				"Left",
+				"Right"
+			],
+			"calltime": 5,
+			"cooldown": 480,
+			"remove_time": 2.5,
+			"health": 200,
+			"armor": 2,
+			"type": "LoadoutItemType_Backpack",
+			"prefix": "SH-32",
+			"shield": 150,
+			"shieldregen": 150,
+			"shielddelay": 60,
+			"shieldbreakdelay": 12,
+			"shieldradius": 1.3,
+			"holster_duration": 0.300000012,
+			"wield_duration": 0.5,
+			"pickup_duration": 0.5,
+			"equipment_type": "EquipmentType_BackpackEnergyShield",
+			"key": "SH-32 Shield Generator Pack",
+			"attacks": []
+		},
+		"SH-51 Directional Shield": {
+			"ref": "DirectionalShield",
+			"name": "Directional hield",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Left",
+				"Right",
+				"Up",
+				"Up"
+			],
+			"calltime": 5,
+			"cooldown": 480,
+			"remove_time": 2.5,
+			"health": 300,
+			"armor": 2,
+			"type": "LoadoutItemType_Backpack",
+			"prefix": "SH-51",
+			"shield": 1000,
+			"shieldregen": 300,
+			"shielddelay": 3,
+			"shieldbreakdelay": 6,
+			"shieldradius": 4,
+			"holster_duration": 0.300000012,
+			"wield_duration": 0.5,
+			"pickup_duration": 0.5,
+			"equipment_type": "EquipmentType_BackpackEnergyShield",
+			"key": "SH-51 Directional Shield",
+			"attacks": []
+		},
+		"FX-12 Shield Generator Relay": {
+			"ref": "EnergyShield",
+			"name": "Shield Generator Relay",
+			"stratcode": [
+				"Down",
+				"Down",
+				"Left",
+				"Right",
+				"Left",
+				"Right"
+			],
+			"calltime": 3,
+			"cooldown": 90,
+			"prefix": "FX-12",
+			"shield": 4000,
+			"shieldregen": 400,
+			"shielddelay": 0.01,
+			"shieldbreakdelay": null,
+			"shieldradius": 15,
+			"remove_time": 2.5,
+			"health": 450,
+			"armor": 1,
+			"key": "FX-12 Shield Generator Relay",
+			"attacks": []
+		},
+		"MD-6 Anti-Personnel Minefield": {
+			"ref": "MineDeployer",
+			"name": "Anti-Personnel Minefield",
+			"stratcode": [
+				"Down",
+				"Left",
+				"Up",
+				"Right"
+			],
+			"calltime": 3,
+			"cooldown": 120,
+			"prefix": "MD-6",
+			"explosion_type": "ContactMine",
+			"remove_time": 3.5,
+			"health": 250,
+			"armor": 1,
+			"panel_count": 6,
+			"throwable_count": 8,
+			"throw_delay": 2,
+			"throw_duration": 1.5,
+			"key": "MD-6 Anti-Personnel Minefield",
+			"salvos": 6,
+			"cap": 8,
+			"attacks": [
+				{
+					"type": "explosion",
+					"name": "ContactMine"
+				}
+			]
+		},
+		"MD-8 Gas Mines": {
+			"ref": "MineDeployer_GasMines",
+			"name": "Gas Mines",
+			"stratcode": [
+				"Down",
+				"Left",
+				"Left",
+				"Right"
+			],
+			"calltime": 3,
+			"cooldown": 120,
+			"prefix": "MD-8",
+			"explosion_type": "GasMine",
+			"remove_time": 3.5,
+			"health": 250,
+			"armor": 1,
+			"panel_count": 6,
+			"throwable_count": 8,
+			"throw_delay": 2,
+			"throw_duration": 1.5,
+			"key": "MD-8 Gas Mines",
+			"salvos": 6,
+			"cap": 8,
+			"attacks": [
+				{
+					"type": "explosion",
+					"name": "GasMine"
+				},
+				{
+					"type": "damage",
+					"name": "DPS_Gas"
+				}
+			]
+		},
+		"MD-17 Anti-Tank Mines": {
+			"ref": "MineDeployer_AntiTank",
+			"name": "Anti-tank Mines",
+			"stratcode": [
+				"Down",
+				"Left",
+				"Up",
+				"Up"
+			],
+			"calltime": 3,
+			"cooldown": 120,
+			"prefix": "MD-17",
+			"explosion_type": "AntiTankMine",
+			"remove_time": 3.5,
+			"health": 250,
+			"armor": 1,
+			"panel_count": 6,
+			"throwable_count": 3,
+			"throw_delay": 2,
+			"throw_duration": 1.5,
+			"key": "MD-17 Anti-tank Mines",
+			"salvos": 6,
+			"cap": 3,
+			"attacks": [
+				{
+					"type": "explosion",
+					"name": "AntiTankMine"
+				}
+			]
+		},
+		"MD-I4 Incendiary Mines": {
+			"ref": "MineDeployer_IncendiaryMines",
+			"name": "Incendiary Mines",
+			"stratcode": [
+				"Down",
+				"Left",
+				"Left",
+				"Down"
+			],
+			"calltime": 3,
+			"cooldown": 120,
+			"prefix": "MD-I4",
+			"explosion_type": "IncendiaryMine",
+			"remove_time": 3.5,
+			"health": 250,
+			"armor": 1,
+			"panel_count": 6,
+			"throwable_count": 8,
+			"throw_delay": 2,
+			"throw_duration": 1.5,
+			"salvos": 6,
+			"cap": 8,
+			"attacks": [
+				{
+					"type": "explosion",
+					"name": "IncendiaryMine"
+				}
+			]
+		},
+		"A/MG-43 Machine Gun Sentry": {
+			"ref": "TurretMachinegunGPMG",
+			"name": "Machine Gun Sentry",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Right",
+				"Right",
+				"Up"
+			],
+			"calltime": 3,
+			"cooldown": 90,
+			"magazine_capacity": 175,
+			"chambered": 1,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"prefix": "A/MG-43",
+			"remove_time": 2.5,
+			"distance": 75,
+			"health": 200,
+			"armor": 2,
+			"aim_drag": 0.5,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 20,
+					"vertical_recoil": 2,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_Weapon_Medium",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"turn_speed_vertical": 50,
+			"turn_speed_horizontal": 80,
+			"vertical_limit_min": -60,
+			"vertical_limit_max": 90,
+			"rounds_per_minute": {
+				"x": 630,
+				"y": 630,
+				"z": 900
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 20,
+			"projectile_type": "Rifle_8x60mm_fmj",
+			"key": "A/MG-43 Machine Gun Sentry",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Rifle_8x60mm_fmj"
+				}
+			]
+		},
+		"A/G-16 Gatling Sentry": {
+			"ref": "TurretMachinegun",
+			"name": "Gatling Sentry",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Right",
+				"Left"
+			],
+			"calltime": 3,
+			"cooldown": 150,
+			"magazine_capacity": 500,
+			"chambered": 1,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"wind_up_time": 0.5,
+			"wind_down_time": 1,
+			"rpm_multiplier": 1,
+			"prefix": "A/G-16",
+			"remove_time": 3.5,
+			"distance": 75,
+			"health": 200,
+			"armor": 2,
+			"aim_drag": 0.5,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 10,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 3,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_Weapon_Medium",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"turn_speed_vertical": 50,
+			"turn_speed_horizontal": 80,
+			"vertical_limit_min": -60,
+			"vertical_limit_max": 90,
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 1600,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Rifle_8x60mm_fmj",
+			"key": "A/G-16 Gatling Sentry",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Rifle_8x60mm_fmj"
+				}
+			]
+		},
+		"E/MG-101 HMG Emplacement": {
+			"ref": "TurretManned",
+			"name": "HMG Emplacement",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Left",
+				"Right",
+				"Right",
+				"Left"
+			],
+			"calltime": 3,
+			"cooldown": 180,
+			"magazine_capacity": 300,
+			"chambered": 1,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"prefix": "E/MG-101",
+			"remove_time": 2.5,
+			"aim_drag": 0.5,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 8,
+					"vertical_recoil": 12,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 2,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 2,
+				"vertical": 2
+			},
+			"noise_template": "NoiseTemplate_Weapon_Large",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"rounds_per_minute": {
+				"x": 450,
+				"y": 600,
+				"z": 750
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Rifle_12.5x100mm_fmj",
+			"key": "E/MG-101 HMG Emplacement",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Rifle_12.5x100mm_fmj"
+				}
+			]
+		},
+		"A/M-12 Mortar Sentry": {
+			"ref": "TurretMortar",
+			"name": "Mortar Sentry",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Right",
+				"Right",
+				"Down"
+			],
+			"calltime": 3,
+			"cooldown": 180,
+			"magazine_capacity": 36,
+			"chambered": 1,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"prefix": "A/M-12",
+			"remove_time": 2.5,
+			"distance": 125,
+			"health": 200,
+			"armor": 2,
+			"aim_drag": 0.5,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"use_high_arc": 1,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 50,
+				"vertical": 100
+			},
+			"noise_template": "NoiseTemplate_Weapon_Medium",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Burst"
+			],
+			"num_burst_rounds": 3,
+			"function_info": [],
+			"turn_speed_vertical": 55,
+			"turn_speed_horizontal": 55,
+			"vertical_limit_min": 35,
+			"vertical_limit_max": 89,
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 60,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Grenade_Mortar_40mm_HE",
+			"key": "A/M-12 Mortar Sentry",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Grenade_Mortar_40mm_HE"
+				},
+				{
+					"type": "explosion",
+					"name": "Grenade_Mortar_40mm_HE"
+				}
+			]
+		},
+		"A/M-23 EMS Mortar Sentry": {
+			"ref": "TurretMortar_Staticfield",
+			"name": "EMS Mortar Sentry",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Right",
+				"Down",
+				"Right"
+			],
+			"calltime": 3,
+			"cooldown": 180,
+			"magazine_capacity": 16,
+			"chambered": 1,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"prefix": "A/M-23",
+			"remove_time": 2.5,
+			"distance": 125,
+			"health": 200,
+			"armor": 2,
+			"aim_drag": 0.5,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"use_high_arc": 1,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 50,
+				"vertical": 50
+			},
+			"noise_template": "NoiseTemplate_Weapon_Medium",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Burst"
+			],
+			"num_burst_rounds": 3,
+			"function_info": [],
+			"turn_speed_vertical": 55,
+			"turn_speed_horizontal": 55,
+			"vertical_limit_min": 35,
+			"vertical_limit_max": 89,
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 60,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Grenade_Mortar_40mm_Staticfield",
+			"key": "A/M-23 EMS Mortar Sentry",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Grenade_Mortar_40mm_Staticfield"
+				},
+				{
+					"type": "explosion",
+					"name": "StaticField_Sentry"
+				},
+				{
+					"type": "explosion",
+					"name": "Grenade_Mortar_40mm_Staticfield"
+				}
+			]
+		},
+		"A/LAS-98 Laser Sentry": {
+			"ref": "Turret Laser",
+			"name": "Laser Sentry",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Right",
+				"Down",
+				"Up",
+				"Right"
+			],
+			"calltime": 4.75,
+			"cooldown": 128,
+			"limit": 20,
+			"key": "A/LAS-98 Laser Sentry",
+			"health": 200,
+			"attacks": [
+				{
+					"type": "beam",
+					"name": "LaserCannon"
+				},
+				{
+					"type": "damage",
+					"name": "DPS_Fire"
+				}
+			]
+		},
+		"A/FLAM-40 Flame Sentry": {
+			"ref": "Turrent Flame",
+			"name": "Flame Sentry",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Right",
+				"Down",
+				"Up",
+				"Up"
+			],
+			"calltime": 4.75,
+			"cooldown": 100,
+			"key": "A/FLAM-40 Flame Sentry",
+			"health": 200,
+			"attacks": [
+				{
+					"type": "damage",
+					"name": "Projectile_Flame_Sentry"
+				},
+				{
+					"type": "explosion",
+					"name": "Flame_Sentry_Explosion"
+				},
+				{
+					"type": "damage",
+					"name": "DPS_Fire"
+				}
+			]
+		},
+		"A/MLS-4X Rocket Sentry": {
+			"ref": "TurretRocket",
+			"name": "Rocket Sentry",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Right",
+				"Right",
+				"Left"
+			],
+			"calltime": 0,
+			"cooldown": 150,
+			"magazine_capacity": 16,
+			"chambered": 0,
+			"magazines": 1,
+			"magazines_refill": 6,
+			"magazines_max": 1,
+			"backblast_angle": 20,
+			"backblast_offset": 0.75,
+			"backblast_explosion_type": "BackblastMedium",
+			"prefix": "A/MLS-4X",
+			"remove_time": 2.5,
+			"distance": 100,
+			"health": 200,
+			"armor": 2,
+			"aim_drag": 0.5,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 5,
+				"vertical": 15
+			},
+			"noise_template": "NoiseTemplate_Weapon_Medium",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Burst",
+				"Burst"
+			],
+			"num_burst_rounds": 4,
+			"function_info": [],
+			"turn_speed_vertical": 40,
+			"turn_speed_horizontal": 40,
+			"vertical_limit_min": -45,
+			"vertical_limit_max": 90,
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 90,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Rocket_70mm_turret",
+			"key": "A/MLS-4X Rocket Sentry",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Rocket_70mm_turret"
+				},
+				{
+					"type": "explosion",
+					"name": "Rocket_70mm_turret"
+				}
+			]
+		},
+		"A/AC-8 Autocannon Sentry": {
+			"ref": "TurretAutocannon",
+			"name": "Autocannon Sentry",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Right",
+				"Up",
+				"Left",
+				"Up"
+			],
+			"calltime": 3,
+			"cooldown": 150,
+			"magazine_capacity": 24,
+			"chambered": 1,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"prefix": "A/AC-8",
+			"remove_time": 2.5,
+			"distance": 100,
+			"health": 200,
+			"armor": 2,
+			"aim_drag": 0.5,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 2,
+				"vertical": 2
+			},
+			"noise_template": "NoiseTemplate_Weapon_Medium",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Burst",
+				"Burst"
+			],
+			"num_burst_rounds": 3,
+			"function_info": [],
+			"turn_speed_vertical": 20,
+			"turn_speed_horizontal": 20,
+			"vertical_limit_min": -60,
+			"vertical_limit_max": 70,
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 160,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Cannon_40mm_APHE",
+			"key": "A/AC-8 Autocannon Sentry",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Cannon_40mm_APHE"
+				},
+				{
+					"type": "explosion",
+					"name": "APHE_40mm"
+				}
+			]
+		},
+		"A/ARC-3 Tesla Tower": {
+			"ref": "TurretTesla",
+			"name": "Tesla Tower",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Right",
+				"Up",
+				"Left",
+				"Right"
+			],
+			"calltime": 3,
+			"cooldown": 120,
+			"magazine_capacity": 400,
+			"chambered": 1,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"prefix": "A/ARC-3",
+			"remove_time": 2.5,
+			"distance": 25,
+			"health": 600,
+			"armor": 1,
+			"aim_drag": 0.5,
+			"aim_flinch_decrease": 1,
+			"aim_flinch_max": 5,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 2.5,
+					"vertical_recoil": 10,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 50,
+				"vertical": 25
+			},
+			"noise_template": "NoiseTemplate_Weapon_Medium",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 1,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"rounds_per_minute": -1,
+			"arc_type": "TeslaTurret",
+			"key": "A/ARC-3 Tesla Tower",
+			"attacks": [
+				{
+					"type": "arc",
+					"name": "TeslaTurret"
+				}
+			]
+		},
+		"Orbital Precision Strike": {
+			"ref": "OrbitalShell",
+			"name": "Orbital Precision Strike",
+			"stratcode": [
+				"Right",
+				"Right",
+				"Up"
+			],
+			"calltime": 2,
+			"cooldown": 90,
+			"bomb_interval": 0.5,
+			"salvo_interval": 3,
+			"area_size": 1,
+			"projectile_type": "Orbital_Precision_Strike",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Precision_Strike"
+				},
+				{
+					"type": "explosion",
+					"name": "PrecisionStrike"
+				}
+			]
+		},
+		"Orbital Gas Strike": {
+			"ref": "OrbitalGas",
+			"name": "Orbital Gas Strike",
+			"stratcode": [
+				"Right",
+				"Right",
+				"Down",
+				"Right"
+			],
+			"calltime": 2,
+			"cooldown": 75,
+			"bomb_interval": 0.349999994,
+			"salvo_interval": 1,
+			"area_size": 1,
+			"projectile_type": "Orbital_Gas",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Gas"
+				},
+				{
+					"type": "explosion",
+					"name": "OrbitalGas"
+				}
+			]
+		},
+		"Orbital Smoke Strike": {
+			"ref": "OrbitalSmoke",
+			"name": "Orbital Smoke Strike",
+			"stratcode": [
+				"Right",
+				"Right",
+				"Down",
+				"Up"
+			],
+			"calltime": 2,
+			"cooldown": 100,
+			"bomb_interval": 0,
+			"salvo_interval": 0,
+			"area_size": 15,
+			"salvos": 6,
+			"projectile_type": "Orbital_Smoke",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Smoke"
+				},
+				{
+					"type": "explosion",
+					"name": "OrbitalSmoke"
+				}
+			]
+		},
+		"Orbital Airburst Strike": {
+			"ref": "OrbitalShot",
+			"name": "Orbital Airburst Strike",
+			"stratcode": [
+				"Right",
+				"Right",
+				"Right"
+			],
+			"calltime": 2,
+			"cooldown": 100,
+			"bomb_interval": 0,
+			"salvo_interval": 4,
+			"area_size": 2,
+			"salvos": 4,
+			"projectile_type": "Orbital_Cannon_110mm",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Cannon_110mm"
+				},
+				{
+					"type": "explosion",
+					"name": "OrbitalShot"
+				},
+				{
+					"type": "projectile",
+					"name": "Shrapnel_Heavy",
+					"count": 12
+				},
+				{
+					"type": "explosion",
+					"name": "HeavyShrapnel",
+					"count": 12
+				}
+			]
+		},
+		"Orbital EMS Strike": {
+			"ref": "OrbitalStun",
+			"name": "Orbital EMS Strike",
+			"stratcode": [
+				"Right",
+				"Right",
+				"Left",
+				"Down"
+			],
+			"calltime": 2,
+			"cooldown": 75,
+			"bomb_interval": 0.349999994,
+			"salvo_interval": 2,
+			"area_size": 1,
+			"projectile_type": "Orbital_Stunround",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Stunround"
+				},
+				{
+					"type": "explosion",
+					"name": "OrbitalStun"
+				}
+			]
+		},
+		"Orbital Gatling Barrage": {
+			"ref": "OrbitalGatlingBarrage",
+			"name": "Orbital Gatling Barrage",
+			"stratcode": [
+				"Right",
+				"Down",
+				"Left",
+				"Up",
+				"Up"
+			],
+			"calltime": 2,
+			"cooldown": 70,
+			"bomb_interval": 0.0450000018,
+			"salvo_interval": 0,
+			"area_size": 7,
+			"rpm": 1333,
+			"cap": 300,
+			"projectile_type": "Cannon_Eagle_23mm_gatling_barrage",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Cannon_Eagle_23mm_gatling_barrage"
+				},
+				{
+					"type": "explosion",
+					"name": "Cannon_23mm_gatling_barrage_silent"
+				}
+			]
+		},
+		"Orbital 120mm HE Barrage": {
+			"ref": "OrbitalStrike",
+			"name": "Orbital 120mm HE Barrage",
+			"stratcode": [
+				"Right",
+				"Right",
+				"Down",
+				"Left",
+				"Right",
+				"Down"
+			],
+			"calltime": 5,
+			"cooldown": 180,
+			"bomb_interval": 0.75,
+			"salvo_interval": 2,
+			"area_size": 27,
+			"salvos": 5,
+			"cap": 3,
+			"projectile_type": "Orbital_Cannon_120mm_HE",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Cannon_120mm_HE"
+				},
+				{
+					"type": "explosion",
+					"name": "OrbitalStrike"
+				}
+			]
+		},
+		"Orbital 380mm HE Barrage": {
+			"ref": "OrbitalBarrage",
+			"name": "Orbital 380mm HE Barrage",
+			"stratcode": [
+				"Right",
+				"Down",
+				"Up",
+				"Up",
+				"Left",
+				"Down",
+				"Down"
+			],
+			"calltime": 6,
+			"cooldown": 240,
+			"bomb_interval": 1.5,
+			"salvo_interval": 3,
+			"area_size": 36,
+			"salvos": 5,
+			"cap": 3,
+			"projectile_type": "Orbital_Cannon_380mm_HE",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Cannon_380mm_HE"
+				},
+				{
+					"type": "explosion",
+					"name": "OrbitalBarrage"
+				}
+			]
+		},
+		"Orbital Walking Barrage": {
+			"ref": "OrbitalWalkingBarrage",
+			"name": "Orbital Walking Barrage",
+			"stratcode": [
+				"Right",
+				"Down",
+				"Right",
+				"Down",
+				"Right",
+				"Down"
+			],
+			"calltime": 3,
+			"cooldown": 240,
+			"bomb_interval": 1.5,
+			"salvo_interval": 3,
+			"area_size": 25,
+			"salvos": 5,
+			"cap": 3,
+			"projectile_type": "Orbital_Cannon_380mm_HE",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Cannon_380mm_HE"
+				},
+				{
+					"type": "explosion",
+					"name": "OrbitalBarrage"
+				}
+			]
+		},
+		"Orbital Laser": {
+			"ref": "OrbitalLaser",
+			"name": "Orbital Laser",
+			"uses": 3,
+			"stratcode": [
+				"Right",
+				"Down",
+				"Up",
+				"Right",
+				"Down"
+			],
+			"calltime": 2,
+			"cooldown": 300,
+			"search_radius": 50,
+			"limit": 25,
+			"damage_type": "DPS_BeamHuge",
+			"attacks": [
+				{
+					"type": "damage",
+					"name": "DPS_BeamHuge"
+				},
+				{
+					"type": "damage",
+					"name": "DPS_Fire"
+				}
+			]
+		},
+		"Orbital Railcannon Strike": {
+			"ref": "OrbitalRailcannon",
+			"name": "Orbital Railcannon Strike",
+			"stratcode": [
+				"Right",
+				"Up",
+				"Down",
+				"Down",
+				"Right"
+			],
+			"calltime": 1,
+			"cooldown": 180,
+			"search_radius": 30,
+			"limit": 2,
+			"projectile_type": "Orbital_Railcannon",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Railcannon"
+				},
+				{
+					"type": "explosion",
+					"name": "Railcannon_Impact"
+				}
+			]
+		},
+		"Eagle Airstrike": {
+			"ref": "EagleAirstrike",
+			"name": "Eagle Airstrike",
+			"uses": 2,
+			"stratcode": [
+				"Up",
+				"Right",
+				"Down",
+				"Right"
+			],
+			"calltime": 0,
+			"cooldown": 15,
+			"chambered": 0,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"health": 100,
+			"armor": 0,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_None",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 4000,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Bomb_100kg",
+			"airstrike_pattern": "6Z",
+			"target_angle": 90,
+			"search_radius": 60,
+			"fire_duration": 1.5,
+			"bomb_interval": 0.200000003,
+			"bomb_prediction_interval": 0.0500000007,
+			"cap": 6,
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Bomb_100kg"
+				},
+				{
+					"type": "explosion",
+					"name": "EagleBomb_100kg"
+				}
+			]
+		},
+		"Eagle Napalm Airstrike": {
+			"ref": "EagleAirstrikeNapalm",
+			"name": "Eagle Napalm Airstrike",
+			"uses": 2,
+			"stratcode": [
+				"Up",
+				"Right",
+				"Down",
+				"Up"
+			],
+			"calltime": 0,
+			"cooldown": 15,
+			"chambered": 0,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"health": 100,
+			"armor": 0,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_None",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 4000,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Bomb_Napalm",
+			"airstrike_pattern": "4line_Napalm_MK1",
+			"target_angle": 90,
+			"search_radius": 60,
+			"fire_duration": 1.5,
+			"bomb_interval": 0.200000003,
+			"bomb_prediction_interval": 0.0500000007,
+			"cap": 4,
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Bomb_Napalm"
+				},
+				{
+					"type": "explosion",
+					"name": "EagleBomb_Napalm"
+				}
+			]
+		},
+		"Eagle 500kg Bomb": {
+			"ref": "EagleBomb",
+			"name": "Eagle 500kg Bomb",
+			"uses": 1,
+			"stratcode": [
+				"Up",
+				"Right",
+				"Down",
+				"Down",
+				"Down"
+			],
+			"calltime": 0,
+			"cooldown": 15,
+			"chambered": 0,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"health": 100,
+			"armor": 0,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_None",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 4000,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Bomb_500kg",
+			"airstrike_pattern": "Single",
+			"target_angle": 180,
+			"search_radius": 60,
+			"fire_duration": 1.5,
+			"bomb_interval": 0.0500000007,
+			"bomb_prediction_interval": 0.0500000007,
+			"cap": 1,
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Bomb_500kg"
+				},
+				{
+					"type": "explosion",
+					"name": "500kg_Initial_Impact"
+				},
+				{
+					"type": "explosion",
+					"name": "EagleBomb_500kg"
+				}
+			]
+		},
+		"Eagle Strafing Run": {
+			"ref": "EagleCAS",
+			"name": "Eagle Strafing Run",
+			"uses": 4,
+			"stratcode": [
+				"Up",
+				"Right",
+				"Right"
+			],
+			"calltime": 0,
+			"cooldown": 15,
+			"chambered": 0,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"health": 100,
+			"armor": 0,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_None",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 4000,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Cannon_Eagle_23mm",
+			"airstrike_pattern": "6Z",
+			"target_angle": 180,
+			"search_radius": 60,
+			"fire_duration": 1.5,
+			"bomb_interval": 0.5,
+			"bomb_prediction_interval": 0.0500000007,
+			"cap": 100,
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Cannon_Eagle_23mm"
+				},
+				{
+					"type": "explosion",
+					"name": "Cannon_23mm_strafe"
+				}
+			]
+		},
+		"Eagle Cluster Bomb": {
+			"ref": "EagleClusterbombs",
+			"name": "Eagle Cluster Bomb",
+			"uses": 4,
+			"stratcode": [
+				"Up",
+				"Right",
+				"Down",
+				"Down",
+				"Right"
+			],
+			"calltime": 0,
+			"cooldown": 15,
+			"chambered": 0,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"health": 100,
+			"armor": 0,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_None",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 4000,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "ClusterBomb_100kg",
+			"airstrike_pattern": "8line_ClusterBomb",
+			"target_angle": 90,
+			"search_radius": 60,
+			"fire_duration": 1.5,
+			"bomb_interval": 0.100000001,
+			"bomb_prediction_interval": 0.0500000007,
+			"cap": 8,
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "ClusterBomb_100kg"
+				},
+				{
+					"type": "explosion",
+					"name": "ClusterBomb"
+				},
+				{
+					"type": "projectile",
+					"name": "ClusterBomb_Bomb",
+					"count": 8
+				},
+				{
+					"type": "explosion",
+					"name": "HeavyShrapnel_Clusterbombs",
+					"count": 8
+				}
+			]
+		},
+		"Eagle 110mm Rocket Pods": {
+			"ref": "EagleRocket",
+			"name": "Eagle 110mm Rocket Pods",
+			"uses": 2,
+			"stratcode": [
+				"Up",
+				"Right",
+				"Up",
+				"Left"
+			],
+			"calltime": 0,
+			"cooldown": 15,
+			"chambered": 0,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"health": 100,
+			"armor": 0,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_None",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 4000,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Rocket_110mm",
+			"airstrike_pattern": "6Z",
+			"target_angle": 180,
+			"search_radius": 20,
+			"fire_duration": 2,
+			"bomb_interval": 0.5,
+			"bomb_prediction_interval": 0.0500000007,
+			"cap": 6,
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Rocket_110mm"
+				},
+				{
+					"type": "explosion",
+					"name": "Rocket_110mm"
+				}
+			]
+		},
+		"Eagle Smoke Strike": {
+			"ref": "EagleAirstrikeSmoke",
+			"name": "Eagle Smoke Strike",
+			"uses": 2,
+			"stratcode": [
+				"Up",
+				"Right",
+				"Up",
+				"Down"
+			],
+			"calltime": 0,
+			"cooldown": 15,
+			"chambered": 0,
+			"magazines": 0,
+			"magazines_refill": 6,
+			"magazines_max": 0,
+			"health": 100,
+			"armor": 0,
+			"aim_interpolation_speed": 3.1400001,
+			"sway_multiplier": {
+				"x": 1,
+				"y": 0.5
+			},
+			"sway_frequency_multiplier": {
+				"x": 1,
+				"y": 1
+			},
+			"recoil_info": {
+				"drift": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"climb": {
+					"horizontal_recoil": 0,
+					"vertical_recoil": 0,
+					"horizontal_bias": 0,
+					"random_amount": {
+						"x": 0.100000001,
+						"y": 1
+					}
+				},
+				"wielder_animiation_recoil_amount_increment_per_shot": 0.5
+			},
+			"spread_info": {
+				"horizontal": 10,
+				"vertical": 10
+			},
+			"noise_template": "NoiseTemplate_None",
+			"scope_responsiveness": 10,
+			"ergonomics": 65,
+			"infinite_ammo": 0,
+			"fire_modes": [
+				"Automatic"
+			],
+			"function_info": [],
+			"rounds_per_minute": {
+				"x": 0,
+				"y": 4000,
+				"z": 0
+			},
+			"heat_buildup": {
+				"heat_build_per_shot": 1,
+				"maximum_heat": 100,
+				"heat_bleed_speed": 10,
+				"heat_bleed_delay": 5
+			},
+			"num_low_ammo_rounds": 4,
+			"projectile_type": "Bomb_Smoke",
+			"airstrike_pattern": "8line_ClusterBomb",
+			"target_angle": 90,
+			"search_radius": 60,
+			"fire_duration": 2,
+			"bomb_interval": 0.200000003,
+			"bomb_prediction_interval": 0.0500000007,
+			"cap": 8,
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Bomb_Smoke"
+				},
+				{
+					"type": "explosion",
+					"name": "OrbitalSmoke"
+				}
+			]
+		},
+		"EXO-45 Patriot Exosuit": {
+			"ref": "DropoffCombatWalker",
+			"name": "Patriot Exosuit",
+			"uses": 3,
+			"stratcode": [
+				"Left",
+				"Down",
+				"Right",
+				"Up",
+				"Left",
+				"Down",
+				"Down"
+			],
+			"calltime": 0,
+			"radius": 2,
+			"cooldown": 600,
+			"prefix": "EXO-45",
+			"initial_fuel": {
+				"x": 6000,
+				"y": 6000
+			},
+			"idle_fuel_usage": 0.100000001,
+			"max_fuel_usage": 4,
+			"damaged_fuel_usage": 20,
+			"health": 850,
+			"armor": 3,
+			"key": "EXO-45 Patriot Exosuit",
+			"attacks": [
+				{
+					"type": "weapon",
+					"name": "Patriot Exosuit - Left"
+				},
+				{
+					"type": "weapon",
+					"name": "Patriot Exosuit - Right"
+				},
+				{
+					"type": "damage",
+					"name": "Exosuit_Stomp"
+				},
+				{
+					"type": "explosion",
+					"name": "Vehicle_Explosion_CombatWalker"
+				}
+			]
+		},
+		"EXO-49 Emancipator Exosuit": {
+			"ref": "DropoffCombatWalker_Autocannon",
+			"name": "Emancipator Exosuit",
+			"uses": 3,
+			"stratcode": [
+				"Left",
+				"Down",
+				"Right",
+				"Up",
+				"Left",
+				"Down",
+				"Up"
+			],
+			"calltime": 0,
+			"radius": 2,
+			"cooldown": 600,
+			"health": 850,
+			"armor": 3,
+			"prefix": "EXO-49",
+			"initial_fuel": {
+				"x": 6000,
+				"y": 6000
+			},
+			"idle_fuel_usage": 0.100000001,
+			"max_fuel_usage": 4,
+			"damaged_fuel_usage": 20,
+			"key": "EXO-49 Emancipator Exosuit",
+			"attacks": [
+				{
+					"type": "damage",
+					"name": "Exosuit_Stomp"
+				},
+				{
+					"type": "explosion",
+					"name": "Vehicle_Explosion_CombatWalker"
+				},
+				{
+					"type": "weapon",
+					"name": "Emancipator Exosuit - Left"
+				},
+				{
+					"type": "weapon",
+					"name": "Emancipator Exosuit - Right"
+				}
+			]
+		},
+		"Eagle Rearm": {
+			"ref": "EagleRearm",
+			"name": "Eagle Rearm",
+			"stratcode": [
+				"Up",
+				"Up",
+				"Left",
+				"Up",
+				"Right"
+			],
+			"calltime": 0,
+			"cooldown": 150,
+			"attacks": []
+		},
+		"NUX-223 Hellbomb": {
+			"ref": "DropoffHellbomb",
+			"name": "Hellbomb",
+			"stratcode": [
+				"Down",
+				"Up",
+				"Left",
+				"Down",
+				"Up",
+				"Right",
+				"Down",
+				"Up"
+			],
+			"calltime": 5,
+			"cooldown": 30,
+			"remove_time": 2.5,
+			"health": 350,
+			"armor": 2,
+			"attacks": [
+				{
+					"type": "explosion",
+					"name": "Hellbomb"
+				}
+			]
+		},
+		"SEAF Artillery#Explosive": {
+			"calltime": 0,
+			"cooldown": 15,
+			"name": "Artillery#Explosive",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "SEAF_Gun_Explosive"
+				},
+				{
+					"type": "explosion",
+					"name": "SEAF_Gun_Explosive"
+				}
+			]
+		},
+		"SEAF Artillery#High Yield Explosive": {
+			"calltime": 0,
+			"cooldown": 15,
+			"name": "Artillery#High Yield Explosive",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "SEAF_Gun_High_Yield_Explosive"
+				},
+				{
+					"type": "explosion",
+					"name": "SEAF_Gun_High_Yield_Explosive"
+				}
+			]
+		},
+		"SEAF Artillery#Mini Nuke": {
+			"calltime": 0,
+			"cooldown": 15,
+			"name": "Artillery#Mini Nuke",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "SEAF_Gun_Mini_Nuke"
+				},
+				{
+					"type": "explosion",
+					"name": "SEAF_Gun_Mini_Nuke"
+				}
+			]
+		},
+		"SEAF Artillery#Smoke": {
+			"calltime": 0,
+			"cooldown": 15,
+			"name": "Artillery#Smoke",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "SEAF_Gun_Smoke"
+				},
+				{
+					"type": "explosion",
+					"name": "SEAF_Gun_Smoke"
+				}
+			]
+		},
+		"SEAF Artillery#Napalm": {
+			"calltime": 0,
+			"cooldown": 15,
+			"name": "Artillery#Napalm",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "SEAF_Gun_Napalm"
+				},
+				{
+					"type": "explosion",
+					"name": "SEAF_Gun_Napalm"
+				}
+			]
+		},
+		"SEAF Artillery#Static Field": {
+			"calltime": 0,
+			"cooldown": 15,
+			"name": "Artillery#Static Field",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "SEAF_Gun_EMP"
+				},
+				{
+					"type": "explosion",
+					"name": "SEAF_Gun_EMP"
+				}
+			]
+		},
+		"Orbital Napalm Barrage": {
+			"ref": "OrbitalNapalmBarrage",
+			"name": "Orbital Napalm Barrage",
+			"stratcode": [
+				"Right",
+				"Right",
+				"Down",
+				"Left",
+				"Right",
+				"Up"
+			],
+			"calltime": 6,
+			"cooldown": 240,
+			"bomb_interval": 1.5,
+			"salvo_interval": 5,
+			"area_size": 36,
+			"salvos": 5,
+			"cap": 25,
+			"tags": [
+				"Fire",
+				"BurningHeavy"
+			],
+			"projectile_type": "Orbital_Cannon_Napalm",
+			"attacks": [
+				{
+					"type": "projectile",
+					"name": "Orbital_Cannon_Napalm"
+				},
+				{
+					"type": "explosion",
+					"name": "Orbital_Napalm"
+				},
+				{
+					"type": "damage",
+					"name": "DPS_Fire"
+				},
+				{
+					"type": "damage",
+					"name": "DPS_BurningHeavy"
+				}
+			]
+		}
+	},
+	"weapon_order": [
+		"Orbital Napalm Barrage"
+	]
+}

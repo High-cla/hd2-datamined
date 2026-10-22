@@ -62,6 +62,64 @@ ProjectileType_Orbital_Cannon_110mm:
 原因在 §6：`+0` 不是战备 id，是 `StratagemInfo.type`。类型到"用哪发弹丸"的绑定由
 `StratagemTypeDataTemplate` 完成，那是引擎资源侧的事，不在这 55 张表里。
 
+### 4.1 那到底靠什么关联？（已查清）
+
+wiki 上有一份社区解码的 **`Module:Decodedata-Attacks/stratagemdata.json`**，它的结构
+（`ref` / `recoil_info` / `magazines` / `projectile_type`）不是 `stratagem_settings`，
+而是**战备道具资源**（武器/背包组件）。它给出的关联链是：
+
+```
+我们的 stratagem_settings 行
+  +16 指针 -> 显示名
+  +0       -> StratagemType 枚举值
+        |
+        |  同一个枚举
+        v
+StratagemType 名字（如 "OrbitalShot"）
+  == HD2Runtime uiIcon.nativeType   == wiki 的 ref 字段
+        |
+        v
+战备道具资源（引擎/资源侧，不在这 55 张表里）
+  其武器组件里的 projectile_type 名字（如 "Orbital_Cannon_110mm"）
+        |
+        v
+ProjectileType 枚举 -> filediver 的 ProjectileType_* -> 我们 projectile_settings 行的 +4 (name_upper)
+        |
+        v
+弹丸行 +144 / +156 -> 爆炸行的 +0 id -> 爆炸行 +28 = cone_angle
+```
+
+**验证**（`tools/stratagem_attack_chain.py`）：
+
+| 环节 | 结果 |
+|---|---|
+| wiki `ref` == HD2Runtime `nativeType` | **38/42 相等**，另 4 条是同物异名（`WarpBackpack`/`DisplacementBackpack`、`DirectionalShield`/`DirectionalEnergyShield`、`Turret Laser`/`TurretLaserCannon`、`Turrent Flame`/`TurretFlamethrower`） |
+| `projectile_type` → filediver → 我们弹丸行 | 凡在 filediver 快照里的 26 条**全部命中** |
+| 弹丸 `+144/+156` → 爆炸行 | 全部命中（`0` = `ExplosionType_None`） |
+
+三条走通的例子：
+
+```
+Orbital Precision Strike   +0=121  ref=OrbitalShell
+  -> Orbital_Precision_Strike（calibre 406 / speed 70）
+  -> impact 77  -> 爆炸 inner 4 / outer 12 / stagger 18
+
+Orbital Airburst Strike    +0=86   ref=OrbitalShot      ← 类型名直接沿用了爆炸名
+  -> Orbital_Cannon_110mm（calibre 110 / speed 400）
+  -> impact = expire 380 -> 爆炸 inner 0.2 / outer 0.5 / cone 27 / 破片 12
+
+Eagle 500kg Bomb           +0=3    ref=EagleBomb
+  -> Bomb_500kg（calibre 50 / speed 500）
+  -> impact 193（inner 1 / outer 3） + expire 277（inner 10 / outer 25）
+     —— 与 wiki 的两次爆炸 500kg_Initial_Impact + EagleBomb_500kg 对应
+```
+
+⇒ 答：**战备表和弹头表之间没有外键**，中间靠 `StratagemType` 名字跳到资源侧、再靠
+`projectile_type` 名字跳回来。这也解释了为什么"扫战备行的槽去撞弹丸 id"必然为空。
+
+⚠ 那份 wiki 模块的**数值**来自另一个 build（它写 Precision Strike 冷却 90，我们和 wiki 页面
+都是 80），所以只取它的**语义字段**（`ref`、`projectile_type`、`attacks`），不取数值。
+
 ## 5. 链条怎么闭合的：排除法 + 官方补丁
 
 wiki 补丁 **1.007.200（2026-10-20）** 对 Orbital Airburst Strike 写了两条：
