@@ -52,6 +52,8 @@ CELLS = {
     "rounds_mag_b": ("rounds", 76, "float"),   # 弹药池 B 的弹匣容量
     "rounds_reserve_a": ("rounds", 80, "u32"), # 弹药池 A 的备弹
     "rounds_reserve_b": ("rounds", 84, "u32"), # 弹药池 B 的备弹
+    "rounds_flag": ("rounds", 104, "u32"),     # +104 第二弹药池开关（1 = 有 B 池）
+    "rounds_starting": ("rounds", 88, "u32"),  # +88 初始量
 }
 CORRECTION_WORD = 0x20          # EntitySettings 空槽的 padding 字（两次实机部署用过 ✓）
 
@@ -67,6 +69,10 @@ WEAPON_KEYS = {
     "SG-8 Punisher": 0x41EAC4A03987FAA0,
     "SG-8S Slugger": 0x4F749E2EE26F532D,
     "SG-451 Cookout": 0xD323DE60855898AC,
+    "SG-97 Sweeper": 0xDCD1C835407EF7BA,
+    "SG-88 Break-Action": 0x52071F49263415E4,
+    "DBS-2 Double Freedom": 0x72170A55A1F37FF1,
+    "M90A": 0x90DDC374F4E3D756,
 }
 
 
@@ -254,6 +260,23 @@ def add_rounds_row(data: bytearray, weapon: str, a: int, b: int, mag: int, reser
     return free_slot, free_row
 
 
+def copy_rounds_hashes(data: bytearray, src_weapon: str, dst_weapon: str, records):
+    """把 src 的 rounds 行 +108..+131（6 个弹种 hash）拷到 dst。"""
+    _b, rows_base, rows, mapping = table(data, "rounds")
+    src_key, dst_key = WEAPON_KEYS[src_weapon], WEAPON_KEYS[dst_weapon]
+    for k in (src_key, dst_key):
+        if k not in mapping:
+            raise SystemExit(f"✗ {src_weapon if k == src_key else dst_weapon} 没有 WeaponRounds 行")
+    _h, _s, stride = TABLES["rounds"]
+    src = rows_base + mapping[src_key] * stride + 108
+    dst = rows_base + mapping[dst_key] * stride + 108
+    payload = bytes(data[src:src + 24])
+    old = bytes(data[dst:dst + 24])
+    data[dst:dst + 24] = payload
+    records.append({"label": f"{dst_weapon}.rounds_hashes(6)", "offset": dst, "width": 24,
+                    "old": old.hex(), "new": payload.hex()})
+
+
 def apply_edits(data: bytes, edits, keep_mg43: bool, add_rounds=None, template_weapon="SG-8 Punisher"):
     """edits: [(weapon, cell, value)]；返回 (新数据, 记录列表, 原始哈希)。"""
     original_hash = murmur64(data)
@@ -261,6 +284,9 @@ def apply_edits(data: bytes, edits, keep_mg43: bool, add_rounds=None, template_w
     records = []
     if keep_mg43:
         edits = list(edits) + [("MG-43", "reload_move", 1)]
+    for pair in getattr(apply_edits, "_copy_hashes", []):
+        src_w, dst_w = pair
+        copy_rounds_hashes(out, src_w, dst_w, records)
     if getattr(apply_edits, "_drop", None):
         for weapon_name, table_name in apply_edits._drop:
             drop_component_row(out, weapon_name, table_name, records)
@@ -365,7 +391,7 @@ def cmd_edit(args) -> int:
         edits.append((args.weapon or args.add_rounds.split(":")[0], "alt", args.alt))
     if args.prim is not None:
         edits.append((args.weapon or args.add_rounds.split(":")[0], "prim", args.prim))
-    if not edits and not args.keep_mg43 and not args.add_rounds and not args.drop:
+    if not edits and not args.keep_mg43 and not args.add_rounds and not args.drop             and not args.copy_rounds_hashes:
         print("✗ 没有任何要改的格（--fnid / --alt / --prim / --keep-mg43 至少一个）")
         return 2
     print(f"输入 {args.file}: {len(data):,} B")
@@ -383,6 +409,11 @@ def cmd_edit(args) -> int:
         w, t = spec.rsplit(":", 1)
         drop.append((w, t))
     apply_edits._drop = drop
+    copy_h = []
+    for spec in (args.copy_rounds_hashes or []):
+        src_w, dst_w = spec.rsplit(":", 1)
+        copy_h.append((src_w, dst_w))
+    apply_edits._copy_hashes = copy_h
     edited, records, original_hash = apply_edits(data, edits, args.keep_mg43, add_rounds,
                                                  args.rounds_template)
     for r in records:
@@ -437,6 +468,8 @@ def main() -> int:
         p.add_argument("--add-rounds", metavar="WEAPON:A:B:MAG:RESERVE",
                        help="给没有 WeaponRounds 行的武器新增独立弹药池行，如 "
                             "'AR-23:281:140:30:45'")
+        p.add_argument("--copy-rounds-hashes", action="append", metavar="FROM:TO",
+                       help="把 FROM 的 rounds 行 +108 六个弹种 hash 拷给 TO")
         p.add_argument("--drop", action="append", metavar="WEAPON:TABLE",
                        help="删除某武器在某张组件表里的条目（如 'AR-23:magazine'），"
                             "用于在互斥模型间切换")
