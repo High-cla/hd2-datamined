@@ -1,0 +1,3344 @@
+{
+ "build": "25988413",
+ "note": "geometry only; field trees are in the markdown / --json output",
+ "tables": [
+  {
+   "table": "generated_add_resource_dependencies.dl_bin",
+   "plain": 180,
+   "groups": 2,
+   "count": 6,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "0x06F9ABD0",
+     "element": "0x06F9ABD0",
+     "element_type_id": 117025744,
+     "stride": 16,
+     "groups": 2,
+     "rows": 6
+    }
+   ]
+  },
+  {
+   "table": "generated_animation_event_trigger_settings.dl_bin",
+   "plain": 165068,
+   "groups": 1,
+   "count": 213,
+   "layouts": [
+    "array+tail"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "AnimationEventTriggerSettings",
+     "element": "AnimationEventTriggerSetting",
+     "element_type_id": 1855109748,
+     "stride": 24,
+     "groups": 1,
+     "rows": 213
+    }
+   ]
+  },
+  {
+   "table": "generated_arc_settings.dl_bin",
+   "plain": 1708,
+   "groups": 1,
+   "count": 16,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "ArcSettings",
+     "element": "ArcInfo",
+     "element_type_id": 2690543650,
+     "stride": 104,
+     "groups": 1,
+     "rows": 16
+    }
+   ]
+  },
+  {
+   "table": "generated_beam_settings.dl_bin",
+   "plain": 3404,
+   "groups": 1,
+   "count": 30,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "BeamSettings",
+     "element": "BeamInfo",
+     "element_type_id": 2911423553,
+     "stride": 112,
+     "groups": 1,
+     "rows": 30
+    }
+   ]
+  },
+  {
+   "table": "generated_body_settings.dl_bin",
+   "plain": 116,
+   "groups": 2,
+   "count": 2,
+   "layouts": [
+    "raw-array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "HelldiverBody",
+     "element": "HelldiverBody",
+     "element_type_id": 3725455917,
+     "stride": 32,
+     "groups": 2,
+     "rows": 2
+    }
+   ]
+  },
+  {
+   "table": "generated_candidate_descs.dl_bin",
+   "plain": 812,
+   "groups": 1,
+   "count": 12,
+   "layouts": [
+    "array+tail"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "CandidateDescriptions",
+     "element": "CandidateDescription",
+     "element_type_id": 1077671169,
+     "stride": 40,
+     "groups": 1,
+     "rows": 12
+    }
+   ]
+  },
+  {
+   "table": "generated_collision_event_settings.dl_bin",
+   "plain": 14444,
+   "groups": 1,
+   "count": 180,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "CollisionEventSettings",
+     "element": "CollisionEventSetting",
+     "element_type_id": 3935097452,
+     "stride": 80,
+     "groups": 1,
+     "rows": 180
+    }
+   ]
+  },
+  {
+   "table": "generated_corporation_logos.dl_bin",
+   "plain": 364,
+   "groups": 1,
+   "count": 8,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "CorporationLogos",
+     "element": "CorporationLogo",
+     "element_type_id": 920587233,
+     "stride": 40,
+     "groups": 1,
+     "rows": 8
+    }
+   ]
+  },
+  {
+   "table": "generated_credits_settings.dl_bin",
+   "plain": 368228,
+   "groups": 1,
+   "count": 4515,
+   "layouts": [
+    "array+tail"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "CreditsRowSettings",
+     "element": "CreditsRowData",
+     "element_type_id": 2494669664,
+     "stride": 64,
+     "groups": 1,
+     "rows": 4515
+    }
+   ]
+  },
+  {
+   "table": "generated_customization_armor_sets.dl_bin",
+   "plain": 453204,
+   "groups": 422,
+   "count": 6821,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "HelldiverCustomizationKit",
+     "element": "HelldiverCustomizationKit",
+     "element_type_id": 3651492512,
+     "stride": 64,
+     "groups": 422,
+     "rows": 6821
+    }
+   ]
+  },
+  {
+   "table": "generated_customization_passive_bonuses.dl_bin",
+   "plain": 4016,
+   "groups": 33,
+   "count": 40,
+   "layouts": [
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "HelldiverCustomizationPassiveBonusSettings",
+     "element": "HelldiverCustomizationPassiveBonusSettings",
+     "element_type_id": 1674448875,
+     "stride": 56,
+     "groups": 33,
+     "rows": 40
+    }
+   ]
+  },
+  {
+   "table": "generated_damage_settings.dl_bin",
+   "plain": 50336,
+   "groups": 2,
+   "count": 662,
+   "layouts": [
+    "array",
+    "raw-array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "DamageArmorAngles",
+     "element": "DamageArmorAngles",
+     "element_type_id": 3943969754,
+     "stride": 32,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DamageSettings",
+     "element": "DamageInfo",
+     "element_type_id": 638369323,
+     "stride": 76,
+     "groups": 1,
+     "rows": 661
+    }
+   ]
+  },
+  {
+   "table": "generated_destruction_settings.dl_bin",
+   "plain": 1643910,
+   "groups": 1647,
+   "count": 16156,
+   "layouts": [
+    "array",
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "DestructionSettings",
+     "element": "DestructionSettings",
+     "element_type_id": 3600880965,
+     "stride": 168,
+     "groups": 1645,
+     "rows": 7953
+    },
+    {
+     "container": "DestructionTemplates",
+     "element": "DestructionTemplates",
+     "element_type_id": 4215661123,
+     "stride": 16,
+     "groups": 1,
+     "rows": 11
+    },
+    {
+     "container": "DestructionHashMap",
+     "element": "DestructionHashMap",
+     "element_type_id": 1232687446,
+     "stride": 16,
+     "groups": 1,
+     "rows": 8192
+    }
+   ]
+  },
+  {
+   "table": "generated_distant_war_effect_settings.dl_bin",
+   "plain": 1468,
+   "groups": 7,
+   "count": 26,
+   "layouts": [
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "DistantWarEffectPool",
+     "element": "DistantWarEffectPool",
+     "element_type_id": 1675746280,
+     "stride": 48,
+     "groups": 7,
+     "rows": 26
+    }
+   ]
+  },
+  {
+   "table": "generated_entities.dl_bin",
+   "plain": 47259396,
+   "groups": 275,
+   "count": 275,
+   "layouts": [
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "EntitySettingsHashmap",
+     "element": "EntitySettingsHashmap",
+     "element_type_id": 2160183920,
+     "stride": 131072,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EntityNetworkDataArray",
+     "element": "EntityNetworkDataArray",
+     "element_type_id": 3469630688,
+     "stride": 15072,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VisibilityComponentData",
+     "element": "VisibilityComponentData",
+     "element_type_id": 3916155445,
+     "stride": 3392,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LocalUnitComponentData",
+     "element": "LocalUnitComponentData",
+     "element_type_id": 3004350520,
+     "stride": 2784,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TagComponentData",
+     "element": "TagComponentData",
+     "element_type_id": 1854617673,
+     "stride": 326592,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponMagazineComponentData",
+     "element": "WeaponMagazineComponentData",
+     "element_type_id": 4220356771,
+     "stride": 53152,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0xD74E6E1A",
+     "element": "0xD74E6E1A",
+     "element_type_id": 3612241434,
+     "stride": 128,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "GameModeComponentData",
+     "element": "GameModeComponentData",
+     "element_type_id": 165756844,
+     "stride": 2128,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "RandomSlotComponentData",
+     "element": "RandomSlotComponentData",
+     "element_type_id": 3377463856,
+     "stride": 120,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "PowerGeneratorComponentData",
+     "element": "PowerGeneratorComponentData",
+     "element_type_id": 1250795905,
+     "stride": 200,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HitEffectComponentData",
+     "element": "HitEffectComponentData",
+     "element_type_id": 590539231,
+     "stride": 24080,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0x295933BE",
+     "element": "0x295933BE",
+     "element_type_id": 693711806,
+     "stride": 64,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SpawnOnPlayersComponentData",
+     "element": "SpawnOnPlayersComponentData",
+     "element_type_id": 280956851,
+     "stride": 2552,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "PowerSwitchTargetComponentData",
+     "element": "PowerSwitchTargetComponentData",
+     "element_type_id": 2134272307,
+     "stride": 48,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ResourceDependencyComponentData",
+     "element": "ResourceDependencyComponentData",
+     "element_type_id": 2421122548,
+     "stride": 65624,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StratagemScramblerComponentData",
+     "element": "StratagemScramblerComponentData",
+     "element_type_id": 1499080976,
+     "stride": 240,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveWidgetPriorityComponentData",
+     "element": "ObjectiveWidgetPriorityComponentData",
+     "element_type_id": 1654465422,
+     "stride": 544,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0xA43A4273",
+     "element": "0xA43A4273",
+     "element_type_id": 2755281523,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "OrbitalTargetPriorityComponentData",
+     "element": "OrbitalTargetPriorityComponentData",
+     "element_type_id": 4154907683,
+     "stride": 288,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "NpcDialogueComponentData",
+     "element": "NpcDialogueComponentData",
+     "element_type_id": 2656803096,
+     "stride": 4312,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveVehicleDeliveryComponentData",
+     "element": "ObjectiveVehicleDeliveryComponentData",
+     "element_type_id": 1279300076,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StratagemBlockerComponentData",
+     "element": "StratagemBlockerComponentData",
+     "element_type_id": 2355071671,
+     "stride": 368,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LoadoutPackageComponentData",
+     "element": "LoadoutPackageComponentData",
+     "element_type_id": 2055571089,
+     "stride": 35232,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LoadoutEntryComponentData",
+     "element": "LoadoutEntryComponentData",
+     "element_type_id": 1328346135,
+     "stride": 13536,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ReinforcementLocationComponentData",
+     "element": "ReinforcementLocationComponentData",
+     "element_type_id": 1801827095,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveCarryDeployAreaComponentData",
+     "element": "ObjectiveCarryDeployAreaComponentData",
+     "element_type_id": 2262656047,
+     "stride": 176,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MeleeAttackComponentData",
+     "element": "MeleeAttackComponentData",
+     "element_type_id": 1378153101,
+     "stride": 8032,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShipCustomizationComponentData",
+     "element": "ShipCustomizationComponentData",
+     "element_type_id": 3935100250,
+     "stride": 12368,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MusicIntensifierComponentData",
+     "element": "MusicIntensifierComponentData",
+     "element_type_id": 1692221902,
+     "stride": 7336,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LevitationAreaComponentData",
+     "element": "LevitationAreaComponentData",
+     "element_type_id": 440414757,
+     "stride": 96,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "PrespawnLocationComponentData",
+     "element": "PrespawnLocationComponentData",
+     "element_type_id": 2186277590,
+     "stride": 48,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveDeliverableVehicleComponentData",
+     "element": "ObjectiveDeliverableVehicleComponentData",
+     "element_type_id": 1468933255,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShipModulesSyncComponentData",
+     "element": "ShipModulesSyncComponentData",
+     "element_type_id": 2240533591,
+     "stride": 72,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShipMasterComponentData",
+     "element": "ShipMasterComponentData",
+     "element_type_id": 4032853901,
+     "stride": 168,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "KillStreakComponentData",
+     "element": "KillStreakComponentData",
+     "element_type_id": 1054247811,
+     "stride": 168,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "KeypadCodeRevealComponentData",
+     "element": "KeypadCodeRevealComponentData",
+     "element_type_id": 4076588869,
+     "stride": 216,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveConvoyComponentData",
+     "element": "ObjectiveConvoyComponentData",
+     "element_type_id": 1486787174,
+     "stride": 72,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TutorialComponentData",
+     "element": "TutorialComponentData",
+     "element_type_id": 3801729505,
+     "stride": 296,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DamagePropagatorComponentData",
+     "element": "DamagePropagatorComponentData",
+     "element_type_id": 841560075,
+     "stride": 472,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EffectSwitcherComponentData",
+     "element": "EffectSwitcherComponentData",
+     "element_type_id": 404830467,
+     "stride": 160,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AiSquadMemberComponentData",
+     "element": "AiSquadMemberComponentData",
+     "element_type_id": 1293713933,
+     "stride": 6648,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "BackpackComponentData",
+     "element": "BackpackComponentData",
+     "element_type_id": 1236855101,
+     "stride": 1160,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleCollisionInfoComponentData",
+     "element": "VehicleCollisionInfoComponentData",
+     "element_type_id": 1394070885,
+     "stride": 6376,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DormancyComponentData",
+     "element": "DormancyComponentData",
+     "element_type_id": 2422308554,
+     "stride": 616,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponAttachmentComponentData",
+     "element": "WeaponAttachmentComponentData",
+     "element_type_id": 3091570368,
+     "stride": 400,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "BackblastComponentData",
+     "element": "BackblastComponentData",
+     "element_type_id": 1492612948,
+     "stride": 2080,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponAssistedReloadComponentData",
+     "element": "WeaponAssistedReloadComponentData",
+     "element_type_id": 1635599310,
+     "stride": 952,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleStorageComponentData",
+     "element": "VehicleStorageComponentData",
+     "element_type_id": 2893296258,
+     "stride": 160,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "CharacterVoiceComponentData",
+     "element": "CharacterVoiceComponentData",
+     "element_type_id": 1435778672,
+     "stride": 112,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ExplorationRewardComponentData",
+     "element": "ExplorationRewardComponentData",
+     "element_type_id": 2832257415,
+     "stride": 336,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EquipmentShowcaseComponentData",
+     "element": "EquipmentShowcaseComponentData",
+     "element_type_id": 4036625090,
+     "stride": 20520,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "BuoyancyComponentData",
+     "element": "BuoyancyComponentData",
+     "element_type_id": 3450668759,
+     "stride": 2376,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VoIntensityComponentData",
+     "element": "VoIntensityComponentData",
+     "element_type_id": 3135699001,
+     "stride": 160,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VistaShipPositionComponentData",
+     "element": "VistaShipPositionComponentData",
+     "element_type_id": 3385360861,
+     "stride": 144,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeatherControlComponentData",
+     "element": "WeatherControlComponentData",
+     "element_type_id": 1555376702,
+     "stride": 648,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponWindUpComponentData",
+     "element": "WeaponWindUpComponentData",
+     "element_type_id": 2228125422,
+     "stride": 648,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EncyclopediaEntryComponentData",
+     "element": "EncyclopediaEntryComponentData",
+     "element_type_id": 2319515183,
+     "stride": 59400,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EnemyPackageComponentData",
+     "element": "EnemyPackageComponentData",
+     "element_type_id": 505619287,
+     "stride": 10240,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0x2CDEC6D5",
+     "element": "0x2CDEC6D5",
+     "element_type_id": 752797397,
+     "stride": 136,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "CorpseDecayerComponentData",
+     "element": "CorpseDecayerComponentData",
+     "element_type_id": 3268823670,
+     "stride": 2360,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ConvoyComponentData",
+     "element": "ConvoyComponentData",
+     "element_type_id": 976050091,
+     "stride": 48,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EnvironmentalHazardComponentData",
+     "element": "EnvironmentalHazardComponentData",
+     "element_type_id": 3546878473,
+     "stride": 680,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VistaEffectComponentData",
+     "element": "VistaEffectComponentData",
+     "element_type_id": 1735169857,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EntityBindComponentData",
+     "element": "EntityBindComponentData",
+     "element_type_id": 3042156743,
+     "stride": 3240,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EnvironmentalEffectTagComponentData",
+     "element": "EnvironmentalEffectTagComponentData",
+     "element_type_id": 185901144,
+     "stride": 480,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WorldLootManagerComponentData",
+     "element": "WorldLootManagerComponentData",
+     "element_type_id": 2131088206,
+     "stride": 30024,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StaticPositionComponentData",
+     "element": "StaticPositionComponentData",
+     "element_type_id": 760616426,
+     "stride": 3832,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "UnitComponentData",
+     "element": "UnitComponentData",
+     "element_type_id": 1144477517,
+     "stride": 288928,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MaterialSwapComponentData",
+     "element": "MaterialSwapComponentData",
+     "element_type_id": 977699831,
+     "stride": 92160,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "FactionComponentData",
+     "element": "FactionComponentData",
+     "element_type_id": 1448340113,
+     "stride": 98224,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleComponentData",
+     "element": "VehicleComponentData",
+     "element_type_id": 3941280525,
+     "stride": 78424,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveComponentData",
+     "element": "ObjectiveComponentData",
+     "element_type_id": 1146709288,
+     "stride": 593712,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MinefieldComponentData",
+     "element": "MinefieldComponentData",
+     "element_type_id": 1962866842,
+     "stride": 1032,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShieldComponentData",
+     "element": "ShieldComponentData",
+     "element_type_id": 1364515686,
+     "stride": 5984,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "OrbitalShipComponentData",
+     "element": "OrbitalShipComponentData",
+     "element_type_id": 3898406990,
+     "stride": 568,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "NoiseComponentData",
+     "element": "NoiseComponentData",
+     "element_type_id": 1266667979,
+     "stride": 880,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SquadTransportComponentData",
+     "element": "SquadTransportComponentData",
+     "element_type_id": 3535355096,
+     "stride": 1200,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0xF34610E9",
+     "element": "0xF34610E9",
+     "element_type_id": 4081455337,
+     "stride": 112,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "RechargeComponentData",
+     "element": "RechargeComponentData",
+     "element_type_id": 524453774,
+     "stride": 112,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "InteractableMinigameComponentData",
+     "element": "InteractableMinigameComponentData",
+     "element_type_id": 419027778,
+     "stride": 795232,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveCarryDeliveryComponentData",
+     "element": "ObjectiveCarryDeliveryComponentData",
+     "element_type_id": 3079813933,
+     "stride": 952,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DestructibleComponentData",
+     "element": "DestructibleComponentData",
+     "element_type_id": 3554463031,
+     "stride": 9872,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EffectReferenceComponentData",
+     "element": "EffectReferenceComponentData",
+     "element_type_id": 1615082697,
+     "stride": 2733192,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "CollisionEventComponentData",
+     "element": "CollisionEventComponentData",
+     "element_type_id": 3533203835,
+     "stride": 30848,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "PhysicsImpactEffectComponentData",
+     "element": "PhysicsImpactEffectComponentData",
+     "element_type_id": 3114153947,
+     "stride": 49232,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "PoweredDeathSequenceComponentData",
+     "element": "PoweredDeathSequenceComponentData",
+     "element_type_id": 691890370,
+     "stride": 17280,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponScreenComponentData",
+     "element": "WeaponScreenComponentData",
+     "element_type_id": 1114845143,
+     "stride": 72,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "PowerSwitchComponentData",
+     "element": "PowerSwitchComponentData",
+     "element_type_id": 4241497676,
+     "stride": 1872,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WoundableComponentData",
+     "element": "WoundableComponentData",
+     "element_type_id": 1181553294,
+     "stride": 6384,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WieldableComponentData",
+     "element": "WieldableComponentData",
+     "element_type_id": 1006076150,
+     "stride": 32960,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "RemoteTriggerComponentData",
+     "element": "RemoteTriggerComponentData",
+     "element_type_id": 1413507885,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponReloadComponentData",
+     "element": "WeaponReloadComponentData",
+     "element_type_id": 2568832334,
+     "stride": 28528,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "RagdollSyncComponentData",
+     "element": "RagdollSyncComponentData",
+     "element_type_id": 1273928495,
+     "stride": 136136,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponLinkerComponentData",
+     "element": "WeaponLinkerComponentData",
+     "element_type_id": 3956765340,
+     "stride": 144,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WarHologramComponentData",
+     "element": "WarHologramComponentData",
+     "element_type_id": 1513058096,
+     "stride": 80,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponRoundsComponentData",
+     "element": "WeaponRoundsComponentData",
+     "element_type_id": 1711804530,
+     "stride": 4336,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ProjectileClusterComponentData",
+     "element": "ProjectileClusterComponentData",
+     "element_type_id": 2992365440,
+     "stride": 48,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StanceComponentData",
+     "element": "StanceComponentData",
+     "element_type_id": 3475707819,
+     "stride": 5984,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SquadTransportFormationComponentData",
+     "element": "SquadTransportFormationComponentData",
+     "element_type_id": 1233971143,
+     "stride": 7200,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StatusEffectVolumeComponentData",
+     "element": "StatusEffectVolumeComponentData",
+     "element_type_id": 3737348118,
+     "stride": 6176,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SpawnLinkComponentData",
+     "element": "SpawnLinkComponentData",
+     "element_type_id": 1374217444,
+     "stride": 1800,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SpottableComponentData",
+     "element": "SpottableComponentData",
+     "element_type_id": 173954011,
+     "stride": 72800,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TargetableFleetShipComponentData",
+     "element": "TargetableFleetShipComponentData",
+     "element_type_id": 3744012908,
+     "stride": 80,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TrampleComponentData",
+     "element": "TrampleComponentData",
+     "element_type_id": 3040052514,
+     "stride": 13816,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TriggerAreaLogicComponentData",
+     "element": "TriggerAreaLogicComponentData",
+     "element_type_id": 3745404072,
+     "stride": 768,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StratagemFiresupportComponentData",
+     "element": "StratagemFiresupportComponentData",
+     "element_type_id": 2940943128,
+     "stride": 616,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TransportComponentData",
+     "element": "TransportComponentData",
+     "element_type_id": 1739759610,
+     "stride": 1008,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleShuttleComponentData",
+     "element": "VehicleShuttleComponentData",
+     "element_type_id": 885451958,
+     "stride": 664,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShipCustomizationTargetComponentData",
+     "element": "ShipCustomizationTargetComponentData",
+     "element_type_id": 3002448577,
+     "stride": 504,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShieldControllerComponentData",
+     "element": "ShieldControllerComponentData",
+     "element_type_id": 1697871882,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SensorDangerComponentData",
+     "element": "SensorDangerComponentData",
+     "element_type_id": 3329750328,
+     "stride": 8408,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShowOnMapComponentData",
+     "element": "ShowOnMapComponentData",
+     "element_type_id": 666363145,
+     "stride": 2080,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TutorialTargetRangeComponentData",
+     "element": "TutorialTargetRangeComponentData",
+     "element_type_id": 496782677,
+     "stride": 312,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShipPropVisibilityComponentData",
+     "element": "ShipPropVisibilityComponentData",
+     "element_type_id": 1898336106,
+     "stride": 1160,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShipTeleporterComponentData",
+     "element": "ShipTeleporterComponentData",
+     "element_type_id": 3899237959,
+     "stride": 48,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "FireSourceComponentData",
+     "element": "FireSourceComponentData",
+     "element_type_id": 988116388,
+     "stride": 104,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0xCE728CA9",
+     "element": "0xCE728CA9",
+     "element_type_id": 3463613609,
+     "stride": 256,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "FakeGravityMotionComponentData",
+     "element": "FakeGravityMotionComponentData",
+     "element_type_id": 1725718016,
+     "stride": 360,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MaterialVariablesComponentData",
+     "element": "MaterialVariablesComponentData",
+     "element_type_id": 218767637,
+     "stride": 119072,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LootDropComponentData",
+     "element": "LootDropComponentData",
+     "element_type_id": 2836540096,
+     "stride": 1664,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "GameEventShipComponentData",
+     "element": "GameEventShipComponentData",
+     "element_type_id": 3480542365,
+     "stride": 7976,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "FogMachineComponentData",
+     "element": "FogMachineComponentData",
+     "element_type_id": 4022271774,
+     "stride": 1584,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ExtractionZoneComponentData",
+     "element": "ExtractionZoneComponentData",
+     "element_type_id": 3859911274,
+     "stride": 104,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MinigameStratagemArcadeComponentData",
+     "element": "MinigameStratagemArcadeComponentData",
+     "element_type_id": 4195067996,
+     "stride": 80,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MinigameWaitComponentData",
+     "element": "MinigameWaitComponentData",
+     "element_type_id": 4226674121,
+     "stride": 6960,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MinigameExternalSwitchesComponentData",
+     "element": "MinigameExternalSwitchesComponentData",
+     "element_type_id": 590614977,
+     "stride": 2856,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DynamicLightComponentData",
+     "element": "DynamicLightComponentData",
+     "element_type_id": 1617392554,
+     "stride": 488,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HellpodRackComponentData",
+     "element": "HellpodRackComponentData",
+     "element_type_id": 2844504406,
+     "stride": 43768,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "InteractableObjectiveTerminalComponentData",
+     "element": "InteractableObjectiveTerminalComponentData",
+     "element_type_id": 35308754,
+     "stride": 9640,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "InteractableStateSwitchComponentData",
+     "element": "InteractableStateSwitchComponentData",
+     "element_type_id": 3324132334,
+     "stride": 7400,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AnimationComponentData",
+     "element": "AnimationComponentData",
+     "element_type_id": 1213649965,
+     "stride": 110880,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HitReactComponentData",
+     "element": "HitReactComponentData",
+     "element_type_id": 3581739265,
+     "stride": 954128,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HintTriggerComponentData",
+     "element": "HintTriggerComponentData",
+     "element_type_id": 3611704500,
+     "stride": 8640,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HellpodPayloadComponentData",
+     "element": "HellpodPayloadComponentData",
+     "element_type_id": 3719675967,
+     "stride": 5160,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AttackPatternComponentData",
+     "element": "AttackPatternComponentData",
+     "element_type_id": 1288416547,
+     "stride": 2208,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LootContainerComponentData",
+     "element": "LootContainerComponentData",
+     "element_type_id": 3639622830,
+     "stride": 72,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "GibEntityComponentData",
+     "element": "GibEntityComponentData",
+     "element_type_id": 4281649916,
+     "stride": 1264,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LaserDesignatorComponentData",
+     "element": "LaserDesignatorComponentData",
+     "element_type_id": 844267892,
+     "stride": 384,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveRescuePointComponentData",
+     "element": "ObjectiveRescuePointComponentData",
+     "element_type_id": 1821540217,
+     "stride": 160,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveSecureAreaComponentData",
+     "element": "ObjectiveSecureAreaComponentData",
+     "element_type_id": 1446300936,
+     "stride": 472,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "CarryEffectComponentData",
+     "element": "CarryEffectComponentData",
+     "element_type_id": 3646023675,
+     "stride": 264,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveOilRigComponentData",
+     "element": "ObjectiveOilRigComponentData",
+     "element_type_id": 855169326,
+     "stride": 256,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectivePreventInvasionComponentData",
+     "element": "ObjectivePreventInvasionComponentData",
+     "element_type_id": 2366639635,
+     "stride": 376,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0x430CA328",
+     "element": "0x430CA328",
+     "element_type_id": 1124901672,
+     "stride": 48,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveShellComponentData",
+     "element": "ObjectiveShellComponentData",
+     "element_type_id": 1383700832,
+     "stride": 512,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObstacleComponentData",
+     "element": "ObstacleComponentData",
+     "element_type_id": 2006841114,
+     "stride": 704,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DangerWarningComponentData",
+     "element": "DangerWarningComponentData",
+     "element_type_id": 1436679412,
+     "stride": 1456,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DepositComponentData",
+     "element": "DepositComponentData",
+     "element_type_id": 3291855493,
+     "stride": 5672,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveShellRackComponentData",
+     "element": "ObjectiveShellRackComponentData",
+     "element_type_id": 83168225,
+     "stride": 48,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveShuttleControllerComponentData",
+     "element": "ObjectiveShuttleControllerComponentData",
+     "element_type_id": 3613819093,
+     "stride": 480,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "NetworkPhysicsComponentData",
+     "element": "NetworkPhysicsComponentData",
+     "element_type_id": 2927783066,
+     "stride": 14064,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0x88630F9F",
+     "element": "0x88630F9F",
+     "element_type_id": 2288193439,
+     "stride": 56,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AiSpawnerComponentData",
+     "element": "AiSpawnerComponentData",
+     "element_type_id": 3155502711,
+     "stride": 7528,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "BurrowerComponentData",
+     "element": "BurrowerComponentData",
+     "element_type_id": 2067219397,
+     "stride": 168,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveEncounterTriggerComponentData",
+     "element": "ObjectiveEncounterTriggerComponentData",
+     "element_type_id": 911432111,
+     "stride": 816,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0xF57457DA",
+     "element": "0xF57457DA",
+     "element_type_id": 4118042586,
+     "stride": 107744,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveDynamicLinkComponentData",
+     "element": "ObjectiveDynamicLinkComponentData",
+     "element_type_id": 3310337467,
+     "stride": 1984,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveCarryComponentData",
+     "element": "ObjectiveCarryComponentData",
+     "element_type_id": 3787765097,
+     "stride": 6400,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ObjectiveCollectResourcesComponentData",
+     "element": "ObjectiveCollectResourcesComponentData",
+     "element_type_id": 294848617,
+     "stride": 96,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0xF087811C",
+     "element": "0xF087811C",
+     "element_type_id": 4035412252,
+     "stride": 160,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SensorEyeComponentData",
+     "element": "SensorEyeComponentData",
+     "element_type_id": 343055210,
+     "stride": 23984,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SensorEarComponentData",
+     "element": "SensorEarComponentData",
+     "element_type_id": 3355655807,
+     "stride": 8976,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "BombardmentComponentData",
+     "element": "BombardmentComponentData",
+     "element_type_id": 3451667416,
+     "stride": 5344,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShieldHitFilterComponentData",
+     "element": "ShieldHitFilterComponentData",
+     "element_type_id": 3161162705,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SensorProximityComponentData",
+     "element": "SensorProximityComponentData",
+     "element_type_id": 1877660252,
+     "stride": 144,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SeekingMissileComponentData",
+     "element": "SeekingMissileComponentData",
+     "element_type_id": 3208275849,
+     "stride": 8816,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "CharacterTemplateComponentData",
+     "element": "CharacterTemplateComponentData",
+     "element_type_id": 992806294,
+     "stride": 1928,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VisibilityMaskComponentData",
+     "element": "VisibilityMaskComponentData",
+     "element_type_id": 2395148609,
+     "stride": 184128,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MineSpawnerComponentData",
+     "element": "MineSpawnerComponentData",
+     "element_type_id": 110624470,
+     "stride": 512,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DecorationComponentData",
+     "element": "DecorationComponentData",
+     "element_type_id": 984459445,
+     "stride": 672,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LandingZoneBeaconComponentData",
+     "element": "LandingZoneBeaconComponentData",
+     "element_type_id": 3148296942,
+     "stride": 104,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponFlashlightComponentData",
+     "element": "WeaponFlashlightComponentData",
+     "element_type_id": 2293024701,
+     "stride": 592,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponChargeComponentData",
+     "element": "WeaponChargeComponentData",
+     "element_type_id": 3938661793,
+     "stride": 2696,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HellpodComponentData",
+     "element": "HellpodComponentData",
+     "element_type_id": 2130037845,
+     "stride": 1088,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "UnitCustomizationComponentData",
+     "element": "UnitCustomizationComponentData",
+     "element_type_id": 1883993766,
+     "stride": 107832,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "NavigationComponentData",
+     "element": "NavigationComponentData",
+     "element_type_id": 3820867133,
+     "stride": 10960,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "RaycastSchedulerComponentData",
+     "element": "RaycastSchedulerComponentData",
+     "element_type_id": 1046910819,
+     "stride": 352,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "GuardForceComponentData",
+     "element": "GuardForceComponentData",
+     "element_type_id": 2334741327,
+     "stride": 1008,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "GameModeMissionComponentData",
+     "element": "GameModeMissionComponentData",
+     "element_type_id": 4131033454,
+     "stride": 648,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HiveMindComponentData",
+     "element": "HiveMindComponentData",
+     "element_type_id": 3491787297,
+     "stride": 22288,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TruthTransmitterFactionComponentData",
+     "element": "TruthTransmitterFactionComponentData",
+     "element_type_id": 3267790821,
+     "stride": 416,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EncounterComponentData",
+     "element": "EncounterComponentData",
+     "element_type_id": 3874509088,
+     "stride": 64,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "BugholeComponentData",
+     "element": "BugholeComponentData",
+     "element_type_id": 386904563,
+     "stride": 144,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0xE3F485C7",
+     "element": "0xE3F485C7",
+     "element_type_id": 3824453063,
+     "stride": 144,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "GroundCheckComponentData",
+     "element": "GroundCheckComponentData",
+     "element_type_id": 601347194,
+     "stride": 12952,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "GuidanceTargetComponentData",
+     "element": "GuidanceTargetComponentData",
+     "element_type_id": 2224386100,
+     "stride": 1528,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MovingHazardComponentData",
+     "element": "MovingHazardComponentData",
+     "element_type_id": 3971577047,
+     "stride": 384,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SearchlightEnemyComponentData",
+     "element": "SearchlightEnemyComponentData",
+     "element_type_id": 1204838265,
+     "stride": 192,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "OverlapDamageComponentData",
+     "element": "OverlapDamageComponentData",
+     "element_type_id": 3300307973,
+     "stride": 100864,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HealthComponentData",
+     "element": "HealthComponentData",
+     "element_type_id": 3012648419,
+     "stride": 11218864,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleMotionComponentData",
+     "element": "VehicleMotionComponentData",
+     "element_type_id": 2209764419,
+     "stride": 6832,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MeleeShieldComponentData",
+     "element": "MeleeShieldComponentData",
+     "element_type_id": 2561651566,
+     "stride": 176,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DamageZoneShieldComponentData",
+     "element": "DamageZoneShieldComponentData",
+     "element_type_id": 2415754593,
+     "stride": 35136,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "GoreComponentData",
+     "element": "GoreComponentData",
+     "element_type_id": 2369887354,
+     "stride": 7039200,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleElectricsComponentData",
+     "element": "VehicleElectricsComponentData",
+     "element_type_id": 746245515,
+     "stride": 34112,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AvatarComponentData",
+     "element": "AvatarComponentData",
+     "element_type_id": 1089413196,
+     "stride": 1736,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EquipmentComponentData",
+     "element": "EquipmentComponentData",
+     "element_type_id": 1398253605,
+     "stride": 92896,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TargetingComponentData",
+     "element": "TargetingComponentData",
+     "element_type_id": 738814162,
+     "stride": 28512,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponWielderComponentData",
+     "element": "WeaponWielderComponentData",
+     "element_type_id": 526037795,
+     "stride": 15032,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponDataComponentData",
+     "element": "WeaponDataComponentData",
+     "element_type_id": 2296699825,
+     "stride": 475696,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "InventoryComponentData",
+     "element": "InventoryComponentData",
+     "element_type_id": 2329588795,
+     "stride": 15280,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MultiTargetComponentData",
+     "element": "MultiTargetComponentData",
+     "element_type_id": 3117110655,
+     "stride": 22016,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "InteractorComponentData",
+     "element": "InteractorComponentData",
+     "element_type_id": 1190050312,
+     "stride": 80,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "InteractableComponentData",
+     "element": "InteractableComponentData",
+     "element_type_id": 4241107419,
+     "stride": 638432,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "RotationSoundPlayerComponentData",
+     "element": "RotationSoundPlayerComponentData",
+     "element_type_id": 986511827,
+     "stride": 832,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponLinkedAmmoComponentData",
+     "element": "WeaponLinkedAmmoComponentData",
+     "element_type_id": 2054175192,
+     "stride": 584,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StickyComponentData",
+     "element": "StickyComponentData",
+     "element_type_id": 2599515556,
+     "stride": 2056,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TurretComponentData",
+     "element": "TurretComponentData",
+     "element_type_id": 515536275,
+     "stride": 8072,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StratagemBallComponentData",
+     "element": "StratagemBallComponentData",
+     "element_type_id": 3776747184,
+     "stride": 248,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShipInventoryComponentData",
+     "element": "ShipInventoryComponentData",
+     "element_type_id": 862425487,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TwoPointChainAttachTargetComponentData",
+     "element": "TwoPointChainAttachTargetComponentData",
+     "element_type_id": 1946352208,
+     "stride": 120,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TwoPointChainComponentData",
+     "element": "TwoPointChainComponentData",
+     "element_type_id": 3800371572,
+     "stride": 504,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "UploadDiscoveryComponentData",
+     "element": "UploadDiscoveryComponentData",
+     "element_type_id": 3035710378,
+     "stride": 880,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ExplosiveComponentData",
+     "element": "ExplosiveComponentData",
+     "element_type_id": 4124023692,
+     "stride": 28192,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "CharacterNameComponentData",
+     "element": "CharacterNameComponentData",
+     "element_type_id": 1985284475,
+     "stride": 4368,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ThrowerComponentData",
+     "element": "ThrowerComponentData",
+     "element_type_id": 2728035544,
+     "stride": 4672,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ThrowableComponentData",
+     "element": "ThrowableComponentData",
+     "element_type_id": 2937502901,
+     "stride": 18032,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeatheringComponentData",
+     "element": "WeatheringComponentData",
+     "element_type_id": 3647350971,
+     "stride": 2656,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "InteractableMenuScreenComponentData",
+     "element": "InteractableMenuScreenComponentData",
+     "element_type_id": 2553279824,
+     "stride": 1120,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AttachableComponentData",
+     "element": "AttachableComponentData",
+     "element_type_id": 3170113302,
+     "stride": 77952,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "FriendlyNpcComponentData",
+     "element": "FriendlyNpcComponentData",
+     "element_type_id": 3455110571,
+     "stride": 77760,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "JumppackComponentData",
+     "element": "JumppackComponentData",
+     "element_type_id": 1411843592,
+     "stride": 1216,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ArcWeaponComponentData",
+     "element": "ArcWeaponComponentData",
+     "element_type_id": 3095112173,
+     "stride": 1200,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponHeatComponentData",
+     "element": "WeaponHeatComponentData",
+     "element_type_id": 1285037273,
+     "stride": 19312,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AbilityWeaponComponentData",
+     "element": "AbilityWeaponComponentData",
+     "element_type_id": 4287831141,
+     "stride": 1080,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MeleeWeaponComponentData",
+     "element": "MeleeWeaponComponentData",
+     "element_type_id": 3148415039,
+     "stride": 2464,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "PhysicsWeaponComponentData",
+     "element": "PhysicsWeaponComponentData",
+     "element_type_id": 141859290,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "BeamWeaponComponentData",
+     "element": "BeamWeaponComponentData",
+     "element_type_id": 4034010156,
+     "stride": 3616,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponCustomizationComponentData",
+     "element": "WeaponCustomizationComponentData",
+     "element_type_id": 3953718224,
+     "stride": 966056,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EagleSpawnerComponentData",
+     "element": "EagleSpawnerComponentData",
+     "element_type_id": 2260096395,
+     "stride": 168,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "FoleySoundComponentData",
+     "element": "FoleySoundComponentData",
+     "element_type_id": 3069602741,
+     "stride": 637264,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DisplacementComponentData",
+     "element": "DisplacementComponentData",
+     "element_type_id": 2810262854,
+     "stride": 1296,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AiCoverComponentData",
+     "element": "AiCoverComponentData",
+     "element_type_id": 1783042038,
+     "stride": 496,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "CurveNavigationComponentData",
+     "element": "CurveNavigationComponentData",
+     "element_type_id": 859609698,
+     "stride": 784,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleCollisionDamageComponentData",
+     "element": "VehicleCollisionDamageComponentData",
+     "element_type_id": 539526808,
+     "stride": 3360,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "FootstepEventComponentData",
+     "element": "FootstepEventComponentData",
+     "element_type_id": 330197699,
+     "stride": 685560,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ExpandableCoverComponentData",
+     "element": "ExpandableCoverComponentData",
+     "element_type_id": 2235156512,
+     "stride": 392,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DetectorComponentData",
+     "element": "DetectorComponentData",
+     "element_type_id": 4284982119,
+     "stride": 17976,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MountComponentData",
+     "element": "MountComponentData",
+     "element_type_id": 944091616,
+     "stride": 25048,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "BehaviorComponentData",
+     "element": "BehaviorComponentData",
+     "element_type_id": 3130753085,
+     "stride": 43704,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "RouteNavigationComponentData",
+     "element": "RouteNavigationComponentData",
+     "element_type_id": 2596370668,
+     "stride": 832,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SeatCollectionComponentData",
+     "element": "SeatCollectionComponentData",
+     "element_type_id": 1256914054,
+     "stride": 25536,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "IdleAbilityComponentData",
+     "element": "IdleAbilityComponentData",
+     "element_type_id": 169228601,
+     "stride": 13568,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LoopingSurfaceEffectsComponentData",
+     "element": "LoopingSurfaceEffectsComponentData",
+     "element_type_id": 3514493550,
+     "stride": 400,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AbilityComponentData",
+     "element": "AbilityComponentData",
+     "element_type_id": 3293037659,
+     "stride": 63616,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "CommanderComponentData",
+     "element": "CommanderComponentData",
+     "element_type_id": 2372579587,
+     "stride": 136,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShipHellpodComponentData",
+     "element": "ShipHellpodComponentData",
+     "element_type_id": 507724969,
+     "stride": 72,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HiveLordComponentData",
+     "element": "HiveLordComponentData",
+     "element_type_id": 329460330,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ShipComponentData",
+     "element": "ShipComponentData",
+     "element_type_id": 3896756609,
+     "stride": 40,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StoryInteractableComponentData",
+     "element": "StoryInteractableComponentData",
+     "element_type_id": 3282306364,
+     "stride": 5280,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LootComponentData",
+     "element": "LootComponentData",
+     "element_type_id": 4201651627,
+     "stride": 6688,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "BoidsComponentData",
+     "element": "BoidsComponentData",
+     "element_type_id": 3469340862,
+     "stride": 4232,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ThrusterGroupComponentData",
+     "element": "ThrusterGroupComponentData",
+     "element_type_id": 509350459,
+     "stride": 10368,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleCrashComponentData",
+     "element": "VehicleCrashComponentData",
+     "element_type_id": 2388331166,
+     "stride": 31680,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "HoverComponentData",
+     "element": "HoverComponentData",
+     "element_type_id": 1778966033,
+     "stride": 960,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AiEnemyComponentData",
+     "element": "AiEnemyComponentData",
+     "element_type_id": 2635001781,
+     "stride": 122880,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AiCharacterComponentData",
+     "element": "AiCharacterComponentData",
+     "element_type_id": 1609524164,
+     "stride": 22512,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AiSquadComponentData",
+     "element": "AiSquadComponentData",
+     "element_type_id": 2592535125,
+     "stride": 3024,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AiSquadBehaviorComponentData",
+     "element": "AiSquadBehaviorComponentData",
+     "element_type_id": 1905311717,
+     "stride": 760,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "AirborneNavigationComponentData",
+     "element": "AirborneNavigationComponentData",
+     "element_type_id": 3442984431,
+     "stride": 176,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "StatusEffectReceiverComponentData",
+     "element": "StatusEffectReceiverComponentData",
+     "element_type_id": 1617084979,
+     "stride": 15388528,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "OrbitalAbilityComponentData",
+     "element": "OrbitalAbilityComponentData",
+     "element_type_id": 2473237512,
+     "stride": 1768,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "DrownableComponentData",
+     "element": "DrownableComponentData",
+     "element_type_id": 1919569771,
+     "stride": 5856,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "RotationComponentData",
+     "element": "RotationComponentData",
+     "element_type_id": 4235925661,
+     "stride": 78968,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "LocomotionComponentData",
+     "element": "LocomotionComponentData",
+     "element_type_id": 2282186640,
+     "stride": 964592,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "FakeTankVehicleComponentData",
+     "element": "FakeTankVehicleComponentData",
+     "element_type_id": 1442779250,
+     "stride": 224,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleLocomotionComponentData",
+     "element": "VehicleLocomotionComponentData",
+     "element_type_id": 284667888,
+     "stride": 360,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "SprayWeaponComponentData",
+     "element": "SprayWeaponComponentData",
+     "element_type_id": 2387939622,
+     "stride": 6112,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "0x1DDF9A2D",
+     "element": "0x1DDF9A2D",
+     "element_type_id": 501193261,
+     "stride": 64,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "VehicleTracksComponentData",
+     "element": "VehicleTracksComponentData",
+     "element_type_id": 2410300981,
+     "stride": 3912,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "MotionComponentData",
+     "element": "MotionComponentData",
+     "element_type_id": 1767586787,
+     "stride": 22848,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "EagleComponentData",
+     "element": "EagleComponentData",
+     "element_type_id": 1433400971,
+     "stride": 4384,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "ProjectileWeaponComponentData",
+     "element": "ProjectileWeaponComponentData",
+     "element_type_id": 1159142248,
+     "stride": 180760,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "TargetAimConstraintComponentData",
+     "element": "TargetAimConstraintComponentData",
+     "element_type_id": 3275953520,
+     "stride": 31144,
+     "groups": 1,
+     "rows": 1
+    },
+    {
+     "container": "WeaponLaserComponentData",
+     "element": "WeaponLaserComponentData",
+     "element_type_id": 2898455726,
+     "stride": 560,
+     "groups": 1,
+     "rows": 1
+    }
+   ]
+  },
+  {
+   "table": "generated_entity_deltas.dl_bin",
+   "plain": 352345,
+   "groups": 1,
+   "count": 4403,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "ComponentEntityDeltaStorage",
+     "element": "ComponentEntityDeltaStorage",
+     "element_type_id": 1748918351,
+     "stride": 80,
+     "groups": 1,
+     "rows": 4403
+    }
+   ]
+  },
+  {
+   "table": "generated_environment_settings.dl_bin",
+   "plain": 10962,
+   "groups": 17,
+   "count": 17,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "EnvironmentSettings",
+     "element": "EnvironmentSettings",
+     "element_type_id": 1759606022,
+     "stride": 576,
+     "groups": 17,
+     "rows": 17
+    }
+   ]
+  },
+  {
+   "table": "generated_explosion_settings.dl_bin",
+   "plain": 68156,
+   "groups": 1,
+   "count": 424,
+   "layouts": [
+    "array+tail"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "ExplosionSettings",
+     "element": "ExplosionInfo",
+     "element_type_id": 297317837,
+     "stride": 152,
+     "groups": 1,
+     "rows": 424
+    }
+   ]
+  },
+  {
+   "table": "generated_font_lookup.dl_bin",
+   "plain": 604,
+   "groups": 6,
+   "count": 19,
+   "layouts": [
+    "raw-array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "FontLookup",
+     "element": "FontLookup",
+     "element_type_id": 4052933969,
+     "stride": 24,
+     "groups": 6,
+     "rows": 19
+    }
+   ]
+  },
+  {
+   "table": "generated_font_settings.dl_bin",
+   "plain": 5980,
+   "groups": 6,
+   "count": 50,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "FontSettings",
+     "element": "FontSettings",
+     "element_type_id": 577066440,
+     "stride": 112,
+     "groups": 6,
+     "rows": 50
+    }
+   ]
+  },
+  {
+   "table": "generated_galactic_presence_settings.dl_bin",
+   "plain": 155853,
+   "groups": 137,
+   "count": 137,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "0xF8F9EC3E",
+     "element": "0xF8F9EC3E",
+     "element_type_id": 4177128510,
+     "stride": 1000,
+     "groups": 137,
+     "rows": 137
+    }
+   ]
+  },
+  {
+   "table": "generated_generation_settings.dl_bin",
+   "plain": 10396,
+   "groups": 1,
+   "count": 22,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "LevelGenerationSettings",
+     "element": "LevelGenerationSettings",
+     "element_type_id": 955498133,
+     "stride": 464,
+     "groups": 1,
+     "rows": 22
+    }
+   ]
+  },
+  {
+   "table": "generated_hit_effect_settings.dl_bin",
+   "plain": 72620,
+   "groups": 1,
+   "count": 1512,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "HitEffectSettings",
+     "element": "HitEffectInfo",
+     "element_type_id": 842531486,
+     "stride": 48,
+     "groups": 1,
+     "rows": 1512
+    }
+   ]
+  },
+  {
+   "table": "generated_language_settings.dl_bin",
+   "plain": 3948,
+   "groups": 1,
+   "count": 15,
+   "layouts": [
+    "array+tail"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "LanguageListSettings",
+     "element": "LanguageListEntry",
+     "element_type_id": 3871635474,
+     "stride": 208,
+     "groups": 1,
+     "rows": 15
+    }
+   ]
+  },
+  {
+   "table": "generated_layer_package_indirection_settings.dl_bin",
+   "plain": 108,
+   "groups": 1,
+   "count": 5,
+   "layouts": [
+    "raw-array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "PackageLayerTagIndirection",
+     "element": "PackageLayerTagIndirection",
+     "element_type_id": 3503902365,
+     "stride": 16,
+     "groups": 1,
+     "rows": 5
+    }
+   ]
+  },
+  {
+   "table": "generated_location_groups.dl_bin",
+   "plain": 397106,
+   "groups": 13,
+   "count": 7080,
+   "layouts": [
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "LevelGenerationLocation",
+     "element": "LevelGenerationLocation",
+     "element_type_id": 2616441757,
+     "stride": 56,
+     "groups": 13,
+     "rows": 7080
+    }
+   ]
+  },
+  {
+   "table": "generated_modifier_settings.dl_bin",
+   "plain": 1764,
+   "groups": 15,
+   "count": 52,
+   "layouts": [
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "Modifier",
+     "element": "Modifier",
+     "element_type_id": 3706338031,
+     "stride": 24,
+     "groups": 15,
+     "rows": 52
+    }
+   ]
+  },
+  {
+   "table": "generated_planet_color_set_settings.dl_bin",
+   "plain": 1964,
+   "groups": 1,
+   "count": 30,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "0x9E5B02C2",
+     "element": "0x80EB67CF",
+     "element_type_id": 2162911183,
+     "stride": 64,
+     "groups": 1,
+     "rows": 30
+    }
+   ]
+  },
+  {
+   "table": "generated_planet_data.dl_bin",
+   "plain": 369540,
+   "groups": 438,
+   "count": 438,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "LevelGenerationPlanetData",
+     "element": "LevelGenerationPlanetData",
+     "element_type_id": 146979202,
+     "stride": 624,
+     "groups": 438,
+     "rows": 438
+    }
+   ]
+  },
+  {
+   "table": "generated_planet_override_settings.dl_bin",
+   "plain": 35474,
+   "groups": 13,
+   "count": 44,
+   "layouts": [
+    "array+tail",
+    "hashmap+rows",
+    "unknown"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "PlanetOverrideSettings",
+     "element": "PlanetOverrides",
+     "element_type_id": 1982921655,
+     "stride": 40,
+     "groups": 13,
+     "rows": 44
+    }
+   ]
+  },
+  {
+   "table": "generated_planet_region_settings.dl_bin",
+   "plain": 61485,
+   "groups": 369,
+   "count": 369,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "PlanetRegionSettings",
+     "element": "PlanetRegionSettings",
+     "element_type_id": 3098365753,
+     "stride": 128,
+     "groups": 369,
+     "rows": 369
+    }
+   ]
+  },
+  {
+   "table": "generated_planet_territory_graphs.dl_bin",
+   "plain": 1574628,
+   "groups": 11,
+   "count": 28105,
+   "layouts": [
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "SavedPlanetTerritoryGraph",
+     "element": "SavedPlanetTerritoryGraph",
+     "element_type_id": 3852869853,
+     "stride": 56,
+     "groups": 11,
+     "rows": 28105
+    }
+   ]
+  },
+  {
+   "table": "generated_planet_types_settings.dl_bin",
+   "plain": 16844,
+   "groups": 1,
+   "count": 88,
+   "layouts": [
+    "array+tail"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "SolarSystemObjectTypes",
+     "element": "SolarSystemObjectType",
+     "element_type_id": 718608447,
+     "stride": 24,
+     "groups": 1,
+     "rows": 88
+    }
+   ]
+  },
+  {
+   "table": "generated_policy_settings.dl_bin",
+   "plain": 480,
+   "groups": 1,
+   "count": 14,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "PolicySettings",
+     "element": "PolicySettings",
+     "element_type_id": 39666113,
+     "stride": 32,
+     "groups": 1,
+     "rows": 14
+    }
+   ]
+  },
+  {
+   "table": "generated_projectile_settings.dl_bin",
+   "plain": 96604,
+   "groups": 1,
+   "count": 355,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "ProjectileSettings",
+     "element": "ProjectileInfo",
+     "element_type_id": 2729425661,
+     "stride": 272,
+     "groups": 1,
+     "rows": 355
+    }
+   ]
+  },
+  {
+   "table": "generated_region_settings.dl_bin",
+   "plain": 259627,
+   "groups": 87,
+   "count": 310,
+   "layouts": [
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "GenerationRegionSettings",
+     "element": "GenerationRegionSettings",
+     "element_type_id": 97703201,
+     "stride": 3272,
+     "groups": 74,
+     "rows": 74
+    },
+    {
+     "container": "GenerationRegionGroup",
+     "element": "GenerationRegionGroup",
+     "element_type_id": 2400287229,
+     "stride": 64,
+     "groups": 13,
+     "rows": 236
+    }
+   ]
+  },
+  {
+   "table": "generated_resource_swap.dl_bin",
+   "plain": 24,
+   "groups": 0,
+   "count": 0,
+   "layouts": [],
+   "rows_exact": false,
+   "types": []
+  },
+  {
+   "table": "generated_route_settings.dl_bin",
+   "plain": 436,
+   "groups": 3,
+   "count": 3,
+   "layouts": [
+    "raw-array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "RouteSettings",
+     "element": "RouteSettings",
+     "element_type_id": 3746164096,
+     "stride": 112,
+     "groups": 3,
+     "rows": 3
+    }
+   ]
+  },
+  {
+   "table": "generated_satellite_groups.dl_bin",
+   "plain": 83413,
+   "groups": 36,
+   "count": 3429,
+   "layouts": [
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "LevelGenerationSatelliteGroup",
+     "element": "LevelGenerationSatelliteGroup",
+     "element_type_id": 2640755544,
+     "stride": 24,
+     "groups": 36,
+     "rows": 3429
+    }
+   ]
+  },
+  {
+   "table": "generated_scenario_settings.dl_bin",
+   "plain": 8092,
+   "groups": 39,
+   "count": 149,
+   "layouts": [
+    "raw-array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "ScenarioSettings",
+     "element": "ScenarioSettings",
+     "element_type_id": 2075363877,
+     "stride": 48,
+     "groups": 39,
+     "rows": 149
+    }
+   ]
+  },
+  {
+   "table": "generated_sky_settings.dl_bin",
+   "plain": 12484,
+   "groups": 40,
+   "count": 480,
+   "layouts": [
+    "raw-array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "SkySettings",
+     "element": "SkySettings",
+     "element_type_id": 4140531496,
+     "stride": 24,
+     "groups": 40,
+     "rows": 480
+    }
+   ]
+  },
+  {
+   "table": "generated_solar_system_settings.dl_bin",
+   "plain": 91764,
+   "groups": 1,
+   "count": 3822,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "SolarSystemSettings",
+     "element": "SolarSystemSettings",
+     "element_type_id": 1965614199,
+     "stride": 24,
+     "groups": 1,
+     "rows": 3822
+    }
+   ]
+  },
+  {
+   "table": "generated_stamp_settings.dl_bin",
+   "plain": 678124,
+   "groups": 1,
+   "count": 4096,
+   "layouts": [
+    "hashmap+rows"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "StampHashMap",
+     "element": "StampHashEntry",
+     "element_type_id": 648680955,
+     "stride": 112,
+     "groups": 1,
+     "rows": 4096
+    }
+   ]
+  },
+  {
+   "table": "generated_status_effect_settings.dl_bin",
+   "plain": 14020,
+   "groups": 2,
+   "count": 102,
+   "layouts": [
+    "array",
+    "array+tail"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "StatusEffectSettings",
+     "element": "StatusEffectInfo",
+     "element_type_id": 1381520221,
+     "stride": 160,
+     "groups": 1,
+     "rows": 73
+    },
+    {
+     "container": "StatusEffectTemplates",
+     "element": "StatusEffectTemplate",
+     "element_type_id": 2716127501,
+     "stride": 40,
+     "groups": 1,
+     "rows": 29
+    }
+   ]
+  },
+  {
+   "table": "generated_stratagem_settings.dl_bin",
+   "plain": 82384,
+   "groups": 12,
+   "count": 153,
+   "layouts": [
+    "array+tail",
+    "hashmap+rows"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "StratagemSettings",
+     "element": "StratagemInfo",
+     "element_type_id": 2077624404,
+     "stride": 400,
+     "groups": 12,
+     "rows": 153
+    }
+   ]
+  },
+  {
+   "table": "generated_stratagem_upgrade_settings.dl_bin",
+   "plain": 133,
+   "groups": 1,
+   "count": 1,
+   "layouts": [
+    "hashmap+rows"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "StratagemCustomizations",
+     "element": "StratagemCustomizationInfo",
+     "element_type_id": 1862943885,
+     "stride": 64,
+     "groups": 1,
+     "rows": 1
+    }
+   ]
+  },
+  {
+   "table": "generated_surface_effect_settings.dl_bin",
+   "plain": 305804,
+   "groups": 1,
+   "count": 7644,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "SurfaceEffectSettings",
+     "element": "SurfaceEffectInfo",
+     "element_type_id": 2297534434,
+     "stride": 40,
+     "groups": 1,
+     "rows": 7644
+    }
+   ]
+  },
+  {
+   "table": "generated_unit_customization_settings.dl_bin",
+   "plain": 27744,
+   "groups": 12,
+   "count": 339,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "UnitCustomizationSettings",
+     "element": "UnitCustomizationSettings",
+     "element_type_id": 2730108746,
+     "stride": 80,
+     "groups": 12,
+     "rows": 339
+    }
+   ]
+  },
+  {
+   "table": "generated_unit_effect_settings.dl_bin",
+   "plain": 63004,
+   "groups": 1,
+   "count": 408,
+   "layouts": [
+    "array+tail"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "UnitEffectSettings",
+     "element": "UnitEffectSetting",
+     "element_type_id": 3986907691,
+     "stride": 112,
+     "groups": 1,
+     "rows": 408
+    }
+   ]
+  },
+  {
+   "table": "generated_video_flow_settings.dl_bin",
+   "plain": 2060,
+   "groups": 1,
+   "count": 63,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "VideoFlowSettings",
+     "element": "VideoFlowSettings",
+     "element_type_id": 4225295808,
+     "stride": 32,
+     "groups": 1,
+     "rows": 63
+    }
+   ]
+  },
+  {
+   "table": "generated_video_ui_settings.dl_bin",
+   "plain": 1124,
+   "groups": 1,
+   "count": 9,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "VideoUISettings",
+     "element": "VideoUIElement",
+     "element_type_id": 3456432767,
+     "stride": 120,
+     "groups": 1,
+     "rows": 9
+    }
+   ]
+  },
+  {
+   "table": "generated_weapon_customization_settings.dl_bin",
+   "plain": 30824,
+   "groups": 9,
+   "count": 252,
+   "layouts": [
+    "array+tail",
+    "hashmap+rows"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "WeaponCustomizationSettings",
+     "element": "WeaponCustomizableItem",
+     "element_type_id": 3849146219,
+     "stride": 88,
+     "groups": 9,
+     "rows": 252
+    }
+   ]
+  },
+  {
+   "table": "generated_weather_color_set_settings.dl_bin",
+   "plain": 25916,
+   "groups": 1,
+   "count": 132,
+   "layouts": [
+    "array"
+   ],
+   "rows_exact": true,
+   "types": [
+    {
+     "container": "WeatherColorSets",
+     "element": "WeatherColorSet",
+     "element_type_id": 2534083419,
+     "stride": 196,
+     "groups": 1,
+     "rows": 132
+    }
+   ]
+  },
+  {
+   "table": "generated_weather_settings.dl_bin",
+   "plain": 162908,
+   "groups": 184,
+   "count": 190,
+   "layouts": [
+    "raw"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "WeatherSettings",
+     "element": "WeatherSettings",
+     "element_type_id": 1818311969,
+     "stride": 648,
+     "groups": 184,
+     "rows": 190
+    }
+   ]
+  },
+  {
+   "table": "generated_zone_data.dl_bin",
+   "plain": 518478,
+   "groups": 88,
+   "count": 517,
+   "layouts": [
+    "raw",
+    "raw-array"
+   ],
+   "rows_exact": false,
+   "types": [
+    {
+     "container": "ZoneSettings",
+     "element": "ZoneSettings",
+     "element_type_id": 572392013,
+     "stride": 912,
+     "groups": 88,
+     "rows": 517
+    }
+   ]
+  }
+ ]
+}
