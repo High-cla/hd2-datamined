@@ -352,10 +352,53 @@ LOADLIB signed-inplace | bin\plugins\dshtest_p.dll | %1 不是有效的 Win32 �
 - "找个签名好的 DLL 塞进去" ✗ —— 内容/签名够好不是条件（`signed-newname`）；
 - "放进 `package.cpath` 里的 `bin\`" ✗ —— 目录没有特权（`signed-bin`）；
 - "放进 `bin\plugins\` 这个引擎自己的目录" ✗ —— **同目录换名仍然 193**（`signed-inplace`），
-  所以闸门 2 的粒度是**文件名**，不是目录；
+  所以闸门 2 至少要求**文件名**对上，不是目录授权（内容是否也要对上，见 §12h：要）；
 - 唯一能过的就是**游戏自己那份文件**（原名、原目录、原字节），而改它任何一个字节哈希就变
   ⇒ **到不了执行**。
 
 > 附：`system error 577` 与 `%1 不是有效的 Win32 应用程序` 是 Lua 5.1 把
 > `LoadLibrary` 的失败文本原样传回来的结果 —— 同一个 API 对不同的失败给不同的**文本形状**，
 > 所以判读时不能只认中文串，还要认 `system error N`。
+
+### 12h. 引擎自己的插件位置：签名供体**连映射都不给**，而且游戏直接死（2026-10-22 17:0x）
+
+§12g 那张表只测了 `loadlib`（调用方拿得到返回码）。插件是**引擎自己加载**的，走另一条路：
+调用方不是我们，失败也不会有返回码给我们看。所以换了个**不需要进进程**的仪器：
+`VirtualQueryEx` + `GetMappedFileNameW`（只需要 `PROCESS_QUERY_INFORMATION`，§8 已验证可用），
+从外部盯着看那个 DLL 到底有没有被映射进地址空间。
+
+| 状态 | 插件是否被映射 | 游戏 |
+|---|---|---|
+| **原版插件**（对照） | **✓ 第一个样本就看见**（621 个映射文件时） | 正常运行 |
+| `version.dll` 字节覆盖到插件名 | **✗ 23 个样本 / 795 个映射文件 / 存活约 1 s，从未出现** | **在 boot Lua 之前终止** |
+| 未签名桩覆盖到插件名（外部实测） | 不加载 | **正常进**，插件功能缺失 |
+
+```
+对照（原版）:
+  helldivers2.exe appeared (pid 20476) at t+0.0s
+  FIRST SEEN at t+0.0s  (621 mapped file(s)): \Device\...\bin\plugins\level_generation_pluginw64_release.dll
+  RESULT: MAPPED
+
+供体（version.dll 字节）:
+  helldivers2.exe appeared (pid 47676) at t+0.0s
+  VERDICT: address space unreadable at t+1.0s (process gone)
+  RESULT: NEVER MAPPED — 23 个样本，peak 795 个映射文件
+```
+
+⇒ **闸门 2 认的是「名字 + 内容」，不是「名字 + 签名」。** 名字对、目录对、签名有效、内容不同 ——
+**连映射都不给**。这补上了 §12g 缺的那一格，也把外部那格（未签名桩）的归属改正过来：
+他们的桩是**闸门 1**（未签名 → 577）挡的，不是内容闸。
+
+⚠ **但拒绝的后果不对等，机制未分离**：
+
+- 插件路径：文件没映射，进程却在 **1–4 s 内终止**（无 WER 事件、无崩溃转储、boot Lua 一行没写）；
+- `loadlib` 路径：同样"名字对内容不对"，只是**返回 193**，进程安然无恙。
+
+两种解释都还站着：
+① 引擎把 `level_generation` 当**必需**插件，加载失败即致命退出；
+② 启动期另有**完整性检查**（签名有效才比对哈希），不符就终止进程。
+**能分开的实验**：把**非必需**的 `wwise_pluginw64_release.dll` 换成签名供体，看游戏是否照常进 —— **未做**。
+
+> 仪器：`tools/watched_modules.py`（只读元数据，不读一个字节内容）。它顺带修掉一个坑：
+> 用 `tasklist` 起子进程在后台作业里拿不到进程，改用 Toolhelp；`ShellExecuteW` 打开
+> `steam://` 会被这个 Steam 静默丢弃，改用 `cmd /c start` 并带重试。

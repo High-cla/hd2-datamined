@@ -55,6 +55,7 @@
 | `eac_access_test.py` | 外部进程还能读游戏吗？→ **不能**：`OpenProcess` 三档全给句柄、元数据能读，但 `ReadProcessMemory` **err=5**、`MiniDumpWriteDump` **0x80070005**。文件头留着第一版**假阳性**的教训（只看 `OpenProcess` 会骗自己） | 标准库 | ✓ `--selftest` **5/5**（含"剥权句柄必须被拒"的变异测试） |
 | `eac_early_handle.py` | 有没有"保护生效前"的窗口？→ **没有**：进程出现后 **10.6 ms** 建的句柄**已经被剥权**（err=5），access mask 在创建时就定了 | 标准库 | ✓ `--help`；完整流程需要一次游戏启动 |
 | `crash_watch.py` | 在 CRS 删掉之前抢救游戏**自己**的崩溃捕获。外部全量 dump 那条路已死：`dumper.ps1` 未随仓库发布，而 `can_read_memory()` 会在调用它之前就拒绝 | `eac_access_test.py`（缺席时降级为"跳过预检"） | ✓ `--selftest`（造假 CRS 捕获 → 救援 → hash 校验 PASS） |
+| `watched_modules.py` | 从**外部**盯一个进程的**映射文件列表**（`VirtualQueryEx` + `GetMappedFileNameW`，只读元数据、不读内容），用来回答"某个 DLL 到底有没有被映射进来" | 标准库 | ✓ 实机（2026-10-22：正常态插件在第一个样本就出现 / 换供体后 23 个样本里从未出现） |
 
 ## 文档提到、但本仓库**故意不含**的工具
 
