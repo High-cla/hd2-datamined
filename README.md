@@ -61,6 +61,7 @@ PY
 3. **可选弹种两格**：`WeaponData +184`（`FunctionInfo.function_id`，**8 = 引擎原生 ProgrammableAmmo**）＋ `ProjectileWeapon +576`（**备选弹丸 type id**）。备选弹**只贡献伤害+状态**，弹道来自主弹行。
 4. **独立弹药池**：`WeaponRoundsComponentData`，行内 `+64` = 两个弹丸 id、`+72` = 两个弹匣容量、`+80` = 两个备弹；全表 25 把里**只有 SG-20 Halt 是 B≠A，也正好只有它是 `fnid=4`**。
    **实机**（SG-8 Punisher：`fnid` 0→4、`rounds_b` 264→140）：能切弹、两个池独立、B 池自带弹道（霰弹枪变单颗）✓✓
+   **边界**：只对**原生自带 `WeaponRounds` 行**的 25 把武器有效。给「整匣换弹」武器新增该行（AR-23，四次变体）**全部在打开切弹页面时崩溃** ✗ —— 见 `docs/ENTITY-TABLE-25988413.md` §9.7。
 5. **未发布物品**：`LoadoutEntryComponentData` 只有 `{id, type, dlc_pack_id, equipment_tags[5]}` 32 字节，**没有 selectable**；带 selectable 的结构在发布数据里 0 命中 ⇒ 不是离线可翻的开关。
 
 ## 相关仓库

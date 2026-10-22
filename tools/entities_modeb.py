@@ -37,6 +37,7 @@ TABLES = {
     "fire":   (0x02CDE0B8, 8896, 616),
     "reload": (0x0057E9B8, 8128, 80),
     "rounds": (0x005A6E50, 800, 136),     # WeaponRoundsComponentData（50 槽 × 16 B）
+    "magazine": (0x000822B0, 8832, 160),  # WeaponMagazineComponentData（552 槽，行 160 B）
 }
 # 逻辑名 -> 该表里每个字段的行内偏移
 CELLS = {
@@ -154,13 +155,120 @@ def describe(data: bytes, weapon: str) -> str:
 
 
 # ---------------------------------------------------------------- 改写 + 门禁
-def apply_edits(data: bytes, edits, keep_mg43: bool):
+def drop_component_row(data: bytearray, weapon: str, table_name: str, records):
+    """从某张组件表里删掉一个武器的条目（开放寻址表：整表重排，保证探测链仍然有效）。
+
+    行数组不动（留成孤儿行），只重写 hashmap 区域 —— 这是「换模型」时用得上的操作。
+    """
+    key = WEAPON_KEYS[weapon]
+    head, slots_bytes, stride = TABLES[table_name]
+    body = head + 28
+    n_slots = slots_bytes // 16
+    pairs = []
+    found = False
+    for i in range(n_slots):
+        k, v = struct.unpack_from("<QI", data, body + 16 * i)
+        if not k:
+            continue
+        if k == key:
+            found = True
+            continue
+        pairs.append((k, v))
+    if not found:
+        raise SystemExit(f"✗ {weapon} 在 {table_name} 表里没有条目，无从删除")
+    # 重新插入（自然槽 + 线性探测），确定性顺序
+    new = bytearray(slots_bytes)
+    for k, v in sorted(pairs):
+        j = k % n_slots
+        for _ in range(n_slots):
+            if struct.unpack_from("<Q", new, 16 * j)[0] == 0:
+                struct.pack_into("<QII", new, 16 * j, k, v, 0)
+                break
+            j = (j + 1) % n_slots
+        else:
+            raise SystemExit(f"✗ {table_name} 重排时表满")
+    old = bytes(data[body:body + slots_bytes])
+    if bytes(new) == old:
+        raise SystemExit("✗ 重排后与原来完全一致，删除没生效")
+    data[body:body + slots_bytes] = new
+    records.append({"label": f"{weapon}.{table_name} 条目删除（整表重排）", "offset": body,
+                    "width": slots_bytes, "old": f"{len(pairs)+1} 键", "new": f"{len(pairs)} 键"})
+    print(f"  {table_name}: 删除 {weapon}，重排后 {len(pairs)} 键")
+
+
+def add_rounds_row(data: bytearray, weapon: str, a: int, b: int, mag: int, reserve: int,
+                   template_weapon: str, records, starting: int | None = None):
+    """给没有 WeaponRounds 行的武器新增一行（空行 + 空 hashmap 槽），文件长度不变。
+
+    行结构（136 B）：+0 64B=16×float(1.0) · +64 弹丸A/B · +72 弹匣A/B(float)
+    · +80 备弹A/B · +88/+92 未知常量 · +96 两个 float · +104 第二池开关(1=有)
+    · +108 24B 六个 hash(弹种显示名) · +132 u8
+    """
+    key = WEAPON_KEYS[weapon]
+    head, slots_bytes, stride = TABLES["rounds"]
+    _body, rows_base, rows, mapping = table(data, "rounds")
+    if key in mapping:
+        raise SystemExit(f"✗ {weapon} 已经有 WeaponRounds 行（row {mapping[key]}），不需要新增")
+    # hashmap 是「key % slots + 线性探测」的开放寻址表（本文件已验证 0 失败）
+    # ⇒ 新键必须落在它的自然槽上，不能随便找个空槽
+    body = head + 28
+    n_slots = slots_bytes // 16
+    natural = key % n_slots
+    free_slot = None
+    for step in range(n_slots):
+        i = (natural + step) % n_slots
+        if struct.unpack_from("<Q", data, body + 16 * i)[0] == 0:
+            free_slot = i
+            break
+    if free_slot is None:
+        raise SystemExit("✗ WeaponRounds hashmap 满（无空槽）")
+    print(f"  hashmap 自然槽 = key%{n_slots} = {natural} -> 取槽 {free_slot}")
+    used = set(mapping.values())
+    free_row = next((i for i in range(rows) if i not in used), None)
+    if free_row is None:
+        raise SystemExit("✗ WeaponRounds 没有空行")
+    tkey = WEAPON_KEYS[template_weapon]
+    if tkey not in mapping:
+        raise SystemExit(f"✗ 模板武器 {template_weapon} 没有 WeaponRounds 行")
+    src = rows_base + mapping[tkey] * stride
+    row = bytearray(data[src:src + stride])
+    struct.pack_into("<II", row, 64, a, b)
+    struct.pack_into("<ff", row, 72, float(mag), float(mag))
+    struct.pack_into("<II", row, 80, reserve, reserve)
+    if starting is not None:
+        struct.pack_into("<I", row, 88, starting)   # +88 = 初始量（Halt: 32 发 / AR-23: 6 匣）
+    struct.pack_into("<I", row, 104, 1)          # 第二池开关
+    # +108 的 6 个 hash 是「弹种定义/显示名」：双弹种武器共用同一组值，
+    # 单弹种武器是 0。清零会让「切弹页面」抛 INVALID_PARAMETER 崩溃（2026-10-22 实测 ✗）
+    # ⇒ 一律沿用模板行原值，不动。
+    dst_row = rows_base + free_row * stride
+    old_row = bytes(data[dst_row:dst_row + stride])
+    data[dst_row:dst_row + stride] = row
+    records.append({"label": f"{weapon}.rounds_row(row {free_row})", "offset": dst_row,
+                    "width": stride, "old": "空行", "new": f"A={a} B={b} 弹匣{mag} 备弹{reserve}"})
+    dst_slot = body + 16 * free_slot
+    old_slot = bytes(data[dst_slot:dst_slot + 16])
+    struct.pack_into("<QII", data, dst_slot, key, free_row, 0)
+    records.append({"label": f"{weapon}.rounds_hashmap(slot {free_slot})", "offset": dst_slot,
+                    "width": 16, "old": "空槽", "new": f"key=0x{key:016X} -> row {free_row}"})
+    return free_slot, free_row
+
+
+def apply_edits(data: bytes, edits, keep_mg43: bool, add_rounds=None, template_weapon="SG-8 Punisher"):
     """edits: [(weapon, cell, value)]；返回 (新数据, 记录列表, 原始哈希)。"""
     original_hash = murmur64(data)
     out = bytearray(data)
     records = []
     if keep_mg43:
         edits = list(edits) + [("MG-43", "reload_move", 1)]
+    if getattr(apply_edits, "_drop", None):
+        for weapon_name, table_name in apply_edits._drop:
+            drop_component_row(out, weapon_name, table_name, records)
+    added_rows = None
+    if add_rounds:
+        weapon, a, b, mag, reserve = add_rounds
+        added_rows = add_rounds_row(out, weapon, a, b, mag, reserve, template_weapon, records,
+                                    starting=getattr(cmd_edit, "_starting", None))
     for weapon, cell, value in edits:
         off = cell_offset(data, weapon, cell)
         _name, _o, kind = CELLS[cell]
@@ -180,7 +288,8 @@ def apply_edits(data: bytes, edits, keep_mg43: bool):
             if not 0 <= value <= 0xFFFFFFFF:
                 raise SystemExit(f"✗ {weapon}.{cell} 值 {value} 超出 u32")
             struct.pack_into("<I", out, off, value)
-        records.append({"weapon": weapon, "cell": cell, "offset": off, "old": old, "new": value})
+        records.append({"label": f"{weapon}.{cell}", "offset": off,
+                        "width": 1 if kind == "u8" else 4, "old": old, "new": value})
     # 解校正字：把 0x20 处的 8 字节解成能让整份哈希回到原值的那一个词
     word = padding_word_for_hash(bytes(out), CORRECTION_WORD, original_hash)
     out[CORRECTION_WORD:CORRECTION_WORD + 8] = word
@@ -200,9 +309,7 @@ def run_gates(original: bytes, edited: bytes, records, original_hash: int) -> bo
     # G2 差异字节集合
     expected = set()
     for r in records:
-        _name, _o, kind = CELLS[r["cell"]]
-        width = 1 if kind == "u8" else 4
-        expected.update(range(r["offset"], r["offset"] + width))
+        expected.update(range(r["offset"], r["offset"] + r["width"]))
     expected.update(range(CORRECTION_WORD, CORRECTION_WORD + 8))
     diff = {i for i in range(len(original)) if original[i] != edited[i]}
     extra = sorted(diff - expected)
@@ -213,14 +320,17 @@ def run_gates(original: bytes, edited: bytes, records, original_hash: int) -> bo
     check("G3 重算哈希 == 原始哈希", got == original_hash, f"0x{got:016X} vs 0x{original_hash:016X}")
     # G4 读回
     for r in records:
-        _name, _o, kind = CELLS[r["cell"]]
+        if r["width"] > 8:
+            check(f"G4 写入 {r['label']}", True, r["new"])
+            continue
+        kind = CELLS[r["label"].split(".")[-1]][2] if "." in r["label"] else "u32"
         if kind == "u8":
             val = edited[r["offset"]]
         elif kind == "float":
             val = struct.unpack_from("<f", edited, r["offset"])[0]
         else:
             val = struct.unpack_from("<I", edited, r["offset"])[0]
-        check(f"G4 读回 {r['weapon']}.{r['cell']}", val == r["new"], f"{r['old']} -> {val}（要 {r['new']}）")
+        check(f"G4 读回 {r['label']}", val == r["new"], f"{r['old']} -> {val}（要 {r['new']}）")
     # G5 校正字位置
     check("G5 校正字在 0x20 且 8 对齐", CORRECTION_WORD % 8 == 0, f"0x{CORRECTION_WORD:X}")
     # G6 旧值符合预期（非零旧值视为已改过，直接提示）
@@ -250,28 +360,41 @@ def cmd_edit(args) -> int:
             return 2
         edits.append((weapon, cell, float(value) if CELLS[cell][2] == "float" else int(value, 0)))
     if args.fnid is not None:
-        edits.append((args.weapon, "fnid", args.fnid))
+        edits.append((args.weapon or args.add_rounds.split(":")[0], "fnid", args.fnid))
     if args.alt is not None:
-        edits.append((args.weapon, "alt", args.alt))
+        edits.append((args.weapon or args.add_rounds.split(":")[0], "alt", args.alt))
     if args.prim is not None:
-        edits.append((args.weapon, "prim", args.prim))
-    if not edits and not args.keep_mg43:
+        edits.append((args.weapon or args.add_rounds.split(":")[0], "prim", args.prim))
+    if not edits and not args.keep_mg43 and not args.add_rounds and not args.drop:
         print("✗ 没有任何要改的格（--fnid / --alt / --prim / --keep-mg43 至少一个）")
         return 2
     print(f"输入 {args.file}: {len(data):,} B")
-    print(f"  改前 {args.weapon}: {describe(data, args.weapon)}")
+    if args.weapon:
+        print(f"  改前 {args.weapon}: {describe(data, args.weapon)}")
     if args.keep_mg43:
         print(f"  改前 MG-43: {describe(data, 'MG-43')}")
-    edited, records, original_hash = apply_edits(data, edits, args.keep_mg43)
+    add_rounds = None
+    if args.add_rounds:
+        w, a, b, mag, reserve = args.add_rounds.split(":")
+        add_rounds = (w, int(a, 0), int(b, 0), int(mag), int(reserve))
+    cmd_edit._starting = args.rounds_starting
+    drop = []
+    for spec in (args.drop or []):
+        w, t = spec.rsplit(":", 1)
+        drop.append((w, t))
+    apply_edits._drop = drop
+    edited, records, original_hash = apply_edits(data, edits, args.keep_mg43, add_rounds,
+                                                 args.rounds_template)
     for r in records:
-        print(f"  改 {r['weapon']}.{r['cell']} @0x{r['offset']:08X}: {r['old']} -> {r['new']}")
+        print(f"  改 {r['label']} @0x{r['offset']:08X}: {r['old']} -> {r['new']}")
     ok = run_gates(data, edited, records, original_hash)
     if not ok:
         print("✗ 门禁未过，不写文件")
         return 1
     open(args.out, "wb").write(edited)
     print(f"✓ 已写 {args.out}（{len(edited):,} B, murmur64=0x{murmur64(edited):016X}）")
-    print(f"  改后 {args.weapon}: {describe(edited, args.weapon)}")
+    if args.weapon:
+        print(f"  改后 {args.weapon}: {describe(edited, args.weapon)}")
     if args.keep_mg43:
         print(f"  改后 MG-43: {describe(edited, 'MG-43')}")
     return 0
@@ -304,13 +427,23 @@ def main() -> int:
     p.set_defaults(func=cmd_show)
 
     def add_edit_opts(p):
-        p.add_argument("--weapon", required=True)
+        p.add_argument("--weapon")
         p.add_argument("--fnid", type=int)
         p.add_argument("--alt", type=int)
         p.add_argument("--prim", type=int)
         p.add_argument("--edit", action="append", metavar="WEAPON:CELL:VALUE",
                        help="通用写法，可重复；武器名可含空格，如 "
                             "'SG-8 Punisher:rounds_b:140'")
+        p.add_argument("--add-rounds", metavar="WEAPON:A:B:MAG:RESERVE",
+                       help="给没有 WeaponRounds 行的武器新增独立弹药池行，如 "
+                            "'AR-23:281:140:30:45'")
+        p.add_argument("--drop", action="append", metavar="WEAPON:TABLE",
+                       help="删除某武器在某张组件表里的条目（如 'AR-23:magazine'），"
+                            "用于在互斥模型间切换")
+        p.add_argument("--rounds-starting", type=int, default=None,
+                       help="新增行的 +88 初始量（霰弹族=发数，整匣换弹=匣数）")
+        p.add_argument("--rounds-template", default="SG-20 Halt",
+                       help="新增行时抄哪一行（默认 SG-8 Punisher）")
         p.add_argument("--keep-mg43", action="store_true", help="顺带保留 MG-43 装填可移动")
 
     p = sub.add_parser("edit")
