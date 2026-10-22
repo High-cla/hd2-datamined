@@ -1,0 +1,190 @@
+{
+ "rows": [
+  {
+   "file": "generated_add_resource_dependencies.dl_bin",
+   "cache_plain": 180,
+   "cache_sha": "95e5884620701548",
+   "current": 180,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_arc_settings.dl_bin",
+   "cache_plain": 1708,
+   "cache_sha": "b9319245ea9c0183",
+   "current": 1708,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_beam_settings.dl_bin",
+   "cache_plain": 3404,
+   "cache_sha": "19989b016123c1f0",
+   "current": 3404,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_candidate_descs.dl_bin",
+   "cache_plain": 812,
+   "cache_sha": "c12c82a09bf7bf29",
+   "current": 812,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_customization_armor_sets.dl_bin",
+   "cache_plain": 453204,
+   "cache_sha": "9dab2ea0b40a11e5",
+   "current": 453204,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_customization_passive_bonuses.dl_bin",
+   "cache_plain": 4992,
+   "cache_sha": "ca5b6b33dfe0b4b6",
+   "demo_backup": 4016,
+   "demo_same": false,
+   "current": 4016,
+   "current_same": false,
+   "verdict": "differs-from-current-build-and-demo",
+   "fixed": true
+  },
+  {
+   "file": "generated_damage_settings.dl_bin",
+   "cache_plain": 50336,
+   "cache_sha": "c28bce58c816a800",
+   "demo_backup": 50336,
+   "demo_same": true,
+   "current": 50336,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_entities.dl_bin",
+   "cache_plain": 47259396,
+   "cache_sha": "dc6d52a14900942b",
+   "demo_backup": 47259396,
+   "demo_same": true,
+   "current": 47259396,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_entity_deltas.dl_bin",
+   "cache_plain": 352345,
+   "cache_sha": "78841155dfe02f56",
+   "current": 352345,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_explosion_settings.dl_bin",
+   "cache_plain": 68156,
+   "cache_sha": "96d0b30f5ef3e68d",
+   "current": 68156,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_hit_effect_settings.dl_bin",
+   "cache_plain": 72620,
+   "cache_sha": "3cdf78281377b8d6",
+   "current": 72620,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_modifier_settings.dl_bin",
+   "cache_plain": 1764,
+   "cache_sha": "a59b96b1b2bbfe46",
+   "current": 1764,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_planet_data.dl_bin",
+   "cache_plain": 369540,
+   "cache_sha": "a17701ac3b0f2221",
+   "current": 369540,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_policy_settings.dl_bin",
+   "cache_plain": 480,
+   "cache_sha": "6ecbfe937809ebe1",
+   "current": 480,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_projectile_settings.dl_bin",
+   "cache_plain": 96604,
+   "cache_sha": "a2f3046fb251bd7c",
+   "current": 96604,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_region_settings.dl_bin",
+   "cache_plain": 259627,
+   "cache_sha": "8a075df5971ee4f8",
+   "current": 259627,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_status_effect_settings.dl_bin",
+   "cache_plain": 14020,
+   "cache_sha": "19a98ff7151ddad0",
+   "current": 14020,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_stratagem_settings.dl_bin",
+   "cache_plain": 82384,
+   "cache_sha": "925fc5da32a1e3a8",
+   "current": 82384,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_stratagem_upgrade_settings.dl_bin",
+   "cache_plain": 133,
+   "cache_sha": "6632186bd3f34074",
+   "current": 133,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_unit_customization_settings.dl_bin",
+   "cache_plain": 27744,
+   "cache_sha": "e287dec5d09541c4",
+   "current": 27744,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_weapon_customization_settings.dl_bin",
+   "cache_plain": 30824,
+   "cache_sha": "b6de74a8c70d27a9",
+   "current": 30824,
+   "current_same": true,
+   "verdict": "ok"
+  },
+  {
+   "file": "generated_zone_data.dl_bin",
+   "cache_plain": 518478,
+   "cache_sha": "a736fbd25606ccd3",
+   "current": 518478,
+   "current_same": true,
+   "verdict": "ok"
+  }
+ ],
+ "fixed": [
+  "generated_customization_passive_bonuses.dl_bin"
+ ]
+}

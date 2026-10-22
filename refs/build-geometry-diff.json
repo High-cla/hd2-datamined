@@ -129,8 +129,8 @@
    "old_groups": 33,
    "same_size": true,
    "same_groups": true,
-   "same_plaintext": false,
-   "status": "structure-same-cache-differs"
+   "same_plaintext": true,
+   "status": "identical"
   },
   {
    "table": "generated_damage_settings.dl_bin",

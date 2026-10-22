@@ -62,101 +62,11 @@
   },
   "generated_customization_passive_bonuses.dl_bin": {
    "size": 4064,
-   "old_size": 4992,
+   "old_size": 4016,
    "plaintext_sha256": "6ba67061fa05b1aa98cd9cbea19df182a80c6c07c5294440c6da41f3bbb8ad40",
-   "old_plaintext_sha256": "ca5b6b33dfe0b4b6f2dfe0366ea21bd6161d0f556a81e456a9e201bf9e28db40",
+   "old_plaintext_sha256": "6ba67061fa05b1aa98cd9cbea19df182a80c6c07c5294440c6da41f3bbb8ad40",
    "seal_bytes": 48,
-   "status": "changed",
-   "new": {
-    "bytes": 4016,
-    "groups": 33
-   },
-   "old": {
-    "bytes": 4992,
-    "groups": 33
-   },
-   "groups_added": 0,
-   "groups_differing": 31,
-   "group_diff_sample": [
-    {
-     "group": 0,
-     "old": {
-      "type_id": 1674448875,
-      "payload": 104,
-      "count": 3909884262665565598
-     },
-     "new": {
-      "type_id": 1674448875,
-      "payload": 72,
-      "count": 3909884262665565598
-     }
-    },
-    {
-     "group": 1,
-     "old": {
-      "type_id": 1674448875,
-      "payload": 120,
-      "count": 7220701343999486723
-     },
-     "new": {
-      "type_id": 1674448875,
-      "payload": 88,
-      "count": 7220701343999486723
-     }
-    },
-    {
-     "group": 2,
-     "old": {
-      "type_id": 1674448875,
-      "payload": 120,
-      "count": 8971604784772864229
-     },
-     "new": {
-      "type_id": 1674448875,
-      "payload": 88,
-      "count": 8971604784772864229
-     }
-    },
-    {
-     "group": 4,
-     "old": {
-      "type_id": 1674448875,
-      "payload": 136,
-      "count": 877357772513077712
-     },
-     "new": {
-      "type_id": 1674448875,
-      "payload": 120,
-      "count": 877357772513077712
-     }
-    },
-    {
-     "group": 5,
-     "old": {
-      "type_id": 1674448875,
-      "payload": 136,
-      "count": 18405820598090931089
-     },
-     "new": {
-      "type_id": 1674448875,
-      "payload": 104,
-      "count": 18405820598090931089
-     }
-    },
-    {
-     "group": 6,
-     "old": {
-      "type_id": 1674448875,
-      "payload": 136,
-      "count": 14181612098193013467
-     },
-     "new": {
-      "type_id": 1674448875,
-      "payload": 104,
-      "count": 14181612098193013467
-     }
-    }
-   ]
+   "status": "same"
   },
   "generated_damage_settings.dl_bin": {
    "size": 50384,
@@ -430,10 +340,8 @@
   }
  },
  "summary": {
-  "changed": [
-   "generated_customization_passive_bonuses.dl_bin"
-  ],
-  "unchanged": 21,
+  "changed": [],
+  "unchanged": 22,
   "decrypt_failed": [],
   "no_old_copy": [
    "generated_animation_event_trigger_settings.dl_bin",

@@ -12,7 +12,7 @@
 
 | build | 日期 | 状态 | 关键结论 / 差异 | 对应文档 |
 |---|---|---|---|---|
-| **26088801** | 2026-10-22 | **当前** | 密钥未变（56/56 解封）；类型库明文逐字节相同；55 张表结构全同、21 张明文全同；`customization_passive_bonuses` 的加成条目数组每条被动末尾少 2 条（值恒 ×2.0）；exe/game.dll 同大小、哈希变；`bundles.nxa` +151 B，5 个 bundle ±64 KB | [BUILD-26088801-DIFF.md](docs/BUILD-26088801-DIFF.md) |
+| **26088801** | 2026-10-22 19:59（steamdb 11:59 UTC） | **当前** | 密钥未变（56/56 解封）；类型库明文逐字节相同；**55 张表 0 变化**（22 张明文全同、33 张结构全同）；exe/game.dll 同大小、哈希变；`bundles.nxa` +151 B，5 个 bundle ±64 KB。⚠ 该 build 曾一度被误报"改了一张表"，实为我们自己的 mod 负载污染基线缓存（见 §6） | [BUILD-26088801-DIFF.md](docs/BUILD-26088801-DIFF.md) |
 | 25988413 | 2026-10-20 | 历史基线 | 本仓库绝大多数 `-25988413` 文档的实测版本：内容哈希闸门、实体块布局、可选弹种、独立弹药池、爆炸/弹头线、行命名、本地化名、战备/武器表解码 | `docs/*-25988413.md`、`refs/table-geometry.json` |
 | 25480438 | 2026-10-15 | 更早 | 仅本地备份，**不收录**（结论已过时会误导） | — |
 
@@ -29,6 +29,9 @@
 ## 3. 新 build 到手后的三步（全离线，不启动游戏）
 
 ```bash
+# 0) 先确认基线缓存干净 —— 否则后面两步全错（这个坑真的踩过，见 §6）
+python tools/plaintext_cache_audit.py --sk <recipient.sk>  # -> refs/cache-audit.json
+
 # 1) 把当前 build 的 55 张表 + 类型库解封成明文，按 buildid 另存
 python tools/build_cache.py --sk <recipient.sk>          # -> refs/dlbin/plaintext-<buildid>/
 
@@ -62,3 +65,23 @@ build 再多起来时，按 `refs/builds/<buildid>/` 分目录，把上述产物
 * 事实类文档：`docs/<主题>-<buildid>.md`，开头写清"本文所有偏移/地址均在该 build 实测"。
 * 方法类文档：不带 build 号（如 `docs/DLBIN-SEALED-BOX.md`、`docs/PRIOR-ART-NAMING.md`）。
 * 报告类：`docs/BUILD-<buildid>-DIFF.md`，只写这次更新相对上一个基线变了什么。
+
+## 6. ⚠ 踩过的坑：明文缓存会被我们自己的 mod 污染
+
+`refs/dlbin/plaintext-all/` 是"某个 build 的原版明文"。只要有一次 dump 发生在
+**我们的 mod 已经写进 `data/game` 之后**，缓存里就会混进改过的表 —— 之后所有
+"这张表变了没"的判断全错，而且错得很有说服力。
+
+**实例（2026-10-22）**：09:49 我们为"护甲多被动"实验备份了原版并生成了 mod 负载，
+09:52 的 dump 把**deployed 的负载**当成了原版存下（`customization_passive_bonuses`
+4992 B，真原版 4016 B）。3.5 小时后的 20:56 游戏更新到 26088801，于是被误报成
+"这次更新改了一张表"。实际上原版两个 build 逐字节相同，这次更新**一张表都没动**。
+
+铁证是两份文件并存（都在本机）：`refs/dlbin/demo/vanilla_generated_customization_passive_bonuses.dl_bin`
+（4016，`6ba67061fa05b1aa…`）与 `refs/dlbin/demo/passives_medkit.sealed.dl_bin`
+（4992，`ca5b6b33dfe0b4b6…`），而旧缓存的 sha256 与后者完全一致。
+
+**规则**：
+1. dump 前确认 `data/game` 是原版（有 `refs/dlbin/demo/vanilla_*` 备份的直接比对）；
+2. dump 后立刻跑 `tools/plaintext_cache_audit.py`；
+3. 改表实验的负载一律留在 `refs/dlbin/demo/`，**永远不要**写进缓存目录。
