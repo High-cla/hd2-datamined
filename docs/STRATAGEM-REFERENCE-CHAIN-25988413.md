@@ -120,6 +120,28 @@ Eagle 500kg Bomb           +0=3    ref=EagleBomb
 ⚠ 那份 wiki 模块的**数值**来自另一个 build（它写 Precision Strike 冷却 90，我们和 wiki 页面
 都是 80），所以只取它的**语义字段**（`ref`、`projectile_type`、`attacks`），不取数值。
 
+
+### 4.2 一处口径差异（补充）
+
+wiki 上还有第二份战备视图 `Module:Decodedata-Attacks/stratagems data.json`（98 条，含 `attacks`
+攻击树）。它给出的攻击名是 `S_P13` / `S_P13_IE` 这种**攻击资源名**，而不是 4.1 里的
+`projectile_type`（弹丸类型枚举名）。两者对同一个战备**可能指向不同的弹丸记录**：
+
+| 来源 | 字段 | Orbital Precision Strike |
+|---|---|---|
+| `stratagemdata.json` | `projectile_type` | `Orbital_Precision_Strike` |
+| `stratagems data.json` | `attacks[0].name` | `S_P13` |
+
+用户贴的 wiki 数据表（`S P13` / 406 mm / 30 kg / 400 m/s）对应的是 **`S_P13`**。
+用 `S_P15`（Airburst 的弹丸）逐值对表可以定位到我们的行 `+0=160`：
+`caliber 110 / pellets 1 / velocity 400 / mass 5000 / drag 0 / gravity 1 / lifetime 0.95 /
+pen_slow 0.25 / explode_angle 80`，且 `+144 = +156 = 380` 指向那条锥角已变成 27 的爆炸行。
+
+⚠ 由此发现我上一轮按字段顺序推断的 `explode_angle` 偏移**错了**：猜成 `+140`，实际在 `+136`
+（`+140` 是某个值为 1 的布尔）。详见 `WIKI-DATA-MODULES.md` §2.1。
+
+字段名与结构参照的完整来源清单见 `WIKI-DATA-MODULES.md`。
+
 ## 5. 链条怎么闭合的：排除法 + 官方补丁
 
 wiki 补丁 **1.007.200（2026-10-20）** 对 Orbital Airburst Strike 写了两条：

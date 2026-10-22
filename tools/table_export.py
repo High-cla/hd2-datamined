@@ -87,15 +87,17 @@ LAYOUTS = {
     # directly (their JSON value is a string, or too few items differ); their offset follows from
     # filediver's field order between two matched neighbours.
     "projectile_settings": {
-        "fields": {0: "row_id", 4: "name_upper", 8: "name_cased", 12: "short_name",
-                   16: "hud_icon", 24: "calibre", 28: "num_projectiles", 32: "speed (order)",
-                   36: "mass", 40: "drag (order)", 44: "gravity_multiplier",
-                   48: "simulation_steps (order)", 52: "life_time",
-                   56: "life_time_randomness (order)", 60: "damage_info_type (order)",
-                   64: "penetration_slowdown",
-                   144: "explosion_type_on_impact", 148: "explosion_proximity",
-                   152: "explosion_delay", 156: "explosion_type_expire", 160: "arming_distance",
-                   180: "max_ricochets", 192: "ricochet_angle_loss",
+        "fields": {0: "type_id", 4: "name_upper", 8: "name_cased", 12: "short_name",
+                   16: "hud_icon", 24: "caliber", 28: "pellets", 32: "velocity", 36: "mass",
+                   40: "drag", 44: "gravity", 48: "simulation_steps", 52: "lifetime",
+                   56: "life_time_randomness", 60: "damage_id",
+                   64: "pen_slow", 88: "thruster_effect_length",
+                   136: "explode_angle", 144: "explode_on_impact_id", 148: "explode_proximity",
+                   152: "explosion_delay", 156: "explode_id", 160: "arming_distance",
+                   168: "decal_size", 180: "max_ricochets",
+                   184: "ricochet_threshold_angle", 188: "ricochet_threshold_speed",
+                   192: "ricochet_angle_loss", 196: "ricochet_spread_vertical",
+                   200: "ricochet_spread_horizontal",
                    208: "audio_ricochet_event", 212: "audio_trail_event_start",
                    216: "audio_trail_event_stop"},
     },
@@ -103,12 +105,12 @@ LAYOUTS = {
     # OrbitalShot records pin the layout.  +144/+156 of a projectile row resolve to the +0 id of
     # these rows, which is what makes the stratagem -> projectile -> explosion chain readable.
     "explosion_settings": {
-        "fields": {0: "row_id", 4: "damage_type (order)",
-                   16: "inner_radius", 20: "outer_radius", 24: "stagger_radius",
+        "fields": {0: "type_id", 4: "damage_id",
+                   16: "r1_inner_radius", 20: "r2_outer_radius", 24: "r3_shockwave_radius",
                    28: "cone_angle", 32: "camera_shake_radius",
                    40: "shake_assets_offset", 48: "shake_assets_count",
                    56: "particle_effect_path", 64: "audio_event",
-                   80: "num_shrapnel_projectiles", 84: "shrapnel_projectile"},
+                   80: "shrapnel_count", 84: "shrapnel_projectile"},
     },
 }
 
@@ -128,8 +130,8 @@ POINTERS = {
 # and does not say whether a 4-byte slot is an int or a float, but the field maps below do know.
 FLOATS = {
     "stratagem_settings": {104},                                     # cooldown_s
-    "projectile_settings": {24, 32, 36, 40, 44, 52, 56, 64,
-                            148, 152, 160, 192},                     # calibre .. ricochet_angle_loss
+    "projectile_settings": {24, 32, 36, 40, 44, 52, 56, 64, 88, 136,
+                            148, 152, 160, 168, 184, 188, 192, 196, 200},
     "explosion_settings": {16, 20, 24, 28, 32},                      # radii / cone / camera shake
 }
 
