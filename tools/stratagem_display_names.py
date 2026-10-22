@@ -269,10 +269,15 @@ def main() -> int:
         sources[r.get("display_source", "")] = sources.get(r.get("display_source", ""), 0) + 1
     payload = rows
     if a.names_only:
-        # 发布口径（用户要求）：只发名字，不发描述/长描述文本。
+        # 发布口径（用户要求）：只发名字，不发描述/长描述文本；查不到的写"未知"。
         keep = ("internal_name", "upper", "display_name", "display_source",
                 "name_id", "upper_id", "wiki_title", "wiki_match")
-        payload = [{k: r[k] for k in keep if k in r} for r in rows]
+        payload = []
+        for r in rows:
+            item = {k: r[k] for k in keep if k in r}
+            item["name_status"] = "known" if r["display_name"] else "unknown"
+            item["display_name"] = r["display_name"] or "未知"
+            payload.append(item)
     out.write_text(json.dumps({"count": len(rows), "named": len(named), "covered": counts,
                                "display_sources": sources, "rows": payload},
                               indent=1, ensure_ascii=False), encoding="utf-8")

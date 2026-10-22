@@ -23,7 +23,8 @@
    "name_id": 2260948921,
    "upper_id": 2410151153,
    "wiki_title": "B-1 Supply Pack",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. BALLISTIC SHIELD BACKPACK",
@@ -33,7 +34,8 @@
    "name_id": 3265833747,
    "upper_id": 430638869,
    "wiki_title": "SH-20 Ballistic Shield Backpack",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. DIRECTIONAL ENERGY SHIELD",
@@ -43,7 +45,8 @@
    "name_id": 3051489675,
    "upper_id": 1141542311,
    "wiki_title": "SH-51 Directional Shield",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK.  GENERATOR PACK",
@@ -53,7 +56,8 @@
    "name_id": 1111626971,
    "upper_id": 2859707695,
    "wiki_title": "SH-32 Shield Generator Pack",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. JUMPPACK BACKPACK",
@@ -63,7 +67,8 @@
    "name_id": 2872120750,
    "upper_id": 2204198870,
    "wiki_title": "LIFT-850 Jump Pack",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. HOVERPACK BACKPACK",
@@ -73,7 +78,8 @@
    "name_id": 2768994609,
    "upper_id": 3727877127,
    "wiki_title": "LIFT-860 Hover Pack",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. GUARD DOG (Drone)",
@@ -83,7 +89,8 @@
    "name_id": 3939201276,
    "upper_id": 1615718868,
    "wiki_title": "AX/AR-23 Guard Dog",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. Laser Rifle (Drone)",
@@ -91,7 +98,8 @@
    "display_name": "Rover",
    "display_source": "name_id",
    "name_id": 2902819083,
-   "upper_id": 3575690541
+   "upper_id": 3575690541,
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. GUARD DOG GAS PROJECTOR (Drone)",
@@ -101,7 +109,8 @@
    "name_id": 2938726003,
    "upper_id": 2499481182,
    "wiki_title": "AX/TX-13 Dog Breath",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. GUARD DOG FLAMETHROWER (Drone)",
@@ -111,7 +120,8 @@
    "name_id": 2184600406,
    "upper_id": 3321311549,
    "wiki_title": "AX/FLAM-75 Hot Dog",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. HELLBOMB",
@@ -121,7 +131,8 @@
    "name_id": 2306470396,
    "upper_id": 861327809,
    "wiki_title": "B-100 Portable Hellbomb",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. DISPLACEMENT BACKPACK",
@@ -131,7 +142,8 @@
    "name_id": 2771179215,
    "upper_id": 3940822269,
    "wiki_title": "LIFT-182 Warp Pack",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. GUARD DOG (Drone) Stun",
@@ -139,7 +151,8 @@
    "display_name": "K-9",
    "display_source": "name_id",
    "name_id": 2696171705,
-   "upper_id": 2744645738
+   "upper_id": 2744645738,
+   "name_status": "known"
   },
   {
    "internal_name": "CONSUMABLES. RESUPPLY",
@@ -149,7 +162,8 @@
    "name_id": 1673875834,
    "upper_id": 1263463686,
    "wiki_title": "Resupply",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "CONSUMABLES. HEALTH PACK RACK",
@@ -157,7 +171,8 @@
    "display_name": "Medical Supplies",
    "display_source": "name_id",
    "name_id": 2673704303,
-   "upper_id": 2273284544
+   "upper_id": 2273284544,
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. AIR SUPPORT",
@@ -167,7 +182,8 @@
    "name_id": 862552343,
    "upper_id": 3407205415,
    "wiki_title": "Eagle Strafing Run",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. 500KG BOMB",
@@ -177,7 +193,8 @@
    "name_id": 2994328991,
    "upper_id": 1057738842,
    "wiki_title": "Eagle 500kg Bomb",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. 110mm ROCKET PODS",
@@ -187,7 +204,8 @@
    "name_id": 677845368,
    "upper_id": 814764658,
    "wiki_title": "Eagle 110mm Rocket Pods",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. AIRSTRIKE",
@@ -197,7 +215,8 @@
    "name_id": 1584817746,
    "upper_id": 1481032983,
    "wiki_title": "Eagle Airstrike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. NAPALM AIRSTRIKE",
@@ -207,7 +226,8 @@
    "name_id": 1278805896,
    "upper_id": 1829446953,
    "wiki_title": "Eagle Napalm Airstrike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. CLUSTERBOMBS",
@@ -217,7 +237,8 @@
    "name_id": 3901855692,
    "upper_id": 662406178,
    "wiki_title": "Eagle Cluster Bomb",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. AIRSTRIKE SMOKE",
@@ -227,7 +248,8 @@
    "name_id": 2087441269,
    "upper_id": 4146936660,
    "wiki_title": "Eagle Smoke Strike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. Gas AIRSTRIKE",
@@ -237,7 +259,8 @@
    "name_id": 513886541,
    "upper_id": 1847228075,
    "wiki_title": "Eagle Gas Airstrike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. REARM",
@@ -247,15 +270,17 @@
    "name_id": 2109771423,
    "upper_id": 2306949512,
    "wiki_title": "Eagle Rearm",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE. (NOT USED) ADDITIONAL STRAFING RUNS",
    "upper": "",
-   "display_name": "",
+   "display_name": "未知",
    "display_source": "",
    "name_id": 2283799497,
-   "upper_id": 3236255620
+   "upper_id": 3236255620,
+   "name_status": "unknown"
   },
   {
    "internal_name": "EAGLE. (NOT USED) AIR-TO-AIR MISSLES",
@@ -263,7 +288,8 @@
    "display_name": "Eagle Air-to-Air Missiles",
    "display_source": "name_id",
    "name_id": 391548033,
-   "upper_id": 618026027
+   "upper_id": 618026027,
+   "name_status": "known"
   },
   {
    "internal_name": "EMPLACEMENTS. DEFENSE WALL GRENADE LAUNCHER",
@@ -273,7 +299,8 @@
    "name_id": 3625143144,
    "upper_id": 1044194585,
    "wiki_title": "E/GL-21 Grenadier Battlement",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "EMPLACEMENTS. SHIELD GENERATOR RELAY",
@@ -283,7 +310,8 @@
    "name_id": 4198351113,
    "upper_id": 1557897402,
    "wiki_title": "FX-12 Shield Generator Relay",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "EMPLACEMENTS. HEAVY MACHINEGUN EMPLACEMENT",
@@ -293,7 +321,8 @@
    "name_id": 90063288,
    "upper_id": 1366895198,
    "wiki_title": "E/MG-101 HMG Emplacement",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "EMPLACEMENTS. ANTI-PERSONNEL MINE DEPLOYER",
@@ -303,7 +332,8 @@
    "name_id": 351997015,
    "upper_id": 2248440908,
    "wiki_title": "MD-6 Anti-Personnel Minefield",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "EMPLACEMENTS. INCENDIARY MINE DEPLOYER",
@@ -313,7 +343,8 @@
    "name_id": 17580256,
    "upper_id": 2772178636,
    "wiki_title": "MD-I4 Incendiary Mines",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "EMPLACEMENTS. ANTI-TANK MINE DEPLOYER",
@@ -323,7 +354,8 @@
    "name_id": 1747218844,
    "upper_id": 721197452,
    "wiki_title": "MD-17 Anti-Tank Mines",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "EMPLACEMENTS. GAS MINE DEPLOYER",
@@ -333,7 +365,8 @@
    "name_id": 974448089,
    "upper_id": 3892287098,
    "wiki_title": "MD-8 Gas Mines",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "EMPLACEMENTS. TESLA TOWER",
@@ -343,7 +376,8 @@
    "name_id": 4049901344,
    "upper_id": 2489495420,
    "wiki_title": "A/ARC-3 Tesla Tower",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "EMPLACEMENTS. ANTI TANK EMPLACEMENT",
@@ -353,7 +387,8 @@
    "name_id": 1387831894,
    "upper_id": 1153871814,
    "wiki_title": "E/AT-12 Anti-Tank Emplacement",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "EAGLE FLY BY",
@@ -361,7 +396,8 @@
    "display_name": "Eagle Fly By",
    "display_source": "name_id",
    "name_id": 1555547319,
-   "upper_id": 2849040043
+   "upper_id": 2849040043,
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL CONFETTI",
@@ -369,7 +405,8 @@
    "display_name": "Orbital Confetti",
    "display_source": "name_id",
    "name_id": 2620110255,
-   "upper_id": 1912361092
+   "upper_id": 1912361092,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. SHOULDER MOUNTED CAMERA",
@@ -379,7 +416,8 @@
    "name_id": 2363192702,
    "upper_id": 2071327434,
    "wiki_title": "Tactical Video Camera",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. Cyborg Carry Data",
@@ -389,7 +427,8 @@
    "name_id": 3463544321,
    "upper_id": 1683937559,
    "wiki_title": "SSSD Delivery",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. Carry Data",
@@ -399,7 +438,8 @@
    "name_id": 3463544321,
    "upper_id": 1683937559,
    "wiki_title": "SSSD Delivery",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. DRILLING CHARGE",
@@ -407,7 +447,8 @@
    "display_name": "Drilling Charge",
    "display_source": "name_id",
    "name_id": 1476954631,
-   "upper_id": 716273285
+   "upper_id": 716273285,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. EXTRACTION",
@@ -415,7 +456,8 @@
    "display_name": "Extraction Beacon",
    "display_source": "name_id",
    "name_id": 1171875332,
-   "upper_id": 3109644149
+   "upper_id": 3109644149,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. HELLBOMB",
@@ -423,7 +465,8 @@
    "display_name": "Hellbomb",
    "display_source": "name_id",
    "name_id": 124960475,
-   "upper_id": 3989310204
+   "upper_id": 3989310204,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. BUG PLUG",
@@ -433,7 +476,8 @@
    "name_id": 621653032,
    "upper_id": 1998289914,
    "wiki_title": "Hive Breaker Drill",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. CARGO CONTAINER",
@@ -443,7 +487,8 @@
    "name_id": 2486779978,
    "upper_id": 4270246281,
    "wiki_title": "Cargo Container",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. CARGO CONTAINER",
@@ -453,7 +498,8 @@
    "name_id": 2486779978,
    "upper_id": 4270246281,
    "wiki_title": "Cargo Container",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. MOBILE COMMS RELAY",
@@ -463,7 +509,8 @@
    "name_id": 3593734022,
    "upper_id": 2240506575,
    "wiki_title": "Portable Comms Relay",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. SPIRE STERILIZER",
@@ -471,7 +518,8 @@
    "display_name": "Spire Sterilizer",
    "display_source": "name_id",
    "name_id": 3964760731,
-   "upper_id": 2281275566
+   "upper_id": 2281275566,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. RAISE FLAG",
@@ -481,7 +529,8 @@
    "name_id": 2281165846,
    "upper_id": 2378431612,
    "wiki_title": "Super Earth Flag",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. RAISE FLAG NO CLEAR AREA",
@@ -491,7 +540,8 @@
    "name_id": 2281165846,
    "upper_id": 2378431612,
    "wiki_title": "Super Earth Flag",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. BUG THUMPER",
@@ -499,7 +549,8 @@
    "display_name": "Thumper",
    "display_source": "name_id",
    "name_id": 1923094316,
-   "upper_id": 73853870
+   "upper_id": 73853870,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. PROSPECTING DRILL",
@@ -509,7 +560,8 @@
    "name_id": 2631236711,
    "upper_id": 120574149,
    "wiki_title": "Prospecting Drill",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. SEISMIC PROBE",
@@ -519,7 +571,8 @@
    "name_id": 2198451684,
    "upper_id": 324859132,
    "wiki_title": "Seismic Probe",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. Scrambler",
@@ -527,7 +580,8 @@
    "display_name": "Scrambler",
    "display_source": "name_id",
    "name_id": 1839035128,
-   "upper_id": 1857062393
+   "upper_id": 1857062393,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. EXTRACTION BEACON",
@@ -535,15 +589,17 @@
    "display_name": "Extraction",
    "display_source": "name_id",
    "name_id": 822640880,
-   "upper_id": 3488153744
+   "upper_id": 3488153744,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. IMMEDIATE EXTRACTION BEACON",
    "upper": "",
-   "display_name": "",
+   "display_name": "未知",
    "display_source": "",
    "name_id": 3901583393,
-   "upper_id": 491152859
+   "upper_id": 491152859,
+   "name_status": "unknown"
   },
   {
    "internal_name": "MISSIONS. EMERGENCY EXTRACTION BEACON",
@@ -551,7 +607,8 @@
    "display_name": "Extraction",
    "display_source": "name_id",
    "name_id": 822640880,
-   "upper_id": 3488153744
+   "upper_id": 3488153744,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. REINFORCEMENT BEACON",
@@ -561,7 +618,8 @@
    "name_id": 3241609005,
    "upper_id": 3973386260,
    "wiki_title": "Reinforce",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. ORBITAL ILLUMINATION FLARE",
@@ -571,7 +629,8 @@
    "name_id": 1365642266,
    "upper_id": 1071932953,
    "wiki_title": "Orbital Illumination Flare",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. SOS Beacon",
@@ -581,7 +640,8 @@
    "name_id": 1477555005,
    "upper_id": 2283448041,
    "wiki_title": "SoS Beacon",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. Upload Discovery",
@@ -591,15 +651,17 @@
    "name_id": 2087215146,
    "upper_id": 1418558378,
    "wiki_title": "Upload Data",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS CLAN STATION. Nuke",
    "upper": "",
-   "display_name": "",
+   "display_name": "未知",
    "display_source": "",
    "name_id": 3894610137,
-   "upper_id": 3599477113
+   "upper_id": 3599477113,
+   "name_status": "unknown"
   },
   {
    "internal_name": "MISSIONS CLAN STATION. Carpet Bombing Run",
@@ -607,15 +669,17 @@
    "display_name": "Carpet Bomb",
    "display_source": "name_id",
    "name_id": 1679090488,
-   "upper_id": 1265258834
+   "upper_id": 1265258834,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. REMOTE EXPLOSIVES",
    "upper": "",
-   "display_name": "",
+   "display_name": "未知",
    "display_source": "",
    "name_id": 2294760818,
-   "upper_id": 249660316
+   "upper_id": 249660316,
+   "name_status": "unknown"
   },
   {
    "internal_name": "MISSIONS. JAMMED PINATA",
@@ -623,7 +687,8 @@
    "display_name": "Jammed Piñata",
    "display_source": "name_id",
    "name_id": 2649749292,
-   "upper_id": 4066337545
+   "upper_id": 4066337545,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. SEAF GUN",
@@ -633,7 +698,8 @@
    "name_id": 472605007,
    "upper_id": 1044595250,
    "wiki_title": "SEAF Artillery",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. DARK FLUID BACKPACK",
@@ -643,7 +709,8 @@
    "name_id": 2370772246,
    "upper_id": 2370772246,
    "wiki_title": "Dark Fluid Vessel",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. TCS 03 THUMPER",
@@ -653,7 +720,8 @@
    "name_id": 1369983896,
    "upper_id": 3177142887,
    "wiki_title": "Tectonic Drill",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. DATA JACK",
@@ -661,7 +729,8 @@
    "display_name": "Data Jack",
    "display_source": "name_id",
    "name_id": 1159822780,
-   "upper_id": 3731882316
+   "upper_id": 3731882316,
+   "name_status": "known"
   },
   {
    "internal_name": "BACKPACK. HELLBOMB",
@@ -671,7 +740,8 @@
    "name_id": 2306470396,
    "upper_id": 861327809,
    "wiki_title": "B-100 Portable Hellbomb",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. OIL RIG EXTRACT",
@@ -679,7 +749,8 @@
    "display_name": "ACTIVATE DRILL",
    "display_source": "upper_fallback",
    "name_id": 1360402559,
-   "upper_id": 1787745812
+   "upper_id": 1787745812,
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. CALL IN DESTROYER",
@@ -689,7 +760,8 @@
    "name_id": 2708159994,
    "upper_id": 3305068834,
    "wiki_title": "Call In Super Destroyer",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "MISSIONS. POISON DRILL",
@@ -699,7 +771,8 @@
    "name_id": 966239659,
    "upper_id": 1436471677,
    "wiki_title": "Aquifer Drill",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. PRECISION STRIKE",
@@ -709,7 +782,8 @@
    "name_id": 188575064,
    "upper_id": 4018205223,
    "wiki_title": "Orbital Precision Strike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. GAS STRIKE",
@@ -719,7 +793,8 @@
    "name_id": 179374902,
    "upper_id": 887029485,
    "wiki_title": "Orbital Gas Strike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. AIRBURST STRIKE",
@@ -729,7 +804,8 @@
    "name_id": 3593752689,
    "upper_id": 643358088,
    "wiki_title": "Orbital Airburst Strike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. GATLING BARRAGE",
@@ -739,7 +815,8 @@
    "name_id": 1248707192,
    "upper_id": 2016029820,
    "wiki_title": "Orbital Gatling Barrage",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. 120MM HE STRIKE",
@@ -749,7 +826,8 @@
    "name_id": 1653299843,
    "upper_id": 1336596117,
    "wiki_title": "Orbital 120mm HE Barrage",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. NAPALM BARRAGE",
@@ -759,7 +837,8 @@
    "name_id": 549159351,
    "upper_id": 3103421391,
    "wiki_title": "Orbital Napalm Barrage",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. 380MM HE BARRAGE",
@@ -769,7 +848,8 @@
    "name_id": 2843766581,
    "upper_id": 4043773877,
    "wiki_title": "Orbital 380mm HE Barrage",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. WALKING BARRAGE",
@@ -779,7 +859,8 @@
    "name_id": 831074521,
    "upper_id": 316604262,
    "wiki_title": "Orbital Walking Barrage",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. WALKING BARRAGE SMOKE",
@@ -787,7 +868,8 @@
    "display_name": "Orbital Walking Barrage Smoke",
    "display_source": "name_id",
    "name_id": 1772852609,
-   "upper_id": 3460715746
+   "upper_id": 3460715746,
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. SMOKE STRIKE",
@@ -797,7 +879,8 @@
    "name_id": 2769005858,
    "upper_id": 704804706,
    "wiki_title": "Orbital Smoke Strike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. STATIC FIELD CONDUTORS",
@@ -807,7 +890,8 @@
    "name_id": 1447724304,
    "upper_id": 2006588957,
    "wiki_title": "Orbital EMS Strike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. LASER",
@@ -817,7 +901,8 @@
    "name_id": 181783696,
    "upper_id": 3335448467,
    "wiki_title": "Orbital Laser",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "ORBITAL. RAILCANNON",
@@ -827,7 +912,8 @@
    "name_id": 3194889632,
    "upper_id": 826884584,
    "wiki_title": "Orbital Railcannon Strike",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "PRESIDENT REWARDS. AMMO CACHE",
@@ -837,7 +923,8 @@
    "name_id": 1673875834,
    "upper_id": 1263463686,
    "wiki_title": "Resupply",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "PRESIDENT REWARDS. HEALTH PACK RACK",
@@ -845,7 +932,8 @@
    "display_name": "Medical Supplies",
    "display_source": "name_id",
    "name_id": 2673704303,
-   "upper_id": 2273284544
+   "upper_id": 2273284544,
+   "name_status": "known"
   },
   {
    "internal_name": "PRESIDENT REWARDS. COMBAT WALKER",
@@ -855,7 +943,8 @@
    "name_id": 734964784,
    "upper_id": 3200900560,
    "wiki_title": "EXO-45 Patriot Exosuit",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "PRESIDENT REWARDS. MEDIC BACKPACK",
@@ -863,7 +952,8 @@
    "display_name": "MEDIC BACKPACK",
    "display_source": "upper_fallback",
    "name_id": 3085348034,
-   "upper_id": 2927578997
+   "upper_id": 2927578997,
+   "name_status": "known"
   },
   {
    "internal_name": "PRESIDENT REWARDS. JUMPPACK BACKPACK",
@@ -873,7 +963,8 @@
    "name_id": 2872120750,
    "upper_id": 2204198870,
    "wiki_title": "LIFT-850 Jump Pack",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "PRESIDENT REWARDS. ROCKET SENTRY",
@@ -883,7 +974,8 @@
    "name_id": 3009882761,
    "upper_id": 3633384189,
    "wiki_title": "A/MLS-4X Rocket Sentry",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "PRESIDENT REWARDS. MACHINEGUN",
@@ -891,7 +983,8 @@
    "display_name": "Machine Gun",
    "display_source": "name_id",
    "name_id": 3663193426,
-   "upper_id": 1936822397
+   "upper_id": 1936822397,
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. AUTOMATIC CANNON",
@@ -901,7 +994,8 @@
    "name_id": 727076238,
    "upper_id": 3284848821,
    "wiki_title": "AC-8 Autocannon",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. GRENADE LAUNCHER",
@@ -909,7 +1003,8 @@
    "display_name": "Grenade Launcher",
    "display_source": "name_id",
    "name_id": 449613082,
-   "upper_id": 1035420766
+   "upper_id": 1035420766,
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. GRENADE LAUNCHER TACTICAL",
@@ -919,7 +1014,8 @@
    "name_id": 1712527709,
    "upper_id": 839881134,
    "wiki_title": "GL-52 De-Escalator",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. BELT FED GRENADE LAUNCHER",
@@ -929,7 +1025,8 @@
    "name_id": 2606087619,
    "upper_id": 3796576739,
    "wiki_title": "GL-28 Belt-Fed Grenade Launcher",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. RAILGUN ",
@@ -939,7 +1036,8 @@
    "name_id": 3834075640,
    "upper_id": 3276705068,
    "wiki_title": "RS-422 Railgun",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. HARPOON GUN ",
@@ -949,7 +1047,8 @@
    "name_id": 167214020,
    "upper_id": 2728146884,
    "wiki_title": "S-11 Speargun",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. RECOILLESS RIFLE",
@@ -959,7 +1058,8 @@
    "name_id": 1764965163,
    "upper_id": 689663659,
    "wiki_title": "GR-8 Recoilless Rifle",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. LASER CANNON",
@@ -969,7 +1069,8 @@
    "name_id": 2089910714,
    "upper_id": 4285698599,
    "wiki_title": "LAS-98 Laser Cannon",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. LASER PULSE CANNON",
@@ -979,7 +1080,8 @@
    "name_id": 2557128977,
    "upper_id": 3774930640,
    "wiki_title": "LAS-99 Quasar Cannon",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. SNIPER",
@@ -989,7 +1091,8 @@
    "name_id": 3313983701,
    "upper_id": 3162817893,
    "wiki_title": "APW-1 Anti-Materiel Rifle",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. EXPENDABLE ANTI-TANK",
@@ -999,7 +1102,8 @@
    "name_id": 1885509695,
    "upper_id": 2093520486,
    "wiki_title": "EAT-17 Expendable Anti-Tank",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. EXPENDABLE ANTI-TANK (Booster)",
@@ -1009,7 +1113,8 @@
    "name_id": 1885509695,
    "upper_id": 2093520486,
    "wiki_title": "EAT-17 Expendable Anti-Tank",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. EXPENDABLE NAPALM LAUNCHER",
@@ -1019,7 +1124,8 @@
    "name_id": 3123874207,
    "upper_id": 4072880577,
    "wiki_title": "EAT-700 Expendable Napalm",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. EXPENDABLE MASSIVE ROCKET LAUNCHER",
@@ -1029,7 +1135,8 @@
    "name_id": 3257725864,
    "upper_id": 2486763325,
    "wiki_title": "EAT-411 Leveller",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. COMMANDO",
@@ -1038,8 +1145,7 @@
    "display_source": "name_id",
    "name_id": 2008789512,
    "upper_id": 103056538,
-   "wiki_title": "MLS-4X Commando",
-   "wiki_match": "suffix"
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. FLAMETHROWER",
@@ -1049,7 +1155,8 @@
    "name_id": 1941940848,
    "upper_id": 3821189171,
    "wiki_title": "FLAM-40 Flamethrower",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. HEAVY MACHINEGUN",
@@ -1059,7 +1166,8 @@
    "name_id": 2050119908,
    "upper_id": 1688248653,
    "wiki_title": "MG-206 Heavy Machine Gun",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. MACHINEGUN",
@@ -1067,7 +1175,8 @@
    "display_name": "Machine Gun",
    "display_source": "name_id",
    "name_id": 3663193426,
-   "upper_id": 1936822397
+   "upper_id": 1936822397,
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. LIGHT MACHINE GUN",
@@ -1077,7 +1186,8 @@
    "name_id": 225756131,
    "upper_id": 4124031159,
    "wiki_title": "M-105 Stalwart",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. EXPENDABLE MACHINEGUN",
@@ -1087,7 +1197,8 @@
    "name_id": 4291272963,
    "upper_id": 987248759,
    "wiki_title": "MGX-42 Bullet Storm",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. AIR BURST ROCKET LAUNCHER",
@@ -1097,7 +1208,8 @@
    "name_id": 2297621495,
    "upper_id": 2292840975,
    "wiki_title": "RL-77 Airburst Rocket Launcher",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. C4",
@@ -1107,7 +1219,8 @@
    "name_id": 2772570910,
    "upper_id": 4226754563,
    "wiki_title": "B/MD C4 Pack",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. MINI MISSILE SILO",
@@ -1117,7 +1230,8 @@
    "name_id": 568371220,
    "upper_id": 999321846,
    "wiki_title": "MS-11 Solo Silo",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. SPEAR",
@@ -1125,7 +1239,8 @@
    "display_name": "Spear",
    "display_source": "name_id",
    "name_id": 2193864165,
-   "upper_id": 4200412969
+   "upper_id": 4200412969,
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. WASP",
@@ -1135,7 +1250,8 @@
    "name_id": 2816181366,
    "upper_id": 1085917305,
    "wiki_title": "StA-X3 W.A.S.P. Launcher",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. ARC THROWER ",
@@ -1145,7 +1261,8 @@
    "name_id": 3765721070,
    "upper_id": 448803819,
    "wiki_title": "ARC-3 Arc Thrower",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. CHEM GUN",
@@ -1155,7 +1272,8 @@
    "name_id": 1223276667,
    "upper_id": 926933616,
    "wiki_title": "TX-41 Sterilizer",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. MELEE FLAG",
@@ -1165,7 +1283,8 @@
    "name_id": 1764323819,
    "upper_id": 3861046095,
    "wiki_title": "CQC-1 One True Flag",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. CHAINSAW GREATSWORD",
@@ -1175,7 +1294,8 @@
    "name_id": 3689697660,
    "upper_id": 4000631345,
    "wiki_title": "CQC-9 Defoliation Tool",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. SLEDGE HAMMER",
@@ -1185,7 +1305,8 @@
    "name_id": 4009668453,
    "upper_id": 3139950515,
    "wiki_title": "CQC-20 Breaching Hammer",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. PLASMA BLASTER",
@@ -1193,7 +1314,8 @@
    "display_name": "Epoch",
    "display_source": "name_id",
    "name_id": 2108743119,
-   "upper_id": 3391732123
+   "upper_id": 3391732123,
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. MINIGUN",
@@ -1203,7 +1325,8 @@
    "name_id": 1999223573,
    "upper_id": 369958519,
    "wiki_title": "M-1000 Maxigun",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. HEAVY FLAMETHROWER",
@@ -1213,7 +1336,8 @@
    "name_id": 563225959,
    "upper_id": 3705134773,
    "wiki_title": "B/FLAM-80 Cremator",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. SHARK ENERGY WEAPON",
@@ -1223,7 +1347,8 @@
    "name_id": 2228355350,
    "upper_id": 2119966943,
    "wiki_title": "40-K Meltagun",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. SNIPER RIFLE DUO (APEX)",
@@ -1231,7 +1356,8 @@
    "display_name": "Apex",
    "display_source": "name_id",
    "name_id": 2859365322,
-   "upper_id": 3726591119
+   "upper_id": 3726591119,
+   "name_status": "known"
   },
   {
    "internal_name": "TEAM WEAPONS. LASER RIFLE ION",
@@ -1239,7 +1365,8 @@
    "display_name": "Nova",
    "display_source": "name_id",
    "name_id": 2100163737,
-   "upper_id": 4118717225
+   "upper_id": 4118717225,
+   "name_status": "known"
   },
   {
    "internal_name": "SENTRYS. MACHINEGUN",
@@ -1249,7 +1376,8 @@
    "name_id": 4028883813,
    "upper_id": 867025332,
    "wiki_title": "A/MG-43 Machine Gun Sentry",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "SENTRYS. GATLING",
@@ -1259,7 +1387,8 @@
    "name_id": 600460786,
    "upper_id": 1140023383,
    "wiki_title": "A/G-16 Gatling Sentry",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "SENTRYS. MORTAR",
@@ -1267,7 +1396,8 @@
    "display_name": "Mortar Sentry",
    "display_source": "name_id",
    "name_id": 286244856,
-   "upper_id": 2602942644
+   "upper_id": 2602942644,
+   "name_status": "known"
   },
   {
    "internal_name": "SENTRYS. MORTAR STATICFIELD",
@@ -1277,7 +1407,8 @@
    "name_id": 3735593908,
    "upper_id": 3600967890,
    "wiki_title": "A/M-23 EMS Mortar Sentry",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "SENTRYS. MORTAR GAS",
@@ -1287,7 +1418,8 @@
    "name_id": 1683917631,
    "upper_id": 2478785269,
    "wiki_title": "A/GM-17 Gas Mortar Sentry",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "SENTRYS. ROCKET",
@@ -1297,7 +1429,8 @@
    "name_id": 3009882761,
    "upper_id": 3633384189,
    "wiki_title": "A/MLS-4X Rocket Sentry",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "SENTRYS. AUTOCANNON",
@@ -1307,7 +1440,8 @@
    "name_id": 2460445122,
    "upper_id": 3791174808,
    "wiki_title": "A/AC-8 Autocannon Sentry",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "SENTRYS. FLAMETHROWER",
@@ -1317,7 +1451,8 @@
    "name_id": 2006946784,
    "upper_id": 2797269927,
    "wiki_title": "A/FLAM-40 Flame Sentry",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "SENTRIES. LASER CANNON SENTRY",
@@ -1327,7 +1462,8 @@
    "name_id": 2301866234,
    "upper_id": 2713617172,
    "wiki_title": "A/LAS-98 Laser Sentry",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TUTORIAL REINFORCEMENT BEACON",
@@ -1337,7 +1473,8 @@
    "name_id": 3241609005,
    "upper_id": 3973386260,
    "wiki_title": "Reinforce",
-   "wiki_match": "exact"
+   "wiki_match": "exact",
+   "name_status": "known"
   },
   {
    "internal_name": "[TUTORIAL] EXTRACTION",
@@ -1345,7 +1482,8 @@
    "display_name": "Extraction Beacon",
    "display_source": "name_id",
    "name_id": 1171875332,
-   "upper_id": 3109644149
+   "upper_id": 3109644149,
+   "name_status": "known"
   },
   {
    "internal_name": "VEHICLES. FAST RECON VEHICLE (FRV)",
@@ -1355,7 +1493,8 @@
    "name_id": 196776936,
    "upper_id": 2041442475,
    "wiki_title": "M-102 Gunner FRV",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "VEHICLES. FAST RECON VEHICLE (Resupply Auto Turret)",
@@ -1365,7 +1504,8 @@
    "name_id": 3807063955,
    "upper_id": 3947494337,
    "wiki_title": "M-103 Supply FRV",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "VEHICLES. FAST RECON VEHICLE (Ramming Flamethrower)",
@@ -1375,7 +1515,8 @@
    "name_id": 4091309553,
    "upper_id": 799811187,
    "wiki_title": "M-104 Incinerator FRV",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "VEHICLES. COMBAT WALKER",
@@ -1385,7 +1526,8 @@
    "name_id": 734964784,
    "upper_id": 3200900560,
    "wiki_title": "EXO-45 Patriot Exosuit",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "VEHICLES. COMBAT WALKER OBSIDIAN",
@@ -1395,7 +1537,8 @@
    "name_id": 183779452,
    "upper_id": 1544072428,
    "wiki_title": "EXO-49 Emancipator Exosuit",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "VEHICLES. COMBAT WALKER LUMBERER",
@@ -1405,7 +1548,8 @@
    "name_id": 3662990498,
    "upper_id": 831139041,
    "wiki_title": "EXO-51 Lumberer Exosuit",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "VEHICLES. COMBAT WALKER BREACHER",
@@ -1415,15 +1559,17 @@
    "name_id": 2305804327,
    "upper_id": 1386708865,
    "wiki_title": "EXO-55 Breakthrough Exosuit",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "SEAF Squad",
    "upper": "",
-   "display_name": "",
+   "display_name": "未知",
    "display_source": "",
    "name_id": 2400957530,
-   "upper_id": 799126270
+   "upper_id": 799126270,
+   "name_status": "unknown"
   },
   {
    "internal_name": "VEHICLES. BASTION(tank)",
@@ -1433,7 +1579,8 @@
    "name_id": 686081100,
    "upper_id": 1916631053,
    "wiki_title": "TD-220 Bastion MK XVI",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "VEHICLES. STORM(tank)",
@@ -1443,31 +1590,35 @@
    "name_id": 2149115198,
    "upper_id": 1825935594,
    "wiki_title": "TD-110 Maelstrom",
-   "wiki_match": "suffix"
+   "wiki_match": "suffix",
+   "name_status": "known"
   },
   {
    "internal_name": "TANK. TANK RELOAD HE",
    "upper": "",
-   "display_name": "",
+   "display_name": "未知",
    "display_source": "",
    "name_id": 2664466741,
-   "upper_id": 1462990578
+   "upper_id": 1462990578,
+   "name_status": "unknown"
   },
   {
    "internal_name": "TANK. TANK RELOAD AT",
    "upper": "",
-   "display_name": "",
+   "display_name": "未知",
    "display_source": "",
    "name_id": 3778618418,
-   "upper_id": 386985065
+   "upper_id": 386985065,
+   "name_status": "unknown"
   },
   {
    "internal_name": "TANK. TANK RELOAD CANISTER",
    "upper": "",
-   "display_name": "",
+   "display_name": "未知",
    "display_source": "",
    "name_id": 527728115,
-   "upper_id": 861212028
+   "upper_id": 861212028,
+   "name_status": "unknown"
   }
  ]
 }

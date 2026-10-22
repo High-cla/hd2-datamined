@@ -210,18 +210,23 @@ def main() -> int:
         if a.names_only:
             # 发布口径（用户要求）：只发名字，不发描述/长文本。
             # 保留 index / name / 名字来源槽 / 名字 id —— 都是数字或短名，不是游戏文本。
-            slim = {"strings": stats, "tables": {}}
+            slim = {"strings": stats, "tables": {}, "unknown_label": "未知"}
             for name, data in out["tables"].items():
                 rows = []
                 for row in data["data"]:
-                    if not row.get("name"):
-                        continue
                     src = row.get("name_source", "")
-                    rows.append({"index": row["index"], "name": row["name"],
+                    # 发布数据不留空洞：查不到名字的行写"未知"，并用 status 区分
+                    # known / unknown，下游不用猜空字符串是什么意思。
+                    known = bool(row.get("name"))
+                    rows.append({"index": row["index"],
+                                 "name": row["name"] or "未知",
+                                 "status": "known" if known else "unknown",
                                  "from": src,
                                  "id": row.get(f"{src}_id", 0) or 0})
                 slim["tables"][name] = {"rows": data["rows"],
-                                        "named": len(rows), "data": rows}
+                                        "named": sum(1 for r in rows if r["status"] == "known"),
+                                        "unknown": sum(1 for r in rows if r["status"] != "known"),
+                                        "data": rows}
             out = slim
         out_text = json.dumps(out, ensure_ascii=False, indent=1)
         dest.write_text(out_text, encoding="utf-8")

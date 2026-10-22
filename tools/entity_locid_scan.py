@@ -71,6 +71,7 @@ DEFAULT_PLAIN = "refs/dlbin/plaintext-26088801"
 DEFAULT_NAMES = "dl-type-names.json"
 DEFAULT_RESNAMES = "refs/srkit-names.json"
 INDEX_TYPE = "ComponentIndexData"        # 块内哈希图的类型名（typelib 自带）
+UNKNOWN_LABEL = "未知"                    # 查不到名字时的占位标签（用户口径）
 LOADOUT_ENTRY_TYPE = 0x4F2CF417          # typelib 给的行数组 + 尾数组特例
 ENTITY_HASHMAP_SLOTS = 4096              # 块 0：4096 槽 × 32 B
 ENTITY_HASHMAP_BYTES = ENTITY_HASHMAP_SLOTS * 32
@@ -637,6 +638,7 @@ def main() -> int:
     enc_block = next((i for i, b in enumerate(blocks)
                       if name_of(dic, b["type_id"]) == "EncyclopediaEntryComponentData"), None)
     enc_by_key: dict[int, dict] = {}
+    enc_without_name: set[int] = set()
     if enc_block is not None and enc_block in geos:
         geo = geos[enc_block]
         keys = hashmap(plain, blocks[enc_block], geo)
@@ -644,6 +646,8 @@ def main() -> int:
         entries, extra = encyclopedia_entries(plain, ids, blocks[enc_block], geo, row_to_key,
                                               res_names, membership, lo_types)
         enc_by_key = {int(e["key"], 16): e for e in entries if e["key"]}
+        # 有百科条目但名字槽是 0 的实体 —— 单独记下来，它们和"根本没有名字字段"不是一回事
+        enc_without_name = {int(u["key"], 16) for u in extra["unnamed_rows"] if u["key"]}
         rows_n = geo["rows"]
         fields = []
         for offset, role, export in NAME_FIELDS["EncyclopediaEntryComponentData"]:
@@ -715,9 +719,15 @@ def main() -> int:
     for key in sorted(ents["keys"]):
         enc = enc_by_key.get(key)
         lo = loadout_by_key.get(key)
+        # 名字查不到时统一写 UNKNOWN_LABEL（"未知"），并保留 name_status 区分"有百科条目但没填名"
+        # 与"根本没有名字字段"——发布数据里不留空洞，但也不能让两种缺失看起来一样。
+        resolved = (enc or {}).get("name") or ""
         report["entity_index"].append({
             "key": f"0x{key:016X}",
-            "name": (enc or {}).get("name"),
+            "name": resolved or UNKNOWN_LABEL,
+            "name_status": ("known" if resolved else
+                            "unknown-has-entry" if key in enc_without_name
+                            else "unknown-no-entry"),
             "name_slot": (enc or {}).get("name_slot"),
             "name_upper": (enc or {}).get("name_upper"),
             "name_plural": (enc or {}).get("name_plural"),
@@ -732,7 +742,7 @@ def main() -> int:
     named_kinds: dict[str, int] = {}
     unnamed_kinds: dict[str, int] = {}
     for item in report["entity_index"]:
-        bucket = named_kinds if item["name"] else unnamed_kinds
+        bucket = named_kinds if item["name_status"] == "known" else unnamed_kinds
         bucket[item["kind"]] = bucket.get(item["kind"], 0) + 1
     report["coverage"] = {
         "entities": ents["used"],
