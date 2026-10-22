@@ -12,6 +12,7 @@
 | 工具 | 用途 | 依赖 | 验证 |
 |---|---|---|---|
 | `murmur64.py` | MurmurHash64A（引擎的内容哈希闸门）+ 反解"校正字"，改完字节仍过校验 | 标准库 | ✓ 已实机（全部表工具都走它） |
+| `murmur64a.py` | 同一个算法的**命令行版**：`hash` / `solve --word N --target HEX` / `selftest`（库调用请用上面的 `murmur64.py`，两者在自检里互相对表） | 标准库 | ✓ `--selftest` **7/7**（含"解自己的哈希必须解出原来的字"与跨实现对表） |
 | `dlbin_seal.py` | `.dl_bin` 密封盒：解/封、配对→keystream、LDLD 结构 | PyNaCl | ✓ 已实机 |
 | `dlbin_keyhunt.py` | 在 `game.dll` 里定位打开 `.dl_bin` 的 X25519 密钥 | PyNaCl + cryptography | ⚠ 研究工具；仓库不含任何密钥材料 |
 | `typelib.py` | 解析 DataLibrary 类型库（LTLD v4），查表结构 | `dlbin_seal.py` | ✓ |
@@ -64,7 +65,6 @@
 | `memscan.py` | 旧路线（LuaJIT + `ffi`）的扫描器，**弃用**：25988413 的 VM 没有 `ffi`，跑不起来；3,000+ 行里全是旧 build 的偏移知识 |
 | `verify_patch_series.py` | 依赖 `patch_series_prune.py` → `hd2_archive`（不在本仓库） |
 | `build_snapshot.py` | 需要本机的普查表 / 探针 / 文档作为输入，不是通用输入 |
-| `murmur64a.py` | 已被 `murmur64.py` 取代，且它自己的 `--selftest` 目前 20 项全失败（保留在私有工作区，未发布） |
 | `package_p2p_ping.py` | 属于另一个项目（`hd2-p2p-ping`），与本仓库无关 |
 | `passive_example.py` | **不是我们的工具**：`docs/DLBIN-SEALED-BOX.md` 引用的是某个第三方 modkit 里的 `kit/tools/passive_example.py`，只作为"别人怎么解这个字"的对照 |
 
