@@ -48,6 +48,7 @@
 | `entities_modeb.py` | 实体表：武器单元格编辑、可选弹种（模式 A/B）、双弹药池、hashmap 维护 | `murmur64.py` | ✓✓ 已实机（主宰/惩罚者/扫荡者） |
 | `proj_copy_row.py` | 整行搬运 272 B 射弹行（换弹头），带 5 道门禁 | `murmur64.py` | ✓✓ 已实机（Eruptor 弹头 → 主宰） |
 | `expl_set.py` | 写爆炸行字段（半径 / 破片数 `+80` / 破片射弹 `+84`），带 6 道门禁 | `murmur64.py` | ✓✓ 已实机（毒气爆炸加 30 破片） |
+| `stratagem_tune.py` | 改战备表的 `+80` uses / `+84` call-in / `+104` cooldown，用 `(NOT USED)` 战备行当校正字宿主保住内容哈希；7 道门禁 | 标准库（`murmur64.py` + `typelib.py`） | ✓ 离线：380mm 冷却 240→60，7/7 门禁通过，哈希复原，封包往返一致 |
 | `dmg_edit.py` / `dmg_custom_row.py` / `dmg_refs.py` | 伤害行编辑 / 自制伤害行 / 跨表引用查询 | `murmur64.py` | ✓ 离线门禁通过 |
 | `name_rows.py` | 用跨 build 指纹给爆炸/射弹行恢复名字 | 标准库 | ✓ |
 | `make_loadlib_fixtures.py` | 造 DLL 夹具，测进程内原生代码那条路：`--matrix`（换目录 / 换名）、`--in-place-name`（同目录换名） | 标准库 | ✓✓ 已实机（两轮共 5 个夹具 / 7 个用例；结论见 `MEMORY-ACCESS` §12g） |
