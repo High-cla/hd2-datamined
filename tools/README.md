@@ -42,6 +42,19 @@
 | `lensmask_to_reticle.py` | "亮镜片 + 暗准心"贴图 → 自发光准心遮罩 | Pillow | ✓ |
 | `grab_logs.py` | 在下次启动覆盖前把游戏日志归档 | 标准库 | ✓ |
 
+## 反作弊 / 能力边界（**全部是否证记录**，不是方法）
+
+这三个是"试着做 → 失败 → 把失败量出来"的工具，**没有一个成功过**，最硬的证据来自它们自己的自检：
+`eac_access_test.py --selftest` 会**故意造一只被剥权的句柄**（`0x0400`，正是 EAC 还给你那种形状），
+要求"读一个字节必须被拒绝"，5/5 PASS。发布它们是因为"我们试过并且失败了"比沉默有用——
+`docs/MEMORY-ACCESS-25988413.md` §2–§8 就是这些工具的输出。
+
+| 工具 | 它回答的问题 / 实测结果 | 依赖 | 验证 |
+|---|---|---|---|
+| `eac_access_test.py` | 外部进程还能读游戏吗？→ **不能**：`OpenProcess` 三档全给句柄、元数据能读，但 `ReadProcessMemory` **err=5**、`MiniDumpWriteDump` **0x80070005**。文件头留着第一版**假阳性**的教训（只看 `OpenProcess` 会骗自己） | 标准库 | ✓ `--selftest` **5/5**（含"剥权句柄必须被拒"的变异测试） |
+| `eac_early_handle.py` | 有没有"保护生效前"的窗口？→ **没有**：进程出现后 **10.6 ms** 建的句柄**已经被剥权**（err=5），access mask 在创建时就定了 | 标准库 | ✓ `--help`；完整流程需要一次游戏启动 |
+| `crash_watch.py` | 在 CRS 删掉之前抢救游戏**自己**的崩溃捕获。外部全量 dump 那条路已死：`dumper.ps1` 未随仓库发布，而 `can_read_memory()` 会在调用它之前就拒绝 | `eac_access_test.py`（缺席时降级为"跳过预检"） | ✓ `--selftest`（造假 CRS 捕获 → 救援 → hash 校验 PASS） |
+
 ## 文档提到、但本仓库**故意不含**的工具
 
 写清楚是为了让人别照着文档找不存在的文件：
@@ -49,10 +62,11 @@
 | 文档里出现 | 为什么不在 |
 |---|---|
 | `memscan.py` | 旧路线（LuaJIT + `ffi`）的扫描器，**弃用**：25988413 的 VM 没有 `ffi`，跑不起来；3,000+ 行里全是旧 build 的偏移知识 |
-| `eac_access_test.py` / `eac_early_handle.py` | 外部读内存 / 抢早期句柄的探针。结论已写进 `docs/MEMORY-ACCESS-25988413.md`（全部 err=5），工具本身是死路；发布它只会变成"怎么试着绕过反作弊"的范文 |
-| `crash_watch.py` | 依赖上面那个探针，且配套的 `dumper.ps1` 不在仓库；全量 dump 那条路在 EAC 下已死（引擎自己的崩溃 dump 仍可用，但那部分没随仓库发布） |
 | `verify_patch_series.py` | 依赖 `patch_series_prune.py` → `hd2_archive`（不在本仓库） |
 | `build_snapshot.py` | 需要本机的普查表 / 探针 / 文档作为输入，不是通用输入 |
 | `murmur64a.py` | 已被 `murmur64.py` 取代，且它自己的 `--selftest` 目前 20 项全失败（保留在私有工作区，未发布） |
 | `package_p2p_ping.py` | 属于另一个项目（`hd2-p2p-ping`），与本仓库无关 |
 | `passive_example.py` | **不是我们的工具**：`docs/DLBIN-SEALED-BOX.md` 引用的是某个第三方 modkit 里的 `kit/tools/passive_example.py`，只作为"别人怎么解这个字"的对照 |
+
+> 注：少数工具相对私有工作区只改了两处——默认输出路径改成**相对路径**、个人 SDK 路径改成
+> `HD2SDK` 环境变量或 `~/HD2SDK-CommunityEdition`。逻辑未改。

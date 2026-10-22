@@ -6,3 +6,6 @@ __pycache__/
 *.plain.dl_bin
 .venv/
 ~$*
+# tool output, never data: crash_watch --selftest writes here, grab_logs defaults to logs/
+hd2-dumps/
+logs/
