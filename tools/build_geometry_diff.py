@@ -48,11 +48,24 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--sk", required=True)
     ap.add_argument("--game", default=r"D:\SteamLibrary\steamapps\common\Helldivers 2")
-    ap.add_argument("--geometry", default="work/repo-25988413/refs/table-geometry.json")
+    ap.add_argument("--geometry", default="", help="缺省自动在几个常见位置找 table-geometry.json")
     ap.add_argument("--old", default="refs/dlbin/plaintext-all",
                     help="旧明文缓存（有几张算几张，用来做哈希对照）")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
+    if not a.geometry:
+        # 默认路径不要写死某个工作目录（仓库已经改过一次名，写死就会失效）。
+        # 按"当前目录 -> 仓库 -> 工作区"的顺序找，谁在就用谁。
+        for cand in ("refs/table-geometry.json",
+                     "tmp/table-geometry.json",
+                     "work/repo-datamined/refs/table-geometry.json",
+                     "work/repo-25988413/refs/table-geometry.json"):
+            if pathlib.Path(cand).is_file():
+                a.geometry = cand
+                break
+        if not a.geometry:
+            print("找不到 table-geometry.json，用 --geometry 指定", file=sys.stderr)
+            return 1
 
     from nacl.public import PrivateKey, SealedBox
     box = SealedBox(PrivateKey(pathlib.Path(a.sk).read_bytes().ljust(32, b"\0")[:32]))
