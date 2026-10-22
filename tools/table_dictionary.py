@@ -177,6 +177,40 @@ def geometry(plain: bytes, payload_at: int, payload: int, stride: int | None) ->
     return {"rows": None, "tail": None, "layout": "unknown", "stride": stride}
 
 
+def classify_primitive(blob: bytes) -> str:
+    """Show hex plus the float reading - no guessing which one the field really is.
+
+    The typelib marks primitives with type id 0 and does not say whether the slot is f32 or u32
+    (it is stripped: no string table at all), so a guess would be a coin flip.  Both readings are
+    printed; the human picks.
+    """
+    import struct as _s
+    if len(blob) == 4:
+        u = _s.unpack("<I", blob)[0]
+        f = _s.unpack("<f", blob)[0]
+        shown = f"{f:.7g}" if (f == f and abs(f) < 1e12) else "nan/inf"
+        return f"0x{u:08X} · f32 {shown}"
+    if len(blob) == 8:
+        u = _s.unpack("<Q", blob)[0]
+        a, b = _s.unpack("<ff", blob)
+        return f"0x{u:016X} · f32 {a:.6g}/{b:.6g}"
+    if len(blob) == 2:
+        return f"0x{_s.unpack('<H', blob)[0]:04X}"
+    if len(blob) == 1:
+        return f"0x{blob[0]:02X}"
+    return blob[:8].hex()
+
+
+def sample_rows(plain: bytes, group: dict, stride: int, limit: int = 24) -> list[int]:
+    """Byte offsets of up to `limit` rows inside one group payload."""
+    if not stride:
+        return []
+    base = group["payload_at"] + (DESCRIPTOR if group.get("layout") in ("array", "array+tail",
+                                                                      "hashmap+rows") else 0)
+    rows = group.get("rows") or 0
+    return [base + i * stride for i in range(min(rows, limit))]
+
+
 def analyse_table(name: str, plain: bytes, dic: Dictionary) -> dict:
     groups = scan_groups(plain)
     rows_total, leftover_total, clean = 0, 0, 0
@@ -200,6 +234,7 @@ def analyse_table(name: str, plain: bytes, dic: Dictionary) -> dict:
         slot["leftover"] += leftover or 0
         details.append({"at": g["at"], "type_id": g["type_id"], "version": g["version"],
                         "wide": g["wide"], "payload": g["payload"], **geo})
+        slot.setdefault("first_group", {"payload_at": g["payload_at"], **geo})
     return {
         "table": name,
         "plain_size": len(plain),
@@ -213,7 +248,8 @@ def analyse_table(name: str, plain: bytes, dic: Dictionary) -> dict:
     }
 
 
-def write_markdown(tables: list[dict], dic: Dictionary, path: pathlib.Path) -> None:
+def write_markdown(tables: list[dict], dic: Dictionary, path: pathlib.Path,
+                   plains: dict[str, bytes] | None = None) -> None:
     lines = ["# Table dictionary — build 25988413 (read-only)", "",
              "`count` is read from each group's payload header (`u64 0x10, u64 count`); for a group",
              "whose layout is `hashmap+rows` it is the **hashmap slot count**, not the number of rows.",
@@ -239,11 +275,23 @@ def write_markdown(tables: list[dict], dic: Dictionary, path: pathlib.Path) -> N
             lines.append(f"### {ty['element']}  (`{t['table']}`, stride {ty['stride']} B, "
                          f"rows {ty['rows']:,})")
             lines.append("")
-            lines.append("| offset | size | type | note |")
+            lines.append("| offset | size | type | row 0, both readings |")
             lines.append("|---:|---:|---|---|")
+            group = (ty.get("first_group") or {})
+            plain = (plains or {}).get(t["table"], b"")
+            stride = ty["stride"]
+            base_rows = sample_rows(plain, {"payload_at": group.get("payload_at", 0),
+                                            "layout": group.get("layout"),
+                                            "rows": group.get("rows")}, stride) if plain else []
             for m in dic.members(tid):
+                note = ""
+                if m["type_id"] == 0 and base_rows and stride and m["offset"] + m["size"] <= stride:
+                    blob = plain[base_rows[0] + m["offset"]: base_rows[0] + m["offset"] + m["size"]]
+                    note = classify_primitive(blob)
+                elif m["type_id"] == 0:
+                    note = "(primitive)"
                 lines.append(f"| {m['offset']} | {m['size']} | {m['type']} "
-                             f"(`0x{m['type_id']:08X}`) | |")
+                             f"(`0x{m['type_id']:08X}`) | {note} |")
             lines.append("")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -271,8 +319,11 @@ def main() -> int:
     print(f"typelib: {dic.lib.nt} types, {dic.lib.nm} members, {len(dic.names)} name(s)")
 
     tables = []
+    plains = {}
     for path in sorted(game.glob("*.dl_bin")):
-        tables.append(analyse_table(path.name, unseal(path.read_bytes(), box), dic))
+        plain = unseal(path.read_bytes(), box)
+        plains[path.name] = plain
+        tables.append(analyse_table(path.name, plain, dic))
 
     clean = sum(1 for t in tables if t["rows_exact"])
     print(f"tables: {len(tables)}   rows exact: {clean}   leftover: {len(tables) - clean}")
@@ -291,7 +342,7 @@ def main() -> int:
         print(f"json -> {a.json}  ({pathlib.Path(a.json).stat().st_size:,} B)")
     if a.md:
         pathlib.Path(a.md).parent.mkdir(parents=True, exist_ok=True)
-        write_markdown(tables, dic, pathlib.Path(a.md))
+        write_markdown(tables, dic, pathlib.Path(a.md), plains)
         print(f"md   -> {a.md}  ({pathlib.Path(a.md).stat().st_size:,} B)")
     return 0
 
