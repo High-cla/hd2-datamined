@@ -95,6 +95,23 @@ def resolve_chain(db, attack_key: str) -> list[tuple[str, str, dict]]:
     return out
 
 
+def alias_display(wiki_title: str) -> str | None:
+    """Page title -> our internal display name, from the alias table built by
+    tools/build_stratagem_alias.py (which matches the localisation key against the catalog's
+    nativeType, never the display name)."""
+    path = pathlib.Path("refs/stratagem-alias.json")
+    if not path.is_file():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:                                            # noqa: BLE001
+        return None
+    for item in data.get("alias", []):
+        if norm(item.get("wiki_title", "")) == norm(wiki_title):
+            return item.get("display")
+    return None
+
+
 def our_row(sk: str, game: str, title: str):
     """Fetch the matching row out of our decrypted stratagem_settings table."""
     from nacl.public import PrivateKey, SealedBox
@@ -160,31 +177,36 @@ def show_stratagem(db, title: str, sk: str, game: str) -> None:
         for key, value in params[section].items():
             print(f"    {key:<{width}} = {value}")
     key = page["attack_key"]
-    if not key:
-        return
-    table, matched, entry = merged_entry(db, key)
-    print(f"  [attack data key] {key}" +
-          (f"   -> {table} table key {matched!r}" if matched and matched != key else ""))
-    if entry:
-        scalars = {k: v for k, v in entry.items()
-                   if isinstance(v, (int, float, str)) and k not in ("name",)
-                   and not isinstance(v, bool)}
-        if scalars:
-            shown = ", ".join(f"{k}={v}" for k, v in list(scalars.items())[:10])
-            print(f"    [merged] {shown}")
-    chain = resolve_chain(db, key)
-    if not chain:
-        print("    (no merged attack rows for this key in the cached modules)")
-        return
-    for kind, name, data in chain:
-        preview = ""
-        if data:
-            numeric = {k: v for k, v in data.items()
-                       if isinstance(v, (int, float)) and k not in ("name",)}
-            preview = ", ".join(f"{k}={v}" for k, v in list(numeric.items())[:7])
-        print(f"    {kind:<10} {name:<24} {preview}")
+    if key:
+        table, matched, entry = merged_entry(db, key)
+        print(f"  [attack data key] {key}" +
+              (f"   -> {table} table key {matched!r}" if matched and matched != key else ""))
+        if entry:
+            scalars = {k: v for k, v in entry.items()
+                       if isinstance(v, (int, float, str)) and k not in ("name",)
+                       and not isinstance(v, bool)}
+            if scalars:
+                shown = ", ".join(f"{k}={v}" for k, v in list(scalars.items())[:10])
+                print(f"    [merged] {shown}")
+        chain = resolve_chain(db, key)
+        if not chain:
+            print("    (no merged attack rows for this key in the cached modules)")
+        for kind, name, data in chain:
+            preview = ""
+            if data:
+                numeric = {k: v for k, v in data.items()
+                           if isinstance(v, (int, float)) and k not in ("name",)}
+                preview = ", ".join(f"{k}={v}" for k, v in list(numeric.items())[:7])
+            print(f"    {kind:<10} {name:<24} {preview}")
     if sk:
         row = our_row(sk, game, title)
+        if row is None:
+            mapped = alias_display(title)
+            if mapped:
+                row = our_row(sk, game, mapped)
+                if row is not None:
+                    print(f"  [alias] page title -> our row {mapped!r} "
+                          f"(refs/stratagem-alias.json)")
         if row is None:
             print("  [our table] no matching row")
         else:

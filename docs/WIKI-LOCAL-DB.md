@@ -142,6 +142,47 @@ Eagle Rearm 页面写的是 `cooldown = 0` + `rearm_time = 150`，而我们的 `
 合并行是"同一 key 在多个模块里出现时，字段最多的那条胜出"。所以 `[merged]` 展示的是字段全集，
 个别数值可能来自不同 build。要校准时以页面参数（`[infobox]`/`[stats]`）和我们自己的解密表为准。
 
+
+## 4.5 别名表：让 38 条战备也能和我们的表对照
+
+页面标题（`B-1 Supply Pack`）与我们内部显示名（`BACKPACK. SUPPLY BACKPACK`）不同名，所以按名字
+只能对上 15 条。别名表换了一个**不依赖显示名**的桥：
+
+```
+行内 +24 指针 -> 本地化键 nui_stratagem_backpack_ammo_name  ->  slug  backpack_ammo
+                    HD2Runtime 的 uiIcon.nativeType = AmmoBackpack（= wiki 的 ref，38/42 已验证相等）
+                        ->  catalog 里的战备名 == wiki 页面标题
+```
+
+| 匹配档 | 规则 | 条数 |
+|---|---|---:|
+| `nativeType-exact` | slug 与 nativeType 小写化后相等 | 34 |
+| `token-set` | 驼峰拆分后词集合相等，能接住词序反转（`backpack_ammo` ↔ `AmmoBackpack`） | 4 |
+| 歧义 | 同一 slug 命中多条 catalog | 0 |
+
+产物：`refs/stratagem-alias.json`（38 条，含 method 与原始字段）。工具
+`tools/build_stratagem_alias.py`；`wiki_query.py --sk` 会自动用它兜底。
+
+**为什么停在 38**：catalog 只映射 96 个战备，我们的 153 行里只有 128 行带本地化键
+（25 行没有，90 行的 slug 在 catalog 里无对应）。再往下就得靠猜——而错一条别名会让之后所有
+`--sk` 对照都错，所以到此为止。
+
+### 独立验证：玩法数值
+
+别名表是用"本地化键 ↔ 类型名"建的，可以用另一个维度验证——把 38 条页面的
+`stats.cooldown` / `stats.uses` 与我们的 `+104` / `+80` 对比：
+
+| 字段 | 一致 | 不一致 |
+|---|---:|---|
+| 冷却 | **34/35** | 1 |
+| 使用次数 | **34/35** | 1 |
+
+唯一不一致的是 `PRESIDENT REWARDS. ROCKET SENTRY` → `A/MLS-4X Rocket Sentry`：
+我们冷却 **45**，页面 **150**。这更像"总统奖励变体"的真实数值差异（而不是错配），
+因为同一条别名的使用次数是对得上的。
+
+（35 而非 38，是因为 3 条页面的 `cooldown` 参数为空或走 `rearm_time`。）
+
 ## 5. 授权与礼貌
 
 * `helldivers.wiki.gg/robots.txt`：`User-agent: * / Allow: /`，但**明确屏蔽**了 GPTBot、
