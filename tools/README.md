@@ -55,3 +55,4 @@
 | `build_snapshot.py` | 需要本机的普查表 / 探针 / 文档作为输入，不是通用输入 |
 | `murmur64a.py` | 已被 `murmur64.py` 取代，且它自己的 `--selftest` 目前 20 项全失败（保留在私有工作区，未发布） |
 | `package_p2p_ping.py` | 属于另一个项目（`hd2-p2p-ping`），与本仓库无关 |
+| `passive_example.py` | **不是我们的工具**：`docs/DLBIN-SEALED-BOX.md` 引用的是某个第三方 modkit 里的 `kit/tools/passive_example.py`，只作为"别人怎么解这个字"的对照 |
