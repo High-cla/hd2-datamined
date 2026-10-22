@@ -152,6 +152,19 @@ wiki（<https://helldivers.wiki.gg/wiki/Stratagems>）的四个许可色，对�
 ⚠ 这是**从区间分布推出来的**（三段区间与三色严格重合），没有官方文档说过"颜色 = 格位区间"。
 但黄色那类不适合当区间：`0` 里既有玩家能叫的 `RESUPPLY`/`SOS Beacon`，也有 ~40 条纯任务脚本物件。
 
+**实测打分**（`tools/stratagem_field_scan.py`：拿系族当标签，看每个槽的取值能否把 wiki 四色分离；
+排除"每行唯一"的 id 类字段后，全部 82 个槽里）：
+
+```
++392  5/6     ← 唯一接近的字段，唯一的交集是 cell 0
+其余  3/6 及以下
+```
+
+`+392` 的 5/6 差在哪：`MISSION` 的取值集是 `{0}`，`SUPPLY` 里也含 `0`——因为 `TANK. TANK RELOAD HE/AT/CANISTER`
+这三行属 SUPPLY 系族但 `+392` 同样是 0（它们也**不在面板上**）。换言之这唯一的交集本身与"0 = 非面板"
+一致，所以 `+392` 是这张表里唯一能对应到 wiki 分类的字段。这也顺带说明：**`+56`、`+60` 都不是**，
+它们在四色之间横跨。
+
 **`+56` 的 4 个值不是这四类**——`0x2d96f9e6` 同时出现在 TEAM WEAPONS / BACKPACK / EAGLE /
 MISSIONS / EMPLACEMENTS / SENTRYS / PRESIDENT REWARDS 上，横跨 wiki 全部四色，所以
 "4 个值 ⇒ 4 类"只是数量巧合。`+56` 也不是任何已知类型哈希（对 6,698 条名字全表比对，无命中），

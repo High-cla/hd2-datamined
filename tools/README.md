@@ -20,7 +20,7 @@
 | `table_row_names.py` | 抽出逐行名字。**指针优先**：weapon_customization 252 / stratagem 153 / planet_override 44 / status_effect 73 / language 15 / stratagem_upgrade 1；其余表退化为位置法且必须 `串数 == 行数` | PyNaCl + `typelib.py` | ✓ 实机数据抽全（`refs/table-row-names.json`，每表标明机制） |
 | `row_pointer_sweep.py` | 扫全部 55 张表找**行内名字指针**，判据是"每行解析出不同的串"，并与位置法交叉验证 | PyNaCl + `typelib.py` | ✓ 6 张表命中；weapon_customization 交叉验证 240/240 一致 |
 | `probe_row_name_offsets.py` | 单表深挖指针：命中率 / 不同串数 / 串的类别（显示名 / 键 / 描述键），用来排除小整数巧合 | PyNaCl | ✓ 实机数据 |
-| `stratagem_field_scan.py` | 拿系族当标签给每个 4 字节槽打分（族内纯度 + 能否分离 wiki 四色），用来判定分类字段 | PyNaCl | ✓ 否证了"`+56` 的 4 个值 = wiki 四类" |
+| `stratagem_field_scan.py` | 拿系族当标签给每个 4 字节槽打分（族内纯度 + 能否分离 wiki 四色），用来判定分类字段 | PyNaCl | ✓ `+392` 5/6（唯一交集是 cell 0）；`+56`/`+60` 3/6 及以下，否证了"`+56` 的 4 个值 = wiki 四类" |
 | `stratagem_join.py` | 战备行与 HD2Runtime 目录逐名配对（同系族内模糊匹配），用冷却是否相等反向校验配对 | PyNaCl + HD2Runtime SDK zip | ✓ 22 配对 / 20 冷却一致 |
 | `table_dictionary.py` | **全表字典**：解封 55 张表 → 组/行数/步长/尾块 + 每个类型的字段偏移树（需自备 `recipient.sk`） | PyNaCl + `typelib.py` | ✓ 55/55 表解析（18 张几何完全闭合） |
 | `entities_modeb.py` | 实体表：武器单元格编辑、可选弹种（模式 A/B）、双弹药池、hashmap 维护 | `murmur64.py` | ✓✓ 已实机（主宰/惩罚者/扫荡者） |

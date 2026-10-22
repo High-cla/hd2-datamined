@@ -40,6 +40,7 @@ HEADER = 48
 DESCRIPTOR = 16
 STRIDE = 400
 NAME_PTR = 16
+MAX_CATEGORY_DOMAIN = 40      # above this a field is an id, not a category
 
 WIKI = {
     "OFFENSIVE": {"ORBITAL", "EAGLE"},
@@ -138,12 +139,18 @@ def main() -> int:
         pairs = list(itertools.combinations(WIKI, 2))
         disj = sum(1 for x, y in pairs if not (per[x] & per[y]))
         purity = sum(c.most_common(1)[0][1] for c in by_family.values()) / len(rows)
-        scored.append((disj, slot, per, purity, len({v for s in per.values() for v in s})))
+        distinct = len({v for s in per.values() for v in s})
+        # A field that is unique per row trivially has disjoint value sets across categories and
+        # scores 6/6 without meaning anything.  Only small-domain fields can be a category.
+        if distinct > MAX_CATEGORY_DOMAIN:
+            continue
+        scored.append((disj, slot, per, purity, distinct))
 
     print("\n== slots ranked by how well they separate the 4 wiki categories "
           "(6 = perfectly) ==")
     best = max(s[0] for s in scored)
-    print(f"   best disjointness = {best}/6")
+    print(f"   {len(scored)} slot(s) with <= {MAX_CATEGORY_DOMAIN} values; "
+          f"best disjointness = {best}/6")
     for disj, slot, per, purity, distinct in sorted(scored, key=lambda s: (-s[0], s[4]))[:12]:
         print(f"  +{slot:<4} disjoint={disj}/6 distinct={distinct:<3} purity={purity:.3f}")
         for k in WIKI:
