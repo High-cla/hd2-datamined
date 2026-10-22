@@ -239,6 +239,19 @@ MISSIONS / EMPLACEMENTS / SENTRYS / PRESIDENT REWARDS 上，横跨 wiki 全部�
 | `bomb_interval` / `salvo_interval` / `salvos` | itemres | 12 / 8 / 5 | ✗ 最佳 2/12、5/8、3/5 |
 | `health` / `armor` | 两者 | 5（恒 100 / 0） | ✗ 表里没有 |
 
+**`num_bombs` / `num_salvos` 不是"没找到"，是"确实不在"。** 这两项是成对语义
+（一次打几发 × 打几轮 = 本次战备的弹头总数，380mm 弹幕就是 3 × 5 = 15），所以单字段扫不到时
+改扫**相邻槽对**（8 条轨道战备，`num_bombs` = 1/1/1/1/60/3/3/5）：
+
+* 所有有序槽对 (a,b) 里没有一个能同时满足 `row[a]==num_bombs` 且 `row[b]==num_salvos`；
+* 也没有任何槽存的是两者乘积；
+* 拿最独特的 `num_bombs=60`（Gatling 弹幕）当靶子，在 Gatling 行 400 字节里按
+  **u8 / u16 / u32 / f32 四种宽度**搜 `60`，**一处都没有**。
+
+所以：**wiki 的两份战备视图都是"设置行 + 投送资源"的合并视图**，不是纯 `stratagem_settings`
+解码。它们的 `name`/`cooldown`/`uses`/`calltime` 确实来自这张表，`num_bombs`/`num_salvos`/
+`area_size`/`fire_height`/`cap`/`health`/`armor` 来自投送资源。
+
 **`+84` 的语义可以自证。** 全表 153 行的分布是：`0`×42、`3`×50、`5`×40、`2`×13、`6`×1、
 `1`×1、`4`×1、`7`×2、`7.5`×1、`120`×2。按系族看完全讲得通：
 
