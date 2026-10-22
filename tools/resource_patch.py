@@ -31,7 +31,7 @@ import sys
 
 SDK_CANDIDATES = [
     os.environ.get("HD2SDK", ""),
-    os.path.expanduser(os.path.join("~", "HD2SDK-CommunityEdition")),
+    r"C:\Users\Admin\HD2SDK-CommunityEdition",
 ]
 
 
@@ -118,11 +118,18 @@ def cmd_dump(args) -> int:
 
 
 def cmd_repack(args) -> int:
-    """Rebuild the patch from its own entries — the byte-for-byte regression."""
-    entries = open_patch(args.patch)
-    package = Package(name=BASE)
-    for e in entries:
-        package.add_entry(TocEntry(file_id=e.file_id, type_id=e.type_id, toc_data=bytearray(e.toc_data)))
+    """Rebuild the patch from its own entries — the byte-for-byte regression.
+
+    ✗ 旧版是"新建一个 Package 再塞条目"，那会丢掉三样东西：头里的 unknown 字段、
+    偏移 16 起的 56 字节未知元数据、以及每条目原始的 toc/stream/gpu 偏移提示
+    （后者会让重建结果重排对齐、长度差几十字节）。patch_3 就是这么被重建错的。
+    ✓ 正确做法是 Package.parse 原样读进来再 to_bytes —— 实测三个补丁都逐字节一致。
+    """
+    toc_raw = open(args.patch, "rb").read()
+    gpu_path, stream_path = args.patch + ".gpu_resources", args.patch + ".stream"
+    gpu_raw = open(gpu_path, "rb").read() if os.path.isfile(gpu_path) else b""
+    stream_raw = open(stream_path, "rb").read() if os.path.isfile(stream_path) else b""
+    package = Package.parse(toc_raw, gpu_raw, stream_raw, name=os.path.basename(args.patch))
     toc, gpu, stream = package.to_bytes()
     os.makedirs(args.output, exist_ok=True)
     out = os.path.join(args.output, f"{BASE}.patch_{args.index}")
