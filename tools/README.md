@@ -37,6 +37,7 @@
 | `stratagem_display_names.py` | 从 `.strings` 资源解出每行的**游戏内文本**：五个槽位（`+40` 大写名 / `+44` 显示名 / `+48` 描述 / `+52` 长描述 / `+56` 状态标签），并附上匹配到的 wiki 页面标题；死引用会按"文本匹配 → 大写回退"回填并标明来源 | PyNaCl + 由 srkit 解出的 strings 目录 | ✓ 显示名 145/153（135 直接 + 1 文本匹配 + 9 大写回退），wiki 页 115/145 |
 | `table_locid_scan.py` | 扫一张表每个 4 字节槽，按 `(stride, offset)` **跨组聚合**，报告"本地化 ID 命中数 / 去重数 / 样本文本"。两种 `LDLD` 组头都认（数组型 `0x10\|count` 与单记录型），stride 取自 typelib。**发现**名字槽用它 | PyNaCl（无）+ `typelib.py` | ✓ 扫出 7 张表的名字槽（判据见 `docs/LOCID-NAMES-25988413.md` §1）|
 | `table_locid_names.py` | 按槽位表把本地化 ID 倒成文本，输出 JSON（`name` / `name_source` / 原始 ID），带"文本匹配 → 大写回退" | PyNaCl（无）+ `typelib.py` | ✓ 六张表：弹丸 225/355、配件 234/252、护甲 389/422、被动 33/33、载具 11/12、星球 399/438 |
+| `entity_locid_scan.py` | 解实体库（275 块 → `[哈希图][行数组][尾数组]`），定位本地化 ID 槽。实体名只有一处：`EncyclopediaEntryComponentData`（块 56）+0 单数 / +8 大写 / +4 复数 / +36 物品代码 | PyNaCl（无）+ `typelib.py` | ✓ 643/1,939 实体有名字，205/211 条带代码条目精确命中 wiki 标题；`--dump-slot 56:0` 可查单槽 |
 | `explosion_names_from_chain.py` | 爆炸行没有名字字段，改从引用链命名：投掷物 `+144/+156` → 爆炸 `+0`，输出每个爆炸行的消费方（共用关系一目了然） | PyNaCl（无）+ `typelib.py` | ✓ 210 条边 / 0 悬空；103 个爆炸行有名字（97 唯一 + 6 共用）|
 | `strings_inventory.py` | 清点 `.strings` 语料：语言分布（`ThinHash` 反查 15 种语言）、每个 bundle 的 distinct 英文 blob 数、ID 并集。**只读文件头 16 字节** | 标准库 | ✓ 证明英文语料是全局唯一那 18 个 blob |
 | `table_dictionary.py` | **全表字典**：解封 55 张表 → 组/行数/步长/尾块 + 每个类型的字段偏移树（需自备 `recipient.sk`） | PyNaCl + `typelib.py` | ✓ 55/55 表解析（18 张几何完全闭合） |
