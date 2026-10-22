@@ -316,9 +316,10 @@ Lua 5.1 的 `package.loadlib` = `LoadLibraryA` + `GetProcAddress`，而且**失�
 ⚠ 未验证、仅备查：外部转述"`bin/plugins` 的插件表要求 `debug_draw`(0x90) 与 `render`(0xa0) 非 NULL"
 （引自 `BingusNativeBridge` v0.1.1 提交）。我们无签名加载能力，无法自证。
 
-**决胜实验（2026-10-22 16:30，实机跑完）：闸门 2 认「文件身份」，不认「文件内容」。**
+**决胜实验（2026-10-22，两轮实机跑完）：闸门 2 认「文件身份」，不认「文件内容」，也不是「目录授权」。**
 
-探针 = boot 覆盖（`patch_0`）+ 一个 marker 文件门控，跑完逐字节还原。六组夹具一次跑完：
+探针 = boot 覆盖（`patch_0`）+ 一个 marker 文件门控，跑完逐字节还原。第一轮 16:30 六组，第二轮
+16:35 补上第七组（同目录换名），七组全部拿到：
 
 | 用例 | 夹具 | 返回 | 判定 |
 |---|---|---|---|
@@ -327,9 +328,10 @@ Lua 5.1 的 `package.loadlib` = `LoadLibraryA` + `GetProcAddress`，而且**失�
 | `unsigned-root` | 去掉证书表的 `version.dll` | **577** | 闸门 1 |
 | `signed-root` | 微软签名副本，放根目录 | **193** | 闸门 2 |
 | `signed-bin` | **同一份字节**，放 `<game>\bin\` | **193** | `bin\` 对它没有特权 |
-| `signed-newname` | **Arrowhead 签名、在名单内的插件 DLL 逐字节复制**，换名放根目录 | **193** | ★ **内容一致也没用** |
+| `signed-newname` | **Arrowhead 签名、在名单内的插件 DLL 逐字节复制**，换名放根目录 | **193** | ★ 内容一致也没用 |
+| `signed-inplace` | 同一份字节，**放回 `bin\plugins\` 原目录**，只换名字 | **193** | ★★ **目录也没有特权 ⇒ 认的是文件名** |
 
-原始日志（`%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\BootProbe.log`）：
+原始日志（`%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\BootProbe.log`，第二轮 16:35:41）：
 
 ```
 --- loadlib gate matrix (opt-in marker dsh_loadlib_probe.on) ---
@@ -339,21 +341,20 @@ LOADLIB unsigned-root | dshtest_unsigned.dll | system error 577
 LOADLIB signed-root | dshtest_signed.dll | %1 不是有效的 Win32 应用程序。
 LOADLIB signed-bin | bin\dshtest_bin.dll | %1 不是有效的 Win32 应用程序。
 LOADLIB signed-newname | dshtest_copy.dll | %1 不是有效的 Win32 应用程序。
+LOADLIB signed-inplace | bin\plugins\dshtest_p.dll | %1 不是有效的 Win32 应用程序。
 ```
 
-`dshtest_copy.dll` 就是 `bin\plugins\level_generation_pluginw64_release.dll` 的逐字节副本
-（625,752 B，md5 `3c2f18502b121138c5ce5b5ff95b879c`，签名 `Valid / Arrowhead`）。它**签名有效、
-内容一字不差、就在同目录结构里**，只换了个名字 —— 仍然是 193。
+`dshtest_copy.dll` / `dshtest_p.dll` 都是 `bin\plugins\level_generation_pluginw64_release.dll` 的
+**逐字节副本**（625,752 B，md5 `3c2f18502b121138c5ce5b5ff95b879c`，签名 `Valid / Arrowhead`）。
 
-⇒ 三条否证一起成立：
+⇒ 四条否证一起成立：
 
-- "找个签名好的 DLL 塞进去" ✗ —— 内容/签名够好不是条件；
-- "放进 `package.cpath` 里的 `bin\`" ✗ —— 目录没有特权；
-- 唯一能过的就是**游戏自己那份文件**，而改它任何一个字节哈希就变 ⇒ **到不了执行**。
-
-⚠ 没有分离的一格：`bin\plugins\` 里**同目录换名**（能区分"按文件名"还是"按目录"）。没做，因为两个
-答案都不改变"到不了执行"这个结论。夹具工具已经**支持**这一格了（`--in-place-name` →
-`bin\plugins\dshtest_p.dll`，同目录换名），下次启动顺手跑一下即可。
+- "找个签名好的 DLL 塞进去" ✗ —— 内容/签名够好不是条件（`signed-newname`）；
+- "放进 `package.cpath` 里的 `bin\`" ✗ —— 目录没有特权（`signed-bin`）；
+- "放进 `bin\plugins\` 这个引擎自己的目录" ✗ —— **同目录换名仍然 193**（`signed-inplace`），
+  所以闸门 2 的粒度是**文件名**，不是目录；
+- 唯一能过的就是**游戏自己那份文件**（原名、原目录、原字节），而改它任何一个字节哈希就变
+  ⇒ **到不了执行**。
 
 > 附：`system error 577` 与 `%1 不是有效的 Win32 应用程序` 是 Lua 5.1 把
 > `LoadLibrary` 的失败文本原样传回来的结果 —— 同一个 API 对不同的失败给不同的**文本形状**，

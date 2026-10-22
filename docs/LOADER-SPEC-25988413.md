@@ -295,22 +295,24 @@ SWEEP RESULT: 0 found, 0 loaded, 6 absent
 换成只导出 `get_plugin_api` 的桩后，桩**从未被映射**（游戏照常进、工作集 6.4 GB → 4.59 GB）。
 所以"走引擎插件路径"也不是后门。
 
-**决胜实验已做（2026-10-22 16:30 实机）：闸门 2 认身份，不认内容。** 探针用 boot 覆盖同一条配方，
-marker 文件门控，六组夹具一次跑完（明细与原始日志见 `MEMORY-ACCESS-25988413.md` §12g）：
+**决胜实验已做（2026-10-22，两轮实机）：闸门 2 认文件名，不认内容、也不认目录。** 探针用 boot 覆盖
+同一条配方，marker 文件门控，七组夹具全部拿到（明细与原始日志见 `MEMORY-ACCESS-25988413.md` §12g）：
 
 ```
-LOADLIB control-missing | dsh_missing_module.dll | 找不到指定的模块。          (126)
-LOADLIB control-symbol  | kernel32.dll           | 找不到指定的程序。          (127)
-LOADLIB unsigned-root   | dshtest_unsigned.dll   | system error 577           (577)
-LOADLIB signed-root     | dshtest_signed.dll     | %1 不是有效的 Win32 应用程序 (193)
-LOADLIB signed-bin      | bin\dshtest_bin.dll    | %1 不是有效的 Win32 应用程序 (193)
-LOADLIB signed-newname  | dshtest_copy.dll       | %1 不是有效的 Win32 应用程序 (193)
+LOADLIB control-missing | dsh_missing_module.dll    | 找不到指定的模块。          (126)
+LOADLIB control-symbol  | kernel32.dll              | 找不到指定的程序。          (127)
+LOADLIB unsigned-root   | dshtest_unsigned.dll      | system error 577           (577)
+LOADLIB signed-root     | dshtest_signed.dll        | %1 不是有效的 Win32 应用程序 (193)
+LOADLIB signed-bin      | bin\dshtest_bin.dll       | %1 不是有效的 Win32 应用程序 (193)
+LOADLIB signed-newname  | dshtest_copy.dll          | %1 不是有效的 Win32 应用程序 (193)
+LOADLIB signed-inplace  | bin\plugins\dshtest_p.dll | %1 不是有效的 Win32 应用程序 (193)
 ```
 
-最后一行是全部意义所在：**把游戏自带、Arrowhead 签名有效的插件 DLL 逐字节复制、只换个名字**
-（625,752 B，md5 `3c2f1850…`），仍然是 `193`。签名有效、内容一致、同一台机器同一个 build —— 都
-不够，**必须就是它自己那份文件**。而改那份文件的任何一个字节，哈希就变。
+第 6、7 行是全部意义所在：**把游戏自带、Arrowhead 签名有效的插件 DLL 逐字节复制**（625,752 B，
+md5 `3c2f1850…`），换个名字放根目录 → `193`；**放回它自己那个 `bin\plugins\` 目录、只换名字** →
+还是 `193`。签名有效、内容一致、目录也对、同一台机器同一个 build —— 全都不够。
 
-⇒ 所以"写个 C 模块"从来不是前置条件，"找个签名好的 DLL 塞进去"也不是后门。移植的可行集合收缩为
-**§3 的 2 与 4**（命名约定 / 管理器写清单），两者都不需要任何原生代码。
+⇒ 闸门 2 的粒度是**文件名**（游戏自己那份文件的名字），不是内容，也不是目录授权。而改那份文件的
+任何一个字节，哈希就变。所以"写个 C 模块"从来不是前置条件，"找个签名好的 DLL 塞进去"也不是后门。
+移植的可行集合收缩为 **§3 的 2 与 4**（命名约定 / 管理器写清单），两者都不需要任何原生代码。
 这与 `MEMORY-ACCESS-25988413.md` §12f 的"读的最终账"一致：**资源侧是唯一还能改东西的路**。
