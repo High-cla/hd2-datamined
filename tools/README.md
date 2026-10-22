@@ -27,6 +27,7 @@
 | `stratagem_attack_chain.py` | 走通一条链并逐环打印证据：战备行 `+0` → StratagemType 名 → 战备道具资源的 `projectile_type` → 弹丸行 → `+144/+156` → 爆炸行 `+28` | PyNaCl + `typelib.py` + wiki 模块 + filediver dump | ✓ 26 条命中，含 Airburst 的 cone=27 |
 | `probe_stratagem_projectile_link.py` | 排查战备行里弹丸类型的编码形式（`+0`/文件下标/`name_upper`/枚举下标），用于否证"战备行有指向弹丸的外键" | PyNaCl + `typelib.py` | ✗ 四种编码全不命中 |
 | `fetch_wiki_modules.py` | 按需拉取 wiki 的 `Module:Decodedata-*` 数据模块（当字段名字典用；wiki 会挡默认 UA，故不随仓库分发） | 标准库 | ✓ 12/12 可拉 |
+| `probe_stratagem_fields.py` | 把两份 wiki 战备视图的全部数值字段逐一对到本表槽（含最佳槽报告，能区分"没有"和"有但值不同"） | PyNaCl | ✓ 定位 `+104`/`+80`/`+84` |
 | `table_dictionary.py` | **全表字典**：解封 55 张表 → 组/行数/步长/尾块 + 每个类型的字段偏移树（需自备 `recipient.sk`） | PyNaCl + `typelib.py` | ✓ 55/55 表解析（18 张几何完全闭合） |
 | `entities_modeb.py` | 实体表：武器单元格编辑、可选弹种（模式 A/B）、双弹药池、hashmap 维护 | `murmur64.py` | ✓✓ 已实机（主宰/惩罚者/扫荡者） |
 | `proj_copy_row.py` | 整行搬运 272 B 射弹行（换弹头），带 5 道门禁 | `murmur64.py` | ✓✓ 已实机（Eruptor 弹头 → 主宰） |

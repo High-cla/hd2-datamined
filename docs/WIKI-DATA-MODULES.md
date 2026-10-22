@@ -121,10 +121,12 @@ Mass 30 kg / Velocity 400 m/s）对应的是 **`S_P13`**，不是 `Orbital_Preci
 2. 弹丸表**重复行**：同一 `name_upper` 出现多行，导致按名连接有歧义。
 3. damage / beam / arc / status 四张表**尚未做值对接**（缺稳定连接键）。
 4. ~~`stratagems data.json` 的 `num_bombs` / `num_salvos` / `area_size` / `fire_height`
-   还没在我们 400 B 行里定位~~ —— **已查清：它们不在战备行里**。连同
-   `bomb_interval` / `salvo_interval` / `calltime` / `health` / `armor` 一起反查全部落空；
-   战备表只携带 `cooldown`（`+104`）与 `uses`（`+80`）两个标量。见
-   `STRATAGEM-SETTINGS-DECODED.md` §7.6。
+   还没在我们 400 B 行里定位~~ —— **已查清：它们不在战备行里**。`bomb_interval` /
+   `salvo_interval` / `cap`（页面上的 Capacity）/ `health` / `armor` 同样落空（最佳槽 ≤5/8，
+   与随机无异；只看 5 只鹰测 Capacity 也只有 1/5）。但同一轮把 **`calltime` 定位到了
+   `+84`**（13/14，全表分布自证：鹰式全 0、支援武器 3、背包 5、轨道 2）。
+   战备表携带的标量是 **三个**：`cooldown`（`+104`）、`uses`（`+80`）、call-in time（`+84`）。
+   见 `STRATAGEM-SETTINGS-DECODED.md` §7.6。
 
 ## 6. 复现
 

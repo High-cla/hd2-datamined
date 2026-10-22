@@ -196,7 +196,7 @@ MISSIONS / EMPLACEMENTS / SENTRYS / PRESIDENT REWARDS 上，横跨 wiki 全部�
 | `+60` | `StratagemCategoryType` | 8 个值（2×94、3×17、0×12、1×11、4×11、5×6、6×1、7×1） | ⚠ 未映射 |
 | `+64` | `StratagemButtonDirection` 16 B | 152 个不同值 ⇒ 方向键输入序列 | ⚠ |
 | `+80` | u32 | `max_uses`：`0xFFFFFFFF`×125、1×12、3×7、2×6、4×2、5×1 | ✓ 外部佐证 |
-| `+84` | f32 | 3.0×50、0×42、5.0×40 | ⚠ 不是冷却 |
+| **`+84`** | **f32** | **呼叫延迟（call-in time，秒）**：0×42、2×13、3×50、5×40、6×1、1×1、4×1、7×2 | **✓ 实测（见 §7.6）** |
 | `+96` | f32 | 4.0×36、6.0×9、0×83 | ⚠ 未定 |
 | **`+104`** | **f32** | **冷却秒数** | ✓ 逐名验证 |
 | `+112` | `StratagemOriginType` | 来源类型 | ⚠ |
@@ -222,28 +222,57 @@ MISSIONS / EMPLACEMENTS / SENTRYS / PRESIDENT REWARDS 上，横跨 wiki 全部�
 
 ## 7.6 哪些字段在表里、哪些不在（拿 wiki 解码值反查）
 
-`Module:Decodedata-Attacks/stratagems data.json` 是一份按**大写显示名**索引的解码视图（正是我们
-`+16` 指针给出的那种名字），按名字对上 **14 条**（全是轨道/鹰式）。拿它的数值逐字段反查我们每一行
-的 100 个槽（u32 与 f32 两种读法都试，命中率按"可比较的对数"算，不是按全部配对数）：
+两份 wiki 视图都按**显示名**索引（正是我们 `+16` 指针给出的那种名字），按名字各对上 **14 条**
+（全是轨道/鹰式）。逐字段反查每一行的 100 个槽（u32 与 f32 两种读法都试，命中率按
+"可比较的对数"算，不是按全部配对数）：
 
-| wiki 字段 | 有值的对数 | 结果 |
+| wiki 字段 | 来源 | 有值的对数 | 结果 |
+|---|---|---:|---|
+| `cooldown` | settings | 14 | **`+104` f32，1.00** |
+| `uses` | settings | 14 | **`+80` u32，1.00** |
+| **`calltime`** | itemres | 14 | **`+84` f32，13/14** |
+| `num_bombs` | settings | 8 | ✗ 最佳槽 5/8（≈ 随机） |
+| `num_salvos` | settings | 8 | ✗ 最佳槽 5/8 |
+| `area_size` | settings | 8 | ✗ 最佳槽 2/8 |
+| `fire_height` | settings | 8（恒 3000） | ✗ 最佳 0/8 |
+| **`cap`（= 页面上的 Capacity）** | itemres | 8 | ✗ 最佳 2/8；**只看 5 只鹰**（6/4/1/6/8）也才 1/5，且那一分是 500kg 的"1"撞上全族恒为 1 的槽 |
+| `bomb_interval` / `salvo_interval` / `salvos` | itemres | 12 / 8 / 5 | ✗ 最佳 2/12、5/8、3/5 |
+| `health` / `armor` | 两者 | 5（恒 100 / 0） | ✗ 表里没有 |
+
+**`+84` 的语义可以自证。** 全表 153 行的分布是：`0`×42、`3`×50、`5`×40、`2`×13、`6`×1、
+`1`×1、`4`×1、`7`×2、`7.5`×1、`120`×2。按系族看完全讲得通：
+
+| 值 | 系族 | 讲得通吗 |
+|---:|---|---|
+| 0 | **全部 11 只 EAGLE** + VEHICLES 9 + TANK 3 | 鹰式由飞机投弹，没有呼叫延迟 ✓（wiki 页面也写 "Call-in-Time 0 s"） |
+| 3 | TEAM WEAPONS 32 + EMPLACEMENTS 8 + SENTRYS 7 | 支援武器/炮台落舱 3 秒 ✓ |
+| 5 | MISSIONS 17 + BACKPACK 14 + PRESIDENT REWARDS 6 | 背包落舱 5 秒 ✓ |
+| 2 | ORBITAL 7 | 轨道呼叫 2 秒 ✓ |
+| 6 | ORBITAL 1（380mm 弹幕） | 与 wiki 的 calltime 6 一致 ✓ |
+
+唯一不符的一对是 **Orbital Napalm Barrage**：wiki 6、我们 5（build 差异，与冷却那次同类）。
+
+⇒ **这张表携带三个标量玩法参数：`cooldown`（`+104`）、`uses`（`+80`）、call-in time（`+84`）。**
+其余（炸弹数 / 齐射数 / 覆盖面积 / 投送高度 / **Capacity** / 血量 / 护甲）都在资源侧。
+
+拿 Eagle Airstrike 页面上的六个数对一下：
+
+| 页面字段 | 值 | 在表里？ |
 |---|---:|---|
-| `cooldown` | 14 | **`+104` f32，命中率 1.00** |
-| `uses` | 14 | **`+80` u32，命中率 1.00** |
-| `num_bombs` | 8 | ✗ 表里没有 |
-| `num_salvos` | 8 | ✗ 表里没有 |
-| `area_size` | 8 | ✗ 表里没有 |
-| `fire_height` | 8（恒 3000） | ✗ 表里没有 |
-| `bomb_interval` / `salvo_interval` / `calltime` | 12 / 8 / 14 | ✗ 表里没有 |
-| `health` / `armor` | 5（恒 100 / 0） | ✗ 表里没有 |
+| Total Uses | 2 | ✓ `+80` |
+| Cooldown | 15 | ✓ `+104` |
+| Call-in-Time | 0 | ✓ `+84` |
+| Main Health | 100 | ✗ 资源侧 |
+| Main Armor | Unarmored | ✗ 资源侧 |
+| **Capacity** | 6 | ✗ 资源侧（`cap`，鹰式每趟投弹数） |
 
-⇒ **这张表只携带 `cooldown` 与 `uses` 两个标量玩法参数**，其余全部在资源侧（投送资源）。
-这也解释了 wiki 那两份数据为什么混在一起：`stratagems data.json` 是"设置行 + 资源"的合并视图。
+**6 个数里 3 个在表里。** 这也解释了 wiki 那两份数据为什么混在一起：`stratagems data.json` 是
+"设置行 + 资源"的合并视图。
 
-对改 mod 的直接含义：**想改炸弹数 / 齐射数 / 覆盖面积 / 投送高度 / 呼叫时间，改
-`stratagem_settings` 没有用**——那些值不在这张表里。
+对改 mod 的直接含义：**炸弹数 / 齐射数 / 覆盖面积 / 投送高度 / Capacity 改 `stratagem_settings`
+没有用**；冷却、使用次数、呼叫延迟可以改。
 
-工具：`tools/stratagem_field_align.py`（把 wiki 字段名对齐到本表偏移，两个分母都算清楚）。
+工具：`tools/stratagem_field_align.py`、`tools/probe_stratagem_fields.py`。
 
 ## 8. 还没解决的
 
@@ -251,7 +280,7 @@ MISSIONS / EMPLACEMENTS / SENTRYS / PRESIDENT REWARDS 上，横跨 wiki 全部�
   所以 `+60` 的 0–7 各自是什么分类仍然不知道。
 * **`+56` 的 4 个值含义未定**。
 * **`+392 = 面板格`的 UI 语义未实测**（见 §5 的边界说明）。
-* `+84` / `+96` 未定。
+* `+96` 未定。
 * 上一版曾提出"用 `+0` 的 `StratagemType` 值反查名字表"这条路——**不需要了**，`+16` 直接给了名字。
 
 ## 9. 复现

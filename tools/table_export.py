@@ -70,7 +70,8 @@ LAYOUTS = {
     "stratagem_settings": {
         "stride": 400,
         "fields": {0: "StratagemType", 60: "StratagemCategoryType",
-                   64: "StratagemButtonDirection", 80: "max_uses", 104: "cooldown_s",
+                   64: "StratagemButtonDirection", 80: "max_uses", 84: "callin_time_s",
+                   104: "cooldown_s",
                    112: "StratagemOriginType", 116: "StratagemCallInType",
                    120: "StratagemCallInLogic", 124: "StratagemObjectiveDropRequirement",
                    148: "StratagemCooldownType", 184: "StratagemHUDType",
@@ -129,7 +130,7 @@ POINTERS = {
 # Offsets whose f32 reading is the meaningful one, per table: the typelib marks primitives as type 0
 # and does not say whether a 4-byte slot is an int or a float, but the field maps below do know.
 FLOATS = {
-    "stratagem_settings": {104},                                     # cooldown_s
+    "stratagem_settings": {84, 104},                                 # call-in time, cooldown
     "projectile_settings": {24, 32, 36, 40, 44, 52, 56, 64, 88, 136,
                             148, 152, 160, 168, 184, 188, 192, 196, 200},
     "explosion_settings": {16, 20, 24, 28, 32},                      # radii / cone / camera shake
