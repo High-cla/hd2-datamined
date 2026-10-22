@@ -37,6 +37,9 @@
 `planet_override` 44、`language` 15、`stratagem_upgrade` 1。抽出来的名字在
 `refs/table-row-names.json`，工具是 `tools/table_row_names.py`。
 
+**整表导出**：`tools/table_export.py` 把一张表导成 CSV + Markdown（名字 + 每字段 hex/f32 + 字段统计），
+首张产物在 `refs/exports/weapon-customization-rows.csv|md`（252 行 × 13 字段，行名就是弹药名）。
+
 样例（都是表里原样读出来的）：
 
 | 表 | 前几条名字 |
