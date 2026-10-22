@@ -48,7 +48,11 @@ import sys
 HEADER = 48
 DESCRIPTOR = 16
 STRIDE = 400
-UPPER_PTR, NAME_ID, DESC_ID = 40, 44, 48
+# 五个相邻的本地化 ID 槽，全部由 tools/table_locid_scan.py 的命中率检验确认（覆盖数见该工具输出）：
+#   +40 大写名  145/153      +44 显示名  135/153      +48 描述
+#   +52 长描述（fluff，大量条目标着 [NOT IMPLEMENTED]）
+#   +56 状态标签（EQUIPPING / CHARGING / FUELING / PREPARING，整表只有 3 个不同值）
+UPPER_ID, NAME_ID, DESC_ID, FLUFF_ID, STATE_ID = 40, 44, 48, 52, 56
 MAGIC = b"\xae\xf3\x85>"
 
 
@@ -82,12 +86,17 @@ def thin(text: str) -> int:
     return (murmur64a(text.encode()) >> 32) & 0xFFFFFFFF
 
 
-def load_strings(directory: pathlib.Path, language: str) -> dict[int, str]:
-    """id -> text for one language, over every .strings blob found under `directory`."""
+def load_strings(directories, language: str) -> dict[int, str]:
+    """id -> text for one language, over every .strings blob found under `directories`."""
     want = thin(language)
     table: dict[int, str] = {}
     blobs = scanned = 0
-    for path in sorted(directory.rglob("*")):
+    if isinstance(directories, (str, pathlib.Path)):
+        directories = [directories]
+    paths = []
+    for directory in directories:
+        paths.extend(sorted(pathlib.Path(directory).rglob("*")))
+    for path in paths:
         if not path.is_file():
             continue
         try:
@@ -123,7 +132,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--sk", required=True)
     ap.add_argument("--game", default=r"D:\SteamLibrary\steamapps\common\Helldivers 2")
-    ap.add_argument("--strings", required=True, help="directory of unpacked .strings blobs")
+    ap.add_argument("--strings", required=True, action="append",
+                    help="directory of unpacked .strings blobs (repeatable)")
     ap.add_argument("--language", default="us")
     ap.add_argument("--out", default="refs/stratagem-display-names.json")
     ap.add_argument("--wiki-db", default="refs/wiki/wiki.sqlite",
@@ -132,7 +142,7 @@ def main() -> int:
 
     from nacl.public import PrivateKey, SealedBox
 
-    table = load_strings(pathlib.Path(a.strings), a.language)
+    table = load_strings(a.strings, a.language)
 
     game = pathlib.Path(a.game) / "data" / "game"
     box = SealedBox(PrivateKey(pathlib.Path(a.sk).read_bytes().ljust(32, b"\0")[:32]))
@@ -166,23 +176,57 @@ def main() -> int:
                     raw = plain[at_text:end]
                     if all(32 <= b <= 126 for b in raw):
                         display = raw.decode("ascii")
-            upper_id = struct.unpack_from("<I", plain, row + UPPER_PTR)[0]
+            upper_id = struct.unpack_from("<I", plain, row + UPPER_ID)[0]
             name_id = struct.unpack_from("<I", plain, row + NAME_ID)[0]
             desc_id = struct.unpack_from("<I", plain, row + DESC_ID)[0]
+            fluff_id = struct.unpack_from("<I", plain, row + FLUFF_ID)[0]
+            state_id = struct.unpack_from("<I", plain, row + STATE_ID)[0]
             rows.append({
                 "internal_name": display,
                 "name_id": name_id,
                 "upper_id": upper_id,
                 "desc_id": desc_id,
+                "fluff_id": fluff_id,
+                "state_id": state_id,
                 "upper": table.get(upper_id, ""),
                 "display_name": table.get(name_id, ""),
                 "description": table.get(desc_id, ""),
+                "fluff": table.get(fluff_id, ""),
+                "state": table.get(state_id, ""),
                 "cells": {"type_value": struct.unpack_from("<I", plain, row)[0],
                           "uses": struct.unpack_from("<I", plain, row + 80)[0],
                           "callin": round(struct.unpack_from("<f", plain, row + 84)[0], 3),
                           "cooldown": round(struct.unpack_from("<f", plain, row + 104)[0], 3),
                           "cell": struct.unpack_from("<I", plain, row + 392)[0]},
             })
+
+    # ---- 死引用回填 -------------------------------------------------------------
+    # 少数行（18/153）的 +44 指向的 ID 在整个语料里不存在 —— 不是"还没解到"，是同文本条目
+    # 换了 ID（见 docs/LOCID-NAMES-25988413.md）。这类行的处理顺序：
+    #   1) +44 解得出        -> display_source = "name_id"
+    #   2) 语料里存在同文本但大小写不同的条目 -> 用它，display_source = "case_variant"
+    #   3) 只有大写名        -> 用大写名，display_source = "upper_fallback"（任务物件在 HUD 上就是大写）
+    #   4) 都没有            -> 留空，display_source = ""
+    reverse: dict[str, list[tuple[int, str]]] = {}
+    for ident, text in table.items():
+        reverse.setdefault(text.strip().lower(), []).append((ident, text))
+    for row in rows:
+        if row["display_name"]:
+            row["display_source"] = "name_id"
+            continue
+        row["display_source"] = ""
+        upper = row["upper"].strip()
+        if not upper:
+            continue
+        variants = [(i, t) for i, t in reverse.get(upper.lower(), []) if t != upper]
+        if len(variants) == 1:
+            row["display_name"] = variants[0][1]
+            row["display_source"] = "case_variant"
+            row["display_id_used"] = variants[0][0]
+        else:
+            row["display_name"] = upper
+            row["display_source"] = "upper_fallback"
+        row["dead_name_id"] = True
 
     db_path = pathlib.Path(a.wiki_db)
     if db_path.is_file():
@@ -216,17 +260,27 @@ def main() -> int:
     named = [r for r in rows if r["display_name"]]
     out = pathlib.Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps({"count": len(rows), "named": len(named), "rows": rows},
+    counts = {field: sum(1 for r in rows if r[field])
+              for field in ("upper", "display_name", "description", "fluff", "state")}
+    sources = {}
+    for r in rows:
+        sources[r.get("display_source", "")] = sources.get(r.get("display_source", ""), 0) + 1
+    out.write_text(json.dumps({"count": len(rows), "named": len(named), "covered": counts,
+                               "display_sources": sources, "rows": rows},
                               indent=1, ensure_ascii=False), encoding="utf-8")
-    print(f"rows {len(rows)}   display name recovered {len(named)}/{len(rows)}   -> {out}")
+    print(f"rows {len(rows)}   slots covered: " +
+          "  ".join(f"{k}={v}" for k, v in counts.items()) + f"   -> {out}")
+    print("display_name 来源: " + "  ".join(f"{k or '(空)'}={v}" for k, v in
+                                            sorted(sources.items(), key=lambda kv: -kv[1])))
     print("\nsample:")
     for r in rows[:12]:
         print(f"  {r['internal_name']:<40} -> {r['display_name']!r:<30} "
               f"(upper {r['upper']!r})")
-    missing = [r["internal_name"] for r in rows if not r["display_name"]]
+    missing = [f"{r['internal_name']} [{r['name_id']:#010x}]"
+               for r in rows if not r["display_name"]]
     if missing:
-        print(f"\nnot resolved ({len(missing)}) — ids live in bundles not unpacked yet:")
-        print("  " + ", ".join(missing[:10]) + (" ..." if len(missing) > 10 else ""))
+        print(f"\n没有任何名字的行（{len(missing)}）—— 这些行连大写名都没有：")
+        print("  " + ", ".join(missing))
     return 0
 
 

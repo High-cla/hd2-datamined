@@ -1,0 +1,7159 @@
+{
+ "strings": {
+  "blobs_scanned": 264,
+  "blobs_used": 18,
+  "ids": 24834
+ },
+ "explosions": 424,
+ "named": 103,
+ "unique_name": 97,
+ "shared_name": 6,
+ "projectiles_named": 225,
+ "links": 210,
+ "dangling_links": [],
+ "rows": [
+  {
+   "group": 0,
+   "row": 0,
+   "type_id": 275,
+   "damage_id": 298,
+   "r1_inner": 4.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 11.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 1,
+   "type_id": 359,
+   "damage_id": 5,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 11.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 2,
+   "type_id": 310,
+   "damage_id": 301,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 3,
+   "type_id": 71,
+   "damage_id": 301,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 4,
+   "type_id": 138,
+   "damage_id": 304,
+   "r1_inner": 1.5,
+   "r2_outer": 3.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 5,
+   "type_id": 265,
+   "damage_id": 305,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 6,
+   "type_id": 296,
+   "damage_id": 303,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 7,
+   "type_id": 231,
+   "damage_id": 306,
+   "r1_inner": 10.0,
+   "r2_outer": 17.0,
+   "r3_shockwave": 22.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 8,
+   "type_id": 408,
+   "damage_id": 300,
+   "r1_inner": 1.5,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 9,
+   "type_id": 118,
+   "damage_id": 301,
+   "r1_inner": 1.0,
+   "r2_outer": 2.2,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 14,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 16,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 24,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 10,
+   "type_id": 345,
+   "damage_id": 308,
+   "r1_inner": 2.25,
+   "r2_outer": 6.0,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 15,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 11,
+   "type_id": 123,
+   "damage_id": 416,
+   "r1_inner": 5.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 12,
+   "type_id": 262,
+   "damage_id": 307,
+   "r1_inner": 1.0,
+   "r2_outer": 2.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 13,
+   "type_id": 112,
+   "damage_id": 332,
+   "r1_inner": 0.3,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 14,
+   "type_id": 66,
+   "damage_id": 427,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 15,
+   "type_id": 6,
+   "damage_id": 482,
+   "r1_inner": 1.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 14.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 29,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 16,
+   "type_id": 356,
+   "damage_id": 483,
+   "r1_inner": 7.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 22,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 17,
+   "type_id": 116,
+   "damage_id": 485,
+   "r1_inner": 3.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 25,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 26,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 18,
+   "type_id": 24,
+   "damage_id": 484,
+   "r1_inner": 20.2,
+   "r2_outer": 30.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 23,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 19,
+   "type_id": 276,
+   "damage_id": 298,
+   "r1_inner": 5.0,
+   "r2_outer": 15.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 20,
+   "type_id": 200,
+   "damage_id": 298,
+   "r1_inner": 7.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 21,
+   "type_id": 196,
+   "damage_id": 299,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 22,
+   "type_id": 34,
+   "damage_id": 428,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 23,
+   "type_id": 329,
+   "damage_id": 454,
+   "r1_inner": 1.2,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 24,
+   "type_id": 252,
+   "damage_id": 351,
+   "r1_inner": 1.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 72,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 72,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    },
+    {
+     "projectile_row": 84,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 84,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 25,
+   "type_id": 33,
+   "damage_id": 348,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 71,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 71,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 26,
+   "type_id": 314,
+   "damage_id": 454,
+   "r1_inner": 1.2,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 69,
+     "name": "40mm HE Mortar",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "40mm HE Mortar"
+   ],
+   "name": "40mm HE Mortar"
+  },
+  {
+   "group": 0,
+   "row": 27,
+   "type_id": 398,
+   "damage_id": 471,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 54,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 28,
+   "type_id": 373,
+   "damage_id": 454,
+   "r1_inner": 0.6,
+   "r2_outer": 3.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 70,
+     "name": "40mm HE Mortar",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "40mm HE Mortar"
+   ],
+   "name": "40mm HE Mortar"
+  },
+  {
+   "group": 0,
+   "row": 29,
+   "type_id": 382,
+   "damage_id": 473,
+   "r1_inner": 1.2,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 55,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 30,
+   "type_id": 107,
+   "damage_id": 474,
+   "r1_inner": 1.2,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 57,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 31,
+   "type_id": 9,
+   "damage_id": 473,
+   "r1_inner": 1.2,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 56,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 32,
+   "type_id": 244,
+   "damage_id": 429,
+   "r1_inner": 1.0,
+   "r2_outer": 1.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 59,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 59,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 33,
+   "type_id": 91,
+   "damage_id": 436,
+   "r1_inner": 0.65,
+   "r2_outer": 1.65,
+   "r3_shockwave": 3.15,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 61,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 34,
+   "type_id": 27,
+   "damage_id": 436,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 3.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 62,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 35,
+   "type_id": 263,
+   "damage_id": 369,
+   "r1_inner": 1.2,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 36,
+   "type_id": 142,
+   "damage_id": 593,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 37,
+   "type_id": 239,
+   "damage_id": 590,
+   "r1_inner": 1.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 38,
+   "type_id": 145,
+   "damage_id": 584,
+   "r1_inner": 5.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 39,
+   "type_id": 253,
+   "damage_id": 0,
+   "r1_inner": 10.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 40,
+   "type_id": 292,
+   "damage_id": 472,
+   "r1_inner": 1.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 63,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 64,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 41,
+   "type_id": 15,
+   "damage_id": 472,
+   "r1_inner": 2.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 65,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 42,
+   "type_id": 410,
+   "damage_id": 472,
+   "r1_inner": 2.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 66,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 43,
+   "type_id": 392,
+   "damage_id": 476,
+   "r1_inner": 2.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 67,
+     "name": "40mm HE Mortar",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "40mm HE Mortar"
+   ],
+   "name": "40mm HE Mortar"
+  },
+  {
+   "group": 0,
+   "row": 44,
+   "type_id": 340,
+   "damage_id": 471,
+   "r1_inner": 0.4,
+   "r2_outer": 2.0,
+   "r3_shockwave": 1.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 45,
+   "type_id": 40,
+   "damage_id": 366,
+   "r1_inner": 0.4,
+   "r2_outer": 4.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 46,
+   "type_id": 143,
+   "damage_id": 337,
+   "r1_inner": 0.4,
+   "r2_outer": 4.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 47,
+   "type_id": 271,
+   "damage_id": 423,
+   "r1_inner": 1.6,
+   "r2_outer": 4.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 48,
+   "type_id": 10,
+   "damage_id": 358,
+   "r1_inner": 1.6,
+   "r2_outer": 8.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 49,
+   "type_id": 402,
+   "damage_id": 358,
+   "r1_inner": 1.6,
+   "r2_outer": 8.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 50,
+   "type_id": 272,
+   "damage_id": 360,
+   "r1_inner": 0.9,
+   "r2_outer": 1.0,
+   "r3_shockwave": 1.1,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 51,
+   "type_id": 385,
+   "damage_id": 358,
+   "r1_inner": 1.6,
+   "r2_outer": 8.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 52,
+   "type_id": 39,
+   "damage_id": 358,
+   "r1_inner": 2.4,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 53,
+   "type_id": 114,
+   "damage_id": 358,
+   "r1_inner": 2.4,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 54,
+   "type_id": 404,
+   "damage_id": 427,
+   "r1_inner": 2.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 55,
+   "type_id": 202,
+   "damage_id": 427,
+   "r1_inner": 2.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 56,
+   "type_id": 93,
+   "damage_id": 427,
+   "r1_inner": 2.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 57,
+   "type_id": 13,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 58,
+   "type_id": 2,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 59,
+   "type_id": 103,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 60,
+   "type_id": 215,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 61,
+   "type_id": 218,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 62,
+   "type_id": 153,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 63,
+   "type_id": 324,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 64,
+   "type_id": 37,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 65,
+   "type_id": 346,
+   "damage_id": 441,
+   "r1_inner": 3.6,
+   "r2_outer": 18.0,
+   "r3_shockwave": 25.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 66,
+   "type_id": 130,
+   "damage_id": 443,
+   "r1_inner": 5.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 67,
+   "type_id": 81,
+   "damage_id": 443,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 68,
+   "type_id": 306,
+   "damage_id": 443,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 69,
+   "type_id": 387,
+   "damage_id": 443,
+   "r1_inner": 4.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 16.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 70,
+   "type_id": 228,
+   "damage_id": 443,
+   "r1_inner": 4.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 16.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 71,
+   "type_id": 58,
+   "damage_id": 443,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 72,
+   "type_id": 421,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 73,
+   "type_id": 35,
+   "damage_id": 443,
+   "r1_inner": 4.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 16.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 74,
+   "type_id": 225,
+   "damage_id": 296,
+   "r1_inner": 4.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 16.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 75,
+   "type_id": 43,
+   "damage_id": 361,
+   "r1_inner": 0.8,
+   "r2_outer": 8.0,
+   "r3_shockwave": 25.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 76,
+   "type_id": 210,
+   "damage_id": 475,
+   "r1_inner": 2.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 17.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 79,
+     "name": "380mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "380mm HE Cannon Round"
+   ],
+   "name": "380mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 77,
+   "type_id": 257,
+   "damage_id": 345,
+   "r1_inner": 4.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 14.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 78,
+   "type_id": 8,
+   "damage_id": 346,
+   "r1_inner": 4.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 14.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 79,
+   "type_id": 44,
+   "damage_id": 347,
+   "r1_inner": 2.5,
+   "r2_outer": 5.0,
+   "r3_shockwave": 14.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 105,
+     "name": "Cluster Bomb",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 105,
+     "name": "Cluster Bomb",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "Cluster Bomb"
+   ],
+   "name": "Cluster Bomb"
+  },
+  {
+   "group": 0,
+   "row": 80,
+   "type_id": 220,
+   "damage_id": 289,
+   "r1_inner": 1.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 81,
+   "type_id": 370,
+   "damage_id": 290,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 1.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 82,
+   "type_id": 414,
+   "damage_id": 290,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 1.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 83,
+   "type_id": 224,
+   "damage_id": 348,
+   "r1_inner": 1.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 84,
+   "type_id": 32,
+   "damage_id": 349,
+   "r1_inner": 4.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 85,
+   "type_id": 318,
+   "damage_id": 348,
+   "r1_inner": 1.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 86,
+   "type_id": 69,
+   "damage_id": 350,
+   "r1_inner": 1.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 87,
+   "type_id": 201,
+   "damage_id": 352,
+   "r1_inner": 1.5,
+   "r2_outer": 2.5,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 88,
+   "type_id": 411,
+   "damage_id": 33,
+   "r1_inner": 2.5,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 89,
+   "type_id": 176,
+   "damage_id": 367,
+   "r1_inner": 2.5,
+   "r2_outer": 7.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 90,
+   "type_id": 330,
+   "damage_id": 302,
+   "r1_inner": 2.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 91,
+   "type_id": 342,
+   "damage_id": 368,
+   "r1_inner": 2.5,
+   "r2_outer": 7.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 325,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 92,
+   "type_id": 45,
+   "damage_id": 311,
+   "r1_inner": 0.5,
+   "r2_outer": 2.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 290,
+     "name": "10g Fragmentation",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "10g Fragmentation"
+   ],
+   "name": "10g Fragmentation"
+  },
+  {
+   "group": 0,
+   "row": 93,
+   "type_id": 305,
+   "damage_id": 312,
+   "r1_inner": 1.0,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 94,
+   "type_id": 389,
+   "damage_id": 313,
+   "r1_inner": 1.0,
+   "r2_outer": 3.5,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 263,
+     "name": "15x100mm Standard Rocket",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "15x100mm Standard Rocket"
+   ],
+   "name": "15x100mm Standard Rocket"
+  },
+  {
+   "group": 0,
+   "row": 95,
+   "type_id": 355,
+   "damage_id": 315,
+   "r1_inner": 0.75,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 312,
+     "name": "Small Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Small Plasma Bolt"
+   ],
+   "name": "Small Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 96,
+   "type_id": 155,
+   "damage_id": 316,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 313,
+     "name": "Medium Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 315,
+     "name": "Volatile Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Medium Plasma Bolt",
+    "Volatile Plasma Bolt"
+   ],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 97,
+   "type_id": 349,
+   "damage_id": 317,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 315,
+     "name": "Volatile Plasma Bolt",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "Volatile Plasma Bolt"
+   ],
+   "name": "Volatile Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 98,
+   "type_id": 415,
+   "damage_id": 319,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 314,
+     "name": "Medium Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Medium Plasma Bolt"
+   ],
+   "name": "Medium Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 99,
+   "type_id": 378,
+   "damage_id": 321,
+   "r1_inner": 2.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 316,
+     "name": "Large Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Large Plasma Bolt"
+   ],
+   "name": "Large Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 100,
+   "type_id": 197,
+   "damage_id": 324,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 310,
+     "name": "Small Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Small Plasma Bolt"
+   ],
+   "name": "Small Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 101,
+   "type_id": 126,
+   "damage_id": 325,
+   "r1_inner": 2.9,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 311,
+     "name": "Small Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Small Plasma Bolt"
+   ],
+   "name": "Small Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 102,
+   "type_id": 195,
+   "damage_id": 322,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 317,
+     "name": "Volatile Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Volatile Plasma Bolt"
+   ],
+   "name": "Volatile Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 103,
+   "type_id": 191,
+   "damage_id": 323,
+   "r1_inner": 2.9,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 318,
+     "name": "Large Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Large Plasma Bolt"
+   ],
+   "name": "Large Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 104,
+   "type_id": 290,
+   "damage_id": 321,
+   "r1_inner": 2.3,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 319,
+     "name": "Large Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Large Plasma Bolt"
+   ],
+   "name": "Large Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 105,
+   "type_id": 227,
+   "damage_id": 67,
+   "r1_inner": 2.3,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 320,
+     "name": "Large Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 320,
+     "name": "Large Plasma Bolt",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "Large Plasma Bolt"
+   ],
+   "name": "Large Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 106,
+   "type_id": 409,
+   "damage_id": 68,
+   "r1_inner": 3.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 321,
+     "name": "Large Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 321,
+     "name": "Large Plasma Bolt",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "Large Plasma Bolt"
+   ],
+   "name": "Large Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 107,
+   "type_id": 321,
+   "damage_id": 68,
+   "r1_inner": 3.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 108,
+   "type_id": 279,
+   "damage_id": 327,
+   "r1_inner": 7.9,
+   "r2_outer": 8.0,
+   "r3_shockwave": 8.1,
+   "cone_angle": 25.0,
+   "consumers": [
+    {
+     "projectile_row": 322,
+     "name": "Large Plasma Bolt",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 322,
+     "name": "Large Plasma Bolt",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "Large Plasma Bolt"
+   ],
+   "name": "Large Plasma Bolt"
+  },
+  {
+   "group": 0,
+   "row": 109,
+   "type_id": 59,
+   "damage_id": 219,
+   "r1_inner": 3.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 257,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 110,
+   "type_id": 127,
+   "damage_id": 352,
+   "r1_inner": 1.5,
+   "r2_outer": 2.5,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 111,
+   "type_id": 362,
+   "damage_id": 385,
+   "r1_inner": 3.5,
+   "r2_outer": 7.5,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 81,
+     "name": "40mm HE Grenade",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 81,
+     "name": "40mm HE Grenade",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "40mm HE Grenade"
+   ],
+   "name": "40mm HE Grenade"
+  },
+  {
+   "group": 0,
+   "row": 112,
+   "type_id": 199,
+   "damage_id": 385,
+   "r1_inner": 2.25,
+   "r2_outer": 6.5,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 83,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 83,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    },
+    {
+     "projectile_row": 86,
+     "name": "40mm HEAT Grenade",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 86,
+     "name": "40mm HEAT Grenade",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "40mm HEAT Grenade"
+   ],
+   "name": "40mm HEAT Grenade"
+  },
+  {
+   "group": 0,
+   "row": 113,
+   "type_id": 268,
+   "damage_id": 386,
+   "r1_inner": 2.25,
+   "r2_outer": 5.5,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 82,
+     "name": "40mm HE Grenade",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 82,
+     "name": "40mm HE Grenade",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "40mm HE Grenade"
+   ],
+   "name": "40mm HE Grenade"
+  },
+  {
+   "group": 0,
+   "row": 114,
+   "type_id": 327,
+   "damage_id": 384,
+   "r1_inner": 2.25,
+   "r2_outer": 6.5,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 85,
+     "name": "40mm HEAT Grenade",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 85,
+     "name": "40mm HEAT Grenade",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "40mm HEAT Grenade"
+   ],
+   "name": "40mm HEAT Grenade"
+  },
+  {
+   "group": 0,
+   "row": 115,
+   "type_id": 164,
+   "damage_id": 292,
+   "r1_inner": 1.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 87,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 87,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 116,
+   "type_id": 347,
+   "damage_id": 388,
+   "r1_inner": 2.5,
+   "r2_outer": 8.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 40.0,
+   "consumers": [
+    {
+     "projectile_row": 89,
+     "name": "40mm Proximity Grenade",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 121,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "40mm Proximity Grenade"
+   ],
+   "name": "40mm Proximity Grenade"
+  },
+  {
+   "group": 0,
+   "row": 117,
+   "type_id": 152,
+   "damage_id": 348,
+   "r1_inner": 1.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 118,
+   "type_id": 361,
+   "damage_id": 389,
+   "r1_inner": 3.0,
+   "r2_outer": 9.0,
+   "r3_shockwave": 13.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 90,
+     "name": "40mm HE Mortar",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "40mm HE Mortar"
+   ],
+   "name": "40mm HE Mortar"
+  },
+  {
+   "group": 0,
+   "row": 119,
+   "type_id": 181,
+   "damage_id": 463,
+   "r1_inner": 1.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 91,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 120,
+   "type_id": 294,
+   "damage_id": 430,
+   "r1_inner": 3.0,
+   "r2_outer": 7.5,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 97,
+     "name": "85mm High-Explosive Grenade",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "85mm High-Explosive Grenade"
+   ],
+   "name": "85mm High-Explosive Grenade"
+  },
+  {
+   "group": 0,
+   "row": 121,
+   "type_id": 110,
+   "damage_id": 431,
+   "r1_inner": 3.3,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 98,
+     "name": "85mm High-Explosive Grenade Mk2",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "85mm High-Explosive Grenade Mk2"
+   ],
+   "name": "85mm High-Explosive Grenade Mk2"
+  },
+  {
+   "group": 0,
+   "row": 122,
+   "type_id": 248,
+   "damage_id": 391,
+   "r1_inner": 1.5,
+   "r2_outer": 3.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 99,
+     "name": "85mm HEAT Grenade",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "85mm HEAT Grenade"
+   ],
+   "name": "85mm HEAT Grenade"
+  },
+  {
+   "group": 0,
+   "row": 123,
+   "type_id": 236,
+   "damage_id": 391,
+   "r1_inner": 1.5,
+   "r2_outer": 3.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 100,
+     "name": "85mm HEAT Grenade Mk2",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "85mm HEAT Grenade Mk2"
+   ],
+   "name": "85mm HEAT Grenade Mk2"
+  },
+  {
+   "group": 0,
+   "row": 124,
+   "type_id": 377,
+   "damage_id": 392,
+   "r1_inner": 1.5,
+   "r2_outer": 3.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 93,
+     "name": "75mm HEAT Grenade",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "75mm HEAT Grenade"
+   ],
+   "name": "75mm HEAT Grenade"
+  },
+  {
+   "group": 0,
+   "row": 125,
+   "type_id": 46,
+   "damage_id": 392,
+   "r1_inner": 3.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 96,
+     "name": "75mm HEAT Grenade",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 349,
+     "name": "75mm HEAT Grenade",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "75mm HEAT Grenade"
+   ],
+   "name": "75mm HEAT Grenade"
+  },
+  {
+   "group": 0,
+   "row": 126,
+   "type_id": 381,
+   "damage_id": 356,
+   "r1_inner": 2.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 31,
+     "name": "20mm Flak Rounds",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 259,
+     "name": "15x100mm High Explosive",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 259,
+     "name": "15x100mm High Explosive",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "20mm Flak Rounds",
+    "15x100mm High Explosive"
+   ],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 127,
+   "type_id": 158,
+   "damage_id": 357,
+   "r1_inner": 4.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 268,
+     "name": "15x100mm High Explosive",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 268,
+     "name": "15x100mm High Explosive",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "15x100mm High Explosive"
+   ],
+   "name": "15x100mm High Explosive"
+  },
+  {
+   "group": 0,
+   "row": 128,
+   "type_id": 394,
+   "damage_id": 38,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 5.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 80,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 129,
+   "type_id": 406,
+   "damage_id": 380,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 5.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 30,
+     "name": "20mm APHET Rounds",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "20mm APHET Rounds"
+   ],
+   "name": "20mm APHET Rounds"
+  },
+  {
+   "group": 0,
+   "row": 130,
+   "type_id": 67,
+   "damage_id": 395,
+   "r1_inner": 1.5,
+   "r2_outer": 3.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 336,
+     "name": "Laser",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Laser"
+   ],
+   "name": "Laser"
+  },
+  {
+   "group": 0,
+   "row": 131,
+   "type_id": 64,
+   "damage_id": 398,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 338,
+     "name": "Laser",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 339,
+     "name": "Laser",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Laser"
+   ],
+   "name": "Laser"
+  },
+  {
+   "group": 0,
+   "row": 132,
+   "type_id": 128,
+   "damage_id": 379,
+   "r1_inner": 1.5,
+   "r2_outer": 4.5,
+   "r3_shockwave": 5.8,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 33,
+     "name": "20mm HE Cannon",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "20mm HE Cannon"
+   ],
+   "name": "20mm HE Cannon"
+  },
+  {
+   "group": 0,
+   "row": 133,
+   "type_id": 247,
+   "damage_id": 377,
+   "r1_inner": 1.5,
+   "r2_outer": 4.5,
+   "r3_shockwave": 6.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 134,
+   "type_id": 266,
+   "damage_id": 377,
+   "r1_inner": 1.5,
+   "r2_outer": 4.5,
+   "r3_shockwave": 6.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 42,
+     "name": "23mm HE Cannon",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "23mm HE Cannon"
+   ],
+   "name": "23mm HE Cannon"
+  },
+  {
+   "group": 0,
+   "row": 135,
+   "type_id": 375,
+   "damage_id": 377,
+   "r1_inner": 2.5,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 37,
+     "name": "23mm HE Cannon",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "23mm HE Cannon"
+   ],
+   "name": "23mm HE Cannon"
+  },
+  {
+   "group": 0,
+   "row": 136,
+   "type_id": 50,
+   "damage_id": 377,
+   "r1_inner": 2.5,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 38,
+     "name": "23mm HE Cannon",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "23mm HE Cannon"
+   ],
+   "name": "23mm HE Cannon"
+  },
+  {
+   "group": 0,
+   "row": 137,
+   "type_id": 108,
+   "damage_id": 378,
+   "r1_inner": 2.5,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 40,
+     "name": "23mm HE Cannon",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "23mm HE Cannon"
+   ],
+   "name": "23mm HE Cannon"
+  },
+  {
+   "group": 0,
+   "row": 138,
+   "type_id": 235,
+   "damage_id": 381,
+   "r1_inner": 1.5,
+   "r2_outer": 4.5,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 34,
+     "name": "30mm APHE Cannon",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "30mm APHE Cannon"
+   ],
+   "name": "30mm APHE Cannon"
+  },
+  {
+   "group": 0,
+   "row": 139,
+   "type_id": 36,
+   "damage_id": 382,
+   "r1_inner": 3.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 35,
+     "name": "40mm Flak Cannon",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "40mm Flak Cannon"
+   ],
+   "name": "40mm Flak Cannon"
+  },
+  {
+   "group": 0,
+   "row": 140,
+   "type_id": 234,
+   "damage_id": 383,
+   "r1_inner": 2.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 36,
+     "name": "40mm APHE Cannon",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "40mm APHE Cannon"
+   ],
+   "name": "40mm APHE Cannon"
+  },
+  {
+   "group": 0,
+   "row": 141,
+   "type_id": 380,
+   "damage_id": 399,
+   "r1_inner": 0.2,
+   "r2_outer": 0.5,
+   "r3_shockwave": 4.0,
+   "cone_angle": 27.0,
+   "consumers": [
+    {
+     "projectile_row": 133,
+     "name": "110mm Airburst Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 133,
+     "name": "110mm Airburst Cannon Round",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "110mm Airburst Cannon Round"
+   ],
+   "name": "110mm Airburst Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 142,
+   "type_id": 222,
+   "damage_id": 400,
+   "r1_inner": 0.2,
+   "r2_outer": 0.5,
+   "r3_shockwave": 4.0,
+   "cone_angle": 35.0,
+   "consumers": [
+    {
+     "projectile_row": 134,
+     "name": "110mm Airburst Cannon Round Mk2",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 134,
+     "name": "110mm Airburst Cannon Round Mk2",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "110mm Airburst Cannon Round Mk2"
+   ],
+   "name": "110mm Airburst Cannon Round Mk2"
+  },
+  {
+   "group": 0,
+   "row": 143,
+   "type_id": 213,
+   "damage_id": 457,
+   "r1_inner": 3.3,
+   "r2_outer": 10.0,
+   "r3_shockwave": 11.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 135,
+     "name": "120mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "120mm HE Cannon Round"
+   ],
+   "name": "120mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 144,
+   "type_id": 177,
+   "damage_id": 457,
+   "r1_inner": 3.3,
+   "r2_outer": 10.0,
+   "r3_shockwave": 11.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 136,
+     "name": "120mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "120mm HE Cannon Round"
+   ],
+   "name": "120mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 145,
+   "type_id": 301,
+   "damage_id": 456,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 75,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 137,
+     "name": "380mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 138,
+     "name": "380mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "380mm HE Cannon Round"
+   ],
+   "name": "380mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 146,
+   "type_id": 287,
+   "damage_id": 456,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 76,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 147,
+   "type_id": 5,
+   "damage_id": 456,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 139,
+     "name": "380mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "380mm HE Cannon Round"
+   ],
+   "name": "380mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 148,
+   "type_id": 343,
+   "damage_id": 458,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 142,
+     "name": "380mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "380mm HE Cannon Round"
+   ],
+   "name": "380mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 149,
+   "type_id": 94,
+   "damage_id": 456,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 143,
+     "name": "380mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "380mm HE Cannon Round"
+   ],
+   "name": "380mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 150,
+   "type_id": 77,
+   "damage_id": 456,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 144,
+     "name": "380mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "380mm HE Cannon Round"
+   ],
+   "name": "380mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 151,
+   "type_id": 282,
+   "damage_id": 456,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 145,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 152,
+   "type_id": 341,
+   "damage_id": 291,
+   "r1_inner": 2.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 25.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 146,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 153,
+   "type_id": 146,
+   "damage_id": 291,
+   "r1_inner": 2.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 25.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 154,
+   "type_id": 63,
+   "damage_id": 276,
+   "r1_inner": 3.3,
+   "r2_outer": 10.0,
+   "r3_shockwave": 11.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 140,
+     "name": "120mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "120mm HE Cannon Round"
+   ],
+   "name": "120mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 155,
+   "type_id": 74,
+   "damage_id": 276,
+   "r1_inner": 3.3,
+   "r2_outer": 10.0,
+   "r3_shockwave": 11.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 141,
+     "name": "120mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "120mm HE Cannon Round"
+   ],
+   "name": "120mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 156,
+   "type_id": 188,
+   "damage_id": 463,
+   "r1_inner": 1.0,
+   "r2_outer": 13.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 148,
+     "name": "110mm E.M.S. Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "110mm E.M.S. Cannon Round"
+   ],
+   "name": "110mm E.M.S. Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 157,
+   "type_id": 23,
+   "damage_id": 463,
+   "r1_inner": 1.0,
+   "r2_outer": 13.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 149,
+     "name": "110mm E.M.S. Cannon Round Mk2",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "110mm E.M.S. Cannon Round Mk2"
+   ],
+   "name": "110mm E.M.S. Cannon Round Mk2"
+  },
+  {
+   "group": 0,
+   "row": 158,
+   "type_id": 25,
+   "damage_id": 464,
+   "r1_inner": 1.0,
+   "r2_outer": 20.0,
+   "r3_shockwave": 25.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 150,
+     "name": "110mm E.M.S. Cannon Round Mk3",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "110mm E.M.S. Cannon Round Mk3"
+   ],
+   "name": "110mm E.M.S. Cannon Round Mk3"
+  },
+  {
+   "group": 0,
+   "row": 159,
+   "type_id": 82,
+   "damage_id": 459,
+   "r1_inner": 1.0,
+   "r2_outer": 15.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 151,
+     "name": "110mm Gas Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "110mm Gas Cannon Round"
+   ],
+   "name": "110mm Gas Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 160,
+   "type_id": 185,
+   "damage_id": 460,
+   "r1_inner": 2.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 92,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 161,
+   "type_id": 178,
+   "damage_id": 461,
+   "r1_inner": 2.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 162,
+   "type_id": 97,
+   "damage_id": 73,
+   "r1_inner": 2.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 324,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 163,
+   "type_id": 75,
+   "damage_id": 0,
+   "r1_inner": 12.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 9,
+     "name": "100kg Bomb",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 152,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "100kg Bomb"
+   ],
+   "name": "100kg Bomb"
+  },
+  {
+   "group": 0,
+   "row": 164,
+   "type_id": 245,
+   "damage_id": 0,
+   "r1_inner": 12.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 165,
+   "type_id": 391,
+   "damage_id": 0,
+   "r1_inner": 0.0,
+   "r2_outer": 0.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 1.0,
+   "consumers": [
+    {
+     "projectile_row": 153,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 153,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 166,
+   "type_id": 52,
+   "damage_id": 455,
+   "r1_inner": 2.5,
+   "r2_outer": 2.5,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 155,
+     "name": "Rail Cannon Round",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "Rail Cannon Round"
+   ],
+   "name": "Rail Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 167,
+   "type_id": 106,
+   "damage_id": 399,
+   "r1_inner": 3.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 307,
+     "name": "Shrapnel",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Shrapnel"
+   ],
+   "name": "Shrapnel"
+  },
+  {
+   "group": 0,
+   "row": 168,
+   "type_id": 162,
+   "damage_id": 399,
+   "r1_inner": 3.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 1,
+     "name": "Cluster Bomb",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Cluster Bomb"
+   ],
+   "name": "Cluster Bomb"
+  },
+  {
+   "group": 0,
+   "row": 169,
+   "type_id": 79,
+   "damage_id": 400,
+   "r1_inner": 1.6,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 308,
+     "name": "Shrapnel",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Shrapnel"
+   ],
+   "name": "Shrapnel"
+  },
+  {
+   "group": 0,
+   "row": 170,
+   "type_id": 88,
+   "damage_id": 490,
+   "r1_inner": 2.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 171,
+   "type_id": 113,
+   "damage_id": 437,
+   "r1_inner": 0.5,
+   "r2_outer": 0.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 172,
+   "type_id": 396,
+   "damage_id": 442,
+   "r1_inner": 1.3,
+   "r2_outer": 1.8,
+   "r3_shockwave": 1.8,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 173,
+   "type_id": 203,
+   "damage_id": 0,
+   "r1_inner": 5.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 174,
+   "type_id": 416,
+   "damage_id": 443,
+   "r1_inner": 4.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 16.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 175,
+   "type_id": 122,
+   "damage_id": 444,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 176,
+   "type_id": 84,
+   "damage_id": 445,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 177,
+   "type_id": 260,
+   "damage_id": 29,
+   "r1_inner": 17.0,
+   "r2_outer": 17.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 178,
+   "type_id": 89,
+   "damage_id": 29,
+   "r1_inner": 25.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 179,
+   "type_id": 31,
+   "damage_id": 29,
+   "r1_inner": 40.0,
+   "r2_outer": 40.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 180,
+   "type_id": 255,
+   "damage_id": 29,
+   "r1_inner": 40.0,
+   "r2_outer": 40.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 181,
+   "type_id": 163,
+   "damage_id": 29,
+   "r1_inner": 10.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 182,
+   "type_id": 105,
+   "damage_id": 353,
+   "r1_inner": 20.0,
+   "r2_outer": 20.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 183,
+   "type_id": 274,
+   "damage_id": 27,
+   "r1_inner": 20.0,
+   "r2_outer": 20.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 184,
+   "type_id": 286,
+   "damage_id": 27,
+   "r1_inner": 20.0,
+   "r2_outer": 20.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 185,
+   "type_id": 322,
+   "damage_id": 28,
+   "r1_inner": 9.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 186,
+   "type_id": 379,
+   "damage_id": 29,
+   "r1_inner": 28.0,
+   "r2_outer": 28.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 187,
+   "type_id": 101,
+   "damage_id": 29,
+   "r1_inner": 15.0,
+   "r2_outer": 15.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 188,
+   "type_id": 12,
+   "damage_id": 0,
+   "r1_inner": 5.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 189,
+   "type_id": 3,
+   "damage_id": 0,
+   "r1_inner": 5.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 190,
+   "type_id": 139,
+   "damage_id": 442,
+   "r1_inner": 1.8,
+   "r2_outer": 2.8,
+   "r3_shockwave": 2.8,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 191,
+   "type_id": 403,
+   "damage_id": 0,
+   "r1_inner": 5.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 192,
+   "type_id": 83,
+   "damage_id": 438,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 193,
+   "type_id": 335,
+   "damage_id": 439,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 194,
+   "type_id": 401,
+   "damage_id": 0,
+   "r1_inner": 5.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 195,
+   "type_id": 183,
+   "damage_id": 437,
+   "r1_inner": 0.5,
+   "r2_outer": 0.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 196,
+   "type_id": 219,
+   "damage_id": 440,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 197,
+   "type_id": 242,
+   "damage_id": 491,
+   "r1_inner": 17.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 45.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 198,
+   "type_id": 186,
+   "damage_id": 509,
+   "r1_inner": 35.0,
+   "r2_outer": 35.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 199,
+   "type_id": 149,
+   "damage_id": 509,
+   "r1_inner": 100.0,
+   "r2_outer": 100.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 200,
+   "type_id": 293,
+   "damage_id": 509,
+   "r1_inner": 50.0,
+   "r2_outer": 100.0,
+   "r3_shockwave": 100.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 201,
+   "type_id": 125,
+   "damage_id": 491,
+   "r1_inner": 17.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 45.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 202,
+   "type_id": 111,
+   "damage_id": 491,
+   "r1_inner": 17.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 45.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 203,
+   "type_id": 264,
+   "damage_id": 328,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 204,
+   "type_id": 204,
+   "damage_id": 329,
+   "r1_inner": 1.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 205,
+   "type_id": 307,
+   "damage_id": 330,
+   "r1_inner": 1.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 206,
+   "type_id": 291,
+   "damage_id": 330,
+   "r1_inner": 1.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 207,
+   "type_id": 216,
+   "damage_id": 295,
+   "r1_inner": 0.1,
+   "r2_outer": 0.2,
+   "r3_shockwave": 1.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 208,
+   "type_id": 269,
+   "damage_id": 362,
+   "r1_inner": 0.4,
+   "r2_outer": 2.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 209,
+   "type_id": 326,
+   "damage_id": 362,
+   "r1_inner": 0.4,
+   "r2_outer": 2.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 210,
+   "type_id": 419,
+   "damage_id": 399,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 45.0,
+   "consumers": [
+    {
+     "projectile_row": 0,
+     "name": "100kg Cluster Bomb",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "100kg Cluster Bomb"
+   ],
+   "name": "100kg Cluster Bomb"
+  },
+  {
+   "group": 0,
+   "row": 211,
+   "type_id": 194,
+   "damage_id": 433,
+   "r1_inner": 5.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 14.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 2,
+     "name": "100kg Bomb",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "100kg Bomb"
+   ],
+   "name": "100kg Bomb"
+  },
+  {
+   "group": 0,
+   "row": 212,
+   "type_id": 423,
+   "damage_id": 433,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 16.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 3,
+     "name": "100kg Bomb Mk2",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "100kg Bomb Mk2"
+   ],
+   "name": "100kg Bomb Mk2"
+  },
+  {
+   "group": 0,
+   "row": 213,
+   "type_id": 249,
+   "damage_id": 434,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 17.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 4,
+     "name": "100kg Bomb Mk3",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "100kg Bomb Mk3"
+   ],
+   "name": "100kg Bomb Mk3"
+  },
+  {
+   "group": 0,
+   "row": 214,
+   "type_id": 14,
+   "damage_id": 401,
+   "r1_inner": 1.6,
+   "r2_outer": 8.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 5,
+     "name": "Napalm Bomb",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Napalm Bomb"
+   ],
+   "name": "Napalm Bomb"
+  },
+  {
+   "group": 0,
+   "row": 215,
+   "type_id": 360,
+   "damage_id": 401,
+   "r1_inner": 2.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 6,
+     "name": "Napalm Bomb Mk2",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Napalm Bomb Mk2"
+   ],
+   "name": "Napalm Bomb Mk2"
+  },
+  {
+   "group": 0,
+   "row": 216,
+   "type_id": 390,
+   "damage_id": 401,
+   "r1_inner": 2.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 7,
+     "name": "Napalm Bomb Mk3",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Napalm Bomb Mk3"
+   ],
+   "name": "Napalm Bomb Mk3"
+  },
+  {
+   "group": 0,
+   "row": 217,
+   "type_id": 331,
+   "damage_id": 402,
+   "r1_inner": 1.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 8,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 218,
+   "type_id": 277,
+   "damage_id": 465,
+   "r1_inner": 10.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 35.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 11,
+     "name": "500kg Bomb",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "500kg Bomb"
+   ],
+   "name": "500kg Bomb"
+  },
+  {
+   "group": 0,
+   "row": 219,
+   "type_id": 102,
+   "damage_id": 465,
+   "r1_inner": 7.3,
+   "r2_outer": 22.0,
+   "r3_shockwave": 40.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 12,
+     "name": "500kg Bomb Mk2",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "500kg Bomb Mk2"
+   ],
+   "name": "500kg Bomb Mk2"
+  },
+  {
+   "group": 0,
+   "row": 220,
+   "type_id": 169,
+   "damage_id": 465,
+   "r1_inner": 8.3,
+   "r2_outer": 25.0,
+   "r3_shockwave": 35.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 13,
+     "name": "500kg Bomb Mk3",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "500kg Bomb Mk3"
+   ],
+   "name": "500kg Bomb Mk3"
+  },
+  {
+   "group": 0,
+   "row": 221,
+   "type_id": 232,
+   "damage_id": 435,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 131,
+     "name": "Anti-Air Missile",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Anti-Air Missile"
+   ],
+   "name": "Anti-Air Missile"
+  },
+  {
+   "group": 0,
+   "row": 222,
+   "type_id": 316,
+   "damage_id": 326,
+   "r1_inner": 1.6,
+   "r2_outer": 8.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 94,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 223,
+   "type_id": 26,
+   "damage_id": 286,
+   "r1_inner": 1.6,
+   "r2_outer": 5.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 95,
+     "name": "20mm Flak Rounds",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "20mm Flak Rounds"
+   ],
+   "name": "20mm Flak Rounds"
+  },
+  {
+   "group": 0,
+   "row": 224,
+   "type_id": 19,
+   "damage_id": 574,
+   "r1_inner": 0.5,
+   "r2_outer": 3.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 225,
+   "type_id": 154,
+   "damage_id": 575,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 188,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 188,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    },
+    {
+     "projectile_row": 189,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 189,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 226,
+   "type_id": 167,
+   "damage_id": 76,
+   "r1_inner": 1.0,
+   "r2_outer": 1.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 327,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 327,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 227,
+   "type_id": 304,
+   "damage_id": 409,
+   "r1_inner": 1.5,
+   "r2_outer": 3.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 125,
+     "name": "Homing Ground Missile",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 126,
+     "name": "Homing Ground Missile Mk2",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Homing Ground Missile",
+    "Homing Ground Missile Mk2"
+   ],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 228,
+   "type_id": 365,
+   "damage_id": 410,
+   "r1_inner": 2.5,
+   "r2_outer": 5.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 229,
+   "type_id": 374,
+   "damage_id": 408,
+   "r1_inner": 2.5,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 127,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 230,
+   "type_id": 87,
+   "damage_id": 408,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 25.0,
+   "consumers": [
+    {
+     "projectile_row": 128,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 231,
+   "type_id": 115,
+   "damage_id": 411,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 124,
+     "name": "Homing Anti-Air Missile",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Homing Anti-Air Missile"
+   ],
+   "name": "Homing Anti-Air Missile"
+  },
+  {
+   "group": 0,
+   "row": 232,
+   "type_id": 184,
+   "damage_id": 467,
+   "r1_inner": 10.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 35.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 147,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 233,
+   "type_id": 135,
+   "damage_id": 468,
+   "r1_inner": 10.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 35.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 234,
+   "type_id": 422,
+   "damage_id": 469,
+   "r1_inner": 3.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 235,
+   "type_id": 173,
+   "damage_id": 470,
+   "r1_inner": 5.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 236,
+   "type_id": 297,
+   "damage_id": 0,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 237,
+   "type_id": 363,
+   "damage_id": 468,
+   "r1_inner": 8.3,
+   "r2_outer": 25.0,
+   "r3_shockwave": 35.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 238,
+   "type_id": 148,
+   "damage_id": 403,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 122,
+     "name": "66mm Missile",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "66mm Missile"
+   ],
+   "name": "66mm Missile"
+  },
+  {
+   "group": 0,
+   "row": 239,
+   "type_id": 171,
+   "damage_id": 404,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 123,
+     "name": "66mm Missile Mk2",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "66mm Missile Mk2"
+   ],
+   "name": "66mm Missile Mk2"
+  },
+  {
+   "group": 0,
+   "row": 240,
+   "type_id": 418,
+   "damage_id": 406,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 129,
+     "name": "70mm Laser-Guided Missile",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "70mm Laser-Guided Missile"
+   ],
+   "name": "70mm Laser-Guided Missile"
+  },
+  {
+   "group": 0,
+   "row": 241,
+   "type_id": 303,
+   "damage_id": 407,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 130,
+     "name": "70mm Laser-Guided Missile Mk2",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "70mm Laser-Guided Missile Mk2"
+   ],
+   "name": "70mm Laser-Guided Missile Mk2"
+  },
+  {
+   "group": 0,
+   "row": 242,
+   "type_id": 315,
+   "damage_id": 412,
+   "r1_inner": 1.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 270,
+     "name": "70mm Standard Rocket",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "70mm Standard Rocket"
+   ],
+   "name": "70mm Standard Rocket"
+  },
+  {
+   "group": 0,
+   "row": 243,
+   "type_id": 187,
+   "damage_id": 412,
+   "r1_inner": 0.5,
+   "r2_outer": 1.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 269,
+     "name": "70mm Standard Rocket",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "70mm Standard Rocket"
+   ],
+   "name": "70mm Standard Rocket"
+  },
+  {
+   "group": 0,
+   "row": 244,
+   "type_id": 198,
+   "damage_id": 413,
+   "r1_inner": 1.6,
+   "r2_outer": 5.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 245,
+   "type_id": 229,
+   "damage_id": 414,
+   "r1_inner": 1.6,
+   "r2_outer": 5.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 271,
+     "name": "110mm Standard Rocket",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 273,
+     "name": "110mm Standard Rocket Mk2",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "110mm Standard Rocket",
+    "110mm Standard Rocket Mk2"
+   ],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 246,
+   "type_id": 109,
+   "damage_id": 414,
+   "r1_inner": 1.6,
+   "r2_outer": 5.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 272,
+     "name": "110mm Standard Rocket",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "110mm Standard Rocket"
+   ],
+   "name": "110mm Standard Rocket"
+  },
+  {
+   "group": 0,
+   "row": 247,
+   "type_id": 160,
+   "damage_id": 477,
+   "r1_inner": 0.3,
+   "r2_outer": 4.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 248,
+   "type_id": 388,
+   "damage_id": 478,
+   "r1_inner": 0.6,
+   "r2_outer": 7.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 249,
+   "type_id": 85,
+   "damage_id": 478,
+   "r1_inner": 0.6,
+   "r2_outer": 7.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 250,
+   "type_id": 313,
+   "damage_id": 478,
+   "r1_inner": 0.6,
+   "r2_outer": 7.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 251,
+   "type_id": 180,
+   "damage_id": 479,
+   "r1_inner": 0.8,
+   "r2_outer": 8.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 252,
+   "type_id": 337,
+   "damage_id": 479,
+   "r1_inner": 0.8,
+   "r2_outer": 8.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 253,
+   "type_id": 413,
+   "damage_id": 481,
+   "r1_inner": 1.8,
+   "r2_outer": 7.5,
+   "r3_shockwave": 14.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 254,
+   "type_id": 308,
+   "damage_id": 478,
+   "r1_inner": 0.6,
+   "r2_outer": 7.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 255,
+   "type_id": 243,
+   "damage_id": 479,
+   "r1_inner": 0.8,
+   "r2_outer": 8.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 256,
+   "type_id": 254,
+   "damage_id": 492,
+   "r1_inner": 1.4,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 257,
+   "type_id": 367,
+   "damage_id": 417,
+   "r1_inner": 1.2,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 258,
+   "type_id": 117,
+   "damage_id": 422,
+   "r1_inner": 2.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 259,
+   "type_id": 230,
+   "damage_id": 419,
+   "r1_inner": 1.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 260,
+   "type_id": 72,
+   "damage_id": 418,
+   "r1_inner": 1.2,
+   "r2_outer": 4.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 261,
+   "type_id": 179,
+   "damage_id": 420,
+   "r1_inner": 3.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 14.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 262,
+   "type_id": 369,
+   "damage_id": 421,
+   "r1_inner": 2.5,
+   "r2_outer": 6.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 263,
+   "type_id": 270,
+   "damage_id": 461,
+   "r1_inner": 2.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 264,
+   "type_id": 238,
+   "damage_id": 417,
+   "r1_inner": 1.2,
+   "r2_outer": 6.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 265,
+   "type_id": 323,
+   "damage_id": 289,
+   "r1_inner": 0.8,
+   "r2_outer": 8.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 266,
+   "type_id": 354,
+   "damage_id": 432,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 12,
+     "name": "500kg Bomb Mk2",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 13,
+     "name": "500kg Bomb Mk3",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "500kg Bomb Mk2",
+    "500kg Bomb Mk3"
+   ],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 267,
+   "type_id": 333,
+   "damage_id": 432,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 268,
+   "type_id": 193,
+   "damage_id": 432,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 11,
+     "name": "500kg Bomb",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "500kg Bomb"
+   ],
+   "name": "500kg Bomb"
+  },
+  {
+   "group": 0,
+   "row": 269,
+   "type_id": 256,
+   "damage_id": 465,
+   "r1_inner": 10.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 35.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 270,
+   "type_id": 250,
+   "damage_id": 465,
+   "r1_inner": 5.3,
+   "r2_outer": 16.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 271,
+   "type_id": 159,
+   "damage_id": 363,
+   "r1_inner": 0.4,
+   "r2_outer": 4.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 272,
+   "type_id": 190,
+   "damage_id": 337,
+   "r1_inner": 0.4,
+   "r2_outer": 4.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 273,
+   "type_id": 92,
+   "damage_id": 491,
+   "r1_inner": 40.0,
+   "r2_outer": 75.0,
+   "r3_shockwave": 125.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 344,
+     "name": "Nuke",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "Nuke"
+   ],
+   "name": "Nuke"
+  },
+  {
+   "group": 0,
+   "row": 274,
+   "type_id": 233,
+   "damage_id": 463,
+   "r1_inner": 1.0,
+   "r2_outer": 15.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 275,
+   "type_id": 334,
+   "damage_id": 496,
+   "r1_inner": 10.0,
+   "r2_outer": 20.0,
+   "r3_shockwave": 60.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 132,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 132,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 276,
+   "type_id": 28,
+   "damage_id": 0,
+   "r1_inner": 8.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 277,
+   "type_id": 17,
+   "damage_id": 0,
+   "r1_inner": 8.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 278,
+   "type_id": 237,
+   "damage_id": 0,
+   "r1_inner": 5.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 279,
+   "type_id": 302,
+   "damage_id": 0,
+   "r1_inner": 5.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 106,
+     "name": "Cluster Bomb",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "Cluster Bomb"
+   ],
+   "name": "Cluster Bomb"
+  },
+  {
+   "group": 0,
+   "row": 280,
+   "type_id": 339,
+   "damage_id": 345,
+   "r1_inner": 0.5,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 216,
+     "name": "8x60mm Airburst",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "8x60mm Airburst"
+   ],
+   "name": "8x60mm Airburst"
+  },
+  {
+   "group": 0,
+   "row": 281,
+   "type_id": 325,
+   "damage_id": 287,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 101,
+     "name": "20mm Flak Rounds",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 101,
+     "name": "20mm Flak Rounds",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "20mm Flak Rounds"
+   ],
+   "name": "20mm Flak Rounds"
+  },
+  {
+   "group": 0,
+   "row": 282,
+   "type_id": 300,
+   "damage_id": 287,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 102,
+     "name": "CLUSTER BOMB",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 102,
+     "name": "CLUSTER BOMB",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "CLUSTER BOMB"
+   ],
+   "name": "CLUSTER BOMB"
+  },
+  {
+   "group": 0,
+   "row": 283,
+   "type_id": 7,
+   "damage_id": 345,
+   "r1_inner": 4.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 103,
+     "name": "Cluster Bomb",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 103,
+     "name": "Cluster Bomb",
+     "via": "explode",
+     "slot": 156
+    },
+    {
+     "projectile_row": 104,
+     "name": "Cluster Bomb",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 104,
+     "name": "Cluster Bomb",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "Cluster Bomb"
+   ],
+   "name": "Cluster Bomb"
+  },
+  {
+   "group": 0,
+   "row": 284,
+   "type_id": 259,
+   "damage_id": 345,
+   "r1_inner": 7.0,
+   "r2_outer": 15.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 285,
+   "type_id": 172,
+   "damage_id": 345,
+   "r1_inner": 0.0,
+   "r2_outer": 0.5,
+   "r3_shockwave": 0.75,
+   "cone_angle": 12.0,
+   "consumers": [
+    {
+     "projectile_row": 281,
+     "name": "12g Scatter Shot",
+     "via": "explode",
+     "slot": 156
+    },
+    {
+     "projectile_row": 296,
+     "name": "10g Scatter Shot",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [
+    "12g Scatter Shot",
+    "10g Scatter Shot"
+   ],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 286,
+   "type_id": 42,
+   "damage_id": 456,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 156,
+     "name": "SEAF Artillery: Explosive",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "SEAF Artillery: Explosive"
+   ],
+   "name": "SEAF Artillery: Explosive"
+  },
+  {
+   "group": 0,
+   "row": 287,
+   "type_id": 278,
+   "damage_id": 465,
+   "r1_inner": 6.7,
+   "r2_outer": 20.0,
+   "r3_shockwave": 30.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 157,
+     "name": "SEAF Artillery: HIGH-YIELD EXPLOSIVE",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "SEAF Artillery: HIGH-YIELD EXPLOSIVE"
+   ],
+   "name": "SEAF Artillery: HIGH-YIELD EXPLOSIVE"
+  },
+  {
+   "group": 0,
+   "row": 288,
+   "type_id": 288,
+   "damage_id": 491,
+   "r1_inner": 17.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 45.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 158,
+     "name": "SEAF Artillery: Mini Nuke",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "SEAF Artillery: Mini Nuke"
+   ],
+   "name": "SEAF Artillery: Mini Nuke"
+  },
+  {
+   "group": 0,
+   "row": 289,
+   "type_id": 261,
+   "damage_id": 0,
+   "r1_inner": 13.0,
+   "r2_outer": 13.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 159,
+     "name": "SEAF Artillery: Smoke",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "SEAF Artillery: Smoke"
+   ],
+   "name": "SEAF Artillery: Smoke"
+  },
+  {
+   "group": 0,
+   "row": 290,
+   "type_id": 20,
+   "damage_id": 401,
+   "r1_inner": 1.6,
+   "r2_outer": 13.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 160,
+     "name": "SEAF Artillery: Napalm",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "SEAF Artillery: Napalm"
+   ],
+   "name": "SEAF Artillery: Napalm"
+  },
+  {
+   "group": 0,
+   "row": 291,
+   "type_id": 55,
+   "damage_id": 463,
+   "r1_inner": 1.0,
+   "r2_outer": 13.0,
+   "r3_shockwave": 20.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 161,
+     "name": "SEAF Artillery: Static Field",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "SEAF Artillery: Static Field"
+   ],
+   "name": "SEAF Artillery: Static Field"
+  },
+  {
+   "group": 0,
+   "row": 292,
+   "type_id": 311,
+   "damage_id": 424,
+   "r1_inner": 1.0,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 293,
+   "type_id": 61,
+   "damage_id": 491,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 294,
+   "type_id": 417,
+   "damage_id": 456,
+   "r1_inner": 1.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 295,
+   "type_id": 399,
+   "damage_id": 424,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 296,
+   "type_id": 208,
+   "damage_id": 425,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 297,
+   "type_id": 246,
+   "damage_id": 359,
+   "r1_inner": 1.0,
+   "r2_outer": 1.8,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 298,
+   "type_id": 258,
+   "damage_id": 424,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 299,
+   "type_id": 353,
+   "damage_id": 424,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 300,
+   "type_id": 350,
+   "damage_id": 427,
+   "r1_inner": 2.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 301,
+   "type_id": 1,
+   "damage_id": 365,
+   "r1_inner": 0.75,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 302,
+   "type_id": 289,
+   "damage_id": 424,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 303,
+   "type_id": 98,
+   "damage_id": 450,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 304,
+   "type_id": 57,
+   "damage_id": 424,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 305,
+   "type_id": 76,
+   "damage_id": 424,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 306,
+   "type_id": 284,
+   "damage_id": 424,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 307,
+   "type_id": 273,
+   "damage_id": 364,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 308,
+   "type_id": 206,
+   "damage_id": 424,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 111,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 118,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 119,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 309,
+   "type_id": 175,
+   "damage_id": 270,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 117,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 117,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 310,
+   "type_id": 328,
+   "damage_id": 473,
+   "r1_inner": 1.2,
+   "r2_outer": 2.0,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 311,
+   "type_id": 393,
+   "damage_id": 268,
+   "r1_inner": 1.2,
+   "r2_outer": 2.7,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 113,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 312,
+   "type_id": 86,
+   "damage_id": 335,
+   "r1_inner": 0.75,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 313,
+   "type_id": 283,
+   "damage_id": 336,
+   "r1_inner": 0.75,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 314,
+   "type_id": 241,
+   "damage_id": 424,
+   "r1_inner": 1.5,
+   "r2_outer": 1.5,
+   "r3_shockwave": 1.6,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 315,
+   "type_id": 364,
+   "damage_id": 426,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 316,
+   "type_id": 4,
+   "damage_id": 364,
+   "r1_inner": 4.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 35.0,
+   "consumers": [
+    {
+     "projectile_row": 121,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 317,
+   "type_id": 332,
+   "damage_id": 424,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 1.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 318,
+   "type_id": 251,
+   "damage_id": 447,
+   "r1_inner": 0.5,
+   "r2_outer": 1.0,
+   "r3_shockwave": 1.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 120,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 319,
+   "type_id": 212,
+   "damage_id": 447,
+   "r1_inner": 0.5,
+   "r2_outer": 1.0,
+   "r3_shockwave": 1.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 108,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 320,
+   "type_id": 319,
+   "damage_id": 448,
+   "r1_inner": 0.5,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 109,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 321,
+   "type_id": 99,
+   "damage_id": 449,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 112,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 322,
+   "type_id": 357,
+   "damage_id": 415,
+   "r1_inner": 0.5,
+   "r2_outer": 1.0,
+   "r3_shockwave": 1.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 46,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 323,
+   "type_id": 51,
+   "damage_id": 429,
+   "r1_inner": 1.0,
+   "r2_outer": 1.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 324,
+   "type_id": 358,
+   "damage_id": 450,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 4.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 73,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 325,
+   "type_id": 280,
+   "damage_id": 450,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 4.5,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 74,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 326,
+   "type_id": 344,
+   "damage_id": 451,
+   "r1_inner": 2.0,
+   "r2_outer": 3.5,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 110,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 327,
+   "type_id": 348,
+   "damage_id": 333,
+   "r1_inner": 40.0,
+   "r2_outer": 50.0,
+   "r3_shockwave": 40.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 328,
+   "type_id": 49,
+   "damage_id": 334,
+   "r1_inner": 14.0,
+   "r2_outer": 30.0,
+   "r3_shockwave": 32.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 329,
+   "type_id": 16,
+   "damage_id": 494,
+   "r1_inner": 15.0,
+   "r2_outer": 30.0,
+   "r3_shockwave": 40.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 330,
+   "type_id": 119,
+   "damage_id": 365,
+   "r1_inner": 0.75,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 331,
+   "type_id": 424,
+   "damage_id": 366,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 332,
+   "type_id": 352,
+   "damage_id": 427,
+   "r1_inner": 2.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 333,
+   "type_id": 174,
+   "damage_id": 453,
+   "r1_inner": 16.0,
+   "r2_outer": 32.0,
+   "r3_shockwave": 40.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 334,
+   "type_id": 121,
+   "damage_id": 341,
+   "r1_inner": 7.0,
+   "r2_outer": 14.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 335,
+   "type_id": 376,
+   "damage_id": 342,
+   "r1_inner": 9.0,
+   "r2_outer": 18.0,
+   "r3_shockwave": 23.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 336,
+   "type_id": 336,
+   "damage_id": 343,
+   "r1_inner": 11.0,
+   "r2_outer": 22.0,
+   "r3_shockwave": 26.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 337,
+   "type_id": 407,
+   "damage_id": 442,
+   "r1_inner": 6.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 338,
+   "type_id": 151,
+   "damage_id": 344,
+   "r1_inner": 13.0,
+   "r2_outer": 26.0,
+   "r3_shockwave": 30.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 339,
+   "type_id": 29,
+   "damage_id": 493,
+   "r1_inner": 20.0,
+   "r2_outer": 30.0,
+   "r3_shockwave": 50.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 340,
+   "type_id": 140,
+   "damage_id": 456,
+   "r1_inner": 6.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 341,
+   "type_id": 338,
+   "damage_id": 401,
+   "r1_inner": 1.4,
+   "r2_outer": 7.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 342,
+   "type_id": 211,
+   "damage_id": 337,
+   "r1_inner": 0.2,
+   "r2_outer": 1.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 343,
+   "type_id": 161,
+   "damage_id": 337,
+   "r1_inner": 0.4,
+   "r2_outer": 4.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 344,
+   "type_id": 189,
+   "damage_id": 337,
+   "r1_inner": 0.6,
+   "r2_outer": 6.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 345,
+   "type_id": 192,
+   "damage_id": 337,
+   "r1_inner": 0.6,
+   "r2_outer": 6.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 346,
+   "type_id": 60,
+   "damage_id": 337,
+   "r1_inner": 0.6,
+   "r2_outer": 6.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 347,
+   "type_id": 320,
+   "damage_id": 337,
+   "r1_inner": 0.4,
+   "r2_outer": 4.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 348,
+   "type_id": 420,
+   "damage_id": 337,
+   "r1_inner": 0.4,
+   "r2_outer": 4.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 349,
+   "type_id": 240,
+   "damage_id": 473,
+   "r1_inner": 5.0,
+   "r2_outer": 18.0,
+   "r3_shockwave": 30.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 350,
+   "type_id": 95,
+   "damage_id": 358,
+   "r1_inner": 2.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 351,
+   "type_id": 400,
+   "damage_id": 495,
+   "r1_inner": 20.0,
+   "r2_outer": 40.0,
+   "r3_shockwave": 70.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 352,
+   "type_id": 182,
+   "damage_id": 0,
+   "r1_inner": 0.1,
+   "r2_outer": 0.1,
+   "r3_shockwave": 0.1,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 27,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 353,
+   "type_id": 134,
+   "damage_id": 294,
+   "r1_inner": 0.8,
+   "r2_outer": 1.25,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 354,
+   "type_id": 129,
+   "damage_id": 309,
+   "r1_inner": 0.8,
+   "r2_outer": 1.25,
+   "r3_shockwave": 2.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 355,
+   "type_id": 397,
+   "damage_id": 309,
+   "r1_inner": 1.3,
+   "r2_outer": 2.0,
+   "r3_shockwave": 3.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 356,
+   "type_id": 54,
+   "damage_id": 309,
+   "r1_inner": 2.5,
+   "r2_outer": 3.5,
+   "r3_shockwave": 4.5,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 357,
+   "type_id": 285,
+   "damage_id": 486,
+   "r1_inner": 1.25,
+   "r2_outer": 8.5,
+   "r3_shockwave": 23.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 345,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 358,
+   "type_id": 366,
+   "damage_id": 487,
+   "r1_inner": 1.5,
+   "r2_outer": 2.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 347,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 359,
+   "type_id": 309,
+   "damage_id": 488,
+   "r1_inner": 1.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 360,
+   "type_id": 395,
+   "damage_id": 310,
+   "r1_inner": 75.0,
+   "r2_outer": 85.0,
+   "r3_shockwave": 90.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 361,
+   "type_id": 371,
+   "damage_id": 310,
+   "r1_inner": 10.0,
+   "r2_outer": 15.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 362,
+   "type_id": 120,
+   "damage_id": 401,
+   "r1_inner": 1.4,
+   "r2_outer": 7.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 363,
+   "type_id": 48,
+   "damage_id": 486,
+   "r1_inner": 1.0,
+   "r2_outer": 7.5,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 346,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 364,
+   "type_id": 317,
+   "damage_id": 202,
+   "r1_inner": 1.5,
+   "r2_outer": 3.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 365,
+   "type_id": 214,
+   "damage_id": 202,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 366,
+   "type_id": 223,
+   "damage_id": 202,
+   "r1_inner": 4.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 367,
+   "type_id": 147,
+   "damage_id": 331,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 368,
+   "type_id": 22,
+   "damage_id": 634,
+   "r1_inner": 3.5,
+   "r2_outer": 4.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 369,
+   "type_id": 205,
+   "damage_id": 0,
+   "r1_inner": 5.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 370,
+   "type_id": 168,
+   "damage_id": 498,
+   "r1_inner": 6.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 371,
+   "type_id": 70,
+   "damage_id": 497,
+   "r1_inner": 7.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 372,
+   "type_id": 312,
+   "damage_id": 497,
+   "r1_inner": 10.0,
+   "r2_outer": 13.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 373,
+   "type_id": 124,
+   "damage_id": 647,
+   "r1_inner": 0.5,
+   "r2_outer": 1.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 374,
+   "type_id": 156,
+   "damage_id": 501,
+   "r1_inner": 1.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 375,
+   "type_id": 73,
+   "damage_id": 293,
+   "r1_inner": 1.0,
+   "r2_outer": 1.0,
+   "r3_shockwave": 1.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 376,
+   "type_id": 21,
+   "damage_id": 499,
+   "r1_inner": 2.0,
+   "r2_outer": 6.5,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 377,
+   "type_id": 104,
+   "damage_id": 500,
+   "r1_inner": 2.5,
+   "r2_outer": 4.95,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 378,
+   "type_id": 133,
+   "damage_id": 338,
+   "r1_inner": 2.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 379,
+   "type_id": 405,
+   "damage_id": 339,
+   "r1_inner": 2.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 380,
+   "type_id": 132,
+   "damage_id": 340,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 381,
+   "type_id": 100,
+   "damage_id": 338,
+   "r1_inner": 0.7,
+   "r2_outer": 1.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 382,
+   "type_id": 131,
+   "damage_id": 337,
+   "r1_inner": 0.4,
+   "r2_outer": 4.0,
+   "r3_shockwave": 12.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 383,
+   "type_id": 150,
+   "damage_id": 366,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 91,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 384,
+   "type_id": 384,
+   "damage_id": 341,
+   "r1_inner": 7.0,
+   "r2_outer": 14.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 385,
+   "type_id": 226,
+   "damage_id": 502,
+   "r1_inner": 1.0,
+   "r2_outer": 1.5,
+   "r3_shockwave": 2.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 386,
+   "type_id": 137,
+   "damage_id": 508,
+   "r1_inner": 10.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 387,
+   "type_id": 217,
+   "damage_id": 503,
+   "r1_inner": 5.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 388,
+   "type_id": 53,
+   "damage_id": 504,
+   "r1_inner": 15.0,
+   "r2_outer": 20.0,
+   "r3_shockwave": 40.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 389,
+   "type_id": 368,
+   "damage_id": 491,
+   "r1_inner": 20.0,
+   "r2_outer": 45.0,
+   "r3_shockwave": 60.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 390,
+   "type_id": 90,
+   "damage_id": 505,
+   "r1_inner": 6.0,
+   "r2_outer": 7.5,
+   "r3_shockwave": 9.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 391,
+   "type_id": 78,
+   "damage_id": 505,
+   "r1_inner": 3.0,
+   "r2_outer": 4.5,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 392,
+   "type_id": 141,
+   "damage_id": 507,
+   "r1_inner": 15.0,
+   "r2_outer": 20.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 393,
+   "type_id": 65,
+   "damage_id": 506,
+   "r1_inner": 5.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 5.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 394,
+   "type_id": 68,
+   "damage_id": 503,
+   "r1_inner": 5.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 395,
+   "type_id": 47,
+   "damage_id": 337,
+   "r1_inner": 7.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 396,
+   "type_id": 412,
+   "damage_id": 337,
+   "r1_inner": 7.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 397,
+   "type_id": 136,
+   "damage_id": 479,
+   "r1_inner": 5.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 398,
+   "type_id": 298,
+   "damage_id": 358,
+   "r1_inner": 2.4,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 399,
+   "type_id": 221,
+   "damage_id": 220,
+   "r1_inner": 3.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 14.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 400,
+   "type_id": 386,
+   "damage_id": 354,
+   "r1_inner": 3.5,
+   "r2_outer": 7.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 401,
+   "type_id": 351,
+   "damage_id": 355,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 402,
+   "type_id": 80,
+   "damage_id": 370,
+   "r1_inner": 6.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 16.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 403,
+   "type_id": 56,
+   "damage_id": 371,
+   "r1_inner": 4.0,
+   "r2_outer": 8.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 404,
+   "type_id": 96,
+   "damage_id": 372,
+   "r1_inner": 2.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 16.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 405,
+   "type_id": 166,
+   "damage_id": 373,
+   "r1_inner": 3.0,
+   "r2_outer": 7.0,
+   "r3_shockwave": 8.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 406,
+   "type_id": 41,
+   "damage_id": 376,
+   "r1_inner": 1.0,
+   "r2_outer": 3.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 88,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 407,
+   "type_id": 157,
+   "damage_id": 374,
+   "r1_inner": 1.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 408,
+   "type_id": 18,
+   "damage_id": 375,
+   "r1_inner": 3.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 409,
+   "type_id": 144,
+   "damage_id": 375,
+   "r1_inner": 3.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 410,
+   "type_id": 281,
+   "damage_id": 374,
+   "r1_inner": 1.0,
+   "r2_outer": 10.0,
+   "r3_shockwave": 15.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 411,
+   "type_id": 299,
+   "damage_id": 651,
+   "r1_inner": 0.01,
+   "r2_outer": 2.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 412,
+   "type_id": 209,
+   "damage_id": 652,
+   "r1_inner": 0.01,
+   "r2_outer": 2.5,
+   "r3_shockwave": 3.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 413,
+   "type_id": 267,
+   "damage_id": 657,
+   "r1_inner": 3.3,
+   "r2_outer": 10.0,
+   "r3_shockwave": 11.0,
+   "cone_angle": 0.0,
+   "consumers": [
+    {
+     "projectile_row": 348,
+     "name": "120mm HE Cannon Round",
+     "via": "on_impact",
+     "slot": 144
+    }
+   ],
+   "names": [
+    "120mm HE Cannon Round"
+   ],
+   "name": "120mm HE Cannon Round"
+  },
+  {
+   "group": 0,
+   "row": 414,
+   "type_id": 372,
+   "damage_id": 403,
+   "r1_inner": 1.0,
+   "r2_outer": 2.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 415,
+   "type_id": 11,
+   "damage_id": 405,
+   "r1_inner": 3.0,
+   "r2_outer": 5.0,
+   "r3_shockwave": 10.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 416,
+   "type_id": 165,
+   "damage_id": 456,
+   "r1_inner": 4.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 18.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 417,
+   "type_id": 38,
+   "damage_id": 0,
+   "r1_inner": 12.0,
+   "r2_outer": 12.0,
+   "r3_shockwave": 0.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 418,
+   "type_id": 295,
+   "damage_id": 480,
+   "r1_inner": 1.0,
+   "r2_outer": 4.0,
+   "r3_shockwave": 6.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 419,
+   "type_id": 207,
+   "damage_id": 510,
+   "r1_inner": 1.0,
+   "r2_outer": 1.0,
+   "r3_shockwave": 4.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 420,
+   "type_id": 62,
+   "damage_id": 658,
+   "r1_inner": 1.2,
+   "r2_outer": 5.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 421,
+   "type_id": 383,
+   "damage_id": 511,
+   "r1_inner": 5.0,
+   "r2_outer": 6.0,
+   "r3_shockwave": 7.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 422,
+   "type_id": 30,
+   "damage_id": 661,
+   "r1_inner": 17.0,
+   "r2_outer": 25.0,
+   "r3_shockwave": 45.0,
+   "cone_angle": 0.0,
+   "consumers": [],
+   "names": [],
+   "name": ""
+  },
+  {
+   "group": 0,
+   "row": 423,
+   "type_id": 170,
+   "damage_id": 399,
+   "r1_inner": 0.2,
+   "r2_outer": 0.5,
+   "r3_shockwave": 4.0,
+   "cone_angle": 35.0,
+   "consumers": [
+    {
+     "projectile_row": 354,
+     "name": "",
+     "via": "on_impact",
+     "slot": 144
+    },
+    {
+     "projectile_row": 354,
+     "name": "",
+     "via": "explode",
+     "slot": 156
+    }
+   ],
+   "names": [],
+   "name": ""
+  }
+ ]
+}

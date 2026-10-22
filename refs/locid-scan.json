@@ -1,0 +1,1472 @@
+{
+ "strings": {
+  "blobs_scanned": 264,
+  "blobs_used": 18,
+  "ids": 24834
+ },
+ "tables": {
+  "stratagem_settings": {
+   "groups": [
+    {
+     "stride": 400,
+     "groups": 12
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 56,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 153,
+     "distinct": 4,
+     "samples": [
+      "EQUIPPING",
+      "EQUIPPING",
+      "EQUIPPING",
+      "EQUIPPING",
+      "EQUIPPING",
+      "EQUIPPING"
+     ]
+    },
+    {
+     "offset": 40,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 145,
+     "distinct": 131,
+     "samples": [
+      "SUPPLY PACK",
+      "BALLISTIC SHIELD BACKPACK",
+      "DIRECTIONAL SHIELD",
+      "SHIELD GENERATOR PACK",
+      "JUMP PACK",
+      "HOVER PACK"
+     ]
+    },
+    {
+     "offset": 44,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 135,
+     "distinct": 122,
+     "samples": [
+      "Supply Pack",
+      "Ballistic Shield Backpack",
+      "Directional Shield",
+      "Shield Generator Pack",
+      "Jump Pack",
+      "Guard Dog"
+     ]
+    },
+    {
+     "offset": 48,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 129,
+     "distinct": 118,
+     "samples": [
+      "Supply boxes containing ammunition, with a backpack that allows the user to distribute boxes to fellow Helldivers.",
+      "A backpack which can be wielded as a one-handed ballistic shield, protecting against small arms fire.",
+      "A one-handed device that deploys a wide energy barrier in front of the user. The barrier is semipermeable and blocks high-speed projectiles from the outside only, leaving the user free to shoot through it.",
+      "Encloses the wearer in a spherical shield which blocks high-speed projectiles.",
+      "Enables the user to jump higher than 'gravity' and 'safety' would normally allow. Must be charged before use.",
+      "Offers its user brief fixed-height flight, stable enough for pinpoint marksmanship."
+     ]
+    },
+    {
+     "offset": 52,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 49,
+     "distinct": 42,
+     "samples": [
+      "[NOT IMPLEMENTED]",
+      "[THIS TEXT IS NOT IMPLEMENTED]",
+      "[THIS TEXT IS NOT IMPLEMENTED]",
+      "[NOT IMPLEMENTED]",
+      "[THIS TEXT IS NOT IMPLEMENTED]",
+      "[TEXT NOT YET WRITTETN]"
+     ]
+    },
+    {
+     "offset": 4,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 4,
+     "distinct": 4,
+     "samples": [
+      "DRILLING CHARGE",
+      "HELLBOMB",
+      "A/MLS-4X",
+      "SEAF Squad"
+     ]
+    },
+    {
+     "offset": 0,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 10,
+     "distinct": 7,
+     "samples": [
+      "C",
+      "8",
+      "8",
+      "P8",
+      "o8",
+      "@"
+     ]
+    },
+    {
+     "offset": 16,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 153,
+     "distinct": 151,
+     "samples": [
+      "BACKPACK. SUPPLY BACKPACK",
+      "BACKPACK. BALLISTIC SHIELD BACKPACK",
+      "BACKPACK. DIRECTIONAL ENERGY SHIELD",
+      "BACKPACK.  GENERATOR PACK",
+      "BACKPACK. JUMPPACK BACKPACK",
+      "BACKPACK. HOVERPACK BACKPACK"
+     ]
+    },
+    {
+     "offset": 24,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 128,
+     "distinct": 116,
+     "samples": [
+      "nui_stratagem_backpack_ammo_name",
+      "nui_stratagem_backpack_ballisticshield_name",
+      "nui_stratagem_backpack_directional_energy_shield_name",
+      "nui_stratagem_backpack_energy_shield_name",
+      "nui_stratagem_backpack_jump_name",
+      "nui_stratagem_backpack_hoverpack_name"
+     ]
+    },
+    {
+     "offset": 32,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 128,
+     "distinct": 116,
+     "samples": [
+      "nui_stratagem_backpack_ammo_desc",
+      "nui_stratagem_backpack_ballisticshield_desc",
+      "nui_stratagem_backpack_directional_energy_shield_desc",
+      "nui_stratagem_backpack_energy_shield_desc",
+      "nui_stratagem_backpack_jump_desc",
+      "nui_stratagem_backpack_hoverpack_desc"
+     ]
+    },
+    {
+     "offset": 72,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 5,
+     "distinct": 1,
+     "samples": [
+      "$",
+      "$",
+      "$",
+      "$",
+      "$"
+     ]
+    },
+    {
+     "offset": 260,
+     "stride": 400,
+     "rows": 153,
+     "groups": 12,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 4,
+     "distinct": 4,
+     "samples": [
+      "nui_stratagem_emplacement_hmg_desc",
+      "ame",
+      "2",
+      "M WEAPONS. EXPENDABLE MASSIVE ROCKET LAUNCHER"
+     ]
+    }
+   ]
+  },
+  "projectile_settings": {
+   "groups": [
+    {
+     "stride": 272,
+     "groups": 1
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 4,
+     "stride": 272,
+     "rows": 355,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 225,
+     "distinct": 151,
+     "samples": [
+      "100KG CLUSTER BOMB",
+      "CLUSTER BOMB",
+      "100KG BOMB",
+      "100KG BOMB MK2",
+      "100KG BOMB MK3",
+      "NAPALM BOMB"
+     ]
+    },
+    {
+     "offset": 8,
+     "stride": 272,
+     "rows": 355,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 224,
+     "distinct": 151,
+     "samples": [
+      "100kg Cluster Bomb",
+      "Cluster Bomb",
+      "100kg Bomb",
+      "100kg Bomb Mk2",
+      "100kg Bomb Mk3",
+      "Napalm Bomb"
+     ]
+    },
+    {
+     "offset": 12,
+     "stride": 272,
+     "rows": 355,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 36,
+     "distinct": 30,
+     "samples": [
+      "APHET",
+      "FLAK",
+      "HE",
+      "HE",
+      "HE MK2",
+      "STUN"
+     ]
+    },
+    {
+     "offset": 0,
+     "stride": 272,
+     "rows": 355,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 26,
+     "distinct": 16,
+     "samples": [
+      "?",
+      ">",
+      "C",
+      ">",
+      "B",
+      " A"
+     ]
+    },
+    {
+     "offset": 60,
+     "stride": 272,
+     "rows": 355,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 36,
+     "distinct": 8,
+     "samples": [
+      "j",
+      "?",
+      "j",
+      "j",
+      "j",
+      "j"
+     ]
+    },
+    {
+     "offset": 144,
+     "stride": 272,
+     "rows": 355,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 11,
+     "distinct": 7,
+     "samples": [
+      "O",
+      "?",
+      "@?",
+      "B",
+      " A",
+      " A"
+     ]
+    },
+    {
+     "offset": 172,
+     "stride": 272,
+     "rows": 355,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 6,
+     "distinct": 2,
+     "samples": [
+      "B",
+      "B",
+      "B",
+      "9",
+      "9",
+      "9"
+     ]
+    },
+    {
+     "offset": 176,
+     "stride": 272,
+     "rows": 355,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 5,
+     "distinct": 2,
+     "samples": [
+      "B",
+      "B",
+      "9",
+      "9",
+      "9"
+     ]
+    },
+    {
+     "offset": 244,
+     "stride": 272,
+     "rows": 355,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 13,
+     "distinct": 3,
+     "samples": [
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B"
+     ]
+    }
+   ]
+  },
+  "explosion_settings": {
+   "groups": [
+    {
+     "stride": 152,
+     "groups": 1
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 8,
+     "stride": 152,
+     "rows": 424,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 3,
+     "distinct": 2,
+     "samples": [
+      "Environment",
+      "Environment",
+      "Unknowable Forces"
+     ]
+    },
+    {
+     "offset": 0,
+     "stride": 152,
+     "rows": 424,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 19,
+     "distinct": 7,
+     "samples": [
+      "A",
+      "4B",
+      "@",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "offset": 4,
+     "stride": 152,
+     "rows": 424,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 26,
+     "distinct": 7,
+     "samples": [
+      "G",
+      "G",
+      "G",
+      "A",
+      " A",
+      "?"
+     ]
+    },
+    {
+     "offset": 80,
+     "stride": 152,
+     "rows": 424,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 3,
+     "distinct": 1,
+     "samples": [
+      "@",
+      "@",
+      "@"
+     ]
+    }
+   ]
+  },
+  "weapon_customization_settings": {
+   "groups": [
+    {
+     "stride": 88,
+     "groups": 9
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 12,
+     "stride": 88,
+     "rows": 252,
+     "groups": 9,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 234,
+     "distinct": 142,
+     "samples": [
+      "9x20mm EXPLOSIVE",
+      "9x20mm FULL METAL JACKET",
+      "9x20mm HOLLOW POINT",
+      "9x20mm HIGH VELOCITY",
+      "9x20mm PLASMA",
+      "9x20mm RIPPER"
+     ]
+    },
+    {
+     "offset": 20,
+     "stride": 88,
+     "rows": 252,
+     "groups": 9,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 234,
+     "distinct": 142,
+     "samples": [
+      "Explosive tipped projectile that does high damage against massive unarmored targets.",
+      "Standard projectile",
+      "Expanding projectile that does massive damage against unarmored targets.",
+      "Improved gunpowder propels the projectile at higher velocity reducing the travel time and increasing damage.",
+      "Plasma cored warhead that detonates with super heated gas.",
+      "Disintegrating expanding projectile with massive damage, poor ballistics and accuracy. Causes chock in enemies hit by the round."
+     ]
+    },
+    {
+     "offset": 16,
+     "stride": 88,
+     "rows": 252,
+     "groups": 9,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 216,
+     "distinct": 125,
+     "samples": [
+      "9x20mm Explosive",
+      "9x20mm Full Metal Jacket",
+      "9x20mm Hollow Point",
+      "9x20mm High Velocity",
+      "9x20mm Plasma",
+      "9x20mm Ripper"
+     ]
+    },
+    {
+     "offset": 0,
+     "stride": 88,
+     "rows": 252,
+     "groups": 9,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 252,
+     "distinct": 248,
+     "samples": [
+      "PISTOL-SMG 9x20mm. EXPLOSIVE",
+      "PISTOL-SMG 9x20mm. FULL METAL JACKET",
+      "PISTOL-SMG 9x20mm. HOLLOW POINT",
+      "PISTOL-SMG 9x20mm. HIGH VELOCITY",
+      "PISTOL-SMG 9x20mm. PLASMA",
+      "PISTOL-SMG 9x20mm. RIPPER"
+     ]
+    }
+   ]
+  },
+  "customization_armor_sets": {
+   "groups": [
+    {
+     "stride": 64,
+     "groups": 422
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 12,
+     "stride": 64,
+     "rows": 422,
+     "groups": 422,
+     "layouts": [
+      "single"
+     ],
+     "kind": "locid",
+     "hits": 389,
+     "distinct": 229,
+     "samples": [
+      "FS-37 RAVAGER",
+      "FS-37 RAVAGER",
+      "FS-55 DEVASTATOR",
+      "FS-55 DEVASTATOR",
+      "CW-4 ARCTIC RANGER",
+      "CW-4 ARCTIC RANGER"
+     ]
+    },
+    {
+     "offset": 20,
+     "stride": 64,
+     "rows": 422,
+     "groups": 422,
+     "layouts": [
+      "single"
+     ],
+     "kind": "locid",
+     "hits": 389,
+     "distinct": 229,
+     "samples": [
+      "Contains many small pockets, allowing the user to evenly distribute the weight of ammunition, samples, and cool rocks.",
+      "Contains many small pockets, allowing the user to evenly distribute the weight of ammunition, samples, and cool rocks.",
+      "Domestic versions of this armor enable colonial farmers to plant crops and mines side by side, safely.",
+      "Domestic versions of this armor enable colonial farmers to plant crops and mines side by side, safely.",
+      "Features a utility belt with pockets that can be filled with any number of things, such as pocket knives, mementos from home, and interesting rocks.",
+      "Features a utility belt with pockets that can be filled with any number of things, such as pocket knives, mementos from home, and interesting rocks."
+     ]
+    },
+    {
+     "offset": 16,
+     "stride": 64,
+     "rows": 422,
+     "groups": 422,
+     "layouts": [
+      "single"
+     ],
+     "kind": "locid",
+     "hits": 356,
+     "distinct": 204,
+     "samples": [
+      "FS-37 Ravager",
+      "FS-37 Ravager",
+      "FS-55 Devastator",
+      "FS-55 Devastator",
+      "CW-4 Arctic Ranger",
+      "CW-4 Arctic Ranger"
+     ]
+    },
+    {
+     "offset": 40,
+     "stride": 64,
+     "rows": 422,
+     "groups": 422,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 15,
+     "distinct": 15,
+     "samples": [
+      "nqX+.",
+      "E2",
+      "Ww",
+      "2Z",
+      "Ir",
+      "px"
+     ]
+    },
+    {
+     "offset": 56,
+     "stride": 64,
+     "rows": 422,
+     "groups": 422,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 7,
+     "distinct": 7,
+     "samples": [
+      "nqX+.",
+      "(Ir",
+      "3px",
+      "Odq",
+      "&uE",
+      "S&C"
+     ]
+    }
+   ]
+  },
+  "customization_passive_bonuses": {
+   "groups": [
+    {
+     "stride": 56,
+     "groups": 33
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 4,
+     "stride": 56,
+     "rows": 33,
+     "groups": 33,
+     "layouts": [
+      "single"
+     ],
+     "kind": "locid",
+     "hits": 33,
+     "distinct": 33,
+     "samples": [
+      "EXTRA PADDING",
+      "SERVO-ASSISTED",
+      "ENGINEERING KIT",
+      "MED-KIT",
+      "ADRENO-DEFIBRILLATOR",
+      "KINETIC DISPLACEMENT MITIGATION"
+     ]
+    }
+   ]
+  },
+  "unit_customization_settings": {
+   "groups": [
+    {
+     "stride": 80,
+     "groups": 12
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 12,
+     "stride": 80,
+     "rows": 12,
+     "groups": 12,
+     "layouts": [
+      "single"
+     ],
+     "kind": "locid",
+     "hits": 11,
+     "distinct": 11,
+     "samples": [
+      "PATRIOT EXOSUIT",
+      "BREAKTHROUGH EXOSUIT",
+      "EMANCIPATOR EXOSUIT",
+      "LUMBERER EXOSUIT",
+      "GUNNER FRV",
+      "INCINERATOR FRV"
+     ]
+    },
+    {
+     "offset": 16,
+     "stride": 80,
+     "rows": 12,
+     "groups": 12,
+     "layouts": [
+      "single"
+     ],
+     "kind": "locid",
+     "hits": 9,
+     "distinct": 4,
+     "samples": [
+      "EXOSUIT PATTERN",
+      "EXOSUIT PATTERN",
+      "VEHICLE PATTERN",
+      "VEHICLE PATTERN",
+      "VEHICLE PATTERN",
+      "HELLPOD PATTERN"
+     ]
+    },
+    {
+     "offset": 24,
+     "stride": 80,
+     "rows": 12,
+     "groups": 12,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 5,
+     "distinct": 5,
+     "samples": [
+      "nui_customization_type_patriot_skins",
+      "nui_customization_type_emancipator_skins",
+      "nui_customization_type_frv_skins",
+      "nui_customization_type_hellpod_skins",
+      "nui_customization_type_shuttle_skins"
+     ]
+    }
+   ]
+  },
+  "planet_data": {
+   "groups": [
+    {
+     "stride": 624,
+     "groups": 438
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 8,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "locid",
+     "hits": 399,
+     "distinct": 395,
+     "samples": [
+      "SUPER EARTH",
+      "KLEN DAHTH II",
+      "PATHFINDER V",
+      "WIDOW'S HARBOR",
+      "NEW HAVEN",
+      "PILEN V"
+     ]
+    },
+    {
+     "offset": 16,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "locid",
+     "hits": 371,
+     "distinct": 20,
+     "samples": [
+      "Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.",
+      "A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.",
+      "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.",
+      "A desert planet prone to unpredictable and dangerous sand twisters.",
+      "Submerged in eternal winter, this world's frosty peaks glimmer in the light of its too-distant star.",
+      "The arid, rocky biome covering this world has driven the evolution of exceptionally efficient water usage in its various organisms."
+     ]
+    },
+    {
+     "offset": 0,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 406,
+     "distinct": 35,
+     "samples": [
+      "content/level_generation_settings/planet_settings/planet_setup/planet_homeworld_superearth",
+      "content/level_generation_settings/planet_settings/planet_setup/planet_desert_sandy_klen_dahth_2",
+      "content/level_generation_settings/planet_settings/planet_setup/planet_forest_moor_base",
+      "content/level_generation_settings/planet_settings/planet_setup/planet_desert_sandy_moon",
+      "content/level_generation_settings/planet_settings/planet_setup/planet_forest_primordial_blue",
+      "content/level_generation_settings/planet_settings/planet_setup/planet_desert_sandy_spiky"
+     ]
+    },
+    {
+     "offset": 88,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 438,
+     "distinct": 432,
+     "samples": [
+      "planet_000",
+      "planet_001",
+      "planet_002",
+      "planet_003",
+      "planet_004",
+      "planet_005"
+     ]
+    },
+    {
+     "offset": 96,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 438,
+     "distinct": 32,
+     "samples": [
+      "region_superearth",
+      "region_sandy_base",
+      "region_moor_baseplanet",
+      "region_sandy_moon",
+      "region_primordial_blue",
+      "region_sandy_spiky"
+     ]
+    },
+    {
+     "offset": 108,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 15,
+     "distinct": 14,
+     "samples": [
+      "*;",
+      "^I",
+      "b",
+      "P",
+      "H",
+      "^"
+     ]
+    },
+    {
+     "offset": 136,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 438,
+     "distinct": 32,
+     "samples": [
+      "region_superearth",
+      "region_sandy_base",
+      "region_moor_baseplanet",
+      "region_sandy_moon",
+      "region_primordial_blue",
+      "region_sandy_spiky"
+     ]
+    },
+    {
+     "offset": 148,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 15,
+     "distinct": 14,
+     "samples": [
+      "*;",
+      "^I",
+      "b",
+      "P",
+      "H",
+      "^"
+     ]
+    },
+    {
+     "offset": 440,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 9,
+     "distinct": 6,
+     "samples": [
+      "n% ",
+      "\"N^",
+      "4@h",
+      "b(_W",
+      "c",
+      "?"
+     ]
+    },
+    {
+     "offset": 568,
+     "stride": 624,
+     "rows": 438,
+     "groups": 438,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 3,
+     "distinct": 1,
+     "samples": [
+      ")",
+      ")",
+      ")"
+     ]
+    }
+   ]
+  },
+  "zone_data": {
+   "groups": [
+    {
+     "stride": 912,
+     "groups": 87
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 256,
+     "stride": 912,
+     "rows": 87,
+     "groups": 87,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 58,
+     "distinct": 8,
+     "samples": [
+      "Sandy_RegionInput",
+      "Arctic_RegionInput",
+      "Arctic_RegionInput",
+      "Arctic_RegionInput",
+      "Arctic_RegionInput",
+      "Arctic_RegionInput"
+     ]
+    }
+   ]
+  },
+  "region_settings": {
+   "groups": [
+    {
+     "stride": 64,
+     "groups": 13
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 0,
+     "stride": 64,
+     "rows": 13,
+     "groups": 13,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 13,
+     "distinct": 13,
+     "samples": [
+      "region_generation_testing",
+      "region_sandy",
+      "region_primordial",
+      "region_magma",
+      "region_rift",
+      "region_coniferous"
+     ]
+    }
+   ]
+  },
+  "status_effect_settings": {
+   "groups": [
+    {
+     "stride": 40,
+     "groups": 1
+    },
+    {
+     "stride": 160,
+     "groups": 1
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 4,
+     "stride": 40,
+     "rows": 29,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 4,
+     "distinct": 2,
+     "samples": [
+      "?",
+      "!",
+      "?",
+      "?"
+     ]
+    },
+    {
+     "offset": 0,
+     "stride": 160,
+     "rows": 73,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 4,
+     "distinct": 4,
+     "samples": [
+      "I",
+      "-",
+      "?",
+      "A"
+     ]
+    },
+    {
+     "offset": 8,
+     "stride": 160,
+     "rows": 73,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 73,
+     "distinct": 68,
+     "samples": [
+      "Blind",
+      "Bleed",
+      "Deaf",
+      "Confusion",
+      "Fire",
+      "Lava"
+     ]
+    },
+    {
+     "offset": 104,
+     "stride": 160,
+     "rows": 73,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 8,
+     "distinct": 1,
+     "samples": [
+      "I",
+      "I",
+      "I",
+      "I",
+      "I",
+      "I"
+     ]
+    }
+   ]
+  },
+  "hit_effect_settings": {
+   "groups": [
+    {
+     "stride": 48,
+     "groups": 1
+    }
+   ],
+   "candidates": []
+  },
+  "damage_settings": {
+   "groups": [
+    {
+     "stride": 76,
+     "groups": 1
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 0,
+     "stride": 76,
+     "rows": 661,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 28,
+     "distinct": 17,
+     "samples": [
+      "H",
+      "2",
+      "2",
+      "HB",
+      "B",
+      "B"
+     ]
+    },
+    {
+     "offset": 4,
+     "stride": 76,
+     "rows": 661,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 36,
+     "distinct": 6,
+     "samples": [
+      "2",
+      "2",
+      "2",
+      "2",
+      "-",
+      "-"
+     ]
+    },
+    {
+     "offset": 8,
+     "stride": 76,
+     "rows": 661,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 42,
+     "distinct": 5,
+     "samples": [
+      "2",
+      "2",
+      "2",
+      "2",
+      "2",
+      "2"
+     ]
+    },
+    {
+     "offset": 28,
+     "stride": 76,
+     "rows": 661,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 71,
+     "distinct": 1,
+     "samples": [
+      "2",
+      "2",
+      "2",
+      "2",
+      "2",
+      "2"
+     ]
+    },
+    {
+     "offset": 32,
+     "stride": 76,
+     "rows": 661,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 106,
+     "distinct": 1,
+     "samples": [
+      "2",
+      "2",
+      "2",
+      "2",
+      "2",
+      "2"
+     ]
+    },
+    {
+     "offset": 36,
+     "stride": 76,
+     "rows": 661,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 66,
+     "distinct": 2,
+     "samples": [
+      "2",
+      "2",
+      "2",
+      "2",
+      "2",
+      "2"
+     ]
+    }
+   ]
+  },
+  "beam_settings": {
+   "groups": [
+    {
+     "stride": 112,
+     "groups": 1
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 12,
+     "stride": 112,
+     "rows": 30,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 4,
+     "distinct": 2,
+     "samples": [
+      "i",
+      "i",
+      "i",
+      "US0"
+     ]
+    },
+    {
+     "offset": 44,
+     "stride": 112,
+     "rows": 30,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "pool_offset",
+     "hits": 6,
+     "distinct": 1,
+     "samples": [
+      "D",
+      "D",
+      "D",
+      "D",
+      "D",
+      "D"
+     ]
+    }
+   ]
+  },
+  "arc_settings": {
+   "groups": [
+    {
+     "stride": 104,
+     "groups": 1
+    }
+   ],
+   "candidates": []
+  },
+  "stratagem_upgrade_settings": {
+   "groups": [
+    {
+     "stride": 64,
+     "groups": 1
+    }
+   ],
+   "candidates": []
+  },
+  "entity_deltas": {
+   "groups": [
+    {
+     "stride": 80,
+     "groups": 1
+    }
+   ],
+   "candidates": []
+  },
+  "modifier_settings": {
+   "groups": [
+    {
+     "stride": 24,
+     "groups": 15
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 8,
+     "stride": 24,
+     "rows": 15,
+     "groups": 15,
+     "layouts": [
+      "single"
+     ],
+     "kind": "pool_offset",
+     "hits": 15,
+     "distinct": 2,
+     "samples": [
+      "8",
+      "8",
+      "8",
+      "x",
+      "8",
+      "8"
+     ]
+    }
+   ]
+  },
+  "policy_settings": {
+   "groups": [
+    {
+     "stride": 32,
+     "groups": 1
+    }
+   ],
+   "candidates": []
+  },
+  "candidate_descs": {
+   "groups": [
+    {
+     "stride": 40,
+     "groups": 1
+    }
+   ],
+   "candidates": [
+    {
+     "offset": 0,
+     "stride": 40,
+     "rows": 12,
+     "groups": 1,
+     "layouts": [
+      "array"
+     ],
+     "kind": "locid",
+     "hits": 3,
+     "distinct": 3,
+     "samples": [
+      "Gun Ingbrit Morgunsdottir",
+      "Winston Richman Jr. Sr.",
+      "Daiyu Hatchet"
+     ]
+    }
+   ]
+  },
+  "add_resource_dependencies": {
+   "groups": [
+    {
+     "stride": 16,
+     "groups": 2
+    }
+   ],
+   "candidates": []
+  }
+ }
+}

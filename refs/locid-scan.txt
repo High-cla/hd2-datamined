@@ -1,0 +1,136 @@
+strings: 18/264 个 'us' blob, 24834 个 ID
+
+=== stratagem_settings (82384 B) ===
+  组: 12 个  形态 {'array': 12}  stride [(400, 12)]
+  [locid      ] stride400   +56   153/153 命中, 4 去重  ['EQUIPPING', 'EQUIPPING', 'EQUIPPING', 'EQUIPPING']  member[56:4] 0x00000000
+  [locid      ] stride400   +40   145/153 命中, 131 去重  ['SUPPLY PACK', 'BALLISTIC SHIELD BACKPACK', 'DIRECTIONAL SHIELD', 'SHIELD GENERATOR PACK']  member[40:4] 0x00000000
+  [locid      ] stride400   +44   135/153 命中, 122 去重  ['Supply Pack', 'Ballistic Shield Backpack', 'Directional Shield', 'Shield Generator Pack']  member[44:4] 0x00000000
+  [locid      ] stride400   +48   129/153 命中, 118 去重  ['Supply boxes containing ammunition, with a backpack that allows the user to distribute boxes to fellow Helldivers.', 'A backpack which can be wielded as a one-handed ballistic shield, protecting against small arms fire.', 'A one-handed device that deploys a wide energy barrier in front of the user. The barrier is semipermeable and blocks high-speed projectiles from the outside only, leaving the user free to shoot through it.', 'Encloses the wearer in a spherical shield which blocks high-speed projectiles.']  member[48:4] 0x00000000
+  [locid      ] stride400   +52   49/153 命中, 42 去重  ['[NOT IMPLEMENTED]', '[THIS TEXT IS NOT IMPLEMENTED]', '[THIS TEXT IS NOT IMPLEMENTED]', '[NOT IMPLEMENTED]']  member[52:4] 0x00000000
+  [locid      ] stride400   +4    4/153 命中, 4 去重  ['DRILLING CHARGE', 'HELLBOMB', 'A/MLS-4X', 'SEAF Squad']  member[4:4] 0x00000000
+  [pool_offset] stride400   +0    10/153 命中, 7 去重  ['C', '8', '8', 'P8']  member[0:4] 0x7BDC408A
+  [pool_offset] stride400   +16   153/153 命中, 151 去重  ['BACKPACK. SUPPLY BACKPACK', 'BACKPACK. BALLISTIC SHIELD BACKPACK', 'BACKPACK. DIRECTIONAL ENERGY SHIELD', 'BACKPACK.  GENERATOR PACK']  member[16:8] 0x00000000
+  [pool_offset] stride400   +24   128/153 命中, 116 去重  ['nui_stratagem_backpack_ammo_name', 'nui_stratagem_backpack_ballisticshield_name', 'nui_stratagem_backpack_directional_energy_shield_name', 'nui_stratagem_backpack_energy_shield_name']  member[24:8] 0x00000000
+  [pool_offset] stride400   +32   128/153 命中, 116 去重  ['nui_stratagem_backpack_ammo_desc', 'nui_stratagem_backpack_ballisticshield_desc', 'nui_stratagem_backpack_directional_energy_shield_desc', 'nui_stratagem_backpack_energy_shield_desc']  member[32:8] 0x00000000
+  [pool_offset] stride400   +72   5/153 命中, 1 去重  ['$', '$', '$', '$']  member[64:16] 0x561A8A65
+  [pool_offset] stride400   +260  4/153 命中, 4 去重  ['nui_stratagem_emplacement_hmg_desc', 'ame', '2', 'M WEAPONS. EXPENDABLE MASSIVE ROCKET LAUNCHER']  member[260:4] 0x8A0F47AE
+
+=== projectile_settings (96604 B) ===
+  组: 1 个  形态 {'array': 1}  stride [(272, 1)]
+  [locid      ] stride272   +4    225/355 命中, 151 去重  ['100KG CLUSTER BOMB', 'CLUSTER BOMB', '100KG BOMB', '100KG BOMB MK2']  member[4:4] 0x00000000
+  [locid      ] stride272   +8    224/355 命中, 151 去重  ['100kg Cluster Bomb', 'Cluster Bomb', '100kg Bomb', '100kg Bomb Mk2']  member[8:4] 0x00000000
+  [locid      ] stride272   +12   36/355 命中, 30 去重  ['APHET', 'FLAK', 'HE', 'HE']  member[12:4] 0x00000000
+  [pool_offset] stride272   +0    26/355 命中, 16 去重  ['?', '>', 'C', '>']  member[0:4] 0xA2B5F333
+  [pool_offset] stride272   +60   36/355 命中, 8 去重  ['j', '?', 'j', 'j']  member[60:4] 0x39D2F78D
+  [pool_offset] stride272   +144  11/355 命中, 7 去重  ['O', '?', '@?', 'B']  member[144:4] 0x11BEEE03
+  [pool_offset] stride272   +172  6/355 命中, 2 去重  ['B', 'B', 'B', '9']  member[172:4] 0xCF328969
+  [pool_offset] stride272   +176  5/355 命中, 2 去重  ['B', 'B', '9', '9']  member[176:4] 0xCF328969
+  [pool_offset] stride272   +244  13/355 命中, 3 去重  ['B', 'B', 'B', 'B']  member[244:2] 0x00000000
+
+=== explosion_settings (68156 B) ===
+  组: 1 个  形态 {'array': 1}  stride [(152, 1)]
+  [locid      ] stride152   +8    3/424 命中, 2 去重  ['Environment', 'Environment', 'Unknowable Forces']  member[8:4] 0x00000000
+  [pool_offset] stride152   +0    19/424 命中, 7 去重  ['A', '4B', '@', 'A']  member[0:4] 0x11BEEE03
+  [pool_offset] stride152   +4    26/424 命中, 7 去重  ['G', 'G', 'G', 'A']  member[4:4] 0x39D2F78D
+  [pool_offset] stride152   +80   3/424 命中, 1 去重  ['@', '@', '@']  member[80:4] 0x00000000
+
+=== weapon_customization_settings (30824 B) ===
+  组: 9 个  形态 {'array': 9}  stride [(88, 9)]
+  [locid      ] stride88    +12   234/252 命中, 142 去重  ['9x20mm EXPLOSIVE', '9x20mm FULL METAL JACKET', '9x20mm HOLLOW POINT', '9x20mm HIGH VELOCITY']  member[12:4] 0x00000000
+  [locid      ] stride88    +20   234/252 命中, 142 去重  ['Explosive tipped projectile that does high damage against massive unarmored targets.', 'Standard projectile', 'Expanding projectile that does massive damage against unarmored targets.', 'Improved gunpowder propels the projectile at higher velocity reducing the travel time and increasing damage.']  member[20:4] 0x00000000
+  [locid      ] stride88    +16   216/252 命中, 125 去重  ['9x20mm Explosive', '9x20mm Full Metal Jacket', '9x20mm Hollow Point', '9x20mm High Velocity']  member[16:4] 0x00000000
+  [pool_offset] stride88    +0    252/252 命中, 248 去重  ['PISTOL-SMG 9x20mm. EXPLOSIVE', 'PISTOL-SMG 9x20mm. FULL METAL JACKET', 'PISTOL-SMG 9x20mm. HOLLOW POINT', 'PISTOL-SMG 9x20mm. HIGH VELOCITY']  member[0:8] 0x00000000
+
+=== customization_armor_sets (453204 B) ===
+  组: 422 个  形态 {'single': 422}  stride [(64, 422)]
+  [locid      ] stride64    +12   389/422 命中, 229 去重  ['FS-37 RAVAGER', 'FS-37 RAVAGER', 'FS-55 DEVASTATOR', 'FS-55 DEVASTATOR']  member[12:4] 0x00000000
+  [locid      ] stride64    +20   389/422 命中, 229 去重  ['Contains many small pockets, allowing the user to evenly distribute the weight of ammunition, samples, and cool rocks.', 'Contains many small pockets, allowing the user to evenly distribute the weight of ammunition, samples, and cool rocks.', 'Domestic versions of this armor enable colonial farmers to plant crops and mines side by side, safely.', 'Domestic versions of this armor enable colonial farmers to plant crops and mines side by side, safely.']  member[20:4] 0x00000000
+  [locid      ] stride64    +16   356/422 命中, 204 去重  ['FS-37 Ravager', 'FS-37 Ravager', 'FS-55 Devastator', 'FS-55 Devastator']  member[16:4] 0x00000000
+  [pool_offset] stride64    +40   15/422 命中, 15 去重  ['nqX+.', 'E2', 'Ww', '2Z']  member[40:4] 0x089EC682
+  [pool_offset] stride64    +56   7/422 命中, 7 去重  ['nqX+.', '(Ir', '3px', 'Odq']  member[48:16] 0xBCB00FA8
+
+=== customization_passive_bonuses (4992 B) ===
+  组: 33 个  形态 {'single': 33}  stride [(56, 33)]
+  [locid      ] stride56    +4    33/33 命中, 33 去重  ['EXTRA PADDING', 'SERVO-ASSISTED', 'ENGINEERING KIT', 'MED-KIT']  member[4:4] 0x00000000
+
+=== unit_customization_settings (27744 B) ===
+  组: 12 个  形态 {'single': 12}  stride [(80, 12)]
+  [locid      ] stride80    +12   11/12 命中, 11 去重  ['PATRIOT EXOSUIT', 'BREAKTHROUGH EXOSUIT', 'EMANCIPATOR EXOSUIT', 'LUMBERER EXOSUIT']  member[12:4] 0x00000000
+  [locid      ] stride80    +16   9/12 命中, 4 去重  ['EXOSUIT PATTERN', 'EXOSUIT PATTERN', 'VEHICLE PATTERN', 'VEHICLE PATTERN']  member[16:4] 0x00000000
+  [pool_offset] stride80    +24   5/12 命中, 5 去重  ['nui_customization_type_patriot_skins', 'nui_customization_type_emancipator_skins', 'nui_customization_type_frv_skins', 'nui_customization_type_hellpod_skins']  member[24:8] 0x00000000
+
+=== planet_data (369540 B) ===
+  组: 438 个  形态 {'single': 438}  stride [(624, 438)]
+  [locid      ] stride624   +8    399/438 命中, 395 去重  ['SUPER EARTH', 'KLEN DAHTH II', 'PATHFINDER V', "WIDOW'S HARBOR"]  member[8:4] 0x00000000
+  [locid      ] stride624   +16   371/438 命中, 20 去重  ['Rocky outcroppings punctuate fields of tall grass in a planet dominated by misty highland terrain.', 'A rocky, lonely moon with extremely valuable mineral deposits underneath the surface.', "The strange subversion of photosynthesis that sustains the oddly-hued flora that flourishes on this planet remains an intriguing mystery to Super Earth's greatest exo-biologists.", 'A desert planet prone to unpredictable and dangerous sand twisters.']  member[16:4] 0x00000000
+  [pool_offset] stride624   +0    406/438 命中, 35 去重  ['content/level_generation_settings/planet_settings/planet_setup/planet_homeworld_superearth', 'content/level_generation_settings/planet_settings/planet_setup/planet_desert_sandy_klen_dahth_2', 'content/level_generation_settings/planet_settings/planet_setup/planet_forest_moor_base', 'content/level_generation_settings/planet_settings/planet_setup/planet_desert_sandy_moon']  member[0:8] 0x00000000
+  [pool_offset] stride624   +88   438/438 命中, 432 去重  ['planet_000', 'planet_001', 'planet_002', 'planet_003']  member[88:8] 0x00000000
+  [pool_offset] stride624   +96   438/438 命中, 32 去重  ['region_superearth', 'region_sandy_base', 'region_moor_baseplanet', 'region_sandy_moon']  member[96:40] 0x312C4148
+  [pool_offset] stride624   +108  15/438 命中, 14 去重  ['*;', '^I', 'b', 'P']  member[96:40] 0x312C4148
+  [pool_offset] stride624   +136  438/438 命中, 32 去重  ['region_superearth', 'region_sandy_base', 'region_moor_baseplanet', 'region_sandy_moon']  member[136:40] 0x312C4148
+  [pool_offset] stride624   +148  15/438 命中, 14 去重  ['*;', '^I', 'b', 'P']  member[136:40] 0x312C4148
+  [pool_offset] stride624   +440  9/438 命中, 6 去重  ['n% ', '"N^', '4@h', 'b(_W']  member[440:4] 0x29EED886
+  [pool_offset] stride624   +568  3/438 命中, 1 去重  [')', ')', ')']  member[568:16] 0x62FECBF9
+
+=== zone_data (518478 B) ===
+  组: 87 个  形态 {'single': 87}  stride [(912, 87)]
+  [pool_offset] stride912   +256  58/87 命中, 8 去重  ['Sandy_RegionInput', 'Arctic_RegionInput', 'Arctic_RegionInput', 'Arctic_RegionInput']  member[256:8] 0x00000000
+
+=== region_settings (259627 B) ===
+  组: 13 个  形态 {'single': 13}  stride [(64, 13)]
+  [pool_offset] stride64    +0    13/13 命中, 13 去重  ['region_generation_testing', 'region_sandy', 'region_primordial', 'region_magma']  member[0:8] 0x00000000
+
+=== status_effect_settings (14020 B) ===
+  组: 2 个  形态 {'array': 2}  stride [(40, 1), (160, 1)]
+  [pool_offset] stride40    +4    4/29 命中, 2 去重  ['?', '!', '?', '?']  member[4:32] 0x48CEF575
+  [pool_offset] stride160   +0    4/73 命中, 4 去重  ['I', '-', '?', 'A']  member[0:4] 0x525E8B93
+  [pool_offset] stride160   +8    73/73 命中, 68 去重  ['Blind', 'Bleed', 'Deaf', 'Confusion']  member[8:8] 0x00000000
+  [pool_offset] stride160   +104  8/73 命中, 1 去重  ['I', 'I', 'I', 'I']  member[104:1] 0x00000000
+
+=== hit_effect_settings (72620 B) ===
+  组: 1 个  形态 {'array': 1}  stride [(48, 1)]
+  没有候选槽位
+
+=== damage_settings (50336 B) ===
+  组: 1 个  形态 {'array': 1}  stride [(76, 1)]
+  [pool_offset] stride76    +0    28/661 命中, 17 去重  ['H', '2', '2', 'HB']  member[0:4] 0x39D2F78D
+  [pool_offset] stride76    +4    36/661 命中, 6 去重  ['2', '2', '2', '2']  member[4:8] 0x00000000
+  [pool_offset] stride76    +8    42/661 命中, 5 去重  ['2', '2', '2', '2']  member[4:8] 0x00000000
+  [pool_offset] stride76    +28   71/661 命中, 1 去重  ['2', '2', '2', '2']  member[28:4] 0x00000000
+  [pool_offset] stride76    +32   106/661 命中, 1 去重  ['2', '2', '2', '2']  member[32:4] 0x00000000
+  [pool_offset] stride76    +36   66/661 命中, 2 去重  ['2', '2', '2', '2']  member[36:4] 0x00000000
+
+=== beam_settings (3404 B) ===
+  组: 1 个  形态 {'array': 1}  stride [(112, 1)]
+  [pool_offset] stride112   +12   4/30 命中, 2 去重  ['i', 'i', 'i', 'US0']  member[12:4] 0x39D2F78D
+  [pool_offset] stride112   +44   6/30 命中, 1 去重  ['D', 'D', 'D', 'D']  member[44:4] 0xCF328969
+
+=== arc_settings (1708 B) ===
+  组: 1 个  形态 {'array': 1}  stride [(104, 1)]
+  没有候选槽位
+
+=== stratagem_upgrade_settings (133 B) ===
+  组: 1 个  形态 {'array': 1}  stride [(64, 1)]
+  没有候选槽位
+
+=== entity_deltas (352345 B) ===
+  组: 1 个  形态 {'single': 1}  stride [(80, 1)]
+  没有候选槽位
+
+=== modifier_settings (1764 B) ===
+  组: 15 个  形态 {'single': 15}  stride [(24, 15)]
+  [pool_offset] stride24    +8    15/15 命中, 2 去重  ['8', '8', '8', 'x']  member[8:16] 0x05238A1C
+
+=== policy_settings (480 B) ===
+  组: 1 个  形态 {'single': 1}  stride [(32, 1)]
+  没有候选槽位
+
+=== candidate_descs (812 B) ===
+  组: 1 个  形态 {'array': 1}  stride [(40, 1)]
+  [locid      ] stride40    +0    3/12 命中, 3 去重  ['Gun Ingbrit Morgunsdottir', 'Winston Richman Jr. Sr.', 'Daiyu Hatchet']  member[0:4] 0x00000000
+
+=== add_resource_dependencies (180 B) ===
+  组: 2 个  形态 {'array': 2}  stride [(16, 2)]
+  没有候选槽位
+
+写入 refs\locid-scan.json
