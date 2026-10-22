@@ -40,6 +40,13 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36"}
 SKIP_PREFIXES = ("User:", "Talk:", "File:", "Template:", "Category:", "Help:", "Module:")
 SKIP_TITLES = {"Stratagems", "Weapons", "Damage Comparison"}
+TITLE_MAP = "_titles.json"          # filename stem -> the real page title
+
+
+def safe_stem(title: str) -> str:
+    """A Windows-safe filename stem; the real title is kept in TITLE_MAP."""
+    out = title.replace("/", "_").replace("\\", "_").replace(":", "_")
+    return out.replace("#", "_").replace("?", "_").replace("*", "_").replace("|", "_").strip()
 
 
 def api(params: dict) -> dict:
@@ -80,7 +87,17 @@ def main() -> int:
         titles.extend(kept)
 
     titles = list(dict.fromkeys(titles))
-    todo = [t for t in titles if a.force or not (out / f"{t.replace('/', '_')}.wikitext").exists()]
+    # merge with any map already on disk so a partial re-run never loses titles
+    map_path = out / TITLE_MAP
+    title_map: dict[str, str] = {}
+    if map_path.is_file():
+        try:
+            title_map = json.loads(map_path.read_text(encoding="utf-8"))
+        except Exception:                                        # noqa: BLE001
+            title_map = {}
+    for title in titles:
+        title_map[safe_stem(title)] = title
+    todo = [t for t in titles if a.force or not (out / f"{safe_stem(t)}.wikitext").exists()]
     print(f"{len(titles)} unique titles, {len(todo)} to fetch")
 
     fetched = 0
@@ -98,13 +115,14 @@ def main() -> int:
                 continue
             slot = revisions[0].get("slots", {}).get("main", {})
             content = slot.get("*") or slot.get("content") or ""
-            path = out / f"{title.replace('/', '_')}.wikitext"
+            path = out / f"{safe_stem(title)}.wikitext"
             path.write_text(content, encoding="utf-8")
             fetched += 1
         print(f"  batch {start // a.batch + 1}: {len(chunk)} requested, {fetched} written so far")
         time.sleep(a.sleep)
 
-    print(f"done: {fetched} pages in {out}")
+    map_path.write_text(json.dumps(title_map, ensure_ascii=False, indent=0), encoding="utf-8")
+    print(f"done: {fetched} pages in {out}; title map {len(title_map)} entries -> {TITLE_MAP}")
     return 0
 
 

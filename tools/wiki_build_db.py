@@ -151,16 +151,25 @@ def main() -> int:
         CREATE TABLE param(section TEXT, title TEXT, key TEXT, value TEXT, num REAL);
         CREATE TABLE entity(section TEXT, key TEXT, json TEXT);
         CREATE TABLE stratagem(key TEXT PRIMARY KEY, json TEXT);
+        CREATE TABLE weapon(key TEXT PRIMARY KEY, json TEXT);
         CREATE INDEX idx_param_title ON param(title);
         CREATE INDEX idx_param_key ON param(key);
         CREATE INDEX idx_entity_key ON entity(key);
     """)
 
+    title_map = {}
+    map_path = pages_dir / "_titles.json"
+    if map_path.is_file():
+        try:
+            title_map = json.loads(map_path.read_text(encoding="utf-8"))
+        except Exception:                                        # noqa: BLE001
+            title_map = {}
+
     page_count = param_count = 0
     kinds = {"stratagem": 0, "weapon": 0}
     for path in sorted(pages_dir.glob("*.wikitext")):
         text = path.read_text(encoding="utf-8", errors="replace")
-        title = path.stem.replace("_", " ")
+        title = title_map.get(path.stem, path.stem.replace("_", " "))
         updated = find_template(text, "Last Updated")
         last_updated = None
         if updated:
@@ -195,6 +204,7 @@ def main() -> int:
 
     entity_count = 0
     merged = 0
+    merged_weapon = [0]
     for path in sorted(modules_dir.glob("*.raw")):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
@@ -209,6 +219,23 @@ def main() -> int:
                                (key, json.dumps(entry, ensure_ascii=False)))
                     merged += 1
                 continue
+            # weapon data: several modules carry a `weapon`/`weapons` section under different
+            # capitalisations, so keep the entry with the most fields for each folded key.
+            if section in ("weapon", "weapons") and isinstance(value, dict):
+                for key, entry in value.items():
+                    if not isinstance(entry, dict):
+                        continue
+                    folded = key.lower()
+                    previous = db.execute(
+                        "SELECT key, json FROM weapon WHERE LOWER(key)=?", (folded,)).fetchone()
+                    if previous is not None:
+                        if len(json.loads(previous[1])) >= len(entry):
+                            continue
+                        db.execute("DELETE FROM weapon WHERE key=?", (previous[0],))
+                    db.execute("INSERT INTO weapon VALUES (?,?)",
+                               (key, json.dumps(entry, ensure_ascii=False)))
+                    merged_weapon[0] += 1
+                continue
             if not isinstance(value, dict):
                 continue
             for key, entry in value.items():
@@ -219,12 +246,13 @@ def main() -> int:
                 entity_count += 1
 
     db.commit()
-    for table in ("page", "param", "entity", "stratagem"):
+    for table in ("page", "param", "entity", "stratagem", "weapon"):
         n = db.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
         print(f"  {table:<10} {n:>6} rows")
     print(f"db -> {out}  ({out.stat().st_size:,} B)")
     print(f"   pages {page_count} ({kinds}), params {param_count}, "
-          f"entities {entity_count}, merged stratagem rows {merged}")
+          f"entities {entity_count}, merged stratagem rows {merged}, "
+          f"merged weapon rows {merged_weapon[0]}")
     return 0
 
 

@@ -47,12 +47,28 @@ def page_params(db, title: str) -> dict[str, dict[str, str]]:
     return out
 
 
+def merged_entry(db, attack_key: str):
+    """The merged module row for a page's attack key.
+
+    Stratagems live in the `stratagem` table and weapons in `weapon`; the two sets of modules
+    capitalise their keys differently (`AR-23 Liberator` vs `40-K MELTAGUN`), and the page
+    parameter may be a third capitalisation, so the lookup is case-insensitive.
+    """
+    for table in ("stratagem", "weapon"):
+        row = db.execute(f"SELECT key, json FROM {table} WHERE key=?", (attack_key,)).fetchone()
+        if row is None:
+            row = db.execute(f"SELECT key, json FROM {table} WHERE LOWER(key)=?",
+                             (attack_key.lower(),)).fetchone()
+        if row is not None:
+            return table, row["key"], json.loads(row["json"])
+    return None, None, None
+
+
 def resolve_chain(db, attack_key: str) -> list[tuple[str, str, dict]]:
-    """Follow the merged `attacks` list of a stratagem through the module entities."""
-    row = db.execute("SELECT json FROM stratagem WHERE key=?", (attack_key,)).fetchone()
-    if row is None:
+    """Follow the merged `attacks` list of a page through the module entities."""
+    _table, _key, entry = merged_entry(db, attack_key)
+    if entry is None:
         return []
-    entry = json.loads(row["json"])
     out = []
     for attack in entry.get("attacks", []):
         kind, name = attack.get("type"), attack.get("name")
@@ -67,6 +83,12 @@ def resolve_chain(db, attack_key: str) -> list[tuple[str, str, dict]]:
                 break
             if not found:                      # try any section, names are unique enough
                 for hit in db.execute("SELECT section, json FROM entity WHERE key=?", (name,)):
+                    found = json.loads(hit["json"])
+                    break
+            if not found and kind in ("weapon", "weapons"):
+                # nested weapon attacks (a sentry's gun) live in the merged weapon table
+                for hit in db.execute("SELECT json FROM weapon WHERE LOWER(key)=LOWER(?)",
+                                      (name,)):
                     found = json.loads(hit["json"])
                     break
         out.append((kind, name, found))
@@ -140,7 +162,16 @@ def show_stratagem(db, title: str, sk: str, game: str) -> None:
     key = page["attack_key"]
     if not key:
         return
-    print(f"  [attack data key] {key}")
+    table, matched, entry = merged_entry(db, key)
+    print(f"  [attack data key] {key}" +
+          (f"   -> {table} table key {matched!r}" if matched and matched != key else ""))
+    if entry:
+        scalars = {k: v for k, v in entry.items()
+                   if isinstance(v, (int, float, str)) and k not in ("name",)
+                   and not isinstance(v, bool)}
+        if scalars:
+            shown = ", ".join(f"{k}={v}" for k, v in list(scalars.items())[:10])
+            print(f"    [merged] {shown}")
     chain = resolve_chain(db, key)
     if not chain:
         print("    (no merged attack rows for this key in the cached modules)")
@@ -166,7 +197,8 @@ def show_stratagem(db, title: str, sk: str, game: str) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--db", default="refs/wiki/wiki.sqlite")
-    ap.add_argument("--stratagem", default="")
+    ap.add_argument("--stratagem", "--page", dest="stratagem", default="",
+                    help="page title (works for stratagems and weapons alike)")
     ap.add_argument("--field", default="")
     ap.add_argument("--entity", default="")
     ap.add_argument("--sql", default="")
