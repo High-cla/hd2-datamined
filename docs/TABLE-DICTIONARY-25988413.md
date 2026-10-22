@@ -30,9 +30,25 @@
 | `planet_override_settings` | **44** | 40 B | 33,190 B | 行星名，如 `superearth` |
 | `stratagem_upgrade_settings` | **1** | 64 B | 25 B | `AMMO RACK MOUNTED TURRET` |
 
-证据：`weapon_customization` 第 0 组的首行第一个 u64 是 `0x2168` = `16 + 97×88`，
-正好等于字符串块的起点；后面每行的这个字段依次是 `0x218C / 0x21B8 / 0x21DC …`，都落在字符串块里，
-且每一处开头就是一条可读的弹药名。`stratagem` 的表把同样的偏移放在行内 `+24`（`0x1460 / 0x147A / 0x149B`）。
+**名字怎么取（2026-10-22 修正）**：字符串块**不是**靠行内偏移寻址的。行里那个 u64 只是碰巧落在
+某条字符串内部（在不同行里偏移量是 8/16/8/12/4… 变化），按它取名字会被截掉前缀。
+真实结构是**按行序平行的名字数组**：块里第 i 条可读字符串就是第 i 行的名字。
+已验证覆盖每一行的有 6 张表：`weapon_customization` 252、`stratagem` 153、`status_effect` 73、
+`planet_override` 44、`language` 15、`stratagem_upgrade` 1。抽出来的名字在
+`refs/table-row-names.json`，工具是 `tools/table_row_names.py`。
+
+样例（都是表里原样读出来的）：
+
+| 表 | 前几条名字 |
+|---|---|
+| `status_effect_settings` | `Blind` / `Bleed` / `Deaf` / `Confusion` |
+| `weapon_customization_settings` | `PISTOL-SMG 9x20mm. EXPLOSIVE` / `… FULL METAL JACKET` / `… HOLLOW POINT` |
+| `stratagem_settings` | `BACKPACK. SUPPLY BACKPACK` / `nui_stratagem_backpack_ammo_name`（名 + 本地化键成对出现）|
+| `planet_override_settings` | `superearth` / `moor_shared` / `moor_base` / `moor_tundra` |
+| `language_settings` | `english` / `en-US` / `English US` / `en-GB` |
+
+⚠ 约 1% 的条目会带一个对齐填充字节（如 `sBACKPACK…`、`"moor_tundra`），是块内 padding 恰好可打印
+造成的，原样保留、不猜着裁。
 
 ## 1. 已验证的几何（我们自己的工具实测过）
 
