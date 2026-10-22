@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.sk
+*.pk
+*.sealed.dl_bin
+*.plain.dl_bin
+.venv/
+~$*

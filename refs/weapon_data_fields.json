@@ -1,0 +1,545 @@
+[
+ {
+  "name": "RecInfo",
+  "go_type": "RecoilInfo",
+  "offset": 0,
+  "size": 60,
+  "type_id": "0x30D8708A"
+ },
+ {
+  "name": "RecModifiers",
+  "go_type": "RecoilModifiers",
+  "offset": 60,
+  "size": 24,
+  "type_id": "0x21368180"
+ },
+ {
+  "name": "Spread",
+  "go_type": "SpreadInfo",
+  "offset": 84,
+  "size": 12,
+  "type_id": "0xF916ED4B"
+ },
+ {
+  "name": "SpreadMods",
+  "go_type": "SpreadModifiers",
+  "offset": 96,
+  "size": 8,
+  "type_id": "0xC2161EE1"
+ },
+ {
+  "name": "SwayMultiplier",
+  "go_type": "float32",
+  "offset": 104,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "AimBlockLength",
+  "go_type": "float32",
+  "offset": 108,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "IsSuppressed",
+  "go_type": "uint8",
+  "offset": 112,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "AimZoom",
+  "go_type": "mgl32.Vec3",
+  "offset": 116,
+  "size": 12,
+  "type_id": "0x85B82A43"
+ },
+ {
+  "name": "ScopeSway",
+  "go_type": "float32",
+  "offset": 128,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "NoiseTemplate",
+  "go_type": "enum.NoiseTemplate",
+  "offset": 132,
+  "size": 1,
+  "type_id": "0x39117D3A"
+ },
+ {
+  "name": "VisibilityModifier",
+  "go_type": "float32",
+  "offset": 136,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "NumBurstRounds",
+  "go_type": "uint32",
+  "offset": 140,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "PrimaryFireMode",
+  "go_type": "enum.FireMode",
+  "offset": 144,
+  "size": 4,
+  "type_id": "0xB99236EB"
+ },
+ {
+  "name": "SecondaryFireMode",
+  "go_type": "enum.FireMode",
+  "offset": 148,
+  "size": 4,
+  "type_id": "0xB99236EB"
+ },
+ {
+  "name": "TertiaryFireMode",
+  "go_type": "enum.FireMode",
+  "offset": 152,
+  "size": 4,
+  "type_id": "0xB99236EB"
+ },
+ {
+  "name": "QuaternaryFireMode",
+  "go_type": "enum.FireMode",
+  "offset": 156,
+  "size": 4,
+  "type_id": "0xB99236EB"
+ },
+ {
+  "name": "UnknownMinigunStruct",
+  "go_type": "[24]uint8",
+  "offset": 160,
+  "size": 24,
+  "type_id": "0x81E38472"
+ },
+ {
+  "name": "FunctionInfo",
+  "go_type": "WeaponFunctionInfo",
+  "offset": 184,
+  "size": 8,
+  "type_id": "0xDD1E521C"
+ },
+ {
+  "name": "Crosshair",
+  "go_type": "stingray.Hash",
+  "offset": 192,
+  "size": 8,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "AlwaysShowCrosshair",
+  "go_type": "uint8",
+  "offset": 200,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "FireNodes",
+  "go_type": "[24]stingray.ThinHash",
+  "offset": 204,
+  "size": 96,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "AimSourceNode",
+  "go_type": "stingray.ThinHash",
+  "offset": 300,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "SimultaneousFire",
+  "go_type": "uint8",
+  "offset": 304,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "ScopeCrosshair",
+  "go_type": "mgl32.Vec2",
+  "offset": 308,
+  "size": 8,
+  "type_id": "0x85B82A42"
+ },
+ {
+  "name": "UnknownVec3",
+  "go_type": "mgl32.Vec3",
+  "offset": 316,
+  "size": 12,
+  "type_id": "0x85B82A43"
+ },
+ {
+  "name": "Unknown2dVec",
+  "go_type": "mgl32.Vec2",
+  "offset": 328,
+  "size": 8,
+  "type_id": "0x85B82A42"
+ },
+ {
+  "name": "UnknownMinigunBool",
+  "go_type": "uint8",
+  "offset": 336,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "ScopeZeroing",
+  "go_type": "mgl32.Vec3",
+  "offset": 340,
+  "size": 12,
+  "type_id": "0x85B82A43"
+ },
+ {
+  "name": "ScopeLensHidesWeapon",
+  "go_type": "uint8",
+  "offset": 352,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "Ergonomics",
+  "go_type": "float32",
+  "offset": 356,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "UnknownFloat",
+  "go_type": "float32",
+  "offset": 360,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "UnknownMinigunBool2",
+  "go_type": "uint8",
+  "offset": 364,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "Unknown2dVec2",
+  "go_type": "mgl32.Vec2",
+  "offset": 368,
+  "size": 8,
+  "type_id": "0x85B82A42"
+ },
+ {
+  "name": "Unknown2dVec3",
+  "go_type": "mgl32.Vec2",
+  "offset": 376,
+  "size": 8,
+  "type_id": "0x85B82A42"
+ },
+ {
+  "name": "ConstrainedAimLeading",
+  "go_type": "uint8",
+  "offset": 384,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "AllowFPV",
+  "go_type": "uint8",
+  "offset": 385,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "AllowAiming",
+  "go_type": "uint8",
+  "offset": 386,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "FirePreventsMovement",
+  "go_type": "uint8",
+  "offset": 387,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "StartFiringMinigunAnimationEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 388,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "StopFiringMinigunAnimationEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 392,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "UnknownBool2",
+  "go_type": "uint8",
+  "offset": 396,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "CrosshairType",
+  "go_type": "enum.CrosshairWeaponType",
+  "offset": 400,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "FirstPersonSightNodes",
+  "go_type": "[4]OpticSetting",
+  "offset": 404,
+  "size": 4,
+  "type_id": "0x323880BA"
+ },
+ {
+  "name": "FirstPersonCameraNode",
+  "go_type": "stingray.ThinHash",
+  "offset": 408,
+  "size": 48,
+  "type_id": "0x4C18DE6F"
+ },
+ {
+  "name": "FirstPersonOpticAttachNode",
+  "go_type": "stingray.ThinHash",
+  "offset": 456,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "AutoDropAbility",
+  "go_type": "enum.AbilityId",
+  "offset": 460,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "ShouldWeaponScream",
+  "go_type": "uint8",
+  "offset": 464,
+  "size": 4,
+  "type_id": "0x8D26697B"
+ },
+ {
+  "name": "EnterFirstPersonAimAudioEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 468,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "ExitFirstPersonAimAudioEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 472,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "FirstPersonAimAudioEventNodeID",
+  "go_type": "stingray.ThinHash",
+  "offset": 476,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "EnterThirdPersonAimAudioEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 480,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "ExitThirdPersonAimAudioEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 484,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "ThirdPersonAimAudioEventNodeID",
+  "go_type": "stingray.ThinHash",
+  "offset": 488,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "FireModeChangedAudioEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 492,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "OnFireRoundsRemainingAnimationVariable",
+  "go_type": "stingray.ThinHash",
+  "offset": 496,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "OnFireRoundEffects",
+  "go_type": "[8]EffectSetting",
+  "offset": 500,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "OnFireRoundNodeScales",
+  "go_type": "[2]UnitNodeScale",
+  "offset": 504,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "OnFireRoundAnimEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 512,
+  "size": 384,
+  "type_id": "0x10CEE58B"
+ },
+ {
+  "name": "OnFireLastRoundAnimEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 896,
+  "size": 32,
+  "type_id": "0x49D0074E"
+ },
+ {
+  "name": "OnFireRoundWielderAnimEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 928,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "OnFireModeChangedAnimVariable",
+  "go_type": "stingray.ThinHash",
+  "offset": 932,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "OnFireModeChangedWielderAnimEvent",
+  "go_type": "stingray.ThinHash",
+  "offset": 936,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "FireAbility",
+  "go_type": "enum.AbilityId",
+  "offset": 940,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "Unk1Ability",
+  "go_type": "enum.AbilityId",
+  "offset": 944,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "Unk2Ability",
+  "go_type": "enum.AbilityId",
+  "offset": 948,
+  "size": 4,
+  "type_id": "0x8D26697B"
+ },
+ {
+  "name": "InfiniteAmmo",
+  "go_type": "uint8",
+  "offset": 952,
+  "size": 4,
+  "type_id": "0x8D26697B"
+ },
+ {
+  "name": "WeaponStatModifiers",
+  "go_type": "[8]WeaponStatModifierSetting",
+  "offset": 956,
+  "size": 4,
+  "type_id": "0x8D26697B"
+ },
+ {
+  "name": "AmmoIconInner",
+  "go_type": "stingray.Hash",
+  "offset": 960,
+  "size": 1,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "AmmoIconOuter",
+  "go_type": "stingray.Hash",
+  "offset": 964,
+  "size": 64,
+  "type_id": "0xEE866013"
+ },
+ {
+  "name": "WeaponFunctionFireModes",
+  "go_type": "[8]WeaponFireModeFunction",
+  "offset": 1032,
+  "size": 8,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "Unk3Ability",
+  "go_type": "enum.AbilityId",
+  "offset": 1040,
+  "size": 8,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "UnkHash1",
+  "go_type": "stingray.ThinHash",
+  "offset": 1048,
+  "size": 160,
+  "type_id": "0x2F79AD03"
+ },
+ {
+  "name": "UnkHash2",
+  "go_type": "stingray.ThinHash",
+  "offset": 1208,
+  "size": 4,
+  "type_id": "0x8D26697B"
+ },
+ {
+  "name": "UnkHash3",
+  "go_type": "stingray.ThinHash",
+  "offset": 1212,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "UnkHash4",
+  "go_type": "stingray.ThinHash",
+  "offset": 1216,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "UnkBool",
+  "go_type": "uint8",
+  "offset": 1220,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "UnkFloat",
+  "go_type": "float32",
+  "offset": 1224,
+  "size": 4,
+  "type_id": "0x00000000"
+ },
+ {
+  "name": "<typelib tail>",
+  "remaining_members": 2
+ }
+]

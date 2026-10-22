@@ -1,0 +1,81 @@
+# Helldivers 2 · build 25988413 逆向笔记与数据表工具
+
+> 只针对 **build 25988413**（2026-10 反作弊换成 EAC 之后的那次更新）的实测结果。
+> 更老 build 的结论一律不收录 —— 它们会误导人（本仓库刻意只从 25988413 起算）。
+
+## 这是什么
+
+一套**离线**（改数据文件，不碰进程内存、不需要 Lua/FFI/注入）的 Helldivers 2 数据表研究笔记与工具：
+
+| 能力 | 状态 |
+|---|---|
+| 解开 `data/game/*.dl_bin` 的封装（`crypto_box_seal` 形态）并还原明文 | ✓ 工具可跑（需自备你自己的密钥材料，见下） |
+| 还原**内容哈希闸门**（MurmurHash64A + 校正字），改完字节仍能通过校验 | ✓ 已实机 |
+| `generated_entities.dl_bin`：组件块布局 / hashmap / 行结构 | ✓ 已实机 |
+| 武器数值：人机、站姿惩罚、散布、后坐、装填可移动 | ✓ 已实机 |
+| **可选弹种**：`fnid=8` + 备选弹丸（伤害+状态切换） | ✓ 已实机（眩晕 / 燃烧） |
+| 自制伤害行（占无主行，写伤害/穿甲/状态强度） | ✓ 离线门禁通过 |
+| 独立弹药池（`fnid=4` + `WeaponRounds` 双池） | ⚠ 结构已解，未实机 |
+| 解锁未发布物品（`LoadoutEntry.selectable`） | ✗ 已否证（发布数据里没有这个开关） |
+
+## 不是什么
+
+- **不包含任何游戏资产、明文表以外的游戏内容、密钥、密钥材料**。仓库里的 `tables/` 只有三张很小的参数表（合计 ~180 KB），用于验证解析器。
+- 不提供"解除封锁/解锁付费内容/破坏他人游戏"的方法。已证否的路线也如实写"否证"。
+- 不是通用 mod 管理器；mod 打包/安装请用社区工具。
+
+## 目录
+
+```
+docs/      15 篇 25988413 期文档（引擎 API / Lua / 加载器 / 内存 / 实体表 / 密封盒 / 案例）
+tools/     离线数据表工具链（解析、改字节、保哈希、行级编辑 + 门禁）
+tables/    三张小参数表（damage / projectile / weapon_customization），仅供解析验证
+refs/      字段图与索引：武器键→名字、WeaponData 字段偏移、275 个组件块类型名、loadout 表
+examples/  最小解析示例（纯标准库）+ 字段说明
+```
+
+## 快速开始（纯 Python 3.11+，无第三方依赖）
+
+```bash
+# 1) 解析一张表（不需要游戏文件也能跑仓库里 tables/ 的那三张）
+python examples/parse_examples.py --projectile tables/generated_projectile_settings.dl_bin
+python examples/parse_examples.py --blocks     refs/../tables/...   # 见脚本内注释
+
+# 2) 算一个文件的 Murmur64A（内容哈希闸门用的那个）
+python tools/murmur64.py <file>
+
+# 3) 组件块/字段：275 个块类型名在 refs/entity-block-types.json
+python - <<'PY'
+import json; d=json.load(open('refs/entity-block-types.json'))
+for b in d['blocks']:
+    if b['component'] and 'Weapon' in b['component']: print(b)
+PY
+```
+
+要动自己机器上的游戏文件时，标准流程见 **`docs/ENTITY-TABLE-25988413.md` §5**（取明文 → 改字节 → 解校正字 → 校验哈希 → 重新封装 → 回读）。
+
+## 已验证的核心结论（都在文档里有原始输出）
+
+1. **闸门**：`data/game/*.dl_bin` 的明文被 `game.dll` 里烘焙的 MurmurHash64A 校验（seed `0xDEADBEEFABAD1DEA`），不匹配就 `0xC000000D`。**解法**：改完字节后在文件内一个语义惰性的 8 字节对齐空位解出"校正字"，让哈希回到原值 —— 文件长度不变、内容校验通过。
+2. **实体库不是 toc，是块序列**：`u32 type | 'LDLD' | ver | type | payload | ...`（28 B 头）；组件块 payload = `[hashmap][行数组]`；hashmap 键 = `Murmur64A(资源路径)`。
+3. **可选弹种两格**：`WeaponData +184`（`FunctionInfo.function_id`，**8 = 引擎原生 ProgrammableAmmo**）＋ `ProjectileWeapon +576`（**备选弹丸 type id**）。备选弹**只贡献伤害+状态**，弹道来自主弹行。
+4. **独立弹药池**：`WeaponRoundsComponentData`，行内 `+64` = 两个弹丸 id、`+72` = 两个弹匣容量、`+80` = 两个备弹；全表 25 把里**只有 SG-20 Halt 是 B≠A，也正好只有它是 `fnid=4`**。
+5. **未发布物品**：`LoadoutEntryComponentData` 只有 `{id, type, dlc_pack_id, equipment_tags[5]}` 32 字节，**没有 selectable**；带 selectable 的结构在发布数据里 0 命中 ⇒ 不是离线可翻的开关。
+
+## 免责声明
+
+- 仅供**单人/私人环境**的研究与学习。改动数据文件可能违反游戏服务条款，也可能导致崩溃、存档异常、或与他人的联机体验异常。
+- **不要**在多人游戏中使用会改变他人体验的改动；不要分发改过的游戏数据。
+- 所有结论都标注了三态：`✓ 实机` / `✗ 否证` / `⚠ 未证`。请按标记判断可信度。
+- 游戏更新后（build 变化）偏移与哈希会整体失效 —— 本仓库不保证跨版本。
+
+## 许可证
+
+- 代码（`tools/`、`examples/`）：MIT
+- 文档（`docs/`、`refs/`、`README`）：CC BY 4.0
+
+## 版本
+
+- 记录日期：2026-10-22
+- 游戏 build：25988413
+- 详细结论与原始输出：`docs/ENTITY-TABLE-25988413.md`、`docs/DLBIN-SEALED-BOX.md`、`docs/BUILD-25988413.md`

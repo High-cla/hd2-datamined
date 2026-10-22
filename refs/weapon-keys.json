@@ -1,0 +1,652 @@
+[
+{
+"key": "0x006E44327BB953FE",
+"name": "GL-15 Evictor",
+"v": ""
+},
+{
+"key": "0x02CD7321CD8445F5",
+"name": "GP-31 Grenade Pistol",
+"v": ""
+},
+{
+"key": "0x02EECD0B1FA49630",
+"name": "GL-21 Grenade Launcher",
+"v": ""
+},
+{
+"key": "0x03E67A19B07C6523",
+"name": "R-63 Diligence",
+"v": "305"
+},
+{
+"key": "0x05D8D8C073B9D502",
+"name": "SG-8P Punisher Plasma",
+"v": "57"
+},
+{
+"key": "0x05E4E5C2DB6E44A2",
+"name": "P-2 Peacemaker",
+"v": ""
+},
+{
+"key": "0x0736BEE2D6328726",
+"name": "B/FLAM-80 Cremator",
+"v": ""
+},
+{
+"key": "0x076DD5D4F4360204",
+"name": "ARC-12 Blitzer",
+"v": ""
+},
+{
+"key": "0x0807AEA5217E4767",
+"name": "SMG-72 Pummeler",
+"v": "157"
+},
+{
+"key": "0x085C1EDB038EC24E",
+"name": "MG-206 Heavy Machine Gun",
+"v": ""
+},
+{
+"key": "0x0B882808C6F498E8",
+"name": "P-35 Re-Educator",
+"v": "343"
+},
+{
+"key": "0x0F83639AB8C86165",
+"name": "R-2 Amendment",
+"v": "327"
+},
+{
+"key": "0x11C27D3BABB38956",
+"name": "MG-43 Machine Gun",
+"v": ""
+},
+{
+"key": "0x14D5D4506056C7A4",
+"name": "P-33 Missile Pistol",
+"v": "152"
+},
+{
+"key": "0x186EA95DE7306B1A",
+"name": "SMG-203 Gallant",
+"v": "76"
+},
+{
+"key": "0x1980D92B619FF5FE",
+"name": "LAS-98 Laser Cannon",
+"v": ""
+},
+{
+"key": "0x1A437158E1B8D2A1",
+"name": "P-113 Verdict",
+"v": "15"
+},
+{
+"key": "0x1ABBFF60D26BA391",
+"name": "R/40-K Hot-Shot Marksman Rifle",
+"v": "86"
+},
+{
+"key": "0x2152D5147B0AC418",
+"name": "MG-206 Heavy Machine Gun",
+"v": ""
+},
+{
+"key": "0x25AA2FD4643CF4EE",
+"name": "FAF-14 Spear",
+"v": ""
+},
+{
+"key": "0x26E40437EA275296",
+"name": "RL-77 Airburst Rocket Launcher",
+"v": ""
+},
+{
+"key": "0x27EE1ED8F6FB6356",
+"name": "LAS-5 Scythe",
+"v": ""
+},
+{
+"key": "0x295BEB26DC4F8FF1",
+"name": "LAS-17 Double-Edge Sickle",
+"v": "149"
+},
+{
+"key": "0x2B28E17FFED05F7C",
+"name": "SG-22 Bushwhacker",
+"v": ""
+},
+{
+"key": "0x2B3C367B280F4094",
+"name": "LAS-7 Dagger",
+"v": ""
+},
+{
+"key": "0x2E9D0BDC48B09E60",
+"name": "RS-422 Railgun",
+"v": ""
+},
+{
+"key": "0x30061F91AF477F5E",
+"name": "PLAS-39 Accelerator Rifle",
+"v": "155"
+},
+{
+"key": "0x3575AABC5F1F9326",
+"name": "P-19 Redeemer",
+"v": ""
+},
+{
+"key": "0x35A61296619CC47E",
+"name": "LAS-99 Quasar Cannon",
+"v": ""
+},
+{
+"key": "0x3828E2051AA9E897",
+"name": "S-11 Speargun",
+"v": ""
+},
+{
+"key": "0x39AB99895147A3BF",
+"name": "FLAM-40 Flamethrower",
+"v": ""
+},
+{
+"key": "0x3C86E871923F3970",
+"name": "LAS-13 Trident",
+"v": ""
+},
+{
+"key": "0x3F92BA65EF65CCA9",
+"name": "P-72 Crisper",
+"v": ""
+},
+{
+"key": "0x416D053372C4E433",
+"name": "LAS-58 Talon",
+"v": "144"
+},
+{
+"key": "0x41EAC4A03987FAA0",
+"name": "SG-8 Punisher",
+"v": ""
+},
+{
+"key": "0x43A58CB89CFA197C",
+"name": "M-1000 Maxigun",
+"v": ""
+},
+{
+"key": "0x43CB1033961A2276",
+"name": "AR-23P Liberator Penetrator",
+"v": "7"
+},
+{
+"key": "0x46183B50961D1328",
+"name": "SG-225 Breaker",
+"v": "179"
+},
+{
+"key": "0x4BA41B6F9F405CC2",
+"name": "StA-11 SMG",
+"v": "215"
+},
+{
+"key": "0x4C786785C79D44E7",
+"name": "R-63CS Diligence Counter Sniper",
+"v": "241"
+},
+{
+"key": "0x4D58C77087B774C5",
+"name": "M6C/SOCOM Pistol",
+"v": "308"
+},
+{
+"key": "0x4DBD74F49C8FFC13",
+"name": "MA5C Assault Rifle",
+"v": "119"
+},
+{
+"key": "0x4E310B1FE4C52B52",
+"name": "SG-20 Halt",
+"v": ""
+},
+{
+"key": "0x4E4A613EB9BF5C24",
+"name": "SMG-37 Defender",
+"v": "3"
+},
+{
+"key": "0x4F749E2EE26F532D",
+"name": "SG-8S Slugger",
+"v": ""
+},
+{
+"key": "0x4FB0F8C02F55C82B",
+"name": "FLAM-66 Torcher",
+"v": ""
+},
+{
+"key": "0x52071F49263415E4",
+"name": "SG-88 Break-Action Shotgun",
+"v": ""
+},
+{
+"key": "0x52CDBFBACA3CB397",
+"name": "CQC-30 Stun Baton",
+"v": ""
+},
+{
+"key": "0x52E4334E6A128CAF",
+"name": "GP-31 Grenade Pistol",
+"v": ""
+},
+{
+"key": "0x56070F36CFFFA8A8",
+"name": "LAS-98 Laser Cannon",
+"v": ""
+},
+{
+"key": "0x587878FB76F4B9B1",
+"name": "MG-43 Machine Gun",
+"v": ""
+},
+{
+"key": "0x5990123D142B16CB",
+"name": "MLS-4X Commando",
+"v": ""
+},
+{
+"key": "0x5C54E81A4AAA31FC",
+"name": "EAT-17 Expendable Anti-Tank",
+"v": ""
+},
+{
+"key": "0x5EBAEA70C0D060B9",
+"name": "SG-225SP Breaker Spray&Pray",
+"v": "174"
+},
+{
+"key": "0x5F3EC9BDA2BD8553",
+"name": "CQC-42 Machete",
+"v": ""
+},
+{
+"key": "0x5FECAB819F96A3E8",
+"name": "BR-14 Adjudicator",
+"v": "135"
+},
+{
+"key": "0x6CFCC7F8801A0266",
+"name": "40-K Meltagun",
+"v": ""
+},
+{
+"key": "0x708EA298C82093D0",
+"name": "AR-59 Suppressor",
+"v": "139"
+},
+{
+"key": "0x72170A55A1F37FF1",
+"name": "DBS-2 Double Freedom",
+"v": ""
+},
+{
+"key": "0x75816077C139C850",
+"name": "CQC-5 Combat Hatchet",
+"v": ""
+},
+{
+"key": "0x7617642765AC38C7",
+"name": "EAT-411 Leveller",
+"v": ""
+},
+{
+"key": "0x78A8185F63A70795",
+"name": "B/FLAM-80 Cremator",
+"v": ""
+},
+{
+"key": "0x792D5D2A340FD6E6",
+"name": "CQC-42 Machete",
+"v": ""
+},
+{
+"key": "0x7B06196E90154C88",
+"name": "LAS-7 Dagger",
+"v": ""
+},
+{
+"key": "0x7B75E5132FFD4CA6",
+"name": "R-2124 Constitution",
+"v": ""
+},
+{
+"key": "0x7E1F76163C667E4B",
+"name": "CQC-73 Entrenchment Tool",
+"v": ""
+},
+{
+"key": "0x7E3145A5BAA4B948",
+"name": "LAS-5 Scythe",
+"v": ""
+},
+{
+"key": "0x80932FA0ED6901D3",
+"name": "EAT-17 Expendable Anti-Tank",
+"v": ""
+},
+{
+"key": "0x80F1A156D9FA1E36",
+"name": "JAR-5 Dominator",
+"v": "177"
+},
+{
+"key": "0x84354339522C932D",
+"name": "AR-2 Coyote",
+"v": "138"
+},
+{
+"key": "0x8645F167B3C813A2",
+"name": "LAS-16 Sickle",
+"v": "149"
+},
+{
+"key": "0x88C2D09AD85A7C9F",
+"name": "GL-28 Belt-Fed Grenade Launcher",
+"v": ""
+},
+{
+"key": "0x88F61AFFF48AC8A4",
+"name": "TX-41 Sterilizer",
+"v": ""
+},
+{
+"key": "0x89C5493E08CA4207",
+"name": "APW-1 Anti-Materiel Rifle",
+"v": ""
+},
+{
+"key": "0x8A307BD1811A5FE9",
+"name": "SMG/FLAM-34 Stoker",
+"v": "38"
+},
+{
+"key": "0x8D3D52A3B2F19402",
+"name": "P-4 Senator",
+"v": ""
+},
+{
+"key": "0x90DDC374F4E3D756",
+"name": "M90A Shotgun",
+"v": ""
+},
+{
+"key": "0x94BD931B5FB4EE95",
+"name": "SMG-32 Reprimand",
+"v": "123"
+},
+{
+"key": "0x9571CA51F0DAF35B",
+"name": "MP-98 Knight",
+"v": "215"
+},
+{
+"key": "0x968211C0033DCE64",
+"name": "AR-23 Liberator",
+"v": "276"
+},
+{
+"key": "0x96DE9CD50F7306E6",
+"name": "ARC-3 Arc Thrower",
+"v": ""
+},
+{
+"key": "0x992B6F65A5BAB53D",
+"name": "P-72 Crisper",
+"v": ""
+},
+{
+"key": "0x9B75217D8312DD67",
+"name": "B/MD C4 Pack",
+"v": ""
+},
+{
+"key": "0x9EB160830321BFD6",
+"name": "GP-20 Ultimatum",
+"v": "103"
+},
+{
+"key": "0x9F80D67A12A7E40F",
+"name": "GR-8 Recoilless Rifle",
+"v": ""
+},
+{
+"key": "0xA6A735ACCB4A327F",
+"name": "M-105 Stalwart",
+"v": ""
+},
+{
+"key": "0xA7EE1EBF58FCDF1F",
+"name": "AR-23A Liberator Carbine",
+"v": "276"
+},
+{
+"key": "0xA8A91EB54892B6B2",
+"name": "AR-11 Arbitrator",
+"v": "288"
+},
+{
+"key": "0xA8CFFB316F0B5C5F",
+"name": "AC-8 Autocannon",
+"v": ""
+},
+{
+"key": "0xA955C4EA6F6D4203",
+"name": "AR/GL-21 One-Two",
+"v": "334"
+},
+{
+"key": "0xAA69A60D74A3EC54",
+"name": "PLAS-15 Loyalist",
+"v": "171"
+},
+{
+"key": "0xB0F1B354BA1D38D8",
+"name": "CQC-1 One True Flag",
+"v": ""
+},
+{
+"key": "0xB16C9D490AA59B77",
+"name": "MGX-42 Bullet Storm",
+"v": ""
+},
+{
+"key": "0xB2B5E0D185605F9E",
+"name": "EAT-700 Expendable Napalm",
+"v": ""
+},
+{
+"key": "0xB43235DBD493750C",
+"name": "M-105 Stalwart",
+"v": ""
+},
+{
+"key": "0xB6AFF2195568767F",
+"name": "R-36 Eruptor",
+"v": "40"
+},
+{
+"key": "0xB9606C5AAB32C3C2",
+"name": "M-105 Stalwart",
+"v": ""
+},
+{
+"key": "0xBC29613666DF696B",
+"name": "AR-32 Pacifier",
+"v": "98"
+},
+{
+"key": "0xBE70EE0D8D44028E",
+"name": "M7S SMG",
+"v": "340"
+},
+{
+"key": "0xBF4CFD2AEABFB5A4",
+"name": "CQC-9 Defoliation Tool",
+"v": ""
+},
+{
+"key": "0xC12A34F375BD5A87",
+"name": "SG-225IE Breaker Incendiary",
+"v": "314"
+},
+{
+"key": "0xC780BCD79547DA0F",
+"name": "P-69 Veto",
+"v": ""
+},
+{
+"key": "0xC85F576D5E086147",
+"name": "LAS-12 Sai",
+"v": "236"
+},
+{
+"key": "0xCA4BBEF63C869C18",
+"name": "SMG-37 Defender",
+"v": "3"
+},
+{
+"key": "0xCC786F6491FE7E65",
+"name": "StA-X3 W.A.S.P. Launcher",
+"v": ""
+},
+{
+"key": "0xCD00BDC1149C2928",
+"name": "MG-206 Heavy Machine Gun",
+"v": ""
+},
+{
+"key": "0xCDF28BE026BB7D84",
+"name": "StA-52 Assault Rifle",
+"v": "276"
+},
+{
+"key": "0xCE063AA33D95A812",
+"name": "AR-61 Tenderizer",
+"v": "44"
+},
+{
+"key": "0xCF5F176E0E322BE1",
+"name": "AR-23C Liberator Concussive",
+"v": "310"
+},
+{
+"key": "0xCF8934FF6567A42D",
+"name": "P-92 Warrant",
+"v": "326"
+},
+{
+"key": "0xD323DE60855898AC",
+"name": "SG-451 Cookout",
+"v": ""
+},
+{
+"key": "0xD53EE03481AE73FD",
+"name": "M-105 Stalwart",
+"v": ""
+},
+{
+"key": "0xD54B9505C0F72873",
+"name": "LAS-98 Laser Cannon",
+"v": ""
+},
+{
+"key": "0xD6B1FB05B9109353",
+"name": "P-11 Stim Pistol",
+"v": ""
+},
+{
+"key": "0xDBB6C961C59FADC1",
+"name": "P/40-K Bolt Pistol",
+"v": "202"
+},
+{
+"key": "0xDCD1C835407EF7BA",
+"name": "SG-97 Sweeper",
+"v": ""
+},
+{
+"key": "0xDE18775FA447A9BF",
+"name": "MS-11 Solo Silo",
+"v": ""
+},
+{
+"key": "0xE3B6AEDD07FCB464",
+"name": "CQC-19 Stun Lance",
+"v": ""
+},
+{
+"key": "0xE5796355A8FD67E0",
+"name": "R-4 Hyena",
+"v": "207"
+},
+{
+"key": "0xE6D932BE83729076",
+"name": "R-6 Deadeye",
+"v": ""
+},
+{
+"key": "0xE85E623F93F96FB3",
+"name": "CQC-73 Entrenchment Tool",
+"v": ""
+},
+{
+"key": "0xE8D5F49AD7780E54",
+"name": "PLAS-45 Epoch",
+"v": ""
+},
+{
+"key": "0xE91F569C2AD8AF01",
+"name": "P-34 Breacher",
+"v": "270"
+},
+{
+"key": "0xEEA5E3CEF1E12C14",
+"name": "PLAS-1 Scorcher",
+"v": "142"
+},
+{
+"key": "0xF0338468DCDB6A6C",
+"name": "R-72 Censor",
+"v": "325"
+},
+{
+"key": "0xF49227A0630A3F7F",
+"name": "CB-9 Exploding Crossbow",
+"v": "249"
+},
+{
+"key": "0xF992CE97577C8A7F",
+"name": "VG-70 Variable",
+"v": "94"
+},
+{
+"key": "0xFB3A19078694708A",
+"name": "PLAS-101 Purifier",
+"v": "296"
+},
+{
+"key": "0xFCD8A6E67EAC635A",
+"name": "CQC-2 Saber",
+"v": ""
+},
+{
+"key": "0xFE3B29B2CFA63F9B",
+"name": "GL-52 De-Escalator",
+"v": ""
+}
+]

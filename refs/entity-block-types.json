@@ -1,0 +1,1933 @@
+{
+ "build": "25988413",
+ "source": "data/game/generated_entities.dl_bin (plaintext)",
+ "block_count": 275,
+ "note": "类型名由 SDK 的 data/components/*.json 名字做 djb2-33 反推；未命中的 component 为 null",
+ "blocks": [
+  {
+   "index": 0,
+   "offset": "0x00000000",
+   "type_id": "0x80C1CA70",
+   "payload": 185172,
+   "component": null
+  },
+  {
+   "index": 1,
+   "offset": "0x0002D370",
+   "type_id": "0xCECE5CE0",
+   "payload": 15072,
+   "component": null
+  },
+  {
+   "index": 2,
+   "offset": "0x00030E70",
+   "type_id": "0xE96BCA35",
+   "payload": 3392,
+   "component": "VisibilityComponentData"
+  },
+  {
+   "index": 3,
+   "offset": "0x00031BD0",
+   "type_id": "0xB312C038",
+   "payload": 2784,
+   "component": "LocalUnitComponentData"
+  },
+  {
+   "index": 4,
+   "offset": "0x000326D0",
+   "type_id": "0x6E8B3849",
+   "payload": 326592,
+   "component": "TagComponentData"
+  },
+  {
+   "index": 5,
+   "offset": "0x000822B0",
+   "type_id": "0xFB8D88A3",
+   "payload": 53152,
+   "component": "WeaponMagazineComponentData"
+  },
+  {
+   "index": 6,
+   "offset": "0x0008F270",
+   "type_id": "0xD74E6E1A",
+   "payload": 128,
+   "component": null
+  },
+  {
+   "index": 7,
+   "offset": "0x0008F310",
+   "type_id": "0x09E13FAC",
+   "payload": 2128,
+   "component": "GameModeComponentData"
+  },
+  {
+   "index": 8,
+   "offset": "0x0008FB80",
+   "type_id": "0xC9500230",
+   "payload": 120,
+   "component": null
+  },
+  {
+   "index": 9,
+   "offset": "0x0008FC18",
+   "type_id": "0x4A8DA181",
+   "payload": 200,
+   "component": "PowerGeneratorComponentData"
+  },
+  {
+   "index": 10,
+   "offset": "0x0008FD00",
+   "type_id": "0x2332E9DF",
+   "payload": 24080,
+   "component": "HitEffectComponentData"
+  },
+  {
+   "index": 11,
+   "offset": "0x00095B30",
+   "type_id": "0x295933BE",
+   "payload": 64,
+   "component": null
+  },
+  {
+   "index": 12,
+   "offset": "0x00095B90",
+   "type_id": "0x10BF0FB3",
+   "payload": 2552,
+   "component": "SpawnOnPlayersComponentData"
+  },
+  {
+   "index": 13,
+   "offset": "0x000965A8",
+   "type_id": "0x7F366933",
+   "payload": 48,
+   "component": "PowerSwitchTargetComponentData"
+  },
+  {
+   "index": 14,
+   "offset": "0x000965F8",
+   "type_id": "0x904F65F4",
+   "payload": 65624,
+   "component": null
+  },
+  {
+   "index": 15,
+   "offset": "0x000A6670",
+   "type_id": "0x595A2910",
+   "payload": 240,
+   "component": null
+  },
+  {
+   "index": 16,
+   "offset": "0x000A6780",
+   "type_id": "0x629D238E",
+   "payload": 544,
+   "component": "ObjectiveWidgetPriorityComponentData"
+  },
+  {
+   "index": 17,
+   "offset": "0x000A69C0",
+   "type_id": "0xA43A4273",
+   "payload": 40,
+   "component": null
+  },
+  {
+   "index": 18,
+   "offset": "0x000A6A08",
+   "type_id": "0xF7A6DC23",
+   "payload": 288,
+   "component": "OrbitalTargetPriorityComponentData"
+  },
+  {
+   "index": 19,
+   "offset": "0x000A6B48",
+   "type_id": "0x9E5B9918",
+   "payload": 4312,
+   "component": "NpcDialogueComponentData"
+  },
+  {
+   "index": 20,
+   "offset": "0x000A7C40",
+   "type_id": "0x4C4091EC",
+   "payload": 40,
+   "component": "ObjectiveVehicleDeliveryComponentData"
+  },
+  {
+   "index": 21,
+   "offset": "0x000A7C88",
+   "type_id": "0x8C5F8AB7",
+   "payload": 368,
+   "component": "StratagemBlockerComponentData"
+  },
+  {
+   "index": 22,
+   "offset": "0x000A7E18",
+   "type_id": "0x7A858691",
+   "payload": 35232,
+   "component": "LoadoutPackageComponentData"
+  },
+  {
+   "index": 23,
+   "offset": "0x000B07D8",
+   "type_id": "0x4F2CF417",
+   "payload": 13536,
+   "component": "LoadoutEntryComponentData"
+  },
+  {
+   "index": 24,
+   "offset": "0x000B3CD8",
+   "type_id": "0x6B65B317",
+   "payload": 40,
+   "component": "ReinforcementLocationComponentData"
+  },
+  {
+   "index": 25,
+   "offset": "0x000B3D20",
+   "type_id": "0x86DD642F",
+   "payload": 176,
+   "component": "ObjectiveCarryDeployAreaComponentData"
+  },
+  {
+   "index": 26,
+   "offset": "0x000B3DF0",
+   "type_id": "0x5224F28D",
+   "payload": 8032,
+   "component": "MeleeAttackComponentData"
+  },
+  {
+   "index": 27,
+   "offset": "0x000B5D70",
+   "type_id": "0xEA8CDD5A",
+   "payload": 12368,
+   "component": "ShipCustomizationComponentData"
+  },
+  {
+   "index": 28,
+   "offset": "0x000B8DE0",
+   "type_id": "0x64DD41CE",
+   "payload": 7336,
+   "component": "MusicIntensifierComponentData"
+  },
+  {
+   "index": 29,
+   "offset": "0x000BAAA8",
+   "type_id": "0x1A403225",
+   "payload": 96,
+   "component": "LevitationAreaComponentData"
+  },
+  {
+   "index": 30,
+   "offset": "0x000BAB28",
+   "type_id": "0x824FF2D6",
+   "payload": 48,
+   "component": null
+  },
+  {
+   "index": 31,
+   "offset": "0x000BAB78",
+   "type_id": "0x578E2487",
+   "payload": 40,
+   "component": "ObjectiveDeliverableVehicleComponentData"
+  },
+  {
+   "index": 32,
+   "offset": "0x000BABC0",
+   "type_id": "0x858BD457",
+   "payload": 72,
+   "component": "ShipModulesSyncComponentData"
+  },
+  {
+   "index": 33,
+   "offset": "0x000BAC28",
+   "type_id": "0xF060778D",
+   "payload": 168,
+   "component": "ShipMasterComponentData"
+  },
+  {
+   "index": 34,
+   "offset": "0x000BACF0",
+   "type_id": "0x3ED68B83",
+   "payload": 168,
+   "component": "KillStreakComponentData"
+  },
+  {
+   "index": 35,
+   "offset": "0x000BADB8",
+   "type_id": "0xF2FBCF45",
+   "payload": 216,
+   "component": "KeypadCodeRevealComponentData"
+  },
+  {
+   "index": 36,
+   "offset": "0x000BAEB0",
+   "type_id": "0x589E9266",
+   "payload": 72,
+   "component": "ObjectiveConvoyComponentData"
+  },
+  {
+   "index": 37,
+   "offset": "0x000BAF18",
+   "type_id": "0xE299C9E1",
+   "payload": 296,
+   "component": "TutorialComponentData"
+  },
+  {
+   "index": 38,
+   "offset": "0x000BB060",
+   "type_id": "0x3229300B",
+   "payload": 472,
+   "component": "DamagePropagatorComponentData"
+  },
+  {
+   "index": 39,
+   "offset": "0x000BB258",
+   "type_id": "0x18213903",
+   "payload": 160,
+   "component": null
+  },
+  {
+   "index": 40,
+   "offset": "0x000BB318",
+   "type_id": "0x4D1C820D",
+   "payload": 6648,
+   "component": "AiSquadMemberComponentData"
+  },
+  {
+   "index": 41,
+   "offset": "0x000BCD30",
+   "type_id": "0x49B8E93D",
+   "payload": 1160,
+   "component": null
+  },
+  {
+   "index": 42,
+   "offset": "0x000BD1D8",
+   "type_id": "0x5317D565",
+   "payload": 6376,
+   "component": "VehicleCollisionInfoComponentData"
+  },
+  {
+   "index": 43,
+   "offset": "0x000BEAE0",
+   "type_id": "0x90617ECA",
+   "payload": 616,
+   "component": null
+  },
+  {
+   "index": 44,
+   "offset": "0x000BED68",
+   "type_id": "0xB8459EC0",
+   "payload": 400,
+   "component": "WeaponAttachmentComponentData"
+  },
+  {
+   "index": 45,
+   "offset": "0x000BEF18",
+   "type_id": "0x58F77754",
+   "payload": 2080,
+   "component": "BackblastComponentData"
+  },
+  {
+   "index": 46,
+   "offset": "0x000BF758",
+   "type_id": "0x617D43CE",
+   "payload": 952,
+   "component": "WeaponAssistedReloadComponentData"
+  },
+  {
+   "index": 47,
+   "offset": "0x000BFB30",
+   "type_id": "0xAC743282",
+   "payload": 160,
+   "component": "VehicleStorageComponentData"
+  },
+  {
+   "index": 48,
+   "offset": "0x000BFBF0",
+   "type_id": "0x55943E70",
+   "payload": 112,
+   "component": "CharacterVoiceComponentData"
+  },
+  {
+   "index": 49,
+   "offset": "0x000BFC80",
+   "type_id": "0xA8D0D187",
+   "payload": 336,
+   "component": "ExplorationRewardComponentData"
+  },
+  {
+   "index": 50,
+   "offset": "0x000BFDF0",
+   "type_id": "0xF09A02C2",
+   "payload": 20520,
+   "component": null
+  },
+  {
+   "index": 51,
+   "offset": "0x000C4E38",
+   "type_id": "0xCDAD06D7",
+   "payload": 2376,
+   "component": "BuoyancyComponentData"
+  },
+  {
+   "index": 52,
+   "offset": "0x000C57A0",
+   "type_id": "0xBAE6F839",
+   "payload": 160,
+   "component": "VoIntensityComponentData"
+  },
+  {
+   "index": 53,
+   "offset": "0x000C5860",
+   "type_id": "0xC9C881DD",
+   "payload": 144,
+   "component": null
+  },
+  {
+   "index": 54,
+   "offset": "0x000C5910",
+   "type_id": "0x5CB52A3E",
+   "payload": 648,
+   "component": "WeatherControlComponentData"
+  },
+  {
+   "index": 55,
+   "offset": "0x000C5BB8",
+   "type_id": "0x84CE7EEE",
+   "payload": 648,
+   "component": "WeaponWindUpComponentData"
+  },
+  {
+   "index": 56,
+   "offset": "0x000C5E60",
+   "type_id": "0x8A40FE2F",
+   "payload": 59400,
+   "component": "EncyclopediaEntryComponentData"
+  },
+  {
+   "index": 57,
+   "offset": "0x000D4688",
+   "type_id": "0x1E232357",
+   "payload": 10240,
+   "component": "EnemyPackageComponentData"
+  },
+  {
+   "index": 58,
+   "offset": "0x000D6EA8",
+   "type_id": "0x2CDEC6D5",
+   "payload": 136,
+   "component": "EncounterRampUpComponentData"
+  },
+  {
+   "index": 59,
+   "offset": "0x000D6F50",
+   "type_id": "0xC2D64A76",
+   "payload": 2360,
+   "component": "CorpseDecayerComponentData"
+  },
+  {
+   "index": 60,
+   "offset": "0x000D78A8",
+   "type_id": "0x3A2D57AB",
+   "payload": 48,
+   "component": "ConvoyComponentData"
+  },
+  {
+   "index": 61,
+   "offset": "0x000D78F8",
+   "type_id": "0xD3691209",
+   "payload": 680,
+   "component": "EnvironmentalHazardComponentData"
+  },
+  {
+   "index": 62,
+   "offset": "0x000D7BC0",
+   "type_id": "0x676C9741",
+   "payload": 40,
+   "component": "VistaEffectComponentData"
+  },
+  {
+   "index": 63,
+   "offset": "0x000D7C08",
+   "type_id": "0xB553A0C7",
+   "payload": 3240,
+   "component": "EntityBindComponentData"
+  },
+  {
+   "index": 64,
+   "offset": "0x000D88D0",
+   "type_id": "0x0B14A058",
+   "payload": 480,
+   "component": "EnvironmentalEffectTagComponentData"
+  },
+  {
+   "index": 65,
+   "offset": "0x000D8AD0",
+   "type_id": "0x7F05D34E",
+   "payload": 30024,
+   "component": "WorldLootManagerComponentData"
+  },
+  {
+   "index": 66,
+   "offset": "0x000E0038",
+   "type_id": "0x2D5615EA",
+   "payload": 3832,
+   "component": "StaticPositionComponentData"
+  },
+  {
+   "index": 67,
+   "offset": "0x000E0F50",
+   "type_id": "0x4437574D",
+   "payload": 288928,
+   "component": "UnitComponentData"
+  },
+  {
+   "index": 68,
+   "offset": "0x00127810",
+   "type_id": "0x3A4683F7",
+   "payload": 92160,
+   "component": "MaterialSwapComponentData"
+  },
+  {
+   "index": 69,
+   "offset": "0x0013E030",
+   "type_id": "0x5653EA91",
+   "payload": 98224,
+   "component": "FactionComponentData"
+  },
+  {
+   "index": 70,
+   "offset": "0x00156000",
+   "type_id": "0xEAEB2B0D",
+   "payload": 78424,
+   "component": "VehicleComponentData"
+  },
+  {
+   "index": 71,
+   "offset": "0x00169278",
+   "type_id": "0x44596528",
+   "payload": 593712,
+   "component": "ObjectiveComponentData"
+  },
+  {
+   "index": 72,
+   "offset": "0x001FA1C8",
+   "type_id": "0x74FEF89A",
+   "payload": 1032,
+   "component": "MinefieldComponentData"
+  },
+  {
+   "index": 73,
+   "offset": "0x001FA5F0",
+   "type_id": "0x5154DB66",
+   "payload": 5984,
+   "component": "ShieldComponentData"
+  },
+  {
+   "index": 74,
+   "offset": "0x001FBD70",
+   "type_id": "0xE85CF84E",
+   "payload": 568,
+   "component": null
+  },
+  {
+   "index": 75,
+   "offset": "0x001FBFC8",
+   "type_id": "0x4B7FD1CB",
+   "payload": 880,
+   "component": "NoiseComponentData"
+  },
+  {
+   "index": 76,
+   "offset": "0x001FC358",
+   "type_id": "0xD2B93CD8",
+   "payload": 1200,
+   "component": "SquadTransportComponentData"
+  },
+  {
+   "index": 77,
+   "offset": "0x001FC828",
+   "type_id": "0xF34610E9",
+   "payload": 112,
+   "component": null
+  },
+  {
+   "index": 78,
+   "offset": "0x001FC8B8",
+   "type_id": "0x1F42878E",
+   "payload": 112,
+   "component": "RechargeComponentData"
+  },
+  {
+   "index": 79,
+   "offset": "0x001FC948",
+   "type_id": "0x18F9DB42",
+   "payload": 795232,
+   "component": "InteractableMinigameComponentData"
+  },
+  {
+   "index": 80,
+   "offset": "0x002BEBC8",
+   "type_id": "0xB7923B2D",
+   "payload": 952,
+   "component": "ObjectiveCarryDeliveryComponentData"
+  },
+  {
+   "index": 81,
+   "offset": "0x002BEFA0",
+   "type_id": "0xD3DCCD37",
+   "payload": 9872,
+   "component": "DestructibleComponentData"
+  },
+  {
+   "index": 82,
+   "offset": "0x002C1650",
+   "type_id": "0x604434C9",
+   "payload": 2733192,
+   "component": "EffectReferenceComponentData"
+  },
+  {
+   "index": 83,
+   "offset": "0x0055CAF8",
+   "type_id": "0xD298697B",
+   "payload": 30848,
+   "component": "CollisionEventComponentData"
+  },
+  {
+   "index": 84,
+   "offset": "0x00564398",
+   "type_id": "0xB99E37DB",
+   "payload": 49232,
+   "component": "PhysicsImpactEffectComponentData"
+  },
+  {
+   "index": 85,
+   "offset": "0x00570408",
+   "type_id": "0x293D68C2",
+   "payload": 17280,
+   "component": "PoweredDeathSequenceComponentData"
+  },
+  {
+   "index": 86,
+   "offset": "0x005747A8",
+   "type_id": "0x42732FD7",
+   "payload": 72,
+   "component": null
+  },
+  {
+   "index": 87,
+   "offset": "0x00574810",
+   "type_id": "0xFCD01E4C",
+   "payload": 1872,
+   "component": "PowerSwitchComponentData"
+  },
+  {
+   "index": 88,
+   "offset": "0x00574F80",
+   "type_id": "0x466D128E",
+   "payload": 6384,
+   "component": "WoundableComponentData"
+  },
+  {
+   "index": 89,
+   "offset": "0x00576890",
+   "type_id": "0x3BF780F6",
+   "payload": 32960,
+   "component": "WieldableComponentData"
+  },
+  {
+   "index": 90,
+   "offset": "0x0057E970",
+   "type_id": "0x54406B2D",
+   "payload": 40,
+   "component": "RemoteTriggerComponentData"
+  },
+  {
+   "index": 91,
+   "offset": "0x0057E9B8",
+   "type_id": "0x991D454E",
+   "payload": 28528,
+   "component": "WeaponReloadComponentData"
+  },
+  {
+   "index": 92,
+   "offset": "0x00585948",
+   "type_id": "0x4BEE9B2F",
+   "payload": 136136,
+   "component": "RagdollSyncComponentData"
+  },
+  {
+   "index": 93,
+   "offset": "0x005A6D30",
+   "type_id": "0xEBD7729C",
+   "payload": 144,
+   "component": "WeaponLinkerComponentData"
+  },
+  {
+   "index": 94,
+   "offset": "0x005A6DE0",
+   "type_id": "0x5A2F6F30",
+   "payload": 80,
+   "component": "WarHologramComponentData"
+  },
+  {
+   "index": 95,
+   "offset": "0x005A6E50",
+   "type_id": "0x66081072",
+   "payload": 4336,
+   "component": "WeaponRoundsComponentData"
+  },
+  {
+   "index": 96,
+   "offset": "0x005A7F60",
+   "type_id": "0xB25BDF80",
+   "payload": 48,
+   "component": null
+  },
+  {
+   "index": 97,
+   "offset": "0x005A7FB0",
+   "type_id": "0xCF2B17AB",
+   "payload": 5984,
+   "component": "StanceComponentData"
+  },
+  {
+   "index": 98,
+   "offset": "0x005A9730",
+   "type_id": "0x498CE7C7",
+   "payload": 7200,
+   "component": "SquadTransportFormationComponentData"
+  },
+  {
+   "index": 99,
+   "offset": "0x005AB370",
+   "type_id": "0xDEC36816",
+   "payload": 6176,
+   "component": "StatusEffectVolumeComponentData"
+  },
+  {
+   "index": 100,
+   "offset": "0x005ACBB0",
+   "type_id": "0x51E8E4E4",
+   "payload": 1800,
+   "component": "SpawnLinkComponentData"
+  },
+  {
+   "index": 101,
+   "offset": "0x005AD2D8",
+   "type_id": "0x0A5E53DB",
+   "payload": 72800,
+   "component": "SpottableComponentData"
+  },
+  {
+   "index": 102,
+   "offset": "0x005BEF58",
+   "type_id": "0xDF291A6C",
+   "payload": 80,
+   "component": "TargetableFleetShipComponentData"
+  },
+  {
+   "index": 103,
+   "offset": "0x005BEFC8",
+   "type_id": "0xB5338522",
+   "payload": 13816,
+   "component": "TrampleComponentData"
+  },
+  {
+   "index": 104,
+   "offset": "0x005C25E0",
+   "type_id": "0xDF3E54A8",
+   "payload": 768,
+   "component": "TriggerAreaLogicComponentData"
+  },
+  {
+   "index": 105,
+   "offset": "0x005C2900",
+   "type_id": "0xAF4B3B18",
+   "payload": 616,
+   "component": "StratagemFiresupportComponentData"
+  },
+  {
+   "index": 106,
+   "offset": "0x005C2B88",
+   "type_id": "0x67B29FFA",
+   "payload": 1008,
+   "component": "TransportComponentData"
+  },
+  {
+   "index": 107,
+   "offset": "0x005C2F98",
+   "type_id": "0x34C6ECB6",
+   "payload": 664,
+   "component": "VehicleShuttleComponentData"
+  },
+  {
+   "index": 108,
+   "offset": "0x005C3250",
+   "type_id": "0xB2F5BAC1",
+   "payload": 504,
+   "component": "ShipCustomizationTargetComponentData"
+  },
+  {
+   "index": 109,
+   "offset": "0x005C3468",
+   "type_id": "0x6533780A",
+   "payload": 40,
+   "component": null
+  },
+  {
+   "index": 110,
+   "offset": "0x005C34B0",
+   "type_id": "0xC677F538",
+   "payload": 8408,
+   "component": "SensorDangerComponentData"
+  },
+  {
+   "index": 111,
+   "offset": "0x005C55A8",
+   "type_id": "0x27B7E509",
+   "payload": 2080,
+   "component": "ShowOnMapComponentData"
+  },
+  {
+   "index": 112,
+   "offset": "0x005C5DE8",
+   "type_id": "0x1D9C4D55",
+   "payload": 312,
+   "component": "TutorialTargetRangeComponentData"
+  },
+  {
+   "index": 113,
+   "offset": "0x005C5F40",
+   "type_id": "0x71264F6A",
+   "payload": 1160,
+   "component": null
+  },
+  {
+   "index": 114,
+   "offset": "0x005C63E8",
+   "type_id": "0xE869A647",
+   "payload": 48,
+   "component": "ShipTeleporterComponentData"
+  },
+  {
+   "index": 115,
+   "offset": "0x005C6438",
+   "type_id": "0x3AE575A4",
+   "payload": 104,
+   "component": "FireSourceComponentData"
+  },
+  {
+   "index": 116,
+   "offset": "0x005C64C0",
+   "type_id": "0xCE728CA9",
+   "payload": 256,
+   "component": null
+  },
+  {
+   "index": 117,
+   "offset": "0x005C65E0",
+   "type_id": "0x66DC5E00",
+   "payload": 360,
+   "component": "FakeGravityMotionComponentData"
+  },
+  {
+   "index": 118,
+   "offset": "0x005C6768",
+   "type_id": "0x0D0A2115",
+   "payload": 119072,
+   "component": "MaterialVariablesComponentData"
+  },
+  {
+   "index": 119,
+   "offset": "0x005E38A8",
+   "type_id": "0xA9122AC0",
+   "payload": 1664,
+   "component": null
+  },
+  {
+   "index": 120,
+   "offset": "0x005E3F48",
+   "type_id": "0xCF74DC9D",
+   "payload": 7976,
+   "component": "GameEventShipComponentData"
+  },
+  {
+   "index": 121,
+   "offset": "0x005E5E90",
+   "type_id": "0xEFBEFF1E",
+   "payload": 1584,
+   "component": "FogMachineComponentData"
+  },
+  {
+   "index": 122,
+   "offset": "0x005E64E0",
+   "type_id": "0xE611926A",
+   "payload": 104,
+   "component": "ExtractionZoneComponentData"
+  },
+  {
+   "index": 123,
+   "offset": "0x005E6568",
+   "type_id": "0xFA0BA85C",
+   "payload": 80,
+   "component": "MinigameStratagemArcadeComponentData"
+  },
+  {
+   "index": 124,
+   "offset": "0x005E65D8",
+   "type_id": "0xFBEDEDC9",
+   "payload": 6960,
+   "component": "MinigameWaitComponentData"
+  },
+  {
+   "index": 125,
+   "offset": "0x005E8128",
+   "type_id": "0x233411C1",
+   "payload": 2856,
+   "component": "MinigameExternalSwitchesComponentData"
+  },
+  {
+   "index": 126,
+   "offset": "0x005E8C70",
+   "type_id": "0x606773AA",
+   "payload": 488,
+   "component": null
+  },
+  {
+   "index": 127,
+   "offset": "0x005E8E78",
+   "type_id": "0xA98BB156",
+   "payload": 43768,
+   "component": "HellpodRackComponentData"
+  },
+  {
+   "index": 128,
+   "offset": "0x005F3990",
+   "type_id": "0x021AC4D2",
+   "payload": 9640,
+   "component": "InteractableObjectiveTerminalComponentData"
+  },
+  {
+   "index": 129,
+   "offset": "0x005F5F58",
+   "type_id": "0xC6223BEE",
+   "payload": 7400,
+   "component": "InteractableStateSwitchComponentData"
+  },
+  {
+   "index": 130,
+   "offset": "0x005F7C60",
+   "type_id": "0x4856D42D",
+   "payload": 110880,
+   "component": "AnimationComponentData"
+  },
+  {
+   "index": 131,
+   "offset": "0x00612DA0",
+   "type_id": "0xD57D0101",
+   "payload": 954128,
+   "component": "HitReactComponentData"
+  },
+  {
+   "index": 132,
+   "offset": "0x006FBCD0",
+   "type_id": "0xD7463CB4",
+   "payload": 8640,
+   "component": "HintTriggerComponentData"
+  },
+  {
+   "index": 133,
+   "offset": "0x006FDEB0",
+   "type_id": "0xDDB5C03F",
+   "payload": 5160,
+   "component": "HellpodPayloadComponentData"
+  },
+  {
+   "index": 134,
+   "offset": "0x006FF2F8",
+   "type_id": "0x4CCBAD23",
+   "payload": 2208,
+   "component": null
+  },
+  {
+   "index": 135,
+   "offset": "0x006FFBB8",
+   "type_id": "0xD8F03CAE",
+   "payload": 72,
+   "component": "LootContainerComponentData"
+  },
+  {
+   "index": 136,
+   "offset": "0x006FFC20",
+   "type_id": "0xFF34CAFC",
+   "payload": 1264,
+   "component": null
+  },
+  {
+   "index": 137,
+   "offset": "0x00700130",
+   "type_id": "0x32528174",
+   "payload": 384,
+   "component": "LaserDesignatorComponentData"
+  },
+  {
+   "index": 138,
+   "offset": "0x007002D0",
+   "type_id": "0x6C927F79",
+   "payload": 160,
+   "component": "ObjectiveRescuePointComponentData"
+  },
+  {
+   "index": 139,
+   "offset": "0x00700390",
+   "type_id": "0x5634CD08",
+   "payload": 472,
+   "component": "ObjectiveSecureAreaComponentData"
+  },
+  {
+   "index": 140,
+   "offset": "0x00700588",
+   "type_id": "0xD951E7FB",
+   "payload": 264,
+   "component": "CarryEffectComponentData"
+  },
+  {
+   "index": 141,
+   "offset": "0x007006B0",
+   "type_id": "0x32F8D92E",
+   "payload": 256,
+   "component": null
+  },
+  {
+   "index": 142,
+   "offset": "0x007007D0",
+   "type_id": "0x8D100E13",
+   "payload": 376,
+   "component": null
+  },
+  {
+   "index": 143,
+   "offset": "0x00700968",
+   "type_id": "0x430CA328",
+   "payload": 48,
+   "component": null
+  },
+  {
+   "index": 144,
+   "offset": "0x007009B8",
+   "type_id": "0x52799960",
+   "payload": 512,
+   "component": "ObjectiveShellComponentData"
+  },
+  {
+   "index": 145,
+   "offset": "0x00700BD8",
+   "type_id": "0x779DF71A",
+   "payload": 704,
+   "component": "ObstacleComponentData"
+  },
+  {
+   "index": 146,
+   "offset": "0x00700EB8",
+   "type_id": "0x55A1FCF4",
+   "payload": 1456,
+   "component": "DangerWarningComponentData"
+  },
+  {
+   "index": 147,
+   "offset": "0x00701488",
+   "type_id": "0xC435BA85",
+   "payload": 5672,
+   "component": "DepositComponentData"
+  },
+  {
+   "index": 148,
+   "offset": "0x00702AD0",
+   "type_id": "0x04F50BE1",
+   "payload": 48,
+   "component": "ObjectiveShellRackComponentData"
+  },
+  {
+   "index": 149,
+   "offset": "0x00702B20",
+   "type_id": "0xD76680D5",
+   "payload": 480,
+   "component": "ObjectiveShuttleControllerComponentData"
+  },
+  {
+   "index": 150,
+   "offset": "0x00702D20",
+   "type_id": "0xAE826C9A",
+   "payload": 14064,
+   "component": "NetworkPhysicsComponentData"
+  },
+  {
+   "index": 151,
+   "offset": "0x00706430",
+   "type_id": "0x88630F9F",
+   "payload": 56,
+   "component": null
+  },
+  {
+   "index": 152,
+   "offset": "0x00706488",
+   "type_id": "0xBC152677",
+   "payload": 7528,
+   "component": "AiSpawnerComponentData"
+  },
+  {
+   "index": 153,
+   "offset": "0x00708210",
+   "type_id": "0x7B3743C5",
+   "payload": 168,
+   "component": null
+  },
+  {
+   "index": 154,
+   "offset": "0x007082D8",
+   "type_id": "0x365359AF",
+   "payload": 816,
+   "component": "ObjectiveEncounterTriggerComponentData"
+  },
+  {
+   "index": 155,
+   "offset": "0x00708628",
+   "type_id": "0xF57457DA",
+   "payload": 107744,
+   "component": null
+  },
+  {
+   "index": 156,
+   "offset": "0x00722B28",
+   "type_id": "0xC54FBDBB",
+   "payload": 1984,
+   "component": "ObjectiveDynamicLinkComponentData"
+  },
+  {
+   "index": 157,
+   "offset": "0x00723308",
+   "type_id": "0xE1C4B569",
+   "payload": 6400,
+   "component": "ObjectiveCarryComponentData"
+  },
+  {
+   "index": 158,
+   "offset": "0x00724C28",
+   "type_id": "0x11930869",
+   "payload": 96,
+   "component": null
+  },
+  {
+   "index": 159,
+   "offset": "0x00724CA8",
+   "type_id": "0xF087811C",
+   "payload": 160,
+   "component": null
+  },
+  {
+   "index": 160,
+   "offset": "0x00724D68",
+   "type_id": "0x14729B6A",
+   "payload": 23984,
+   "component": "SensorEyeComponentData"
+  },
+  {
+   "index": 161,
+   "offset": "0x0072AB38",
+   "type_id": "0xC8033E7F",
+   "payload": 8976,
+   "component": "SensorEarComponentData"
+  },
+  {
+   "index": 162,
+   "offset": "0x0072CE68",
+   "type_id": "0xCDBC43D8",
+   "payload": 5344,
+   "component": "BombardmentComponentData"
+  },
+  {
+   "index": 163,
+   "offset": "0x0072E368",
+   "type_id": "0xBC6B83D1",
+   "payload": 40,
+   "component": null
+  },
+  {
+   "index": 164,
+   "offset": "0x0072E3B0",
+   "type_id": "0x6FEAD25C",
+   "payload": 144,
+   "component": "SensorProximityComponentData"
+  },
+  {
+   "index": 165,
+   "offset": "0x0072E460",
+   "type_id": "0xBF3A6789",
+   "payload": 8816,
+   "component": "SeekingMissileComponentData"
+  },
+  {
+   "index": 166,
+   "offset": "0x007306F0",
+   "type_id": "0x3B2D0596",
+   "payload": 1928,
+   "component": "CharacterTemplateComponentData"
+  },
+  {
+   "index": 167,
+   "offset": "0x00730E98",
+   "type_id": "0x8EC31141",
+   "payload": 184128,
+   "component": "VisibilityMaskComponentData"
+  },
+  {
+   "index": 168,
+   "offset": "0x0075DDF8",
+   "type_id": "0x0697FED6",
+   "payload": 512,
+   "component": "MineSpawnerComponentData"
+  },
+  {
+   "index": 169,
+   "offset": "0x0075E018",
+   "type_id": "0x3AADA8B5",
+   "payload": 672,
+   "component": null
+  },
+  {
+   "index": 170,
+   "offset": "0x0075E2D8",
+   "type_id": "0xBBA732EE",
+   "payload": 104,
+   "component": "LandingZoneBeaconComponentData"
+  },
+  {
+   "index": 171,
+   "offset": "0x0075E360",
+   "type_id": "0x88ACC7BD",
+   "payload": 592,
+   "component": "WeaponFlashlightComponentData"
+  },
+  {
+   "index": 172,
+   "offset": "0x0075E5D0",
+   "type_id": "0xEAC335A1",
+   "payload": 2696,
+   "component": "WeaponChargeComponentData"
+  },
+  {
+   "index": 173,
+   "offset": "0x0075F078",
+   "type_id": "0x7EF5CC55",
+   "payload": 1088,
+   "component": "HellpodComponentData"
+  },
+  {
+   "index": 174,
+   "offset": "0x0075F4D8",
+   "type_id": "0x704B76A6",
+   "payload": 107832,
+   "component": "UnitCustomizationComponentData"
+  },
+  {
+   "index": 175,
+   "offset": "0x00779A30",
+   "type_id": "0xE3BDCE3D",
+   "payload": 10960,
+   "component": "NavigationComponentData"
+  },
+  {
+   "index": 176,
+   "offset": "0x0077C520",
+   "type_id": "0x3E669763",
+   "payload": 352,
+   "component": null
+  },
+  {
+   "index": 177,
+   "offset": "0x0077C6A0",
+   "type_id": "0x8B29534F",
+   "payload": 1008,
+   "component": "GuardForceComponentData"
+  },
+  {
+   "index": 178,
+   "offset": "0x0077CAB0",
+   "type_id": "0xF63A916E",
+   "payload": 648,
+   "component": "GameModeMissionComponentData"
+  },
+  {
+   "index": 179,
+   "offset": "0x0077CD58",
+   "type_id": "0xD0207221",
+   "payload": 22288,
+   "component": "HiveMindComponentData"
+  },
+  {
+   "index": 180,
+   "offset": "0x00782488",
+   "type_id": "0xC2C687E5",
+   "payload": 416,
+   "component": "TruthTransmitterFactionComponentData"
+  },
+  {
+   "index": 181,
+   "offset": "0x00782648",
+   "type_id": "0xE6F05120",
+   "payload": 64,
+   "component": "EncounterComponentData"
+  },
+  {
+   "index": 182,
+   "offset": "0x007826A8",
+   "type_id": "0x170FB1F3",
+   "payload": 144,
+   "component": "BugholeComponentData"
+  },
+  {
+   "index": 183,
+   "offset": "0x00782758",
+   "type_id": "0xE3F485C7",
+   "payload": 144,
+   "component": "WaveEncounterTriggerComponentData"
+  },
+  {
+   "index": 184,
+   "offset": "0x00782808",
+   "type_id": "0x23D7D47A",
+   "payload": 12952,
+   "component": "GroundCheckComponentData"
+  },
+  {
+   "index": 185,
+   "offset": "0x00785AC0",
+   "type_id": "0x84957034",
+   "payload": 1528,
+   "component": "GuidanceTargetComponentData"
+  },
+  {
+   "index": 186,
+   "offset": "0x007860D8",
+   "type_id": "0xECB974D7",
+   "payload": 384,
+   "component": "MovingHazardComponentData"
+  },
+  {
+   "index": 187,
+   "offset": "0x00786278",
+   "type_id": "0x47D05F79",
+   "payload": 192,
+   "component": null
+  },
+  {
+   "index": 188,
+   "offset": "0x00786358",
+   "type_id": "0xC4B6B405",
+   "payload": 100864,
+   "component": "OverlapDamageComponentData"
+  },
+  {
+   "index": 189,
+   "offset": "0x0079ED78",
+   "type_id": "0xB3915DE3",
+   "payload": 11218864,
+   "component": "HealthComponentData"
+  },
+  {
+   "index": 190,
+   "offset": "0x01251D48",
+   "type_id": "0x83B65443",
+   "payload": 6832,
+   "component": "VehicleMotionComponentData"
+  },
+  {
+   "index": 191,
+   "offset": "0x01253818",
+   "type_id": "0x98AFB36E",
+   "payload": 176,
+   "component": null
+  },
+  {
+   "index": 192,
+   "offset": "0x012538E8",
+   "type_id": "0x8FFD7D61",
+   "payload": 35136,
+   "component": "DamageZoneShieldComponentData"
+  },
+  {
+   "index": 193,
+   "offset": "0x0125C248",
+   "type_id": "0x8D419C7A",
+   "payload": 7039200,
+   "component": "GoreComponentData"
+  },
+  {
+   "index": 194,
+   "offset": "0x01912B48",
+   "type_id": "0x2C7ACD8B",
+   "payload": 34112,
+   "component": "VehicleElectricsComponentData"
+  },
+  {
+   "index": 195,
+   "offset": "0x0191B0A8",
+   "type_id": "0x40EF204C",
+   "payload": 1736,
+   "component": "AvatarComponentData"
+  },
+  {
+   "index": 196,
+   "offset": "0x0191B790",
+   "type_id": "0x5357A825",
+   "payload": 92896,
+   "component": "EquipmentComponentData"
+  },
+  {
+   "index": 197,
+   "offset": "0x01932290",
+   "type_id": "0x2C0968D2",
+   "payload": 28512,
+   "component": "TargetingComponentData"
+  },
+  {
+   "index": 198,
+   "offset": "0x01939210",
+   "type_id": "0x1F5AB323",
+   "payload": 15032,
+   "component": "WeaponWielderComponentData"
+  },
+  {
+   "index": 199,
+   "offset": "0x0193CCE8",
+   "type_id": "0x88E4DBB1",
+   "payload": 475696,
+   "component": "WeaponDataComponentData"
+  },
+  {
+   "index": 200,
+   "offset": "0x019B0F38",
+   "type_id": "0x8ADAB43B",
+   "payload": 15280,
+   "component": "InventoryComponentData"
+  },
+  {
+   "index": 201,
+   "offset": "0x019B4B08",
+   "type_id": "0xB9CB557F",
+   "payload": 22016,
+   "component": "MultiTargetComponentData"
+  },
+  {
+   "index": 202,
+   "offset": "0x019BA128",
+   "type_id": "0x46EEBA08",
+   "payload": 80,
+   "component": "InteractorComponentData"
+  },
+  {
+   "index": 203,
+   "offset": "0x019BA198",
+   "type_id": "0xFCCA29DB",
+   "payload": 638432,
+   "component": "InteractableComponentData"
+  },
+  {
+   "index": 204,
+   "offset": "0x01A55F98",
+   "type_id": "0x3ACCF9D3",
+   "payload": 832,
+   "component": "RotationSoundPlayerComponentData"
+  },
+  {
+   "index": 205,
+   "offset": "0x01A562F8",
+   "type_id": "0x7A7039D8",
+   "payload": 584,
+   "component": null
+  },
+  {
+   "index": 206,
+   "offset": "0x01A56560",
+   "type_id": "0x9AF175A4",
+   "payload": 2056,
+   "component": null
+  },
+  {
+   "index": 207,
+   "offset": "0x01A56D88",
+   "type_id": "0x1EBA7593",
+   "payload": 8072,
+   "component": "TurretComponentData"
+  },
+  {
+   "index": 208,
+   "offset": "0x01A58D30",
+   "type_id": "0xE11C96B0",
+   "payload": 248,
+   "component": "StratagemBallComponentData"
+  },
+  {
+   "index": 209,
+   "offset": "0x01A58E48",
+   "type_id": "0x3367918F",
+   "payload": 40,
+   "component": "ShipInventoryComponentData"
+  },
+  {
+   "index": 210,
+   "offset": "0x01A58E90",
+   "type_id": "0x7402FA50",
+   "payload": 120,
+   "component": null
+  },
+  {
+   "index": 211,
+   "offset": "0x01A58F28",
+   "type_id": "0xE2851174",
+   "payload": 504,
+   "component": null
+  },
+  {
+   "index": 212,
+   "offset": "0x01A59140",
+   "type_id": "0xB4F143AA",
+   "payload": 880,
+   "component": "UploadDiscoveryComponentData"
+  },
+  {
+   "index": 213,
+   "offset": "0x01A594D0",
+   "type_id": "0xF5CF9B8C",
+   "payload": 28192,
+   "component": "ExplosiveComponentData"
+  },
+  {
+   "index": 214,
+   "offset": "0x01A60310",
+   "type_id": "0x7655097B",
+   "payload": 4368,
+   "component": "CharacterNameComponentData"
+  },
+  {
+   "index": 215,
+   "offset": "0x01A61440",
+   "type_id": "0xA29A84D8",
+   "payload": 4672,
+   "component": "ThrowerComponentData"
+  },
+  {
+   "index": 216,
+   "offset": "0x01A626A0",
+   "type_id": "0xAF16BCB5",
+   "payload": 18032,
+   "component": "ThrowableComponentData"
+  },
+  {
+   "index": 217,
+   "offset": "0x01A66D30",
+   "type_id": "0xD96628BB",
+   "payload": 2656,
+   "component": "WeatheringComponentData"
+  },
+  {
+   "index": 218,
+   "offset": "0x01A677B0",
+   "type_id": "0x982FF550",
+   "payload": 1120,
+   "component": "InteractableMenuScreenComponentData"
+  },
+  {
+   "index": 219,
+   "offset": "0x01A67C30",
+   "type_id": "0xBCF41716",
+   "payload": 77952,
+   "component": "AttachableComponentData"
+  },
+  {
+   "index": 220,
+   "offset": "0x01A7ACD0",
+   "type_id": "0xCDF0CDAB",
+   "payload": 77760,
+   "component": null
+  },
+  {
+   "index": 221,
+   "offset": "0x01A8DCB0",
+   "type_id": "0x54270608",
+   "payload": 1216,
+   "component": "JumppackComponentData"
+  },
+  {
+   "index": 222,
+   "offset": "0x01A8E190",
+   "type_id": "0xB87BA9ED",
+   "payload": 1200,
+   "component": "ArcWeaponComponentData"
+  },
+  {
+   "index": 223,
+   "offset": "0x01A8E660",
+   "type_id": "0x4C981CD9",
+   "payload": 19312,
+   "component": "WeaponHeatComponentData"
+  },
+  {
+   "index": 224,
+   "offset": "0x01A931F0",
+   "type_id": "0xFF931C65",
+   "payload": 1080,
+   "component": "AbilityWeaponComponentData"
+  },
+  {
+   "index": 225,
+   "offset": "0x01A93648",
+   "type_id": "0xBBA9003F",
+   "payload": 2464,
+   "component": null
+  },
+  {
+   "index": 226,
+   "offset": "0x01A94008",
+   "type_id": "0x087499DA",
+   "payload": 40,
+   "component": "PhysicsWeaponComponentData"
+  },
+  {
+   "index": 227,
+   "offset": "0x01A94050",
+   "type_id": "0xF0721C2C",
+   "payload": 3616,
+   "component": "BeamWeaponComponentData"
+  },
+  {
+   "index": 228,
+   "offset": "0x01A94E90",
+   "type_id": "0xEBA8F3D0",
+   "payload": 966056,
+   "component": "WeaponCustomizationComponentData"
+  },
+  {
+   "index": 229,
+   "offset": "0x01B80C58",
+   "type_id": "0x86B6558B",
+   "payload": 168,
+   "component": "EagleSpawnerComponentData"
+  },
+  {
+   "index": 230,
+   "offset": "0x01B80D20",
+   "type_id": "0xB6F66BB5",
+   "payload": 637264,
+   "component": "FoleySoundComponentData"
+  },
+  {
+   "index": 231,
+   "offset": "0x01C1C690",
+   "type_id": "0xA7813546",
+   "payload": 1296,
+   "component": "DisplacementComponentData"
+  },
+  {
+   "index": 232,
+   "offset": "0x01C1CBC0",
+   "type_id": "0x6A470FF6",
+   "payload": 496,
+   "component": null
+  },
+  {
+   "index": 233,
+   "offset": "0x01C1CDD0",
+   "type_id": "0x333C9A62",
+   "payload": 784,
+   "component": null
+  },
+  {
+   "index": 234,
+   "offset": "0x01C1D100",
+   "type_id": "0x20288698",
+   "payload": 3360,
+   "component": "VehicleCollisionDamageComponentData"
+  },
+  {
+   "index": 235,
+   "offset": "0x01C1DE40",
+   "type_id": "0x13AE6AC3",
+   "payload": 685560,
+   "component": "FootstepEventComponentData"
+  },
+  {
+   "index": 236,
+   "offset": "0x01CC5458",
+   "type_id": "0x8539C820",
+   "payload": 392,
+   "component": "ExpandableCoverComponentData"
+  },
+  {
+   "index": 237,
+   "offset": "0x01CC5600",
+   "type_id": "0xFF67A367",
+   "payload": 17976,
+   "component": "DetectorComponentData"
+  },
+  {
+   "index": 238,
+   "offset": "0x01CC9C58",
+   "type_id": "0x3845B1E0",
+   "payload": 25048,
+   "component": "MountComponentData"
+  },
+  {
+   "index": 239,
+   "offset": "0x01CCFE50",
+   "type_id": "0xBA9B803D",
+   "payload": 43704,
+   "component": "BehaviorComponentData"
+  },
+  {
+   "index": 240,
+   "offset": "0x01CDA928",
+   "type_id": "0x9AC178EC",
+   "payload": 832,
+   "component": "RouteNavigationComponentData"
+  },
+  {
+   "index": 241,
+   "offset": "0x01CDAC88",
+   "type_id": "0x4AEAFC86",
+   "payload": 25536,
+   "component": "SeatCollectionComponentData"
+  },
+  {
+   "index": 242,
+   "offset": "0x01CE1068",
+   "type_id": "0x0A163939",
+   "payload": 13568,
+   "component": "IdleAbilityComponentData"
+  },
+  {
+   "index": 243,
+   "offset": "0x01CE4588",
+   "type_id": "0xD17AEA6E",
+   "payload": 400,
+   "component": "LoopingSurfaceEffectsComponentData"
+  },
+  {
+   "index": 244,
+   "offset": "0x01CE4738",
+   "type_id": "0xC447C45B",
+   "payload": 63616,
+   "component": "AbilityComponentData"
+  },
+  {
+   "index": 245,
+   "offset": "0x01CF3FD8",
+   "type_id": "0x8D6AB103",
+   "payload": 136,
+   "component": null
+  },
+  {
+   "index": 246,
+   "offset": "0x01CF4080",
+   "type_id": "0x1E4344A9",
+   "payload": 72,
+   "component": "ShipHellpodComponentData"
+  },
+  {
+   "index": 247,
+   "offset": "0x01CF40E8",
+   "type_id": "0x13A32A6A",
+   "payload": 40,
+   "component": null
+  },
+  {
+   "index": 248,
+   "offset": "0x01CF4130",
+   "type_id": "0xE843C981",
+   "payload": 40,
+   "component": "ShipComponentData"
+  },
+  {
+   "index": 249,
+   "offset": "0x01CF4178",
+   "type_id": "0xC3A4053C",
+   "payload": 5280,
+   "component": "StoryInteractableComponentData"
+  },
+  {
+   "index": 250,
+   "offset": "0x01CF5638",
+   "type_id": "0xFA701DAB",
+   "payload": 6688,
+   "component": "LootComponentData"
+  },
+  {
+   "index": 251,
+   "offset": "0x01CF7078",
+   "type_id": "0xCEC9F0BE",
+   "payload": 4232,
+   "component": "BoidsComponentData"
+  },
+  {
+   "index": 252,
+   "offset": "0x01CF8120",
+   "type_id": "0x1E5C123B",
+   "payload": 10368,
+   "component": "ThrusterGroupComponentData"
+  },
+  {
+   "index": 253,
+   "offset": "0x01CFA9C0",
+   "type_id": "0x8E5B0A9E",
+   "payload": 31680,
+   "component": "VehicleCrashComponentData"
+  },
+  {
+   "index": 254,
+   "offset": "0x01D025A0",
+   "type_id": "0x6A08DE11",
+   "payload": 960,
+   "component": "HoverComponentData"
+  },
+  {
+   "index": 255,
+   "offset": "0x01D02980",
+   "type_id": "0x9D0EEFB5",
+   "payload": 122880,
+   "component": "AiEnemyComponentData"
+  },
+  {
+   "index": 256,
+   "offset": "0x01D209A0",
+   "type_id": "0x5FEF63C4",
+   "payload": 22512,
+   "component": "AiCharacterComponentData"
+  },
+  {
+   "index": 257,
+   "offset": "0x01D261B0",
+   "type_id": "0x9A86F255",
+   "payload": 3024,
+   "component": "AiSquadComponentData"
+  },
+  {
+   "index": 258,
+   "offset": "0x01D26DA0",
+   "type_id": "0x7190BFE5",
+   "payload": 760,
+   "component": "AiSquadBehaviorComponentData"
+  },
+  {
+   "index": 259,
+   "offset": "0x01D270B8",
+   "type_id": "0xCD37C5EF",
+   "payload": 176,
+   "component": null
+  },
+  {
+   "index": 260,
+   "offset": "0x01D27188",
+   "type_id": "0x6062C233",
+   "payload": 15388528,
+   "component": "StatusEffectReceiverComponentData"
+  },
+  {
+   "index": 261,
+   "offset": "0x02BD4118",
+   "type_id": "0x936A9C08",
+   "payload": 1768,
+   "component": "OrbitalAbilityComponentData"
+  },
+  {
+   "index": 262,
+   "offset": "0x02BD4820",
+   "type_id": "0x726A4F6B",
+   "payload": 5856,
+   "component": "DrownableComponentData"
+  },
+  {
+   "index": 263,
+   "offset": "0x02BD5F20",
+   "type_id": "0xFC7B189D",
+   "payload": 78968,
+   "component": "RotationComponentData"
+  },
+  {
+   "index": 264,
+   "offset": "0x02BE93B8",
+   "type_id": "0x88076790",
+   "payload": 964592,
+   "component": "LocomotionComponentData"
+  },
+  {
+   "index": 265,
+   "offset": "0x02CD4BC8",
+   "type_id": "0x55FF1072",
+   "payload": 224,
+   "component": "FakeTankVehicleComponentData"
+  },
+  {
+   "index": 266,
+   "offset": "0x02CD4CC8",
+   "type_id": "0x10F7AFF0",
+   "payload": 360,
+   "component": "VehicleLocomotionComponentData"
+  },
+  {
+   "index": 267,
+   "offset": "0x02CD4E50",
+   "type_id": "0x8E551126",
+   "payload": 6112,
+   "component": "SprayWeaponComponentData"
+  },
+  {
+   "index": 268,
+   "offset": "0x02CD6650",
+   "type_id": "0x1DDF9A2D",
+   "payload": 64,
+   "component": null
+  },
+  {
+   "index": 269,
+   "offset": "0x02CD66B0",
+   "type_id": "0x8FAA4635",
+   "payload": 3912,
+   "component": null
+  },
+  {
+   "index": 270,
+   "offset": "0x02CD7618",
+   "type_id": "0x695B3BE3",
+   "payload": 22848,
+   "component": "MotionComponentData"
+  },
+  {
+   "index": 271,
+   "offset": "0x02CDCF78",
+   "type_id": "0x556FF68B",
+   "payload": 4384,
+   "component": "EagleComponentData"
+  },
+  {
+   "index": 272,
+   "offset": "0x02CDE0B8",
+   "type_id": "0x45171B68",
+   "payload": 180760,
+   "component": "ProjectileWeaponComponentData"
+  },
+  {
+   "index": 273,
+   "offset": "0x02D0A2F0",
+   "type_id": "0xC3431570",
+   "payload": 31144,
+   "component": "TargetAimConstraintComponentData"
+  },
+  {
+   "index": 274,
+   "offset": "0x02D11CB8",
+   "type_id": "0xACC2ECAE",
+   "payload": 560,
+   "component": "WeaponLaserComponentData"
+  }
+ ]
+}
