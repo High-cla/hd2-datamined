@@ -14,8 +14,8 @@
 | `generated_entities.dl_bin`：组件块布局 / hashmap / 行结构 | ✓ 已实机 |
 | 武器数值：人机、站姿惩罚、散布、后坐、装填可移动 | ✓ 已实机 |
 | **可选弹种**：`fnid=8` + 备选弹丸（伤害+状态切换） | ✓ 已实机（眩晕 / 燃烧） |
+| **独立弹药池**：`fnid=4` + `WeaponRounds` 两套弹丸（各带弹道、各自弹匣/备弹） | ✓✓ 已实机 |
 | 自制伤害行（占无主行，写伤害/穿甲/状态强度） | ✓ 离线门禁通过 |
-| 独立弹药池（`fnid=4` + `WeaponRounds` 双池） | ⚠ 结构已解，未实机 |
 | 解锁未发布物品（`LoadoutEntry.selectable`） | ✗ 已否证（发布数据里没有这个开关） |
 
 ## 不是什么
@@ -60,6 +60,7 @@ PY
 2. **实体库不是 toc，是块序列**：`u32 type | 'LDLD' | ver | type | payload | ...`（28 B 头）；组件块 payload = `[hashmap][行数组]`；hashmap 键 = `Murmur64A(资源路径)`。
 3. **可选弹种两格**：`WeaponData +184`（`FunctionInfo.function_id`，**8 = 引擎原生 ProgrammableAmmo**）＋ `ProjectileWeapon +576`（**备选弹丸 type id**）。备选弹**只贡献伤害+状态**，弹道来自主弹行。
 4. **独立弹药池**：`WeaponRoundsComponentData`，行内 `+64` = 两个弹丸 id、`+72` = 两个弹匣容量、`+80` = 两个备弹；全表 25 把里**只有 SG-20 Halt 是 B≠A，也正好只有它是 `fnid=4`**。
+   **实机**（SG-8 Punisher：`fnid` 0→4、`rounds_b` 264→140）：能切弹、两个池独立、B 池自带弹道（霰弹枪变单颗）✓✓
 5. **未发布物品**：`LoadoutEntryComponentData` 只有 `{id, type, dlc_pack_id, equipment_tags[5]}` 32 字节，**没有 selectable**；带 selectable 的结构在发布数据里 0 命中 ⇒ 不是离线可翻的开关。
 
 ## 相关仓库

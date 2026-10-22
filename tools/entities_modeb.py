@@ -23,11 +23,10 @@
 from __future__ import annotations
 
 import argparse
-import os
 import struct
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, r"D:\mod\work\devkit\tools")
 from murmur64 import murmur64, padding_word_for_hash  # noqa: E402
 
 # ---------------------------------------------------------------- 布局常量
@@ -37,6 +36,7 @@ TABLES = {
     "weapon": (0x0193CCE8, 11936, 1240),
     "fire":   (0x02CDE0B8, 8896, 616),
     "reload": (0x0057E9B8, 8128, 80),
+    "rounds": (0x005A6E50, 800, 136),     # WeaponRoundsComponentData（50 槽 × 16 B）
 }
 # 逻辑名 -> 该表里每个字段的行内偏移
 CELLS = {
@@ -44,6 +44,13 @@ CELLS = {
     "prim":        ("fire", 0,   "u32"),     # 主弹丸 type id
     "alt":         ("fire", 576, "u32"),     # 备选弹丸 type id（模式 B）
     "reload_move": ("reload", 1, "u8"),      # WeaponReloadComponentData.ReloadAllowMove
+    # ---- WeaponRoundsComponentData（行 136 B）：独立弹药池 ----
+    "rounds_a": ("rounds", 64, "u32"),         # 弹药池 A 的弹丸 type id
+    "rounds_b": ("rounds", 68, "u32"),         # 弹药池 B 的弹丸 type id（Halt 的 195 在这）
+    "rounds_mag_a": ("rounds", 72, "float"),   # 弹药池 A 的弹匣容量
+    "rounds_mag_b": ("rounds", 76, "float"),   # 弹药池 B 的弹匣容量
+    "rounds_reserve_a": ("rounds", 80, "u32"), # 弹药池 A 的备弹
+    "rounds_reserve_b": ("rounds", 84, "u32"), # 弹药池 B 的备弹
 }
 CORRECTION_WORD = 0x20          # EntitySettings 空槽的 padding 字（两次实机部署用过 ✓）
 
@@ -56,6 +63,9 @@ WEAPON_KEYS = {
     "SG-20 Halt": 0x4E310B1FE4C52B52,
     "JAR-5 Dominator": 0x80F1A156D9FA1E36,
     "AC-8": 0xA8CFFB316F0B5C5F,
+    "SG-8 Punisher": 0x41EAC4A03987FAA0,
+    "SG-8S Slugger": 0x4F749E2EE26F532D,
+    "SG-451 Cookout": 0xD323DE60855898AC,
 }
 
 
@@ -117,7 +127,11 @@ def cell_offset(data: bytes, weapon: str, cell: str) -> int:
 def read_cell(data: bytes, weapon: str, cell: str) -> int:
     off = cell_offset(data, weapon, cell)
     _name, _o, kind = CELLS[cell]
-    return data[off] if kind == "u8" else struct.unpack_from("<I", data, off)[0]
+    if kind == "u8":
+        return data[off]
+    if kind == "float":
+        return struct.unpack_from("<f", data, off)[0]
+    return struct.unpack_from("<I", data, off)[0]
 
 
 def describe(data: bytes, weapon: str) -> str:
@@ -127,6 +141,11 @@ def describe(data: bytes, weapon: str) -> str:
             parts.append(f"{cell}={read_cell(data, weapon, cell)}")
         except SystemExit:
             parts.append(f"{cell}=n/a")
+    for cell in ("rounds_a", "rounds_b", "rounds_mag_a", "rounds_mag_b"):
+        try:
+            parts.append(f"{cell}={read_cell(data, weapon, cell)}")
+        except SystemExit:
+            continue
     try:
         parts.append(f"reload_move={read_cell(data, weapon, 'reload_move')}")
     except SystemExit:
@@ -145,11 +164,18 @@ def apply_edits(data: bytes, edits, keep_mg43: bool):
     for weapon, cell, value in edits:
         off = cell_offset(data, weapon, cell)
         _name, _o, kind = CELLS[cell]
-        old = data[off] if kind == "u8" else struct.unpack_from("<I", data, off)[0]
+        if kind == "u8":
+            old = data[off]
+        elif kind == "float":
+            old = struct.unpack_from("<f", data, off)[0]
+        else:
+            old = struct.unpack_from("<I", data, off)[0]
         if kind == "u8":
             if not 0 <= value <= 0xFF:
                 raise SystemExit(f"✗ {weapon}.{cell} 值 {value} 超出 u8")
             out[off] = value
+        elif kind == "float":
+            struct.pack_into("<f", out, off, float(value))
         else:
             if not 0 <= value <= 0xFFFFFFFF:
                 raise SystemExit(f"✗ {weapon}.{cell} 值 {value} 超出 u32")
@@ -188,7 +214,12 @@ def run_gates(original: bytes, edited: bytes, records, original_hash: int) -> bo
     # G4 读回
     for r in records:
         _name, _o, kind = CELLS[r["cell"]]
-        val = edited[r["offset"]] if kind == "u8" else struct.unpack_from("<I", edited, r["offset"])[0]
+        if kind == "u8":
+            val = edited[r["offset"]]
+        elif kind == "float":
+            val = struct.unpack_from("<f", edited, r["offset"])[0]
+        else:
+            val = struct.unpack_from("<I", edited, r["offset"])[0]
         check(f"G4 读回 {r['weapon']}.{r['cell']}", val == r["new"], f"{r['old']} -> {val}（要 {r['new']}）")
     # G5 校正字位置
     check("G5 校正字在 0x20 且 8 对齐", CORRECTION_WORD % 8 == 0, f"0x{CORRECTION_WORD:X}")
@@ -208,6 +239,16 @@ def cmd_show(args) -> int:
 def cmd_edit(args) -> int:
     data = open(args.file, "rb").read()
     edits = []
+    for spec in (args.edit or []):
+        try:
+            weapon, cell, value = spec.rsplit(":", 2)
+        except ValueError:
+            print(f"✗ --edit 格式应为 武器:格:值，收到 {spec!r}")
+            return 2
+        if cell not in CELLS:
+            print(f"✗ 未知格 {cell}（可选：{', '.join(sorted(CELLS))}）")
+            return 2
+        edits.append((weapon, cell, float(value) if CELLS[cell][2] == "float" else int(value, 0)))
     if args.fnid is not None:
         edits.append((args.weapon, "fnid", args.fnid))
     if args.alt is not None:
@@ -267,6 +308,9 @@ def main() -> int:
         p.add_argument("--fnid", type=int)
         p.add_argument("--alt", type=int)
         p.add_argument("--prim", type=int)
+        p.add_argument("--edit", action="append", metavar="WEAPON:CELL:VALUE",
+                       help="通用写法，可重复；武器名可含空格，如 "
+                            "'SG-8 Punisher:rounds_b:140'")
         p.add_argument("--keep-mg43", action="store_true", help="顺带保留 MG-43 装填可移动")
 
     p = sub.add_parser("edit")

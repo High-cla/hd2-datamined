@@ -17,6 +17,7 @@
 | MG-43 弹链机枪装填移动 | `WeaponReload` 行 239 `ReloadAllowMove(+1)` 0→1 | ✓ 装填时可以走动 |
 | AR-23 可选弹种（眩晕） | `WeaponData +184`=8 ＋ `ProjectileWeapon +576`=195 | ✓ 能切换、弹种不同；眩晕太弱（见 §7） |
 | AR-23 可选弹种（燃烧） | 同上，`+576` = AR-2 Coyote 的 140 | ✓✓ **命中点燃 + 火焰特效 + 持续伤害** |
+| SG-8 Punisher 独立弹药池 | `WeaponData +184`=4 ＋ `WeaponRounds +68` = 140 | ✓✓ **能切弹 + 两池独立 + B 池自带弹道（只有一颗）** |
 
 前两次已回滚/覆盖；后两次即当前装机状态（另有 MG-43 保留）。所有部署后**明文哈希都与 game.dll 烘焙值一致**。
 
@@ -113,7 +114,7 @@ count = 0 → offset 不被解引用，只有「资源哈希高半变垃圾」�
 
 - **蹲下才能装填**：`WeaponReload` / `Wieldable` 结构里**没有** crouch/stance 字段（关键词 0 命中）。⚠ 推断该约束来自装填动画/状态机（资源层），不在 entities 表；改它要动画资源，工作量太大，**暂缓**。
 - **`LoadoutEntry` 的 `selectable`：✗ 已否证**（2026-10-22）。该组件行只有 32 B = `{id, type(LoadoutItemType), dlc_pack_id, equipment_tags[5]}`，**没有 selectable**；带 selectable 的 `LoadoutItem`/`LoadoutItemCategory` 在实体库与 55 张 `data/game` 表里**均 0 命中** ⇒ 「是否已发布」不是离线可翻的字节，可见性由「实体是否挂 LoadoutEntry」+ 后端 id/DLC 归属决定。详见 §8。
-- **Halt 的两套独立弹药池**：Halt 的 fire 行 `prim = alt = 0`，它的弹药不走 `ProjectileWeaponComponentData`，而 `fnid = 4`（不是 8）⇒ 原生双弹匣池是**另一条机制**。⚠ 未解，见 §9。
+- ~~Halt 的两套独立弹药池未解~~ → **✓✓ 已解并实机**（`WeaponRoundsComponentData` + `fnid=4`，见 §9）。
 - 每行字段名来自 filediver Go 定义，**+396 之后的 WeaponData 尾部偏移可能有 ±4 漂移**（filediver 落后于本 build），改前须用真实取值核对。
 - 哈希闸门只保「内容不变性」，不保语义；写歪了引擎会读到垃圾而未必崩溃（例：把 `Disabled` 位置写坏只会行为异常）。
 
@@ -214,3 +215,82 @@ LoadoutEntryComponentData 行（32 B × 199）：
 
 ⇒ 「显示未发布物品」**不是离线数据层的开关**：可见性由「实体是否挂 `LoadoutEntry` 组件」+「后端 id / 账号 / DLC 归属」决定。老 b18 路线能做是因为它**运行期**往登记表追加记录，正好印证数据层没有这个开关。
 
+
+## 9. 独立弹药池：两套完整弹药（各带自己的弹道）—— ✓✓ 已实机
+
+### 9.1 与 §7 的区别（两条是**不同**的机制，别混）
+
+| | 备选弹 §7（`fnid=8`） | 独立弹药池（`fnid=4`） |
+|---|---|---|
+| 弹丸放哪 | `ProjectileWeaponComponentData` 行 `+576` | `WeaponRoundsComponentData` 行 `+64`/`+68`（A/B 两格） |
+| 弹道（颗粒/初速/质量） | **沿用主弹**（b33 用户观测：1 颗还是 1 颗） | **B 池用自己的弹丸**（实测：霰弹枪 B 池变单颗粒） |
+| 弹药池 | 与主弹共享一个 | **A/B 各自独立**：`+72` 弹匣 A/B、`+80` 备弹 A/B |
+| 原版使用者 | AC-8 / GR-8 / P-33 / P-92 / RL-77 / StA-X3 | **只有 SG-20 Halt**（187 / 195） |
+
+### 9.2 `WeaponRoundsComponentData` 几何（typelib 直接给）
+
+```
+type 0x66081072   size 4,336       block @0x005A6E50
+  +0     800 B = hashmap（50 槽 × 16 B）
+  +800 3,536 B = 行数组（26 行 × 136 B）
+```
+
+行结构（逐成员 + 25 行实测）：
+
+| 行内 | 大小 | 实测解读 |
+|---|---|---|
+| +0 | 64 | 16 × float，全 1.0（**未解**，疑似散布/倍率数组）⚠ |
+| **+64** | 8 | **弹丸 type id A / B** |
+| **+72** | 8 | **弹匣容量 A / B**（float）：Halt 8/8 · Break-Action 2/2 · Constitution 5/5 ✓ 与游戏一致 |
+| **+80** | 8 | **备弹 A / B**：Halt 60/60 · Sweeper 70/70 · Constitution 100/100 ✓ |
+| +88 / +92 | 8 | 未解（霰弹族 32 / 1；P-69 Veto 6；AC-8 5）⚠ |
+| +96 | 8 | 两个 float（多为 0；Veto 8.0）⚠ |
+| +108 | 24 | 6 个 hash，霰弹族**共享同一组**（疑似弹种显示名）⚠ |
+| +104 / +132 | 2 | u8 ⚠ |
+
+### 9.3 全表相关性：只有 Halt 是 B≠A，也正好只有它是 `fnid=4`
+
+```
+武器                    fnid  弹丸A 弹丸B  弹匣A/B  备弹A/B
+SG-20 Halt                 4    187   195     8/8     60/60   ← 唯一 B≠A
+SG-8 Punisher              0    264   264     8/8     60/60   ← B 只是占位
+SG-8S Slugger              0    244   244     8/8     60/60
+SG-451 Cookout             0    352   352     8/8     60/60
+SG-97 Sweeper              0    266     0     7/0     70/70
+SG-88 Break-Action         0    220     0     2/0     40/20
+DBS-2 Double Freedom       3    322     0     2/0     40/40
+AC-8 Autocannon            8    117     0    10/0      0/0    ← 走 §7 那条机制
+```
+
+另：这 25 把**全部没有 magazine 行**，而 AR-23 有（行 203）⇒ 两张表看起来是互斥的两条路。
+
+### 9.4 实验 A（实机三联验证）
+
+```
+SG-8 Punisher.fnid     @0x01973D7C   0 -> 4
+SG-8 Punisher.rounds_b @0x005A72E0 264 -> 140   （AR-2 Coyote 燃烧弹）
+```
+
+用户观测（原话）：**「能切弹，两个池独立，B 池是只有一颗。」** ⇒
+
+- `fnid=4` = 双弹药池开关 ✓
+- 两池的弹匣/备弹分别记账 ✓
+- B 池弹丸**自带弹道**（霰弹枪的 B 池变成单颗粒）✓ —— 这是 `fnid=8` 做不到的
+
+### 9.5 空位（给没有 rounds 行的武器新增时用，不用扩容）
+
+```
+hashmap 50 槽 / 25 键  → 25 个空槽 ✓
+行数组  26 行 / 已用 0..24 → 空行 25 ✓
+```
+⇒ 新增一行 = 写 16 B 的 hashmap 条目 + 一条 136 B 的行，**文件长度不变**，哈希照旧可保。
+⚠ 未试：与 `WeaponMagazineComponentData` 行并存（AR-23 属于这种）会不会打架。
+
+### 9.6 工具
+
+```
+python tools/entities_modeb.py show <plain> --weapon "SG-8 Punisher"
+python tools/entities_modeb.py edit <vanilla> <out>     --weapon AR-23 --fnid 8 --alt 140 --keep-mg43     --edit "SG-8 Punisher:fnid:4" --edit "SG-8 Punisher:rounds_b:140"
+```
+新增格：`rounds_a` `rounds_b`（弹丸）· `rounds_mag_a/b`（弹匣 float）· `rounds_reserve_a/b`（备弹）
+多重 `--edit` 支持一次改多把武器；门禁与变异测试同 §7.6。
