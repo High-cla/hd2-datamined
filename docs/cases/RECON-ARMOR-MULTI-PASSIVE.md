@@ -1,0 +1,176 @@
+# 侦察：第三方「护甲多被动」（build `25988413` 的 Lua mod，落到同一个 `.dl_bin`）
+
+> **一句话**：它用 **Lua 在游戏退出时改写** `generated_customization_passive_bonuses.dl_bin`，
+> 把用户勾选的若干「额外被动」**逐条并进每一项真实被动**。
+> 路线与我们不同（运行期 Lua 写文件 vs 我们离线改字节再部署），但**落点、哈希修补、封装三件事完全一样**。
+> 本文只读侦察，不安装、不运行它的补丁。
+
+## 0. 产物清单与哈希
+
+来源 `D:\Downloads\护甲多被动.zip`（274,213 B），解到 `D:\mod\work\recon-armor-multi\`：
+
+| 大小 | sha256（前 24） | 文件 |
+|---:|---|---|
+| 418,176 | `f3c3490d5a9c374f80c86d16` | `data/9ba626afa44a3aa3.patch_0`（Bingus 补丁，含 boot.lua） |
+| 0 | `e3b0c44298fc1c149afbf4c8` | `.stream` / `.gpu_resources`（空，纯 lua 补丁） |
+| 709 | `cbb70a7ba42107366c668727` | `manifest.json` |
+| 1,106 | `9b88d58bf308001c0a237260` | `README.md` |
+| 417,963 | `af0f6d483c27c41b1eff324f` | `Source/boot.lua`（**可读源码，本文的主要证据**） |
+| 4,064 | `91cfc2bf8fa32331da3fc0b2` | `Recovery/profiles/000.dl_bin`（原版 sealed 备份） |
+| 9,809 | `9e471562c05455eaa4037bf3` | `Recovery/profiles.json` |
+
+作者自述（README）：适用 **1.007.200 / Build 25988413**；F7 开菜单，空格勾选，F8 保存，
+**正常退出游戏时合并、封装并写入资源**，下次启动生效；要求当前文件是**原版 sealed**，
+否则菜单报 `unknown target` 并拒绝写入；卸载方式是把 `Recovery/profiles/000.dl_bin` 复制回去。
+
+## 1. 两条路线对照
+
+| | **它（Armory Forge 多被动）** | **我们（本仓库）** |
+|---|---|---|
+| 触发 | 游戏内菜单（F7），**退出时**写盘 | 离线改字节 → `dlbin_deploy.py install` |
+| 改哪个文件 | `data/game/generated_customization_passive_bonuses.dl_bin` | **同一个** |
+| 哈希修补 | 先找「未使用的对齐头字」，找不到就在末块 payload 尾追加 8 B，然后解校正字 | 一律末块 payload 尾追加 8 B（tail 宿主） |
+| 封装 | **预计算 keystream + Poly1305**（`material.keystream/epk/poly`，固定 ephemeral） | libsodium sealed box，用 recipient **pk** 现封 |
+| 失败保护 | 备份 → 临时文件 → rename → 读回校验 → rollback 文件 + 状态机 | 门禁 G1–G9 + 原版备份 + `restore` |
+| 依赖 | 无外部库（纯 Lua 5.1：Murmur64A、Poly1305 全手写） | Python + PyNaCl |
+
+> 它**没有**用到任何我们不知道的加密秘密：封装本来只需要**公钥**，
+> 它把公钥与一段 keystream 一起烘进 `boot.lua`，所以不需要 libsodium。
+> 我们这边有 pk，走标准封装即可，**不需要搬它的 sealer**。
+
+## 2. 数据模型（★ 这一节是全文价值所在）
+
+`generated_customization_passive_bonuses.dl_bin` 是**设置表容器**（`u32 组数` + 24 B 块头），
+我们与它的两份文件（`26088801` / `25988413`）**结构完全相同**：
+
+```
+u32 组数（=33）
+每组：24 B 块头 ['LDLD'][ver][type=0x63CE0FEB][payload_size][wide=1][4 B 保留]
+      payload（→ 见下）
+```
+
+payload（**偏移相对 payload 起点**）：
+
+| 偏移 | 类型 | 含义 |
+|---:|---|---|
+| `+0` | u32 | **被动 id**（perk id） |
+| `+4` | u32 | `name_id`（本地化名字 id） |
+| `+16` | u64 | **pm 数组偏移**（绝对，指向 payload 内） |
+| `+24` | u64 | pm 行数 |
+| `+32` | u64 | **sm 数组偏移**；**空数组时是 `0xFFFFFFFFFFFFFFFF`** |
+| `+40` | u64 | sm 行数 |
+| `+48` | 8 B | 原样保留（多数为 0，极少数非 0，例如 `86958b6300000000`） |
+| `pm_off` | 16 B × n | **pm 行** |
+| `sm_off` | 12 B × n | **sm 行** |
+
+**pm 行（16 B）= 「它说自己有什么」**
+
+| 偏移 | 类型 | 含义 |
+|---:|---|---|
+| `+0` | u32 | stat 键（名字的 32 位哈希） |
+| `+4` | u32 | 类型（本 build 见 0/1/2/3；2 = 倍率，1/3 疑似标志或加值） |
+| `+8` | f32 | 数值（倍率就是 ×1.3 这种） |
+| `+12` | u32 | **描述文本的本地化 id** |
+
+**sm 行（12 B）= 「引擎真正给什么」**
+
+| 偏移 | 类型 | 含义 |
+|---:|---|---|
+| `+0` | u32 | **stat 槽位号**（见 §3，本 build 只用到 11–17） |
+| `+4` | u32 | 标志（全表都是 0） |
+| `+8` | f32 | 数值 |
+
+实例（本 build 实测，perk 16 = 蓄势出击 / Siege-Ready）：
+
+```
+pm: key=0xCC530B21 type=2 value=1.3000 text_loc=0xBF0CCA74   ← primary_reload ×1.3
+pm: key=0x33C9C713 type=2 value=1.2000 text_loc=0xF432722D   ← ammo_capacity ×1.2
+sm: stat=13 flag=0 value=1.3000                              ← 真正生效的那一行
+sm: stat=12 flag=0 value=1.2000
+```
+
+这正好解释了我们 `a8` 路线档里的悬案：**「description-only」的 pm 行不生效，因为效果在 sm 行上。**
+
+## 3. 本 build 的全表普查（`26088801`）
+
+- **33 条记录**，其中 `id=0` 是占位（作者跳过它），`id=42` 在表里但不在它的菜单里；
+  它的菜单只列 **31 个**可选被动（id 1,2,3,5–21,31–41）。
+- **sm 槽位只有 7 个**被用到（这就是「真正能叠」的全部空间）：
+
+| stat | 条数 | 出现在 | 值 |
+|---:|---:|---|---|
+| 11 | 1 | perk 14（毫不畏缩） | 0.05 |
+| 12 | 1 | perk 16（蓄势出击） | 1.2 |
+| 13 | 2 | perk 16 / perk 10（强化肩章） | 1.3 / 1.3 |
+| 14 | 1 | perk 41（坚韧不拔） | 1.3 |
+| 15 | 1 | perk 18（神枪手） | 1.6 |
+| 16 | 1 | perk 18 | 1.5 |
+| 17 | 2 | perk 18 / perk 37（防震内衬·防化型） | 0.3 / 0.7 |
+
+- **pm 键**：全表只有 **44 个不同 (键, 类型)**。
+- ⇒ **推论**：所谓「多被动」，实际能叠的**只有那 7 条 sm 行**；
+  其余被动的 pm 行加进去只会多一行描述（而且作者把它藏掉了），效果为 0。
+
+## 4. 它的堆叠配方（`build()` 伪码）
+
+```lua
+for 每条记录 r（33 条）:
+    if r.id ~= 0 then                       -- id=0 的占位不处理
+        for extra in 选中的额外被动:
+            pm = append_unique(pm, extra.pm 但**每行末 4 字节清 0**, 去重键 = 前 12 B)
+            sm = append_unique(sm, extra.sm,                     去重键 = 前 12 B)
+        重算 payload：u64bytes(pm_off) u64bytes(#pm) u64bytes(sm_off) u64bytes(#sm) + +48 那 8 B
+        块头 payload_size 同步
+```
+
+三个要点：
+
+1. **并进「每一项真实被动」而不是只并一条** —— 这样穿任何甲都带这套额外效果；
+2. **去重键 = 前 12 字节**（pm 的 stat 键+类型+数值 / sm 的槽位+标志+数值），所以重复勾不会膨胀；
+3. **pm 行末 4 字节（描述本地化 id）清 0** —— 作者注释写得很直白：
+   *Keep the effect, but hide its description from the armor UI.*
+   这就是 README 里「护甲页不显示额外被动描述」的实现方式。
+
+## 5. 它的安全设计（值得学，但我们的工具已覆盖同等强度）
+
+| 机制 | 做法 |
+|---|---|
+| 只认原版 | 任何写入前先比 `known(bytes)`（= 内嵌的 `ORIGINAL_SEALED` / `ORIGINAL_PLAINTEXT`） |
+| 事务 | 备份 → 写临时文件 → `rename(target → rollback)` → `rename(temp → target)` → **读回校验**；失败则把 rollback 名回去 |
+| 中断恢复 | `recover()` 在启动时检查 rollback 文件，按「live 文件是否已知」决定回滚还是清理 |
+| 状态机 | `AF2\n<id 列表>` 写进 sidecar，点 F8 只是排队，**退出时才 apply** |
+| 长度上限 | 显式检查 `#plaintext > material.max_len - 32`（keystream 长度有限） |
+
+> 它的 `build()` 里还有一段：找「未使用的对齐头字」当校正字宿主，找不到才追加尾字。
+> 我们一直用尾字（§FILE-ROUTE-BOUNDARIES §8.7 的教训），两者等价，**不必改**。
+
+## 6. 能直接搬到我们这条线的东西
+
+| # | 收获 | 用法 |
+|---|---|---|
+| 1 | **payload 布局确定**：`+0 id / +4 name_id / +16 pm_off / +24 pm_cnt / +32 sm_off(空=-1) / +40 sm_cnt / +48 保留 8 B` | 写 `passive_bonus_edit.py` 时的唯一权威布局 |
+| 2 | **pm/sm 双数组模型**，以及「效果在 sm、描述在 pm」 | 解释并推翻我们 a8 路线档里「description-only」的困惑 |
+| 3 | **真实可叠空间只有 stat 11–17 七个槽** | 先做「格挡/装填/弹容…」这些的映射，再谈叠 |
+| 4 | **描述隐藏 = pm 行末 4 B 清 0** | 做「静默加成」时的标准做法 |
+| 5 | **并进全部 33 条** 才能保证「穿任何甲都吃到」 | 做 mod 时的取值策略 |
+| 6 | 它验证了 **`25988413` 与 `26088801` 的表结构一致**（同 type、同 33 条、同布局） | 换 build 时 `passive_bonuses` 这条线可以直接沿用 |
+
+**不能搬/不需要搬**：它的 sealer（我们走 pk 现封）、它的菜单与状态机（我们离线改）。
+
+## 7. 三态判定
+
+| 结论 | 状态 | 依据 |
+|---|---|---|
+| 目标是 `generated_customization_passive_bonuses.dl_bin`，payload 布局如上 | **✓ 已证**（源码 + 我们自己的明文逐字段对得上） | boot.lua `decode()` 与我们 `struct` 解析结果一致（33 条、type `0x63CE0FEB`、`sm_off=-1`） |
+| 「效果在 sm 行」 | **✓ 强证据**（源码 + 数据吻合） | perk 16 的 sm 13/12 = 装填/弹容，与 wiki 数值一致 |
+| 「pm 只影响 UI 描述」 | **⚠ 未证** | 作者只是把描述 id 清零来隐藏文本；引擎是否**完全不读** pm 未知 |
+| 「stat 11–17 之外的槽无效」 | **⚠ 未证** | 全表没用过，不能证明不存在其它槽 |
+| 装到我们 build 上会怎样 | **⚠ 未测** | 它是 25988413 的包，我们没装；结构一致但未实机 |
+
+## 8. 建议的下一步（护甲线第一枪）
+
+1. **先用 pm/sm 模型复现一次已知结论**：把 perk 16 的 sm 13（装填 ×1.3）改成 ×2.0，
+   离线改 + 保哈希 + 上机看装填速度 —— 这是**验证「sm 才是效果」**的最小实验；
+2. **再试一次「真·多被动」**：把 perk 18 的 sm 15/16/17（三条）并进 perk 16 的 sm 数组，
+   看叠加是否生效（这正是本案的核心能力，但走我们的离线路线，可回滚）；
+3. 有了 1、2 再谈 `stat → 语义` 的完整映射表。
