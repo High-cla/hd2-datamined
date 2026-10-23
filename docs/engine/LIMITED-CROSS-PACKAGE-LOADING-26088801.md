@@ -242,54 +242,57 @@ python tools/pod_loadout.py build --rack 29 --weapon "LAS-44 Nova" --backpack "L
 
 | idx | 行基址 | id | 名字 |
 |---:|---|---:|---|
-| 23 | `0x2d70` | 51 | Eagle Rearm |
-| 38 | `0x522c` | 79 | SSSD Delivery |
-| 39 | `0x53bc` | 82 | SSSD Delivery |
-| 41 | `0x56dc` | 152 | Extraction Beacon |
-| 47 | `0x603c` | 125 | Spire Sterilizer |
-| 53 | `0x699c` | 111 | Scrambler |
-| 54 | `0x6b2c` | 7 | Extraction |
-| 55 | `0x6cbc` | 114 | 未知 |
-| 56 | `0x6e4c` | 101 | Extraction |
-| **57** | **`0x6fdc`** | 127 | **Reinforce** |
-| 58 | `0x716c` | 5 | Orbital Illumination Flare |
-| 59 | `0x72fc` | 149 | SOS Beacon |
-| 60 | `0x748c` | 131 | Upload Data |
-| 61 | `0x761c` | 135 | 未知 |
-| 62 | `0x77ac` | 106 | Carpet Bomb |
-| 70 | `0x842c` | 37 | ACTIVATE DRILL |
-| 71 | `0x85bc` | 126 | CALL IN SUPER DESTROYER |
-| **138** | **`0x1247c`** | 96 | **Reinforce** |
-| 139 | `0x1260c` | 41 | Extraction Beacon |
-| 150 | `0x1386c` | 48 | 未知 |
-| 151 | `0x139fc` | 98 | 未知 |
-| 152 | `0x13b8c` | 62 | 未知 |
+| 23 | `0x2d70` | 51 | EAGLE. REARM |
+| 38 | `0x522c` | 79 | MISSIONS. Cyborg Carry Data |
+| 39 | `0x53bc` | 82 | MISSIONS. Carry Data |
+| 41 | `0x56dc` | 152 | MISSIONS. EXTRACTION |
+| 47 | `0x603c` | 125 | MISSIONS. SPIRE STERILIZER |
+| 53 | `0x699c` | 111 | MISSIONS. Scrambler |
+| 54 | `0x6b2c` | 7 | MISSIONS. EXTRACTION BEACON |
+| 55 | `0x6cbc` | 114 | MISSIONS. IMMEDIATE EXTRACTION BEACON |
+| 56 | `0x6e4c` | 101 | MISSIONS. EMERGENCY EXTRACTION BEACON |
+| **57** | **`0x6fdc`** | 127 | **MISSIONS. REINFORCEMENT BEACON** |
+| 58 | `0x716c` | 5 | MISSIONS. ORBITAL ILLUMINATION FLARE |
+| 59 | `0x72fc` | 149 | MISSIONS. SOS Beacon |
+| 60 | `0x748c` | 131 | MISSIONS. Upload Discovery |
+| 61 | `0x761c` | 135 | MISSIONS CLAN STATION. Nuke |
+| 62 | `0x77ac` | 106 | MISSIONS CLAN STATION. Carpet Bombing Run |
+| 70 | `0x842c` | 37 | MISSIONS. OIL RIG EXTRACT |
+| 71 | `0x85bc` | 126 | MISSIONS. CALL IN DESTROYER |
+| **138** | **`0x1247c`** | 96 | **TUTORIAL REINFORCEMENT BEACON** |
+| 139 | `0x1260c` | 41 | [TUTORIAL] EXTRACTION |
+| 150 | `0x1386c` | 48 | TANK. TANK RELOAD HE |
+| 151 | `0x139fc` | 98 | TANK. TANK RELOAD AT |
+| 152 | `0x13b8c` | 62 | TANK. TANK RELOAD CANISTER |
 
 > **为什么 `Reinforce` 是这一档里最好的**：它不占 4 个战备位（HD2 的增援是常驻动作），
-> 而每局只要有队友倒下就一定会被叫出。**它的两个声明口在任何一局里都是白给的。**
-> `Extraction` 也常驻，但只在收尾时叫；`SOS Beacon` / `Resupply` 要占位。
+> 而且从关卡加载起就在栏里。**它的两个声明口在任何一局里都是白给的。**
+>
+> ⚠ 但「两槽全空」并不等于「免费」—— R4/R6 证明**不在栏里的行不会被读**。
+> 这一档里已经实测的只有 `Reinforcement Beacon`（✓ R3）和 `EAGLE. REARM`（✓ R5-B，需带鹰）；
+> `EXTRACTION BEACON` / `EMERGENCY EXTRACTION BEACON` 实测**不在栏里**（✗ R6）。
 
 ### 6.6.4 17 个「仅 `+0xA8` 空」的行（任意包）
 
 | idx | 行基址 | id | 战备 | `+0xF8`（已指到的武器） |
 |---:|---|---:|---|---|
-| 92 | `0xc04c` | 85 | Machine Gun | `0xF8FECED4`（未解） |
-| 94 | `0xc774` | 83 | Grenade Launcher | `0xC74C740D`→Grenade Launcher |
-| 97 | `0xcc24` | 58 | Railgun | `0xB77A3F9D`→Railgun |
-| 98 | `0xcdb4` | 116 | Speargun | `0x14118731`→Speargun |
-| 100 | `0xd0d4` | 65 | Laser Cannon | `0xA83CF95D`→Laser Cannon |
-| 101 | `0xd264` | 153 | Quasar Cannon | `0x9C77755B`→Quasar Cannon |
-| 102 | `0xd3f4` | 144 | Anti-Materiel Rifle | `0x83970A39`→Anti-Materiel Rifle |
-| 103 | `0xd584` | 151 | Expendable Anti-Tank | `0xCB778090`→Expendable Anti-Tank |
-| 104 | `0xd714` | 15 | Expendable Anti-Tank | `0xCB778090`→Expendable Anti-Tank |
-| 105 | `0xd8a4` | 40 | Expendable Napalm | `0x6C19DD47`→Expendable Napalm |
-| 107 | `0xdbc4` | 6 | Commando | `0x8518B86B`→Commando |
-| 108 | `0xdd54` | 115 | Flamethrower | `0x5563504D`→Flamethrower/Cremator |
-| 109 | `0xdee4` | 33 | Heavy Machine Gun | `0x1FC9CA61`→HMG ×3 |
-| 110 | `0xe074` | 95 | Machine Gun | `0x1B4F8FA2`→Machine Gun |
-| 111 | `0xe204` | 13 | Stalwart | `0x00DAE676`→Stalwart ×4 |
-| 119 | `0xee84` | 63 | Sterilizer | `0xF77D6B07`→Sterilizer |
-| 128 | `0xfc94` | 66 | Nova | `0xF71F76BA`→Nova |
+| 92 | `0xc04c` | 85 | PRESIDENT REWARDS. MACHINEGUN | `0xF8FECED4` |
+| 94 | `0xc774` | 83 | TEAM WEAPONS. GRENADE LAUNCHER | `0xC74C740D`→Grenade Launcher |
+| 97 | `0xcc24` | 58 | TEAM WEAPONS. RAILGUN | `0xB77A3F9D`→Railgun |
+| 98 | `0xcdb4` | 116 | TEAM WEAPONS. HARPOON GUN | `0x14118731`→Speargun |
+| 100 | `0xd0d4` | 65 | TEAM WEAPONS. LASER CANNON | `0xA83CF95D`→Laser Cannon |
+| 101 | `0xd264` | 153 | TEAM WEAPONS. LASER PULSE CANNON | `0x9C77755B`→Quasar Cannon |
+| 102 | `0xd3f4` | 144 | TEAM WEAPONS. SNIPER | `0x83970A39`→Anti-Materiel Rifle |
+| 103 | `0xd584` | 151 | TEAM WEAPONS. EXPENDABLE ANTI-TANK | `0xCB778090`→EAT |
+| 104 | `0xd714` | 15 | TEAM WEAPONS. EXPENDABLE ANTI-TANK (Booster) | `0xCB778090`→EAT |
+| 105 | `0xd8a4` | 40 | TEAM WEAPONS. EXPENDABLE NAPALM LAUNCHER | `0x6C19DD47`→Expendable Napalm |
+| 107 | `0xdbc4` | 6 | TEAM WEAPONS. COMMANDO | `0x8518B86B`→Commando |
+| 108 | `0xdd54` | 115 | TEAM WEAPONS. FLAMETHROWER | `0x5563504D`→Flamethrower/Cremator |
+| 109 | `0xdee4` | 33 | TEAM WEAPONS. HEAVY MACHINEGUN | `0x1FC9CA61`→HMG ×3 |
+| 110 | `0xe074` | 95 | TEAM WEAPONS. MACHINEGUN | `0x1B4F8FA2`→Machine Gun |
+| 111 | `0xe204` | 13 | TEAM WEAPONS. LIGHT MACHINE GUN | `0x00DAE676`→Stalwart ×4 |
+| 119 | `0xee84` | 63 | TEAM WEAPONS. CHEM GUN | `0xF77D6B07`→Sterilizer |
+| 128 | `0xfc94` | 66 | TEAM WEAPONS. LASER RIFLE ION | `0xF71F76BA`→Nova |
 
 这一类最实用：**你本来就要带一把支援武器、本来就要叫它**，而它的包已经由 `+0xF8` 负责了，
 `+0xA8` 就是纯增量。想加载哪个包就填哪个。
@@ -307,7 +310,7 @@ python tools/pod_loadout.py build --rack 29 --weapon "LAS-44 Nova" --backpack "L
 |---|---|---|
 | 单行能声明几个包 | 2 | 2（不变，结构决定的） |
 | **一局能声明几个包** | 2 | **≥3 已实机**（R3：`StA-X3 +0xA8`→Nova、`+0xF8`→W.A.S.P. 自己的包、`Reinforce +0xA8`→Warp，三个包同时驻留，投送舱里 Nova 与 Warp 都正常）；上限 = **常驻行 × 2 ≤ 44**（R4 已排除「整表遍历」） |
-| **不占战备位能声明几个** | 0 | **≥6 已实机**（`Reinforce` 4 口 + `Eagle Rearm` 2 口）；真免费档（永远进栏）= `Reinforce` 4 + `Extraction` 4（待 R6）+ `Extraction Beacon` 4 ⇒ **12 口** |
+| **不占战备位能声明几个** | 0 | **≥6 已实机**（`Reinforcement Beacon` 4 口 + `EAGLE. REARM` 2 口）；`EXTRACTION` 系列已否证（R6） |
 | 一发投送舱里放几件不同包的物品 | 2 | **≥2 已实机**；`spawn_payload_size` 上限 4，只要凑得出 4 个驻留包就能放 4 件 |
 
 ### 6.6.7 还没回答的那个问题：什么时候加载
@@ -347,6 +350,7 @@ R0 正常则连叫都不用叫，直接进免费档。
 | **R4** | `M-1000 Maxigun` 行 `+0xA8` = Warp 的包（**覆盖**原值 `0xB2C6…`）；**不带、不叫** | Warp **紫问号** | ✗ **否证**：`+0xA8` **不是整表遍历**。关卡加载只读「**进栏**」的战备的行 ⇒ 能用的不是 155 个空槽，而是「进栏行 × 2」 |
 | **R5-A** | `Eagle Rearm` 行 `+0xA8` = Warp 的包；**不带任何 Eagle** | Warp **紫问号** | 不是「无条件常驻」 |
 | **R5-B** | 同一 build，**带一发 Eagle** | Warp **正常**；且 4-4-4-4 **Eagle Rearm 回收照常可用** | ✓ **条件常驻成立**：进栏即预加载，且它不占战备位。附带结论：**`+0xA8` 是纯增量声明**，换掉不会破坏本战备载荷 |
+| **R6** | `EXTRACTION BEACON`（54）+ `EMERGENCY EXTRACTION BEACON`（56）的 `+0xA8` = Warp 的包；不带、不叫 | Warp **紫问号** | ✗ 撤离信标**不在栏里** ⇒ 「两槽全空」≠ 免费 |
 
 R1 + R3 合起来把模型确定下来了：
 
@@ -356,8 +360,7 @@ R1 + R3 合起来把模型确定下来了：
 | `+0xF8` | 只在**该战备授予武器**时 | R1：Resupply 不授予武器 ⇒ 写了也没人读 |
 
 > 这是本项目在纯数据路线上找到的**第一个「免费供体」**：`Reinforce` 不占战备位、不必被叫出，
-> 两个声明口填什么都在关卡加载时就驻留。`Extraction` / `Extraction Beacon` / `SOS Beacon` 等同属
-> 「两槽全空」的 22 行，按 R3 的结论应当同样有效（**未逐个验证**）。
+> 两个声明口填什么都在关卡加载时就驻留。但**「两槽全空」不等于「免费」** —— 见下面 R4/R6 的否证。
 
 **范围有多大？—— R4 已答：不是整表，是「常驻行」。**
 
@@ -381,20 +384,32 @@ R5 用 `Eagle Rearm`（行 `0x2d70`，两槽全空）做了两次任务 —— �
 
 于是供体分成三档：
 
-| 档 | 例子 | 成本 | 口数 |
+| 档 | 例子 | 成本 | 实测 |
 |---|---|---|---|
-| **永远在栏**（真免费） | `Reinforce` ×2 行、`Extraction` ×2 行、`Extraction Beacon` ×2 行 | **0** —— 不带也在 | ✓ R3 已证 `Reinforce`；`Extraction` 待 R6；`Extraction Beacon` 类推 |
-| **带了才进栏**（半免费） | `Eagle Rearm`（1 行） | 你得带一发 Eagle —— 但你本来就要带 | ✓ R5-B 已证 |
-| **占 4 个战备位之一** | 17 个支援武器行（`+0xA8` 空）等 | 一个战备位 | ⚠ 未单独验证（「装了但没叫」这一档没测过），逻辑上必然包含在「进栏」里 |
+| **永远在栏**（真免费） | `MISSIONS. REINFORCEMENT BEACON`（57）、`TUTORIAL REINFORCEMENT BEACON`（138） | **0** —— 不带也在 | ✓ R3 已证 |
+| **带了才进栏**（半免费） | `EAGLE. REARM`（23） | 你得带一发 Eagle —— 但你本来就要带 | ✓ R5-B 已证 |
+| **占 4 个战备位之一** | 17 个支援武器行（`+0xA8` 空）等 | 一个战备位 | ⚠ **正在测（R7）** |
+| ✗ **不在栏里** | `EXTRACTION BEACON`（54）、`EMERGENCY EXTRACTION BEACON`（56）、`TEAM WEAPONS. MINIGUN`（124，未带） | — | ✗ R6 / R4 否证 |
 
 R5-B 的第二个读数同样重要：**`+0xA8` 是纯增量声明**。Eagle Rearm 的 `+0xA8` 被换成 Warp 的包后，
 按 4-4-4-4 回收**照常工作** —— 说明它**不是**「这发战备载荷的资产包」，换掉不会让战备本身坏掉。
 §6.6.8 里那条最大的风险（填错会破坏本战备载荷）就此划掉。
 
-**R6：`Extraction` 是不是"永远免费"？**
-`Extraction`（行 `0x6b2c` / `0x6e4c`，两槽全空、两行同名）是每局必有的收尾动作。若它和 `Reinforce`
-一样无条件进栏，就再多 **4 个免费口**。已部署（`+0xA8` = Warp 的包），读数同 R5-A：
-**只带 StA-X3、不带 Eagle**，进任务后直接叫投送舱看 Warp。
+> **名字纠正（重要，R6 踩到的）**：R6 原本按外部名单的显示名选行，那两份名单把 `MISSIONS. EXTRACTION`（41）
+> 和 `MISSIONS. EXTRACTION BEACON`（54）**贴反了**。现在改成读行内 `+0x10` / `+0x18`
+> 指向的字符串（**payload 相对**偏移），拿到的内部名才是权威：
+> `MISSIONS. EXTRACTION`（41）、`EXTRACTION BEACON`（54）、`IMMEDIATE EXTRACTION BEACON`（55）、
+> `EMERGENCY EXTRACTION BEACON`（56）。`strat_slot_census.py` / `strat_slot_fill.py` 已改为优先用内部名。
+> 真正的 `MISSIONS. EXTRACTION`（41）**还没测**。
+
+**R7：带进战备位的算不算「在栏」？**（这是决定容量的那一档）
+把 Warp 的包填进 `TEAM WEAPONS. RAILGUN`（行 `0xcc24`，`+0xA8` 空），**带 Railgun 但整局不叫它**，
+然后直接叫投送舱看 Warp。
+
+| 读数 | 结论 |
+|---|---|
+| Warp **正常** | 「在栏」= 带上去就算 ⇒ **4 个战备位 × 2 口 = 8**，加 `Reinforce` 4 口，**一局 12 个包** |
+| Warp **紫问号** | 只有引擎自己塞进栏的那几发才预加载 ⇒ 只剩 `Reinforce` 4 口 + 带鹰时的 `EAGLE. REARM` 2 口 |
 
 两个字段的行为必须分开记：`+0xA8` 是**声明式**的（关卡加载时请求），`+0xF8` 是**解析式**的
 （只有走到「本战备授予武器」那条链才被读）。从 §6.5 起把两者当成"一对声明口"是个简化，R1/R3 把它拆开了。
@@ -408,7 +423,7 @@ R5-B 的第二个读数同样重要：**`+0xA8` 是纯增量声明**。Eagle Rea
 |---|---|---|
 | ~~`+0xA8` 可能是「本战备载荷的资产包」，填错会让那个战备自己坏掉~~ | ✓ **已排除**（R5-B）：`Eagle Rearm` 的 `+0xA8` 换成 Warp 的包后，4-4-4-4 回收**照常工作** ⇒ 它是**纯增量声明** | — |
 | `+0xF8` 语义是「授予武器」 | 填进非武器条目可能改变该战备的授予物 / UI（R1 里 Resupply 一切正常，但那是"没被读"） | 只在授予武器的战备上用 |
-| 12 个块 = 12 个战备池 | 同一战备出现在多个块（`Reinforce` 57/138、`Resupply` 13/86、`Extraction` 54/56…） | **同名行全部一起改**，否则可能改到不被使用的那个池 |
+| 12 个块 = 12 个战备池 | 同一战备出现在多个块（`REINFORCEMENT BEACON` 57/138、`RESUPPLY` 13/86…） | **同名行全部一起改**，否则可能改到不被使用的那个池 |
 | 任务脚本驱动的行（`Upload Data` / `ACTIVATE DRILL` / `CALL IN SUPER DESTROYER` / `Carpet Bomb`） | 改动可能影响任务流程 | 不优先用；只在确认机制后用 |
 | `+0x88` 全零的 u64 | 看着像第三个口，但**没有任何证据**它能被用 | 只在空槽路线彻底走不通时才试（一次只动一格） |
 | 「装了才进栏」的行（`Eagle Rearm` 等） | 不带对应装备时**不加载**（R5-A 紫问号） | 要它就得真带上那件装备 —— 但那件装备本来就要带才划算 |

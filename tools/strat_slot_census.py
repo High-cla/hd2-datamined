@@ -49,15 +49,41 @@ for _s in (sys.stdout, sys.stderr):
 ROW_NAMES = HERE.parent / "refs" / "stratagem-display-names.json"
 OFF_ID = 0x00          # u32 战备 id（本 build 是 1..153 的一个排列）
 OFF_DUP = 0x04         # u32 多半等于 +0xF8（29/37），语义未定
+OFF_NAME = 0x10        # u64 payload 相对偏移 → 内部名（"TEAM WEAPONS. RAILGUN"）
+OFF_KEY = 0x18         # u64 payload 相对偏移 → 本地化键（"nui_weapon_support_railgun_name"）
 OFF_DEAD = 0x88        # u64 成员，153 行全 0 —— 结构上存在但原版从不使用
 
 
+def _cstr(buf: bytes, at: int, limit: int = 160) -> str:
+    if at <= 0 or at >= len(buf):
+        return ""
+    end = buf.find(b"\0", at, min(len(buf), at + limit))
+    if end <= at:
+        return ""
+    raw = buf[at:end]
+    return raw.decode("ascii", "replace")
+
+
+def internal_names(d: Data, rows: list[tuple[int, int]]) -> tuple[list[str], list[str]]:
+    """行内 `+0x10` / `+0x18` 是 **payload 相对**的字符串偏移，指向这一行自己的内部名与本地化键。
+
+    这比 `refs/stratagem-display-names.json` 可靠：那份是**按行序**贴上去的，个别行贴错了
+    （本 build 里 `MISSIONS. EXTRACTION` 被贴成 "Extraction Beacon"、`MISSIONS. EXTRACTION BEACON`
+    被贴成 "Extraction"，正好错位）。名字用于 `--fill` 选择目标时，错位会改错行。
+    """
+    names, keys = [], []
+    for base, body in rows:
+        names.append(_cstr(d.strat, body + struct.unpack_from("<Q", d.strat, base + OFF_NAME)[0]))
+        keys.append(_cstr(d.strat, body + struct.unpack_from("<Q", d.strat, base + OFF_KEY)[0]))
+    return names, keys
+
+
 # ------------------------------------------------------------------ 行枚举
-def strat_rows(d: Data) -> list[int]:
-    """按表顺序给出 153 个行基址（与 stratagem-display-names.json 的 rows[] 一一对应）。"""
+def strat_rows(d: Data) -> list[tuple[int, int]]:
+    """按表顺序给出 153 个 (行基址, 所属块的 payload 起点)。"""
     out = []
     for _tid, rbase, count in d._strat_tables():
-        out.extend(rbase + i * STRAT_ROW for i in range(count))
+        out.extend((rbase + i * STRAT_ROW, rbase - 16) for i in range(count))
     return out
 
 
@@ -94,8 +120,10 @@ def item_label(d: Data, key: int) -> str:
 def census(d: Data) -> list[dict]:
     names = load_names()
     pkg2item, loe2item = reverse_maps(d)
+    rws = strat_rows(d)
+    internals, keys = internal_names(d, rws)
     rows = []
-    for idx, base in enumerate(strat_rows(d)):
+    for idx, (base, _body) in enumerate(rws):
         sid = struct.unpack_from("<I", d.strat, base + OFF_ID)[0]
         dup = struct.unpack_from("<I", d.strat, base + OFF_DUP)[0]
         a8 = struct.unpack_from("<Q", d.strat, base + OFF_A8)[0]
@@ -103,11 +131,14 @@ def census(d: Data) -> list[dict]:
         dead = struct.unpack_from("<Q", d.strat, base + OFF_DEAD)[0]
         a8_items = [item_label(d, k) for k in pkg2item.get(a8, [])] if a8 else []
         f8_items = [item_label(d, k) for k in loe2item.get(f8, [])] if f8 else []
-        name = ""
+        display = ""
         if idx < len(names):
-            name = names[idx].get("display_name") or names[idx].get("internal_name") or ""
+            display = names[idx].get("display_name") or names[idx].get("internal_name") or ""
         rows.append({
-            "idx": idx, "row_base": base, "strat_id": sid, "name": name,
+            "idx": idx, "row_base": base, "strat_id": sid,
+            "name": internals[idx],          # 行内自带，最可靠
+            "display": display,              # 外部名单，个别行贴错
+            "key": keys[idx],
             "a8": a8, "a8_items": a8_items, "f8": f8, "f8_items": f8_items,
             "dup04": dup, "dead88": dead,
             "a8_free": a8 == 0, "f8_free": f8 == 0,

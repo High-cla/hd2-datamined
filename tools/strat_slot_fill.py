@@ -52,6 +52,11 @@ for _s in (sys.stdout, sys.stderr):
         pass
 
 
+def _labels(r: dict) -> list[str]:
+    """可用来选行的名字：行内自带的内部名（可靠）+ 外部名单的显示名（个别行贴错，只当别名）。"""
+    return [x for x in (r.get("name"), r.get("display")) if x]
+
+
 def pick(rows: list[dict], name: str, idx: int | None) -> list[dict]:
     if idx is not None:
         if not 0 <= idx < len(rows):
@@ -59,15 +64,15 @@ def pick(rows: list[dict], name: str, idx: int | None) -> list[dict]:
         return [rows[idx]]
     if not name:
         raise SystemExit("✗ 需要 --name 或 --idx")
-    needle = name.strip()
+    needle = name.strip().lower()
     # 先按**全名精确**匹配；没有再退回子串。否则 "Machine Gun" 会连
     # "Heavy Machine Gun" / "Machine Gun Sentry" 一起改掉（那是别的战备自己的声明）
-    exact = [r for r in rows if (r["name"] or "").strip().lower() == needle.lower()]
+    exact = [r for r in rows if any(l.strip().lower() == needle for l in _labels(r))]
     if exact:
         return exact
-    hits = [r for r in rows if needle.lower() in (r["name"] or "").lower()]
+    hits = [r for r in rows if any(needle in l.lower() for l in _labels(r))]
     if not hits:
-        hits = [r for r in rows if needle.lower() in str(r["idx"])]
+        hits = [r for r in rows if needle in str(r["idx"])]
     if not hits:
         raise SystemExit(f"✗ 没有名字含 {name!r} 的行；用 --list 看全表")
     return hits
