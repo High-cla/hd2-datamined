@@ -403,8 +403,12 @@ R5-B 的第二个读数同样重要：**`+0xA8` 是纯增量声明**。Eagle Rea
 > 真正的 `MISSIONS. EXTRACTION`（41）**还没测**。
 
 **R7：带进战备位的算不算「在栏」？**（这是决定容量的那一档）
-把 Warp 的包填进 `TEAM WEAPONS. RAILGUN`（行 `0xcc24`，`+0xA8` 空），**带 Railgun 但整局不叫它**，
-然后直接叫投送舱看 Warp。
+把 Warp 的包填进 `TEAM WEAPONS. CHEM GUN`（行 `0xee84`，`+0xA8` 空；= Sterilizer），
+**带 Sterilizer 但整局不叫它**，然后直接叫投送舱看 Warp。
+
+> **供体资格：不能选会在地图上刷新的武器。** 地图上的随机武器架会预加载它自己的包 ——
+> 本轮已知踩过/避开的：`MG-43 Machine Gun`、`Railgun`（都会刷）。所以供体行要挑债券武器
+> （`CHEM GUN` / `HARPOON GUN` / `LASER RIFLE ION` 这一档），它们的包不可能被地图自带的内容拉进来。
 
 | 读数 | 结论 |
 |---|---|
