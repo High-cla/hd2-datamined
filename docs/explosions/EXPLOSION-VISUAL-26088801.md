@@ -141,8 +141,10 @@ python tools/plain_edit.py --plain generated_stratagem_settings.plain \
 ## 10. 未决
 
 - `+0x40`（211 个不同值的 32 位哈希）语义未解。
-- `+0xA8` 是**单个**字段 ⇒ 一次只能声明**一个**外来包。要"加包而不换包"，
-  候选第二槽 = 实体的 `LoadoutPackageComponentData`（精准攻击实体 4 组件之一）。**未验证。**
+- `+0xA8` 是**单个**字段 ⇒ 只能声明**一个**外来包。**第二槽已找到并实机**（2026-10-23）：
+  战备行的 `+0xF8` —— 它是**授予武器的 `LoadoutEntry` `+0` id**，引擎会把那把武器的包一并加载。
+  `LoadoutPackageComponentData` **不是槽**，而是 `item 实体键 → toc 包` 的解析表。
+  详见 [POD-RACK §4/§5](../tables/POD-RACK-26088801.md)。
 - `+0xA8` 能否声明**任意**包（不只是含目标资源的包）未测；若可以，它就是通用的"预加载某包"开关。
 - 无主行可能被未来更新占用 —— 克隆前必须重新确认该行无射弹引用。
 
