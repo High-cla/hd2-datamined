@@ -312,15 +312,19 @@ def cmd_edit(a) -> int:
     ok4 = all(bytes(edited[off:off + 8]) == struct.pack("<Q", val)
               for off, (_l, val, _o) in declared.items())
     check("G4 Item 字段读回一致", ok4, f"{len(declared)} 处")
-    ok7 = all(old != val for _l, val, old in declared.values())
+    # G7 只做一件事：目标格当前值 == 期望的旧值（防改错行）。
+    # 允许「写回原值」（= 这一格保持不动），因为「只换其中一件、另一件留原版」是合法用法；
+    # 但整次调用至少要真的改动一格，否则无事可做。
+    gotold = [v[2] for _k, v in sorted(declared.items())]
+    changed = [l for l, val, old in declared.values() if old != val]
     if a.expect_old:
         want = [int(x, 0) for x in a.expect_old.split(",")]
-        gotold = [v[2] for _k, v in sorted(declared.items())]
-        ok7 = ok7 and gotold == want
-        detail = f"旧值 {gotold} 期望 {want}"
+        ok7 = gotold == want and len(changed) > 0
+        detail = f"旧值 {gotold} 期望 {want}；实际改动 {len(changed)}/{len(declared)} 格"
     else:
-        detail = "旧值 != 新值"
-    check("G7 旧值符合期望（防改错行）", ok7, detail)
+        ok7 = len(changed) > 0
+        detail = f"实际改动 {len(changed)}/{len(declared)} 格"
+    check("G7 目标格当前值 == 期望旧值（允许整格保留原值）", ok7, detail)
     check("G8 校正字 8 对齐且不与 Item 重叠",
           word_at % 8 == 0 and not any(word_at <= off < word_at + 8 for off in declared),
           f"@0x{word_at:X}")
