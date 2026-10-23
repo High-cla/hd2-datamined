@@ -452,7 +452,7 @@ Gui.text(...) → 返回 id 0；每帧重画 7200 帧 pcall_ok=true；is_visible
 > （`create_screen_gui(world,"scale",1,1)`，画一次存 id，`set_visible(gui,id,true)`）后
 > **`DSH RETAINED` / `DSH LINE2` 直接出现在屏幕上**，21,600 帧稳定。
 > 字体、材质、坐标、world 都没问题；`_G.render` 也从没被引擎调用过（0.4.0 已证）。
-> 详见 [GUI-HUD-25988413.md](GUI-HUD-25988413.md) §7。
+> 详见 [GUI-HUD-25988413.md](../engine/GUI-HUD-25988413.md) §7。
 
 原先怀疑的两个原因（都已被证否/无关）：
 
