@@ -184,10 +184,11 @@ metadata:
 | 你需要 | 入口 |
 |---|---|
 | 「我想改 X」/「这个字段是什么」/「这个数为什么是这样」 | [INDEX §1 按问题找](../../INDEX.md#1-按问题找) |
-| 全部 34 篇文档（按类型浏览） | [INDEX §2](../../INDEX.md#2-按类型浏览34-篇) |
-| **找工具**（60 个：用途 / 依赖 / 验证状态 / 按任务速查） | [INDEX §3 工具清单](../../INDEX.md#3-工具清单tools) |
+| 全部 36 篇文档（按类型浏览） | [INDEX §2](../../INDEX.md#2-按类型浏览36-篇) |
+| **找工具**（66 个：用途 / 依赖 / 验证状态 / 按任务速查） | [INDEX §3 工具清单](../../INDEX.md#3-工具清单tools) |
 | 无密钥也能练手的资产 | [INDEX §4](../../INDEX.md#4-无密钥也能练) |
 | 哪条已实机 / 哪条已否证 | [INDEX §5 能力明细](../../INDEX.md#5-能力明细) |
+| **跨包资源加载**：换进来的资产为什么紫问号、怎么让引擎自己去加载 | [CROSS-PACKAGE-LOADING](../../docs/engine/CROSS-PACKAGE-LOADING-26088801.md) |
 | **92 条坑**（现象 / 规则 / 三态） | [WORKFLOW §10](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
 | 还缺什么实验 / 哪些字段没找到 | [WORKFLOW §12](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
 | 换 build 三步 | [BUILDS.md §3](../../BUILDS.md) |

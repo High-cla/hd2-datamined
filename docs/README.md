@@ -8,7 +8,7 @@
 |---|---|
 | 按问题找（「我想改 X」/「我想知道 Y」） | [INDEX §1](../INDEX.md#1-按问题找) |
 | 按类型浏览全部 36 篇（builds / engine / tables / explosions / boundaries / cases） | [INDEX §2](../INDEX.md#2-按类型浏览36-篇) |
-| **找工具**（60 个：用途 / 依赖 / 验证状态 / 三态） | [INDEX §3](../INDEX.md#3-工具清单tools) |
+| **找工具**（66 个：用途 / 依赖 / 验证状态 / 三态） | [INDEX §3](../INDEX.md#3-工具清单tools) |
 | 无密钥也能练手的资产清单 | [INDEX §4](../INDEX.md#4-无密钥也能练) |
 | 能力明细（哪条已实机、哪条已否证） | [INDEX §5](../INDEX.md#5-能力明细) |
 | 已验证的核心结论（闸门 / 实体块 / 可选弹种 / 独立弹药池 / LoadoutEntry） | [INDEX §6](../INDEX.md#6-已验证的核心结论) |
