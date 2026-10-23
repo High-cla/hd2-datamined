@@ -38,7 +38,7 @@ LoadoutEntry 否证）连原文一起放在该页 **附录 B**。
 
 ```
 BUILDS.md  每个 build 验证了什么、哪些结论跨 build 有效、新 build 到手先跑的三步
-docs/      31 篇文档，按类型分 6 个目录（逐篇索引见 docs/README.md）
+docs/      32 篇文档，按类型分 6 个目录（逐篇索引见 docs/README.md）
            builds/  每个 build 变了什么         engine/     格式封装 · API 面 · Lua · 探针 · 加载器
            tables/  数据表与实体库              explosions/ 爆炸与弹头
            boundaries/ 被挡住的路（内存/虚拟机）  cases/      案例与外部参照
@@ -46,6 +46,7 @@ tools/     离线工具链（解析 / 改字节 / 保哈希 / 行级编辑 + 门
 tables/    三张小参数表（damage / projectile / weapon_customization），仅供解析验证
 refs/      字段图与索引：行名 / 本地化名 / 爆炸弹头引用链 / 表几何 / 武器键→名字 / 275 个组件块类型名
 examples/  最小解析示例（纯标准库）+ 字段说明
+skills/    代理技能（Agent Skills）：hd2-file-route-mod —— 把"改盘上数据的 mod"写成可执行流程
 ```
 
 ## 快速开始（核心表工具：纯 Python 3.11+，无第三方依赖）
@@ -68,9 +69,11 @@ for b in d['blocks']:
 PY
 ```
 
-动自己机器上的游戏文件时，标准流程见 **[ENTITY-TABLE-25988413.md §5](docs/tables/ENTITY-TABLE-25988413.md)**
-（取明文 → 改字节 → 解校正字 → 校验哈希 → 重新封装 → 回读）。改完文档跑一次
-`python tools/check_links.py` 自检链接（0 断链才算过）。
+动自己机器上的游戏文件时，**从 [改盘上数据的完整工作流](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) 入手**
+（八步：取明文 → 定位字段 → 保哈希写入 → 门禁 → 重封 → 往返 → 部署 → 实机验证，含锚点哈希与 16 条坑）。
+要交给代理自动做，用技能 **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)**。
+只想看实体库那一张表的细节，见 [ENTITY-TABLE §5](docs/tables/ENTITY-TABLE-25988413.md)。
+改完文档跑一次 `python tools/check_links.py` 自检链接（0 断链才算过）。
 
 ## 文档索引
 
@@ -83,7 +86,10 @@ PY
 | `docs/tables/` | 数据表与实体库的解码 / 改写 | 8 |
 | `docs/explosions/` | 爆炸与弹头（玩法层 + 外观层） | 2 |
 | `docs/boundaries/` | 被挡住的路：进程内存、虚拟机 | 2 |
-| `docs/cases/` | 案例与外部参照：社区包、贴图委托、wiki 数据 | 6 |
+| `docs/cases/` | 案例与外部参照：社区包、贴图委托、wiki 数据、**改盘上数据的完整工作流** | 7 |
+
+另有一份可执行形态：**`skills/hd2-file-route-mod/`**（Agent Skills 标准，`SKILL.md` 含八步流程、
+字段速查、15 条坑与"不许做的事"）—— 给代理直接照着做，人读也可以。
 
 ## 相关仓库
 

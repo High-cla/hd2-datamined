@@ -1,10 +1,14 @@
 # 文档索引
 
-> 31 篇文档按**类型**分到 6 个子目录（2026-10-23 重排；文件名一律未改，历史可用 `git log --follow` 追）。
+> 32 篇文档按**类型**分到 6 个子目录（2026-10-23 重排；文件名一律未改，历史可用 `git log --follow` 追）。
 > 事实类文档文件名带 build 号，结论只对那个 build 成立；方法类文档不带 build 号，跨 build 有效。
 > 当前验证 build：`26088801` ｜ 历史基线：`25480438` → `25988413`。
 > 每个 build 验证了什么、新 build 到手先跑哪三步 —— 见 **[../BUILDS.md](../BUILDS.md)**。
 > 链接自检：`python tools/check_links.py`。
+
+**★ 只想动手改一张表**：看 [FILE-ROUTE-WORKFLOW-26088801](cases/FILE-ROUTE-WORKFLOW-26088801.md)
+（八步流程 + 锚点哈希 + 16 条坑）；要交给代理自动做，用技能
+[`skills/hd2-file-route-mod`](../skills/hd2-file-route-mod/SKILL.md)。
 
 **★ 优先读（结论最硬、复用价值最高）**：
 [TABLE-DICTIONARY](tables/TABLE-DICTIONARY-25988413.md) ·
@@ -23,7 +27,7 @@
 | `tables/` | 数据表与实体库的解码 / 改写 | 9 |
 | `explosions/` | 爆炸与弹头（玩法层 + 外观层） | 2 |
 | `boundaries/` | 被挡住的路：进程内存、虚拟机 | 2 |
-| `cases/` | 案例与外部参照：社区包、贴图委托、wiki 数据 | 6 |
+| `cases/` | 案例与外部参照：社区包、贴图委托、wiki 数据 | 7 |
 
 ---
 
@@ -84,6 +88,7 @@
 
 | 文档 | 一句话内容 | build |
 |---|---|---|
+| ★ [FILE-ROUTE-WORKFLOW-26088801.md](cases/FILE-ROUTE-WORKFLOW-26088801.md) | **改盘上数据的完整工作流**：密封盒 + 内容哈希两层、4 张表的锚点哈希、校正字宿主的三种选择（含三次崩溃的归因）、八步命令链、EAGLE 双行案例、16 条坑 —— 想动手改表从这篇进 | `26088801`（流程跨 build） |
 | [CASE-STUDY-20261021.md](cases/CASE-STUDY-20261021.md) | 三个社区包拆解出来的路：`.patch_N` 能替换任意资源类型，纯资产 mod 不需要 loader | `25988413` |
 | [TEXTURE-SWAP-10X-APEX.md](cases/TEXTURE-SWAP-10X-APEX.md) | 一次贴图替换委托：BC1 往返误差、材质槽判定、`patch_3` 部署与回滚 | 跨 build |
 | [COMMUNITY-MODS-COMPAT-26088801.md](cases/COMMUNITY-MODS-COMPAT-26088801.md) | SSEO 与护甲多被动为何不能共存：争的是同一文件的基线所有权，不是加载顺序 | `26088801` |
