@@ -58,7 +58,7 @@ Four things came out of the same run, in order of usefulness:
    `instances`, `instances_with_tag`, `instances_with_tag_in_entity`, `get_property`, `set_property`,
    `create`, `destroy`) is the documented way to reach game component data - the thing this project used
    to do by reading raw memory. Technically this is the replacement for the memory route; whether it may
-   be *used* is a policy question, not an engineering one (see `BUILD-25988413.md` §3).
+   be *used* is a policy question, not an engineering one (see `docs/builds/BUILD-25988413.md` §3).
 
 4. **No command console, but a plugin manager.** `Console` offers only `graph` / `perfhud` / `statistics`.
    `PluginManager` does have `loaded_plugins()` and `load_plugin` / `load_relative_plugin` /

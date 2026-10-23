@@ -1,7 +1,7 @@
 # `generated_entities.dl_bin` 可写化 —— 实体/组件表离线改写（build 25988413）
 
 > 状态：**✓ 已实机验证**（2026-10-22）。这是本项目第一条「47 MB 实体库」级别的离线改写路线。
-> 相关：`DLBIN-SEALED-BOX.md`（封装与内容哈希模型的由来）、`WEAPONDATA-FIELDS`（字段图，见 `D:\mod\work\share-25988413-plaintext\WEAPONDATA-FIELDS.md`）。
+> 相关：`docs/engine/DLBIN-SEALED-BOX.md`（封装与内容哈希模型的由来）、`WEAPONDATA-FIELDS`（字段图，见 `D:\mod\work\share-25988413-plaintext\WEAPONDATA-FIELDS.md`）。
 
 ---
 

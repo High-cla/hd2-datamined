@@ -188,7 +188,7 @@ MISSIONS / EMPLACEMENTS / SENTRYS / PRESIDENT REWARDS 上，横跨 wiki 全部�
 
 | 偏移 | 类型 / 宽度 | 内容 | 判定 |
 |---:|---|---|---|
-| `+0` | `StratagemType` u32 | **原生枚举值，不是行 id**（153 行各一个）。与 HD2Runtime 的 `nativeTypeValue` 对比：低值完全相等、高值统一 +3，是两次 build 之间枚举插入 3 个成员的签名 → 见 `STRATAGEM-REFERENCE-CHAIN-25988413.md` §6 | ✓ |
+| `+0` | `StratagemType` u32 | **原生枚举值，不是行 id**（153 行各一个）。与 HD2Runtime 的 `nativeTypeValue` 对比：低值完全相等、高值统一 +3，是两次 build 之间枚举插入 3 个成员的签名 → 见 `docs/tables/STRATAGEM-REFERENCE-CHAIN-25988413.md` §6 | ✓ |
 | `+16` | u64 指针 | **显示名**（如 `BACKPACK. SUPPLY BACKPACK`） | ✓ |
 | `+24` | u64 指针 | **`_name` 本地化键**（128/153） | ✓ |
 | `+32` | u64 指针 | **`_desc` 本地化键**（128/153） | ✓ |
@@ -214,7 +214,7 @@ MISSIONS / EMPLACEMENTS / SENTRYS / PRESIDENT REWARDS 上，横跨 wiki 全部�
 ## 7.5 引用链：战备引用了什么
 
 `+0` 是枚举而不是 id，所以**战备行里没有指向弹丸/爆炸行的引用**（定向测试否证，见
-`STRATAGEM-REFERENCE-CHAIN-25988413.md` §4）。表内的引用只存在于弹丸 ↔ 爆炸之间：
+`docs/tables/STRATAGEM-REFERENCE-CHAIN-25988413.md` §4）。表内的引用只存在于弹丸 ↔ 爆炸之间：
 弹丸 `+144` / `+156` 装的是爆炸行的 `+0` id。
 
 那条链的闭合方式（排除法 + 官方补丁）见该文档 §5，副产品是 `explosion_settings +28 = cone_angle`

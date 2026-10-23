@@ -865,7 +865,7 @@ y 正常下降、正常落地、正常爆炸 —— 和 stock 完全一样
 **根因**：0.7.0 的 `scan_all()` 对 `World.units()` 的快照做**全量遍历**（任务世界 3,554 个单位）
 并逐个调 getter，还新增了两个本会话从未跑过的调用 `Unit.world_position` / `Unit.has_camera`。
 
-这**正好违反 2026-10-20 21:44 就已记录的纪律**（`docs/STINGRAY-API-25988413.md`）：
+这**正好违反 2026-10-20 21:44 就已记录的纪律**（`docs/engine/STINGRAY-API-25988413.md`）：
 
 > 转储里的故障指令 `movsd xmm0, qword ptr [rdi + rbx + 0x30]`，`rdi = index<<6` → **越界读**
 > ⇒ `world:units()` 返回的是快照，活世界里句柄随时失效。

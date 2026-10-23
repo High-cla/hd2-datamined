@@ -62,5 +62,5 @@ open-key 解回来与明文逐字节一致 ✓
 
 1. 把 `out/stratagem_380mm_cd60.dl_bin` 部署到 `data/game/`（备份原文件），进游戏看战备面板冷却是否变 60。
 2. 通了之后同一工具可改 `uses` / `callin`；再往下是"改战备打出来的东西"—— 那条链没有外键
-   （见 `docs/STRATAGEM-REFERENCE-CHAIN-25988413.md`），要动就得走道具资源层，另开一段。
+   （见 `docs/tables/STRATAGEM-REFERENCE-CHAIN-25988413.md`），要动就得走道具资源层，另开一段。
 3. 回归：每次改完必须重跑 7 门禁；部署前备份、失败回滚用原文件副本。

@@ -63,7 +63,7 @@ build 再多起来时，按 `refs/builds/<buildid>/` 分目录，把上述产物
 ## 5. 命名约定
 
 * 事实类文档：`docs/<主题>-<buildid>.md`，开头写清"本文所有偏移/地址均在该 build 实测"。
-* 方法类文档：不带 build 号（如 `docs/DLBIN-SEALED-BOX.md`、`docs/PRIOR-ART-NAMING.md`）。
+* 方法类文档：不带 build 号（如 `docs/engine/DLBIN-SEALED-BOX.md`、`docs/cases/PRIOR-ART-NAMING.md`）。
 * 报告类：`docs/BUILD-<buildid>-DIFF.md`，只写这次更新相对上一个基线变了什么。
 
 ## 6. ⚠ 踩过的坑：明文缓存会被我们自己的 mod 污染

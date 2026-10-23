@@ -90,7 +90,7 @@
 | `surface_effect_settings` | 7,644 × 40 | 本字典（几何闭合） |
 | `beam_settings` / `arc_settings` | 30 × 112 / 16 × 104 | `name_rows.py` 跨版本命名时确认 |
 | `sky` / `scenario` / `collision_event` / `weather_color` / `route` | 480×24 / 149×48 / 180×80 / 132×196 / 3×112 | 本字典（几何闭合） |
-| `entities` | **275 个组件块**（非行表） | `ENTITY-TABLE-25988413.md`：hashmap 开放寻址 + 块序列 |
+| `entities` | **275 个组件块**（非行表） | `docs/tables/ENTITY-TABLE-25988413.md`：hashmap 开放寻址 + 块序列 |
 
 **交叉验证（两边独立得出、结果一致）**：我们早先靠实机差分测出"射弹 `+144` = 命中爆炸类型、
 `+156` = 到期爆炸类型"；类型库在 `ProjectileInfo` 的 144 / 156 两个成员上标的类型正是

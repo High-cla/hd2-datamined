@@ -2,7 +2,7 @@
 
 Written while waiting for the upstream loader to ship a fix. Everything below is constrained by
 measurements from this build, not by preference; each constraint cites where it came from
-(`docs/BUILD-25988413.md` has the full evidence trail).
+(`docs/builds/BUILD-25988413.md` has the full evidence trail).
 
 The point of writing this now: the hard part of porting a loader is not the plumbing, it is the one
 capability the old loader got from `ffi` and can no longer have. Naming that early is worth more than a
@@ -56,7 +56,7 @@ Three consequences that are easy to miss:
   126), but the process refuses to map any image it does not already ship. Measured 2026-10-21, then
   independently reproduced 2026-10-22 by an outside group who additionally signed their DLL with a
   self-signed cert imported into `LocalMachine\Root` — still refused. Do not read this line as "a DLL is
-  loadable". The closing section has the numbers; `MEMORY-ACCESS-25988413.md` §12 has the model.
+  loadable". The closing section has the numbers; `docs/boundaries/MEMORY-ACCESS-25988413.md` §12 has the model.
 - **`\x` string escapes do not exist in stock Lua 5.1.** Any payload generating bytes (like our probes
   embedding chunks) must use `\ddd`. Our builder already does.
 - **`loadstring` failure is a return value, not an exception.** `ok, value, message = pcall(loadstring, s)`
@@ -97,7 +97,7 @@ What is still open, in the order worth testing:
    and refuted.** `cpath` does include `<game>\bin\?.dll`, but the missing piece was never "write a 46 KB
    C module" — the process refuses to map images it does not already ship (unsigned → `577`,
    signed-but-not-allowlisted → `193`, self-signed → still `577`). See the closing section and
-   `MEMORY-ACCESS-25988413.md` §12.
+   `docs/boundaries/MEMORY-ACCESS-25988413.md` §12.
 4. **Out-of-band generation**: a manager (HDArsenal / HD2MM) writes one aggregate lua resource containing
    the list of installed mods, and the loader reads that single known resource. No enumeration needed at
    runtime. This is the option with the least new surface area, and it matches how the existing managers
@@ -283,7 +283,7 @@ SWEEP RESULT: 0 found, 0 loaded, 6 absent
 | **游戏自带、Arrowhead 签名、逐字节复制后换名字 / 换目录** | **`193`** | ★ 闸门 2 认的是**文件身份**，不是内容（实测见下）|
 | 游戏自带、Arrowhead 签名、原地不动 | ✓ 映射 | 两闸都过 |
 
-第 1、2 行是本仓库 2026-10-21 的实测（`MEMORY-ACCESS-25988413.md` §12c）；第 3 行是外部独立小组在
+第 1、2 行是本仓库 2026-10-21 的实测（`docs/boundaries/MEMORY-ACCESS-25988413.md` §12c）；第 3 行是外部独立小组在
 **同一个 build** 上补的（[issue #1](https://github.com/deepseekv41flash/hd2-datamined/issues/1)，
 2026-10-22）；第 4 行两边各自独立撞出**同一个码**（193）—— 两个小组、两套夹具、同一结果。
 
@@ -296,7 +296,7 @@ SWEEP RESULT: 0 found, 0 loaded, 6 absent
 所以"走引擎插件路径"也不是后门。
 
 **决胜实验已做（2026-10-22，两轮实机）：闸门 2 认文件名，不认内容、也不认目录。** 探针用 boot 覆盖
-同一条配方，marker 文件门控，七组夹具全部拿到（明细与原始日志见 `MEMORY-ACCESS-25988413.md` §12g）：
+同一条配方，marker 文件门控，七组夹具全部拿到（明细与原始日志见 `docs/boundaries/MEMORY-ACCESS-25988413.md` §12g）：
 
 ```
 LOADLIB control-missing | dsh_missing_module.dll    | 找不到指定的模块。          (126)
@@ -315,7 +315,7 @@ md5 `3c2f1850…`），换个名字放根目录 → `193`；**放回它自己那
 ⇒ 闸门 2 的粒度是**文件名**（游戏自己那份文件的名字），不是内容，也不是目录授权。而改那份文件的
 任何一个字节，哈希就变。所以"写个 C 模块"从来不是前置条件，"找个签名好的 DLL 塞进去"也不是后门。
 移植的可行集合收缩为 **§3 的 2 与 4**（命名约定 / 管理器写清单），两者都不需要任何原生代码。
-这与 `MEMORY-ACCESS-25988413.md` §12f 的"读的最终账"一致：**资源侧是唯一还能改东西的路**。
+这与 `docs/boundaries/MEMORY-ACCESS-25988413.md` §12f 的"读的最终账"一致：**资源侧是唯一还能改东西的路**。
 
 **引擎自己加载插件那条路更硬**（2026-10-22 17:0x，用外部仪器测）：把 `version.dll` 的字节覆盖到
 `level_generation_pluginw64_release.dll` 上（名字对、目录对、微软签名有效、内容不同），再用
@@ -326,7 +326,7 @@ md5 `3c2f1850…`），换个名字放根目录 → `193`；**放回它自己那
 
 ⇒ 闸门 2 认的是「名字 **+ 内容**」——签名有效也换不到一次映射；而拒绝在插件路径上是**致命**的
 （同样的"名字对内容不对"在 `loadlib` 路径只返回 `193`）。细节、原始输出与一个未分离的机制
-（必需插件 vs 完整性检查）见 `MEMORY-ACCESS-25988413.md` §12h。
+（必需插件 vs 完整性检查）见 `docs/boundaries/MEMORY-ACCESS-25988413.md` §12h。
 
 **那一格也补完了：只差一个变量的三行对照**（同一个 `level_generation_pluginw64_release.dll` 名字）：
 

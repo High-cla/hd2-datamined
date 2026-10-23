@@ -2,7 +2,7 @@
 
 > 起因：我们的战备行给的是内部显示名（`BACKPACK. SUPPLY BACKPACK`）和本地化键
 > （`nui_stratagem_backpack_ammo_name`），而 wiki 页面标题是 `B-1 Supply Pack`。
-> 靠 `+24` 键 → slug → `nativeType` 只能覆盖 38 条（见 `WIKI-LOCAL-DB.md` §4.5）。
+> 靠 `+24` 键 → slug → `nativeType` 只能覆盖 38 条（见 `docs/cases/WIKI-LOCAL-DB.md` §4.5）。
 > 这份文档记录外部已有的做法，以及我们该借哪个。
 
 ## 1. 社区工具清单
@@ -41,7 +41,7 @@ type Strings struct {
 
 外加一张语言表（`us`=English (US)、`gb`=English (UK)、`sc`/`tc`=简繁中文…），
 键就是那两个字母的 `ThinHash`——**和我们 `language_settings` 表里 `+8` 的 `us`/`gb`/`bp`
-完全一致**（见 `docs/ROW-NAMING-25988413.md`）。
+完全一致**（见 `docs/tables/ROW-NAMING-25988413.md`）。
 
 ## 3. 结论：该借的是 strings 表，不是又一个名字字典
 

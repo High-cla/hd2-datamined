@@ -126,7 +126,7 @@ Mass 30 kg / Velocity 400 m/s）对应的是 **`S_P13`**，不是 `Orbital_Preci
    与随机无异；只看 5 只鹰测 Capacity 也只有 1/5）。但同一轮把 **`calltime` 定位到了
    `+84`**（13/14，全表分布自证：鹰式全 0、支援武器 3、背包 5、轨道 2）。
    战备表携带的标量是 **三个**：`cooldown`（`+104`）、`uses`（`+80`）、call-in time（`+84`）。
-   见 `STRATAGEM-SETTINGS-DECODED.md` §7.6。
+   见 `docs/tables/STRATAGEM-SETTINGS-DECODED.md` §7.6。
 
 ## 6. 复现
 

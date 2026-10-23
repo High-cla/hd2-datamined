@@ -381,7 +381,7 @@ de 德语       it 意语   pl 波兰语 tc 繁中   ko 韩语   pt 葡语     r
 
 ---
 
-## 7. 实体库（已完成，见 `docs/ENTITY-LOCID-26088801.md`）
+## 7. 实体库（已完成，见 `docs/tables/ENTITY-LOCID-26088801.md`）
 
 `generated_entities.dl_bin`（47 MB，275 个块）里也有大量本地化 ID：
 11,814,849 个 4 字节槽位里 **17,500 个**落在语料 ID 集合里（2,124 个不同 ID），

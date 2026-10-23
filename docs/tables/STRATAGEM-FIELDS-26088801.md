@@ -2,7 +2,7 @@
 
 > **build `26088801`**。改数据文件路线，不碰进程内存、不需要 Lua/FFI/注入。
 > 本文把散落的战备行结论合并成一张表，并把"面板为什么显示这个数"写清楚。
-> 相关：`../explosions/EXPLOSION-VISUAL-26088801.md`（视觉与资源包）· `STRATAGEM-SETTINGS-DECODED.md`（行结构全文）
+> 相关：`../explosions/EXPLOSION-VISUAL-26088801.md`（视觉与资源包）· `docs/tables/STRATAGEM-SETTINGS-DECODED.md`（行结构全文）
 
 ## 0. 验证状态（先看这张，别把未验证当结论）
 

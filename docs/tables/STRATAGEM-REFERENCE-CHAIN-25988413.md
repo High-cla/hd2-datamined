@@ -138,9 +138,9 @@ wiki 上还有第二份战备视图 `Module:Decodedata-Attacks/stratagems data.j
 pen_slow 0.25 / explode_angle 80`，且 `+144 = +156 = 380` 指向那条锥角已变成 27 的爆炸行。
 
 ⚠ 由此发现我上一轮按字段顺序推断的 `explode_angle` 偏移**错了**：猜成 `+140`，实际在 `+136`
-（`+140` 是某个值为 1 的布尔）。详见 `WIKI-DATA-MODULES.md` §2.1。
+（`+140` 是某个值为 1 的布尔）。详见 `docs/cases/WIKI-DATA-MODULES.md` §2.1。
 
-字段名与结构参照的完整来源清单见 `WIKI-DATA-MODULES.md`。
+字段名与结构参照的完整来源清单见 `docs/cases/WIKI-DATA-MODULES.md`。
 
 ## 5. 链条怎么闭合的：排除法 + 官方补丁
 

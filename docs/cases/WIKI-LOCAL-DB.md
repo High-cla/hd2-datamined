@@ -186,7 +186,7 @@ Eagle Rearm 页面写的是 `cooldown = 0` + `rearm_time = 150`，而我们的 `
 产物：`refs/stratagem-alias.json`（38 条，含 method 与原始字段）。工具
 `tools/build_stratagem_alias.py`；`wiki_query.py --sk` 会自动用它兜底。
 
-**想突破 38 条**：查过社区做法（见 `PRIOR-ART-NAMING.md`），没有现成的"内部名 ↔ wiki 名"
+**想突破 38 条**：查过社区做法（见 `docs/cases/PRIOR-ART-NAMING.md`），没有现成的"内部名 ↔ wiki 名"
 映射表；正解是解游戏自己的 strings 资源（`nui_*` 键 → 游戏内显示名 → wiki 标题），
 那样能覆盖全部 128 条带键的行。
 

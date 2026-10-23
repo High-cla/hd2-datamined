@@ -1,7 +1,7 @@
 # 工具索引
 
 本目录的全部工具都**只读/离线**：没有一个会去读游戏进程内存、注入、或改内存里的数值。改数据走的是
-"解封装 → 改字节 → 解校正字 → 保哈希 → 重新封装"这条资源侧路线（见 `docs/DLBIN-SEALED-BOX.md`）。
+"解封装 → 改字节 → 解校正字 → 保哈希 → 重新封装"这条资源侧路线（见 `docs/engine/DLBIN-SEALED-BOX.md`）。
 
 依赖一列是**可选**的：核心表工具只需要标准库（外加同目录的 `murmur64.py` / `dlbin_seal.py`），
 带第三方依赖的那几个都写明了。凡是打了"自检"的，都可以直接
@@ -35,10 +35,10 @@
 | `fetch_wiki_pages.py` | 用 MediaWiki API 批量缓存 wiki 页面源码，50 页一请求 + sleep；支持 `--category` 与按标题补抓（`--titles` / `--titles-file`） | 标准库 | ✓ 763 页（战备/武器/护甲/披风/外观/护甲被动/星球） |
 | `wiki_build_db.py` | 把页面源码的模板参数 + 模块 JSON 落成 SQLite（`page`/`param`/`entity`/`stratagem`/`weapon`）；`page.kind` 由信息框模板判定；标题走 `_titles.json` 以免斜杠丢失 | 标准库 | ✓ 763 页 / 9,312 参数 / 235 武器行 |
 | `wiki_match_tables.py` | 把表里解出的名字和 wiki 页面标题对上（精确 / 后缀 / 包含 / 模糊四条规则），输出覆盖率与未匹配清单 | 标准库 | ✓ 护甲 217/237、被动 32/33、星球 277/395；未匹配的都查过确实无页面 |
-| `wiki_query.py` | 查本地库：任意页（战备/武器）全貌 + 攻击链解析（含嵌套 weapon）+ 与解密表并排对照（`--sk` 时自动用别名表兜底）；支持 `--page` / `--field` / `--entity` / `--sql` | PyNaCl（仅 `--sk` 时） | ✓ 见 `docs/WIKI-LOCAL-DB.md` |
+| `wiki_query.py` | 查本地库：任意页（战备/武器）全貌 + 攻击链解析（含嵌套 weapon）+ 与解密表并排对照（`--sk` 时自动用别名表兜底）；支持 `--page` / `--field` / `--entity` / `--sql` | PyNaCl（仅 `--sk` 时） | ✓ 见 `docs/cases/WIKI-LOCAL-DB.md` |
 | `build_stratagem_alias.py` | 用行内 `+24` 本地化键 → slug → HD2Runtime `uiIcon.nativeType` 建战备别名表（不依赖显示名），产出 `refs/stratagem-alias.json` | PyNaCl + HD2Runtime SDK zip | ✓ 38 条 / 0 歧义；冷却 34/35 一致 |
 | `stratagem_display_names.py` | 从 `.strings` 资源解出每行的**游戏内文本**：五个槽位（`+40` 大写名 / `+44` 显示名 / `+48` 描述 / `+52` 长描述 / `+56` 状态标签），并附上匹配到的 wiki 页面标题；死引用会按"文本匹配 → 大写回退"回填并标明来源 | PyNaCl + 由 srkit 解出的 strings 目录 | ✓ 显示名 145/153（135 直接 + 1 文本匹配 + 9 大写回退），wiki 页 115/145 |
-| `table_locid_scan.py` | 扫一张表每个 4 字节槽，按 `(stride, offset)` **跨组聚合**，报告"本地化 ID 命中数 / 去重数 / 样本文本"。两种 `LDLD` 组头都认（数组型 `0x10\|count` 与单记录型），stride 取自 typelib。**发现**名字槽用它 | PyNaCl（无）+ `typelib.py` | ✓ 扫出 7 张表的名字槽（判据见 `docs/LOCID-NAMES-25988413.md` §1）|
+| `table_locid_scan.py` | 扫一张表每个 4 字节槽，按 `(stride, offset)` **跨组聚合**，报告"本地化 ID 命中数 / 去重数 / 样本文本"。两种 `LDLD` 组头都认（数组型 `0x10\|count` 与单记录型），stride 取自 typelib。**发现**名字槽用它 | PyNaCl（无）+ `typelib.py` | ✓ 扫出 7 张表的名字槽（判据见 `docs/tables/LOCID-NAMES-25988413.md` §1）|
 | `table_locid_names.py` | 按槽位表把本地化 ID 倒成文本，输出 JSON（`name` / `name_source` / 原始 ID），带"文本匹配 → 大写回退" | PyNaCl（无）+ `typelib.py` | ✓ 六张表：弹丸 225/355、配件 234/252、护甲 389/422、被动 33/33、载具 11/12、星球 399/438 |
 | `entity_locid_scan.py` | 解实体库（275 块 → `[哈希图][行数组][尾数组]`），定位本地化 ID 槽。实体名只有一处：`EncyclopediaEntryComponentData`（块 56）+0 单数 / +8 大写 / +4 复数 / +36 物品代码 | PyNaCl（无）+ `typelib.py` | ✓ 643/1,939 实体有名字，205/211 条带代码条目精确命中 wiki 标题；`--dump-slot 56:0` 可查单槽 |
 | `entity_components.py` | 实体 → 组件清单（用每个组件块自己的哈希图反查，不用块 0 的 u16）；附带"谁引用了某值"的列扫描（找爆炸类型引用方用） | PyNaCl（无）+ `typelib.py` | ✓ 1,932 实体 / 272 种组件；用它查出 explosion 68 被 `Bombardment +64` 引用 |
@@ -82,7 +82,7 @@
 这三个是"试着做 → 失败 → 把失败量出来"的工具，**没有一个成功过**，最硬的证据来自它们自己的自检：
 `eac_access_test.py --selftest` 会**故意造一只被剥权的句柄**（`0x0400`，正是 EAC 还给你那种形状），
 要求"读一个字节必须被拒绝"，5/5 PASS。发布它们是因为"我们试过并且失败了"比沉默有用——
-`docs/MEMORY-ACCESS-25988413.md` §2–§8 就是这些工具的输出。
+`docs/boundaries/MEMORY-ACCESS-25988413.md` §2–§8 就是这些工具的输出。
 
 | 工具 | 它回答的问题 / 实测结果 | 依赖 | 验证 |
 |---|---|---|---|
@@ -101,7 +101,7 @@
 | `verify_patch_series.py` | 依赖 `patch_series_prune.py` → `hd2_archive`（不在本仓库） |
 | `build_snapshot.py` | 需要本机的普查表 / 探针 / 文档作为输入，不是通用输入 |
 | `package_p2p_ping.py` | 属于另一个项目（`hd2-p2p-ping`），与本仓库无关 |
-| `passive_example.py` | **不是我们的工具**：`docs/DLBIN-SEALED-BOX.md` 引用的是某个第三方 modkit 里的 `kit/tools/passive_example.py`，只作为"别人怎么解这个字"的对照 |
+| `passive_example.py` | **不是我们的工具**：`docs/engine/DLBIN-SEALED-BOX.md` 引用的是某个第三方 modkit 里的 `kit/tools/passive_example.py`，只作为"别人怎么解这个字"的对照 |
 
 > 注：少数工具相对私有工作区只改了两处——默认输出路径改成**相对路径**、个人 SDK 路径改成
 > `HD2SDK` 环境变量或 `~/HD2SDK-CommunityEdition`。逻辑未改。

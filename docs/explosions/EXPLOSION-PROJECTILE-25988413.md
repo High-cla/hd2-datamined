@@ -2,7 +2,7 @@
 
 > 状态：**✓✓ 已实机全链路**（2026-10-22）。
 > 一句话：**换弹头整行 → 会炸；改射弹行的爆炸引用 → 换爆炸；改爆炸行的 `+80/+84` → 加破片。**
-> 相关：`ENTITY-TABLE-25988413.md`（实体/组件表）· `DLBIN-SEALED-BOX.md`（封装与内容哈希）
+> 相关：`docs/tables/ENTITY-TABLE-25988413.md`（实体/组件表）· `docs/engine/DLBIN-SEALED-BOX.md`（封装与内容哈希）
 > ⚠ **视觉部分已被 [EXPLOSION-VISUAL-26088801.md](EXPLOSION-VISUAL-26088801.md) 更新**：
 > 本文只讲"换弹头/换爆炸/加破片"（玩法层）；**外观**要靠整行克隆 + `+0xA8` 资源包声明。
 
@@ -133,7 +133,7 @@ python tools/expl_set.py --plain <vanilla_explosion_plain> --type 178 \
 |---|---|---|
 | `tools/proj_copy_row.py` | 射弹行整行拷贝 + `--set` 覆盖 + 保哈希 | G1 长度 / G2 差异域 / G3 哈希 / G4 目标行==源行(除 +0 与 --set) / G5 宿主行 |
 | `tools/expl_set.py` | 爆炸行任意字段写入 + 保哈希 | G1~G5 + **G6 目标行其它字段零漂移** |
-| `tools/entities_modeb.py` | 实体表（武器函数 id / 弹丸格 / 弹药池） | 见 `ENTITY-TABLE-25988413.md` §7 |
+| `tools/entities_modeb.py` | 实体表（武器函数 id / 弹丸格 / 弹药池） | 见 `docs/tables/ENTITY-TABLE-25988413.md` §7 |
 
 三者都是「改字节 → 解校正字 → 校验哈希 → 重新封装 → 回读」的同一套流程。
 
