@@ -15,6 +15,9 @@
 | `murmur64a.py` | 同一个算法的**命令行版**：`hash` / `solve --word N --target HEX` / `selftest`（库调用请用上面的 `murmur64.py`，两者在自检里互相对表） | 标准库 | ✓ `--selftest` **7/7**（含"解自己的哈希必须解出原来的字"与跨实现对表） |
 | `dlbin_seal.py` | `.dl_bin` 密封盒：解/封、配对→keystream、LDLD 结构 | PyNaCl | ✓ 已实机 |
 | `dlbin_keyhunt.py` | 在 `game.dll` 里定位打开 `.dl_bin` 的 X25519 密钥 | PyNaCl + cryptography | ⚠ 研究工具；仓库不含任何密钥材料 |
+| `plain_edit.py` | **任意字节写入**任意 `LDLD` 容器明文，自动用 tail 宿主保住内容哈希；6 门禁（含"声明字段读回"与"其余字节未动"）| 标准库 + `murmur64.py` | ✓ 已实机 |
+| `particle_census.py` | 列出某个包里全部 `particles` 资源（挑"供体特效"用；配合 `refs/srkit-names.json` 反查副本分布）| `srkit` + 游戏数据 | ✓ 离线 |
+| `particle_strings.py` | 扫包内粒子资源的内嵌字符串 —— **用于证明"粒子无法按名字/内容识别"**（`file_id` 不是名字哈希，粒子内部无可读串）| `srkit` + 游戏数据 | ✓ 否证记录 |
 | `typelib.py` | 解析 DataLibrary 类型库（LTLD v4），查表结构 | `dlbin_seal.py` | ✓ |
 | `table_export.py` | 把整张表导成**人类可读**的 CSV + Markdown（名字 + 每字段 hex/f32 + 统计 + 一阶嵌套）；`LAYOUTS` 存字段名与枚举注解，`POINTERS` 存 (表, 步长) → 行内名字指针 | PyNaCl + `typelib.py` | ✓✓ 六张表整表导出（weapon_customization 252×13、stratagem 153×68），名字全部走指针 |
 | `table_row_names.py` | 抽出逐行名字。**指针优先**：weapon_customization 252 / stratagem 153 / planet_override 44 / status_effect 73 / language 15 / stratagem_upgrade 1；其余表退化为位置法且必须 `串数 == 行数` | PyNaCl + `typelib.py` | ✓ 实机数据抽全（`refs/table-row-names.json`，每表标明机制） |

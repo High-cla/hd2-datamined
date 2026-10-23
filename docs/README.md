@@ -9,6 +9,7 @@
 | [WEAPON-CUSTOMIZATION-DECODED.md](WEAPON-CUSTOMIZATION-DECODED.md) | ★ 武器配件总表解码：88 B 行结构、槽位/排序组枚举、252 行逐行可读导出 |
 | [TABLE-DICTIONARY-25988413.md](TABLE-DICTIONARY-25988413.md) | ★ **全表字典**：55 张表的组/行数/步长/尾块 + 333 个类型的字段偏移表 |
 | [EXPLOSION-PROJECTILE-25988413.md](EXPLOSION-PROJECTILE-25988413.md) | ★ 爆炸/弹头线：射弹行与爆炸行的字段、换弹头/换爆炸/**加破片**配方 |
+| [EXPLOSION-VISUAL-26088801.md](EXPLOSION-VISUAL-26088801.md) | ★★ **爆炸视觉**：粒子字段 `+0x38` · 震屏列表 `+0x28` · **整行克隆** · **`+0xA8` 跨包加载** · 占位符探针 |
 | [ENGINE-API-25988413.md](ENGINE-API-25988413.md) | 引擎侧 API 面 |
 | [LUA-API-25988413.md](LUA-API-25988413.md) | Lua 侧 API 面（本 build） |
 | [LUA51-TOOLING-25988413.md](LUA51-TOOLING-25988413.md) | Lua 5.1 工具链 |
