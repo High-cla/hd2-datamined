@@ -447,7 +447,7 @@ LTLD v4  types=1208  enums=345  members=7349  enum_values=9072  字符串表 0 B
 - **战备冷却/次数**（旧 build 用内存改的那类）→ 现在可以离线改 `stratagem_settings`；
 - **武器改装数值** → `weapon_customization_settings`；
 - **护甲被动** → 已通；
-- **伤害/穿甲** → 已开：行内无空位，宿主借无主行的空状态槽（[DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)）；实机复核中；
+- **伤害/穿甲** → 已开：行内无空位，宿主放**文件尾**（tail +8，`26088801` 已实机：面板「伤害」读到 001）或借无主行的空状态槽（[DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)）；
 - **载具/敌人** → `entities`、`planet_data` 结构未解。
 
 ---
