@@ -163,7 +163,7 @@ metadata:
 | 5 | 门禁全绿 **≠** 功能生效 | 最贵的一条：它只证磁盘与容器，不证引擎是否接受、语义是否正确 |
 
 **完整 92 条坑（含每条的现象、规则、三态）** → [WORKFLOW §10](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md)。
-**逐工具的行为陷阱**（哪些工具不报错但会让你误判）→ 同节 + [tools/README.md](../../tools/README.md)。
+**逐工具的行为陷阱**（哪些工具不报错但会让你误判）→ 同节 + [INDEX §3 工具清单](../../INDEX.md#3-工具清单tools)。
 
 ## 6. 先确认这条路不覆盖什么
 
@@ -185,12 +185,12 @@ metadata:
 |---|---|
 | 「我想改 X」/「这个字段是什么」/「这个数为什么是这样」 | [INDEX §1 按问题找](../../INDEX.md#1-按问题找) |
 | 全部 33 篇文档（按类型浏览） | [INDEX §2](../../INDEX.md#2-按类型浏览33-篇) |
-| 无密钥也能练手的资产 | [INDEX §3](../../INDEX.md#3-无密钥也能练) |
-| 哪条已实机 / 哪条已否证 | [INDEX §4 能力明细](../../INDEX.md#4-能力明细) |
+| **找工具**（60 个：用途 / 依赖 / 验证状态 / 按任务速查） | [INDEX §3 工具清单](../../INDEX.md#3-工具清单tools) |
+| 无密钥也能练手的资产 | [INDEX §4](../../INDEX.md#4-无密钥也能练) |
+| 哪条已实机 / 哪条已否证 | [INDEX §5 能力明细](../../INDEX.md#5-能力明细) |
 | **92 条坑**（现象 / 规则 / 三态） | [WORKFLOW §10](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
 | 还缺什么实验 / 哪些字段没找到 | [WORKFLOW §12](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
 | 换 build 三步 | [BUILDS.md §3](../../BUILDS.md) |
-| 工具清单与各自验证状态 | [tools/README.md](../../tools/README.md) |
 | 别人怎么命名 / 前人做过什么 | [PRIOR-ART-NAMING](../../docs/cases/PRIOR-ART-NAMING.md) |
 
 > 字段名 `uses_per_rearm` / `rearm_time` 与「每次回收次数」语义来自 **[HD2Runtime by SkyeShade](https://github.com/SkyeShade/HD2Runtime)**；其许可要求引用其偏移 / 字段名 / 清单时**显式署名**。本仓库的数值与实机读数均为自行实测。

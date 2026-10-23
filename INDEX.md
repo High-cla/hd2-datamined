@@ -15,8 +15,9 @@
 | 想让**代理**去做 | **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)** —— Agent Skills，只给方法论（每步的目的 / 判据 / 停的条件）+ 指回本页 |
 | 想查某个字段 / 某个数 | [§1 按问题找](#1-按问题找) |
 | 想按类型看全部 33 篇 | [§2 按类型浏览](#2-按类型浏览33-篇) |
+| 想找某个工具 / 看它验证到哪一步 | [§3 工具清单](#3-工具清单tools) |
 | 刚更新完游戏 | [BUILDS.md §3](BUILDS.md) |
-| 什么都没有、只想先摸摸 | [§3 无密钥也能练](#3-无密钥也能练) |
+| 什么都没有、只想先摸摸 | [§4 无密钥也能练](#4-无密钥也能练) |
 
 ## 1. 按问题找
 
@@ -51,14 +52,14 @@
 | **只有一份 dump，怎么自己解出密钥**（RVA + XOR 常数 + seek 工具 + 三重验证） | [DLBIN-SEALED-BOX §10](docs/engine/DLBIN-SEALED-BOX.md) |
 | 所有密钥来源与各自代价 | [WORKFLOW §1.2.1](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
 | 怎么判盘上是原版（「哈希 == 锚点」识别不出保哈希 mod） | [WORKFLOW §2.5](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
-| 没有密钥能练什么 | [WORKFLOW §2.6](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) · [§3 无密钥也能练](#3-无密钥也能练) |
+| 没有密钥能练什么 | [WORKFLOW §2.6](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) · [§4 无密钥也能练](#4-无密钥也能练) |
 
 ### 坑与边界
 
 | 想知道 | 读 |
 |---|---|
 | **92 条坑**（现象 / 规则 / 三态） | [WORKFLOW §10](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
-| 工具的行为陷阱（不报错但会让你误判） | [WORKFLOW §5.2](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) · [tools/README](tools/README.md) |
+| 工具的行为陷阱（不报错但会让你误判） | [WORKFLOW §5.2](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) · [§3 工具清单](#3-工具清单tools) |
 | 走不通的路：进程内存 / 未签名 DLL / 加载器 | [MEMORY-ACCESS](docs/boundaries/MEMORY-ACCESS-25988413.md) · [LOADER-SPEC](docs/engine/LOADER-SPEC-25988413.md) |
 | 虚拟机路线为什么也不行 | [VM-DUMP](docs/boundaries/VM-DUMP-25988413.md) |
 | 还缺什么实验 / 哪些字段没找到 | [WORKFLOW §12](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
@@ -70,7 +71,7 @@
 |---|---|
 | 新 build 到手先跑哪三步 | [BUILDS.md §3](BUILDS.md) |
 | 这次更新到底把 55 张表改了没 | [BUILD-26088801-DIFF](docs/builds/BUILD-26088801-DIFF.md) |
-| 工具清单与各自验证状态（依赖 / 三态） | [tools/README.md](tools/README.md) |
+| 工具清单与各自验证状态（依赖 / 三态） | [§3 工具清单](#3-工具清单tools) |
 | 游戏内探针怎么写（旧探针为什么"能加载但静默失效"） | [PROBE-AUTHORING](docs/engine/PROBE-AUTHORING-25988413.md) |
 | Lua 运行时 / API 面 / `Gui.*` 绘制 | [LUA-API](docs/engine/LUA-API-25988413.md) · [STINGRAY-API](docs/engine/STINGRAY-API-25988413.md) · [GUI-HUD](docs/engine/GUI-HUD-25988413.md) |
 | 数据文件路线为什么不需要执行权 | [PATCH-LOADER-DESIGN](docs/engine/PATCH-LOADER-DESIGN-26088801.md) |
@@ -157,7 +158,130 @@
 | [WIKI-DATA-MODULES](docs/cases/WIKI-DATA-MODULES.md) | wiki `Module:` 命名空间里的原始解码数据清单，能补哪些字段名 | 跨 build |
 | [WIKI-LOCAL-DB](docs/cases/WIKI-LOCAL-DB.md) | 不抓 HTML：页面源码 + JSON 模块落本地 SQLite，一条命令查战备/武器全貌 | 跨 build |
 
-## 3. 无密钥也能练
+## 3. 工具清单（`tools/`）
+
+**64 个脚本，全部在库**（§3.5 另列「文档里提到但仓库故意没有」的，不计入这 64 个）。
+
+本目录全部工具**只读 / 离线**：没有一个会读游戏进程内存、注入或改内存数值。改数据走「解封装 → 改字节 → 解校正字 → 保哈希 → 重新封装」这条资源侧路线（原理见 [DLBIN-SEALED-BOX](docs/engine/DLBIN-SEALED-BOX.md)）。
+依赖列是**可选**的：核心表工具只需标准库（外加同目录的 `murmur64.py` / `dlbin_seal.py`）。凡是打了「自检」的，都能直接 `python tools/<名字> --selftest` 复跑，**不需要游戏文件**。
+
+**按任务速查**：
+
+| 我想… | 工具 |
+|---|---|
+| 把当前 build 的表解封成明文 | `build_cache.py` · `dlbin_seal.py open-key` |
+| 改几个字节但保住内容哈希 | `plain_edit.py`（通用）· `stratagem_tune.py`（战备）· `expl_set.py`（爆炸）· `proj_copy_row.py`（弹丸整行）· `entities_modeb.py`（实体） |
+| 查某张表的几何 / 字段偏移 | `table_dictionary.py` · `typelib.py` |
+| 查某行的名字 / 本地化文本 | `table_row_names.py` · `table_locid_scan.py` · `stratagem_display_names.py` · `entity_locid_scan.py` |
+| 更新后对比到底变了什么 | `build_diff.py` · `build_geometry_diff.py` |
+| 打资源补丁 / 换贴图 | `resource_patch.py` · `swap_texture.py` · `export_textures.py` |
+| 立论或否证一次扫描 | `table_xref_scan.py` · `probe_*` · `find_bombs_salvos_pair.py` |
+| 查 wiki 的原始解码数据 | `wiki_query.py` · `wiki_build_db.py` · `fetch_wiki_modules.py` |
+| 算 / 解 Murmur64A | `murmur64.py`（库）· `murmur64a.py`（CLI） |
+| 离线合成一个数据 mod 补丁 | `patch_compose.py` |
+
+### 3.1 数据表 / 封装
+
+| 工具 | 用途 | 依赖 | 验证 |
+|---|---|---|---|
+| `murmur64.py` | MurmurHash64A（引擎的内容哈希闸门）+ 反解「校正字」，改完字节仍过校验 | 标准库 | ✓ 已实机（全部表工具都走它） |
+| `murmur64a.py` | 同一个算法的**命令行版**：`hash` / `solve --word N --target HEX` / `selftest`（库调用请用上面的 `murmur64.py`，两者在自检里互相对表） | 标准库 | ✓ `--selftest` **7/7**（含「解自己的哈希必须解出原来的字」与跨实现对表） |
+| `dlbin_seal.py` | `.dl_bin` 密封盒：解/封、配对→keystream、LDLD 结构 | PyNaCl | ✓ 已实机 |
+| `dlbin_keyhunt.py` | 在 `game.dll` 里定位打开 `.dl_bin` 的 X25519 密钥（**前提：使用者自己有 dump**） | PyNaCl + cryptography | ⚠ 研究工具；仓库不含任何密钥材料 |
+| `dump_read_rva.py` | **从多 GB 全量 minidump 里按 RVA 读虚拟地址**（只 seek 不整读）。旧 build 的接收方密钥就在加载后映像的固定 RVA 上，所以有 dump 就能跳过 aPLib 解包直接取 —— 配方见 [DLBIN-SEALED-BOX §10](docs/engine/DLBIN-SEALED-BOX.md) | 标准库 | ✓ 已实机（本项目这一对密钥就是这么来的，过三重验证） |
+| `plain_edit.py` | **任意字节写入**任意 `LDLD` 容器明文，自动用 tail 宿主保住内容哈希；6 门禁（含「声明字段读回」与「其余字节未动」） | 标准库 + `murmur64.py` | ✓ 已实机 |
+| `particle_census.py` | 列出某个包里全部 `particles` 资源（挑「供体特效」用；配合 `refs/srkit-names.json` 反查副本分布） | `srkit` + 游戏数据 | ✓ 离线 |
+| `particle_strings.py` | 扫包内粒子资源的内嵌字符串 —— **用于证明「粒子无法按名字/内容识别」**（`file_id` 不是名字哈希，粒子内部无可读串） | `srkit` + 游戏数据 | ✓ 否证记录 |
+| `typelib.py` | 解析 DataLibrary 类型库（LTLD v4），查表结构 | `dlbin_seal.py` | ✓ |
+| `table_export.py` | 把整张表导成**人类可读**的 CSV + Markdown（名字 + 每字段 hex/f32 + 统计 + 一阶嵌套）；`LAYOUTS` 存字段名与枚举注解，`POINTERS` 存 (表, 步长) → 行内名字指针 | PyNaCl + `typelib.py` | ✓✓ 六张表整表导出（weapon_customization 252×13、stratagem 153×68），名字全部走指针 |
+| `table_row_names.py` | 抽出逐行名字。**指针优先**：weapon_customization 252 / stratagem 153 / planet_override 44 / status_effect 73 / language 15 / stratagem_upgrade 1；其余表退化为位置法且必须 `串数 == 行数` | PyNaCl + `typelib.py` | ✓ 实机数据抽全（`refs/table-row-names.json`，每表标明机制） |
+| `row_pointer_sweep.py` | 扫全部 55 张表找**行内名字指针**，判据是「每行解析出不同的串」，并与位置法交叉验证 | PyNaCl + `typelib.py` | ✓ 6 张表命中；weapon_customization 交叉验证 240/240 一致 |
+| `probe_row_name_offsets.py` | 单表深挖指针：命中率 / 不同串数 / 串的类别（显示名 / 键 / 描述键），用来排除小整数巧合 | PyNaCl | ✓ 实机数据 |
+| `stratagem_field_scan.py` | 拿系族当标签给每个 4 字节槽打分（族内纯度 + 能否分离 wiki 四色），用来判定分类字段 | PyNaCl | ✓ `+392` 5/6（唯一交集是 cell 0）；`+56`/`+60` 3/6 及以下，否证了「`+56` 的 4 个值 = wiki 四类」 |
+| `stratagem_join.py` | 战备行与 HD2Runtime 目录逐名配对（同系族内模糊匹配、一对一），用冷却是否相等反向校验配对；目录快照早于补丁时按 `PATCHED` 表登记 | PyNaCl + HD2Runtime SDK zip | ✓ 21 配对：20 条精确 + 1 条已定案补丁差异（Airburst 100→90），未解释 0 |
+| `settings_field_align.py` | 用连接键把 filediver 明文 dump 的字段名对齐到本表偏移（带「常量字段/常量槽」双排除） | PyNaCl + `typelib.py` + filediver JSON | ✓ 弹丸表 18 字段（`name_upper` 连接，132 对） |
+| `stratagem_field_align.py` | 按 **wiki 解码值反查战备字段偏移**：拿 `Module:Decodedata-Attacks` 的 `cooldown`/`uses`/`num_bombs`/`num_salvos`/`area_size`… 逐字段与每个 4 字节槽做「无符号」和「f32」双读匹配，用值反推偏移而不是猜 `+60` 是什么 | PyNaCl + wiki 模块 | ✓ 定位 `+104`/`+80`/`+84` |
+| `table_xref_scan.py` | 通用跨表引用扫描：找出源表哪个槽命中目标表某列的值（用 `distinct` 判据排除小整数巧合） | PyNaCl + `typelib.py` | ✓ 用它否证「战备行引用弹丸行」 |
+| `stratagem_attack_chain.py` | 走通一条链并逐环打印证据：战备行 `+0` → StratagemType 名 → 战备道具资源的 `projectile_type` → 弹丸行 → `+144/+156` → 爆炸行 `+28` | PyNaCl + `typelib.py` + wiki 模块 + filediver dump | ✓ 26 条命中，含 Airburst 的 cone=27 |
+| `probe_stratagem_projectile_link.py` | 排查战备行里弹丸类型的编码形式（`+0`/文件下标/`name_upper`/枚举下标），用于否证「战备行有指向弹丸的外键」 | PyNaCl + `typelib.py` | ✗ 四种编码全不命中 |
+| `fetch_wiki_modules.py` | 按需拉取 wiki 的 `Module:Decodedata-*` 数据模块（当字段名字典用；wiki 会挡默认 UA，故不随仓库分发） | 标准库 | ✓ 12/12 可拉 |
+| `probe_stratagem_fields.py` | 把两份 wiki 战备视图的全部数值字段逐一对到本表槽（含最佳槽报告，能区分「没有」和「有但值不同」） | PyNaCl | ✓ 定位 `+104`/`+80`/`+84` |
+| `find_bombs_salvos_pair.py` | 战备 `num_bombs`×`num_salvos` 的**联合**反查：扫所有有序槽对、扫乘积、再按 u8/u16/u32/f32 四种宽度找标志值 | PyNaCl | ✗ 全落空（证明这两项不在战备行里） |
+| `fetch_wiki_pages.py` | 用 MediaWiki API 批量缓存 wiki 页面源码，50 页一请求 + sleep；支持 `--category` 与按标题补抓 | 标准库 | ✓ 763 页（战备/武器/护甲/披风/外观/护甲被动/星球） |
+| `wiki_build_db.py` | 把页面源码的模板参数 + 模块 JSON 落成 SQLite（`page`/`param`/`entity`/`stratagem`/`weapon`）；`page.kind` 由信息框模板判定 | 标准库 | ✓ 763 页 / 9,312 参数 / 235 武器行 |
+| `wiki_match_tables.py` | 把表里解出的名字和 wiki 页面标题对上（精确 / 后缀 / 包含 / 模糊四条规则），输出覆盖率与未匹配清单 | 标准库 | ✓ 护甲 217/237、被动 32/33、星球 277/395；未匹配的都查过确实无页面 |
+| `wiki_query.py` | 查本地库：任意页（战备/武器）全貌 + 攻击链解析 + 与解密表并排对照；支持 `--page` / `--field` / `--entity` / `--sql` | PyNaCl（仅 `--sk` 时） | ✓ 见 [WIKI-LOCAL-DB](docs/cases/WIKI-LOCAL-DB.md) |
+| `build_stratagem_alias.py` | 用行内 `+24` 本地化键 → slug → HD2Runtime `uiIcon.nativeType` 建战备别名表（不依赖显示名），产出 `refs/stratagem-alias.json` | PyNaCl + HD2Runtime SDK zip | ✓ 38 条 / 0 歧义；冷却 34/35 一致 |
+| `stratagem_display_names.py` | 从 `.strings` 资源解出每行的**游戏内文本**：五个槽位（`+40` 大写名 / `+44` 显示名 / `+48` 描述 / `+52` 长描述 / `+56` 状态标签），并附上匹配到的 wiki 页面标题 | PyNaCl + 由 srkit 解出的 strings 目录 | ✓ 显示名 145/153（135 直接 + 1 文本匹配 + 9 大写回退），wiki 页 115/145 |
+| `table_locid_scan.py` | 扫一张表每个 4 字节槽，按 `(stride, offset)` **跨组聚合**，报告「本地化 ID 命中数 / 去重数 / 样本文本」。两种 `LDLD` 组头都认 | PyNaCl（无）+ `typelib.py` | ✓ 扫出 7 张表的名字槽（判据见 [LOCID-NAMES §1](docs/tables/LOCID-NAMES-25988413.md)） |
+| `table_locid_names.py` | 按槽位表把本地化 ID 倒成文本，输出 JSON（`name` / `name_source` / 原始 ID），带「文本匹配 → 大写回退」 | PyNaCl（无）+ `typelib.py` | ✓ 六张表：弹丸 225/355、配件 234/252、护甲 389/422、被动 33/33、载具 11/12、星球 399/438 |
+| `entity_locid_scan.py` | 解实体库（275 块 → `[哈希图][行数组][尾数组]`），定位本地化 ID 槽。实体名只有一处：`EncyclopediaEntryComponentData`（块 56） | PyNaCl（无）+ `typelib.py` | ✓ 643/1,939 实体有名字，205/211 条带代码条目精确命中 wiki 标题 |
+| `entity_components.py` | 实体 → 组件清单（用每个组件块自己的哈希图反查，不用块 0 的 u16）；附带「谁引用了某值」的列扫描 | PyNaCl（无）+ `typelib.py` | ✓ 1,932 实体 / 272 种组件；用它查出 explosion 68 被 `Bombardment +64` 引用 |
+| `explosion_names_from_chain.py` | 爆炸行没有名字字段，改从引用链命名：投掷物 `+144/+156` → 爆炸 `+0`，输出每个爆炸行的消费方 | PyNaCl（无）+ `typelib.py` | ✓ 210 条边 / 0 悬空；103 个爆炸行有名字（97 唯一 + 6 共用） |
+| `strings_inventory.py` | 清点 `.strings` 语料：语言分布（`ThinHash` 反查 15 种语言）、每个 bundle 的 distinct 英文 blob 数、ID 并集。**只读文件头 16 字节** | 标准库 | ✓ 证明英文语料是全局唯一那 18 个 blob |
+| `table_dictionary.py` | **全表字典**：解封 55 张表 → 组/行数/步长/尾块 + 每个类型的字段偏移树（需自备 `recipient.sk`） | PyNaCl + `typelib.py` | ✓ 55/55 表解析（18 张几何完全闭合） |
+| `build_diff.py` | 更新后逐表回答「改了什么」：文件层（size/sha256）→ 封装层（比**明文**哈希）→ 结构层。只读 | PyNaCl | ✓ 25988413→26088801：55 张表 0 变化，exe/dll 哈希变 |
+| `build_geometry_diff.py` | 用旧 build 的字典几何对照当前 55 张表：多大/多组/多少行，哪张被动过一目了然 | PyNaCl | ✓ 同一次更新：identical 21 / structure-same 33 / changed 0 |
+| `build_cache.py` | 把当前 build 的 55 张表 + 类型库解封成明文缓存，**按 buildid 另存**。更新后第一件事就是跑它 | PyNaCl | ✓ 26088801：56/56 解封 |
+| `plaintext_cache_audit.py` | **查明文缓存有没有被我们自己的 mod 污染**：一次 dump 若发生在我们把负载写进 `data/game/` 之后，那份缓存里就混进了改过的表，之后所有「这张表变了没」的判断全错。两条独立判据（对部署前原版备份逐字节比 / 对锚点哈希）| 标准库 | ✓ 已实机（正是它抓出 2026-10-22 那次把自家 med-kit 实验负载误报成「唯一变化的表」） |
+| `entities_modeb.py` | 实体表：武器单元格编辑、可选弹种（模式 A/B）、双弹药池、hashmap 维护 | `murmur64.py` | ✓✓ 已实机（主宰/惩罚者/扫荡者） |
+| `proj_copy_row.py` | 整行搬运 272 B 射弹行（换弹头），带 5 道门禁 | `murmur64.py` | ✓✓ 已实机（Eruptor 弹头 → 主宰） |
+| `expl_set.py` | 写爆炸行字段（半径 / 破片数 `+80` / 破片射弹 `+84`），带 6 道门禁 | `murmur64.py` | ✓✓ 已实机（毒气爆炸加 30 破片） |
+| `stratagem_tune.py` | 改战备表的 `+80` uses / `+84` call-in / `+104` cooldown；`--edit` 可重复，一次封装改多行。**默认 tail 宿主**保内容哈希；`--host-mode row` 已知会崩，永不传 | 标准库（`murmur64.py` + `typelib.py`） | ✓✓ 已实机：EAGLE. AIRSTRIKE `+104` 15→4 + EAGLE. REARM 150→5，整份只差 5 字节、哈希仍复原，面板 7→2 秒 / 任务内回收 150→3 秒多（`26088801`） |
+| `patch_compose.py` | 数据路线 mod 的离线合成器：`scan` 查各包槽位与空洞、`merge` 求并集（同 id 不同内容=冲突，默认拒绝）+ 逐条回读验证、`install` 只写下一个连续槽位 | 标准库 + `srkit.container` | ✓ 实测把 bones/material/texture/lua 共 7 条合进一个补丁，toc 与 gpu 附流逐条一致 |
+| `dmg_edit.py` / `dmg_custom_row.py` / `dmg_refs.py` | 伤害行编辑 / 自制伤害行 / 跨表引用查询 | `murmur64.py` | ✓ 离线门禁通过 |
+| `name_rows.py` | 用跨 build 指纹给爆炸/射弹行恢复名字 | 标准库 | ✓ |
+
+### 3.2 补丁 / 资源
+
+| 工具 | 用途 | 依赖 | 验证 |
+|---|---|---|---|
+| `resource_patch.py` | **任意** Stingray 资源类型的 `.patch_N` 构建/查看/解包/重打 | `srkit`（构建时） | ✓ |
+| `swap_texture.py` | 把一张 PNG 换进 `.patch_N` 里的某个贴图并重打 | Pillow | ✓ 已实机 |
+| `export_textures.py` | 把 `.patch_N` 里每个贴图导出成可编辑 DDS | Pillow | ✓ |
+
+### 3.3 Lua 侧
+
+| 工具 | 用途 | 依赖 | 验证 |
+|---|---|---|---|
+| `lua51_check.py` | 用**真** Lua 5.1 解析/消毒载荷，避免方言错误烧一次启动 | lupa | ✓ 自检 |
+| `luac51_disasm.py` | 反汇编标准 Lua 5.1 字节码块 | 标准库 | ✓ 自检（6 项） |
+| `check_unit_snapshot.py` | 静态查「遍历 `World.units()` 快照还调 Unit getter」的崩溃写法 | 标准库 | ✓ 自检 |
+| `hud_layout_check.py` | 离线算 HUD 绘制坐标（假引擎跑真 lua） | lupa | ✓ |
+| `lensmask_to_reticle.py` | 「亮镜片 + 暗准心」贴图 → 自发光准心遮罩 | Pillow | ✓ |
+| `grab_logs.py` | 在下次启动覆盖前把游戏日志归档 | 标准库 | ✓ |
+
+### 3.4 反作弊 / 能力边界（**全部是否证记录，不是方法**）
+
+这几个是「试着做 → 失败 → 把失败量出来」的工具，**没有一个成功过**，最硬的证据来自它们自己的自检：
+`eac_access_test.py --selftest` 会**故意造一只被剥权的句柄**（`0x0400`，正是 EAC 还给你那种形状），要求「读一个字节必须被拒绝」，5/5 PASS。
+发布它们是因为「我们试过并且失败了」比沉默有用 —— [MEMORY-ACCESS §2–§8](docs/boundaries/MEMORY-ACCESS-25988413.md) 就是这些工具的输出。
+
+| 工具 | 它回答的问题 / 实测结果 | 依赖 | 验证 |
+|---|---|---|---|
+| `eac_access_test.py` | 外部进程还能读游戏吗？→ **不能**：`OpenProcess` 三档全给句柄、元数据能读，但 `ReadProcessMemory` **err=5**、`MiniDumpWriteDump` **0x80070005**。文件头留着第一版**假阳性**的教训 | 标准库 | ✓ `--selftest` **5/5**（含「剥权句柄必须被拒」的变异测试） |
+| `eac_early_handle.py` | 有没有「保护生效前」的窗口？→ **没有**：进程出现后 **10.6 ms** 建的句柄**已经被剥权**（err=5），access mask 在创建时就定了 | 标准库 | ✓ `--help`；完整流程需要一次游戏启动 |
+| `crash_watch.py` | 在 CRS 删掉之前抢救游戏**自己**的崩溃捕获。外部全量 dump 那条路已死 | `eac_access_test.py`（缺席时降级为「跳过预检」） | ✓ `--selftest`（造假 CRS 捕获 → 救援 → hash 校验 PASS） |
+| `watched_modules.py` | 从**外部**盯一个进程的**映射文件列表**（`VirtualQueryEx` + `GetMappedFileNameW`，只读元数据、不读内容），回答「某个 DLL 到底有没有被映射进来」 | 标准库 | ✓ 实机（2026-10-22：正常态插件在第一个样本就出现 / 换供体后 23 个样本里从未出现） |
+| `make_loadlib_fixtures.py` | 造 DLL 夹具，用**错误码判别**回答「游戏 Lua 能不能加载我们自己放上去的 DLL」：126 = 模块不存在 / 127 = 模块被映射但符号不在 / 577·193 = 加载器策略拒绝。只有 127 才证明 `LoadLibraryA` 真的跑过 | 标准库 | ✓✓ 已实机（两轮 5 夹具 / 7 用例；结论与两道闸门见 [MEMORY-ACCESS §12g](docs/boundaries/MEMORY-ACCESS-25988413.md)） |
+
+### 3.5 文档提到、但本仓库**故意不含**的工具
+
+写清楚是为了让人别照着文档找不存在的文件：
+
+| 文档里出现 | 为什么不在 |
+|---|---|
+| `memscan.py` | 旧路线（LuaJIT + `ffi`）的扫描器，**弃用**：25988413 的 VM 没有 `ffi`，跑不起来；3,000+ 行里全是旧 build 的偏移知识 |
+| `verify_patch_series.py` | 依赖 `patch_series_prune.py` → `hd2_archive`（不在本仓库） |
+| `build_snapshot.py` | 需要本机的普查表 / 探针 / 文档作为输入，不是通用输入 |
+| `package_p2p_ping.py` | 属于另一个项目（`hd2-p2p-ping`），与本仓库无关 |
+| `passive_example.py` | **不是我们的工具**：[DLBIN-SEALED-BOX](docs/engine/DLBIN-SEALED-BOX.md) 引用的是某个第三方 modkit 里的文件，只作「别人怎么解这个字」的对照 |
+| `extract_seal_material.py` | **已删除（2026-10-23）**：借第三方 mod 固定 ephemeral 的方案被 `max_len` 卡在 65,504 B，且产出即密钥材料 |
+| `dlbin_deploy.py` / `ent_set.py` | 部署与实体写入器，**未随仓库发布**；最小等价物见 [WORKFLOW §7 / §9](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
+
+> 注：少数工具相对私有工作区只改了两处——默认输出路径改成**相对路径**、个人 SDK 路径改成 `HD2SDK` 环境变量。逻辑未改。
+
+## 4. 无密钥也能练
 
 不需要游戏、不需要密钥就能跑通「解析 → 改字节 → 过门禁 → 核哈希」这几件事：
 
@@ -171,7 +295,7 @@
 
 配方：[WORKFLOW §2.6](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) —— 用 `plain_edit.py` 真跑出完整 G1–G6（锚点 `946A4FE5FAAAE076`）。
 
-## 4. 能力明细
+## 5. 能力明细
 
 | 能力 | 状态 |
 |---|---|
@@ -188,7 +312,7 @@
 | 自制伤害行（占无主行，写伤害 / 穿甲 / 状态强度） | ✓ 离线门禁通过 |
 | 解锁未发布物品（`LoadoutEntry.selectable`） | ✗ 已否证（发布数据里没有这个开关） |
 
-## 5. 已验证的核心结论
+## 6. 已验证的核心结论
 
 > 这些**在 `25988413` 上做的实机 / 离线验证**；结构层部分（密封盒、闸门算法、块布局、行命名、本地化 ID）在 `26088801` 上已复验仍成立。
 > **每个具体偏移都必须按 [BUILDS.md §3](BUILDS.md) 在你自己的 build 上重验一遍。**
@@ -199,7 +323,7 @@
 4. **独立弹药池**：`WeaponRoundsComponentData`，行内 `+64` 两个弹丸 id / `+72` 两个弹匣容量 / `+80` 两个备弹。全表 25 把里只有 SG-20 Halt 是 B≠A，也正好只有它是 `fnid=4`。正向配方与边界见 [ENTITY-TABLE §9](docs/tables/ENTITY-TABLE-25988413.md)。
 5. **未发布物品**：`LoadoutEntryComponentData` 只有 `{id, type, dlc_pack_id, equipment_tags[5]}` 32 字节，**没有 selectable**；带 selectable 的结构在发布数据里 0 命中 ⇒ 不是离线可翻的开关。
 
-## 6. 三态标记与自检
+## 7. 三态标记与自检
 
 | 标记 | 含义 |
 |---|---|

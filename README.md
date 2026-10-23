@@ -24,7 +24,7 @@
 
 ## 三十秒上手
 
-核心工具**纯 Python 3.11+，无第三方依赖**（少数可选工具需要 PyNaCl / Pillow / lupa / `srkit`，见 [tools/README.md](tools/README.md)）。
+核心工具**纯 Python 3.11+，无第三方依赖**（少数可选工具需要 PyNaCl / Pillow / lupa / `srkit`，见 [INDEX §3 工具清单](INDEX.md#3-工具清单tools)）。
 
 ```bash
 # 1) 解析一张表（用仓库自带明文，不需要游戏、不需要密钥）
