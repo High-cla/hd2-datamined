@@ -1,113 +1,75 @@
 # Helldivers 2 · 离线数据表逆向笔记与工具
 
-> **当前验证 build：`26088801`**（2026-10-22 hotfix）｜历史基线：`25480438` → `25988413`｜文档重排 2026-10-23。
->
-> 本仓库不绑定某个 build。结构层结论（密封盒、内容哈希、`LDLD` 组头、实体块布局、
-> `.strings` 与本地化 ID 机制、行命名机制）实测跨 build 有效；**偏移/地址类结论必须逐 build 复验**，
-> 所以事实类文档都带 build 号。新 build 到手先跑哪三步、每个 build 验证了什么 —— 见 **[BUILDS.md](BUILDS.md)**。
+> 当前验证 build **`26088801`** ｜ 历史基线 `25480438` → `25988413`
+> 本仓库不绑定某个 build：**结构层**结论（密封盒、内容哈希、`LDLD`、实体块布局、本地化 ID）跨 build 有效；
+> **偏移 / 地址类**结论必须逐 build 复验，所以事实类文档都带 build 号。
 
 ## 这是什么
 
-一套**离线**（改数据文件，不碰进程内存、不需要 Lua/FFI/注入）的 Helldivers 2 数据表研究笔记与工具。
+一套**离线**的 Helldivers 2 数据表研究笔记与工具 —— **改磁盘上的数据文件**，不碰进程内存、不需要 Lua / FFI / 注入 / DLL。
 
-| 能力 | 状态 |
-|---|---|
-| 解封 `data/game/*.dl_bin` 并还原明文（`crypto_box_seal` 形态，需自备密钥材料） | ✓ 工具可跑 |
-| 保内容哈希改写：MurmurHash64A + 校正字，改完字节仍过闸门 | ✓ 已实机 |
-| 实体库 / 组件块 / 行结构解析与离线改写 | ✓ 已实机 |
-| 武器：数值（人机·站姿·散布·后坐·装填可移动）/ 可选弹种 / 独立弹药池 / 自制伤害行 | ✓ 已实机（弹药池仅限原生有该行的 25 把） |
-| 爆炸·弹头：换弹头整行 / 换爆炸（`+144`/`+156`）/ 加破片（`+80`/`+84`） | ✓✓ 已实机 |
-| 爆炸视觉：整行克隆 + `+0xA8` 跨包加载（任意外观可移植） | ✓✓ 已实机（`26088801`） |
-| 战备：呼叫时间 / 冷却 / 散布 / 使用次数 / **弹幕轮数与每轮弹数**（面板公式：基础值 × 升级、+ 交付延迟、+ 轮数升级） | ✓✓ 已实机（`26088801`） |
-| 全表字典：55 张表的几何 + 类型库字段偏移（1,208 类型 / 7,349 成员） | ✓ 离线可复现 |
-| 解锁未发布物品（`LoadoutEntry.selectable`） | ✗ 已否证（发布数据里没有这个开关） |
+核心里程碑：解密 `data/game/*.dl_bin` → 保住引擎的 MurmurHash64A 内容哈希改写字节 → 重封 → 盘上回读 → 分级实机验证 → 可回滚。
+已实机覆盖：战备（冷却 / 呼叫 / 次数 / 弹幕轮数与弹数 / **Eagle 回收**）· 爆炸（伤害 / 半径 / 破片 / **外观整行克隆 + `+0xA8` 跨包加载**）· 弹头换装 · 武器数值与可选弹种 / 独立弹药池 · 实体组件块。
 
-逐条证据见 **[docs/README.md](docs/README.md)**；核心结论（闸门算法、实体块布局、可选弹种、独立弹药池、
-LoadoutEntry 否证）连原文一起放在该页 **附录 B**。
+**→ 全部文档、能力明细与已验证结论，见 [INDEX.md](INDEX.md)（唯一索引入口）。**
 
 ## 不是什么
 
-- **不包含任何游戏资产、明文表以外的游戏内容、密钥、密钥材料**。`tables/` 只有三张很小的参数表（合计 ~180 KB），用于验证解析器。
-- 不提供"解除封锁/解锁付费内容/破坏他人游戏"的方法。已证否的路线也如实写"否证"。
+- **不包含任何游戏资产、密钥或密钥材料**。`tables/` 只有三张很小的参数表（合计 ~180 KB），用于验证解析器。
+- 不提供"解除封锁 / 解锁付费内容 / 破坏他人游戏"的方法。已证否的路线也如实写「否证」。
 - **不提供在游戏进程内加载未签名 DLL 的方法** —— 不是没写，是实测走不通：加载器只映射它自己带的映像，
   未签名 `577`、签名但不在名单 `193`、自签并装进 `LocalMachine\Root` 仍然 `577`
-  （[MEMORY-ACCESS-25988413.md §12](docs/boundaries/MEMORY-ACCESS-25988413.md)）。想绕开它只能动反作弊本身，不做。
-- 不是通用 mod 管理器；mod 打包/安装请用社区工具。
+  （[MEMORY-ACCESS §12](docs/boundaries/MEMORY-ACCESS-25988413.md)）。要绕开只能动反作弊本身，不做。
+- 不是通用 mod 管理器；mod 打包 / 安装请用社区工具。
 
-## 目录
+## 三十秒上手
 
-```
-BUILDS.md  每个 build 验证了什么、哪些结论跨 build 有效、新 build 到手先跑的三步
-docs/      32 篇文档，按类型分 6 个目录（逐篇索引见 docs/README.md）
-           builds/  每个 build 变了什么         engine/     格式封装 · API 面 · Lua · 探针 · 加载器
-           tables/  数据表与实体库              explosions/ 爆炸与弹头
-           boundaries/ 被挡住的路（内存/虚拟机）  cases/      案例与外部参照
-tools/     离线工具链（解析 / 改字节 / 保哈希 / 行级编辑 + 门禁；索引与依赖见 tools/README.md）
-tables/    三张小参数表（damage / projectile / weapon_customization），仅供解析验证
-refs/      字段图与索引：行名 / 本地化名 / 爆炸弹头引用链 / 表几何 / 武器键→名字 / 275 个组件块类型名
-examples/  最小解析示例（纯标准库）+ 字段说明
-skills/    代理技能（Agent Skills）：hd2-file-route-mod —— **只写方法论**（顺序 / 判据 / 停的条件），知识全在 docs/
-```
-
-## 快速开始（核心表工具：纯 Python 3.11+，无第三方依赖）
-
-> 少数**可选**工具需要第三方包（PyNaCl / Pillow / lupa / `srkit`），依赖与验证状态见 **[tools/README.md](tools/README.md)**。
+核心工具**纯 Python 3.11+，无第三方依赖**（少数可选工具需要 PyNaCl / Pillow / lupa / `srkit`，见 [tools/README.md](tools/README.md)）。
 
 ```bash
-# 1) 解析一张表（不需要游戏文件也能跑仓库里 tables/ 的那三张）
+# 1) 解析一张表（用仓库自带明文，不需要游戏、不需要密钥）
 python examples/parse_examples.py --projectile tables/generated_projectile_settings.dl_bin
-python examples/parse_examples.py --blocks     refs/../tables/...   # 见脚本内注释
 
-# 2) 算一个文件的 Murmur64A（内容哈希闸门用的那个）
+# 2) 算一个文件的 Murmur64A —— 就是引擎用来校验内容哈希的那个
 python tools/murmur64.py <file>
 
-# 3) 组件块/字段：275 个块类型名在 refs/entity-block-types.json
-python - <<'PY'
-import json; d=json.load(open('refs/entity-block-types.json'))
-for b in d['blocks']:
-    if b['component'] and 'Weapon' in b['component']: print(b)
-PY
+# 3) 改一张表并过全部门禁（同样不需要密钥，练的是绝对偏移 / 值语法 / tail 宿主）
+python tools/plain_edit.py --plain tables/generated_projectile_settings.dl_bin \
+    --set 0x<偏移>=u32:123 --out /tmp/out.plain.dl_bin
 ```
 
-动自己机器上的游戏文件时，**从 [改盘上数据的完整工作流](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) 入手**
-（八步：取明文 → 定位字段 → 保哈希写入 → 门禁 → 重封 → 往返 → 部署 → 实机验证；含锚点哈希与 **92 条坑**）。
-要交给代理做，用技能 **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)** —— 它只给**方法论**（每步的目的 / 合格判据 / 停的条件）+ 一张知识库索引，具体数值与坑一律指回 `docs/`。
-只想看实体库那一张表的细节，见 [ENTITY-TABLE §5](docs/tables/ENTITY-TABLE-25988413.md)。
-改完文档跑一次 `python tools/check_links.py` 自检链接（0 断链才算过）。
+**要动自己机器上的游戏文件** → 从 [改盘上数据的完整工作流](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) 入手（8 步链 + 锚点哈希 + 92 条坑）。
+**要让代理自动做** → 用技能 [skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)（只给方法论，知识一律指回本仓库）。
 
-> **两条前置，写在动手之前**：① 密钥 —— `recipient.pk` / `recipient.sk` **不随仓库提供**，但**可以自己解出来**：只要有一份旧 build 的全量内存转储，RVA / XOR 常数 / seek 工具 / 三重验证判据全在 [DLBIN-SEALED-BOX §10](docs/engine/DLBIN-SEALED-BOX.md)（另有两条来源与代价见工作流 §1.2.1）；
-> ② 原版判定 —— 「明文哈希 == 锚点」**识别不出**保哈希的 mod，判原版要靠封包字节数或备份（§2.5）。
-> 完全没有密钥也能先练：`tables/` 三张明文样本 + `plain_edit.py` 能跑出完整 G1–G6（§2.6）。
+> **两条前置，动手之前必须确认**：
+> ① **密钥** —— `recipient.pk` / `recipient.sk` 不随仓库提供，但**可以自己解出来**：一份旧 build 的全量内存转储 + [DLBIN-SEALED-BOX §10](docs/engine/DLBIN-SEALED-BOX.md) 的 RVA / XOR 常数 / seek 工具 / 三重验证。
+> ② **原版判定** —— 「明文哈希 == 锚点」**识别不出**保哈希的 mod，判原版要靠封包字节数或装前备份（[WORKFLOW §2.5](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md)）。
 
-## 文档索引
+## 仓库结构
 
-`docs/` 下按类型分 6 类，逐篇索引（每篇一句话 + 适用 build）在 **[docs/README.md](docs/README.md)**：
-
-| 类别 | 放什么 | 篇数 |
-|---|---|---:|
-| `docs/builds/` | 每个 build 的总体变化、差异、路线取舍 | 4 |
-| `docs/engine/` | 引擎侧：格式封装、API 面、Lua 运行时、探针、加载器 | 9 |
-| `docs/tables/` | 数据表与实体库的解码 / 改写 | 8 |
-| `docs/explosions/` | 爆炸与弹头（玩法层 + 外观层） | 2 |
-| `docs/boundaries/` | 被挡住的路：进程内存、虚拟机 | 2 |
-| `docs/cases/` | 案例与外部参照：社区包、贴图委托、wiki 数据、**改盘上数据的完整工作流** | 7 |
-
-另有一份**方法论形态**：**`skills/hd2-file-route-mod/`**（Agent Skills 标准）。它刻意**不承载知识库**——
-只写十步链路里每步的「目的 / 合格判据 / 停的条件」、证据纪律（三态 + 已上机三件套）、
-五条会改变流程顺序的红线，外加一张**知识库索引**（"想知道 X → 读哪份 docs"）。
-字段偏移、面板公式、92 条坑、能力边界**一律在 `docs/` 里**，所以换 build 只需更新仓库，技能不必动。
+```
+INDEX.md   ★ 唯一索引入口：按问题找 / 按类型浏览 / 能力明细 / 已验证结论
+BUILDS.md  每个 build 验证了什么、哪些结论跨 build 有效、新 build 到手先跑的三步
+docs/      33 篇文档（builds/ engine/ tables/ explosions/ boundaries/ cases/）
+tools/     离线工具链（解析 / 改字节 / 保哈希 / 行级编辑 + 门禁）
+tables/    三张很小的明文参数表，供离线验证解析器
+refs/      字段图与索引：表几何 / 行名 / 本地化名 / 弹头引用链 / 组件块类型名
+examples/  最小解析示例（纯标准库）
+skills/    代理技能 hd2-file-route-mod —— 只写方法论，知识全在 docs/
+```
 
 ## 相关仓库
 
-- **[hd2-srkit](https://github.com/deepseekv41flash/hd2-srkit)** —— Stingray/HD2 资源解包打包工具（纯标准库，资源层：toc/bundle/DSAR、unit/texture/material/lua、空 unit 模板）。本仓库里的 `tools/` 是**数据表**层面的实验脚本，两者互补。
+- **[hd2-srkit](https://github.com/deepseekv41flash/hd2-srkit)** —— Stingray/HD2 资源解包打包工具（资源层：toc/bundle/DSAR、unit/texture/material/lua）。本仓库的 `tools/` 是**数据表**层面的实验脚本，两者互补。
   > 它**不**包含运行期内存改写与 Lua addon 构建管线 —— 那些在 build 25988413 已不可用（Lua 无 `ffi` + EAC 拒绝外部读内存），不发布以免误导。
 
 ## 免责声明
 
-- 仅供**单人/私人环境**的研究与学习。改动数据文件可能违反游戏服务条款，也可能导致崩溃、存档异常、或与他人的联机体验异常。
+- 仅供**单人 / 私人环境**的研究与学习。改动数据文件可能违反游戏服务条款，也可能导致崩溃、存档异常或联机异常。
 - **不要**在多人游戏中使用会改变他人体验的改动；不要分发改过的游戏数据。
-- 所有结论都标注了三态：`✓ 实机` / `✗ 否证` / `⚠ 未证`。游戏更新后（build 变化）偏移与哈希会整体失效 —— 本仓库不保证跨版本。
+- 所有结论标注三态：`✓ 实机` / `✓ 离线` / `✗ 否证` / `⚠ 未证`。游戏更新后偏移与哈希会整体失效，本仓库不保证跨版本。
+- 改动前请自行备份 `data/game/`。链接自检：`python tools/check_links.py`（0 断链才算过）。
 
 ## 许可证
 
-[MIT License](LICENSE) —— 代码、文档、索引一并用 MIT。结论记录日期 2026-10-22；游戏 build `26088801`。
+[MIT License](LICENSE) —— 代码、文档、索引一并用 MIT。

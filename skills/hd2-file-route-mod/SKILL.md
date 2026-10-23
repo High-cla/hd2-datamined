@@ -2,7 +2,7 @@
 name: hd2-file-route-mod
 description: |
   【方法论型技能】改 Helldivers 2 **盘上数据表**的顺序、判据与停的条件：解封 data/game/*.dl_bin → 定位字段 → 写入并保住引擎内容哈希 → 过门禁 → 重封 → 从游戏目录回读 → 分级实机验证 → 记账/回滚。改的是磁盘数据文件，持久生效；不碰进程内存、不需要 Lua/FFI/注入/DLL。
-  ⚠ 本技能**不承载知识库**：字段偏移、面板公式、坑清单与能力边界全部在仓库 hd2-datamined 的 docs/ 与 tools/ 里，正文只给指针（见 §7 知识库索引）。
+  ⚠ 本技能**不承载知识库**：字段偏移、面板公式、坑清单与能力边界全部在仓库 hd2-datamined 里，本文件只给方法论与指针（见 §7 → 仓库 `INDEX.md`）。
   Use when 用户说「改战备冷却 / 使用次数 / 呼叫时间」「改爆炸半径 / 破片 / 外观」「改武器或实体表数值」「把改过的表装进游戏」「离线数据 mod」「dl_bin 改不动」「启动 0xC000000D」「game.dll+0x1083a45 崩溃」「LDLD」「校正字」「seal-key」。
   载体分工（本技能只做第四种）：hd2-mod-maker = 运行期 Lua `.patch_N` 补丁；hd2-value-editor = 运行期进程内存；srkit-resources = Stingray 资源包；本技能 = **盘上明文数据表**。
 license: MIT
@@ -177,24 +177,20 @@ metadata:
 
 **不做**：多人游戏分发、绕过反作弊、DLL 注入。改的是全局数据文件，**只限单人 / 私人环境自用**。
 
-## 7. 知识库索引（想知道 X → 读 Y）
+## 7. 知识库在哪
 
-**这里是本技能的全部知识来源。** 遇到任何「具体是什么」的问题，先查这张表，不要凭记忆答。
+**所有具体知识都在仓库的 [INDEX.md](../../INDEX.md)** —— 一个按问题组织的单一索引入口。本技能**不复制任何一条**，避免双份真值漂移。
 
-| 想知道 | 读 |
+| 你需要 | 入口 |
 |---|---|
-| 密封盒 / 内容哈希 / 校正字原语 | [DLBIN-SEALED-BOX](../../docs/engine/DLBIN-SEALED-BOX.md) |
-| **只有 dump，怎么自己解出密钥**（模块 / 两个 RVA / XOR 常数 / seek 工具 / 三重验证） | [DLBIN-SEALED-BOX §10](../../docs/engine/DLBIN-SEALED-BOX.md) |
-| 完整八步链 + **92 条坑** + 端到端实例 | [FILE-ROUTE-WORKFLOW-26088801](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
-| 战备字段图 / 面板公式 / Eagle 回收时间 | [STRATAGEM-FIELDS-26088801](../../docs/tables/STRATAGEM-FIELDS-26088801.md) |
-| 爆炸字段 / 视觉克隆 / 跨包加载 | [EXPLOSION-VISUAL-26088801](../../docs/explosions/EXPLOSION-VISUAL-26088801.md) |
-| 弹丸换爆炸效果 / 换弹头 | [EXPLOSION-PROJECTILE-25988413](../../docs/explosions/EXPLOSION-PROJECTILE-25988413.md) |
-| 实体库 275 块与组件偏移 | [ENTITY-TABLE-25988413](../../docs/tables/ENTITY-TABLE-25988413.md) |
-| 全表几何 + 1,208 类型的字段树 | [TABLE-DICTIONARY-25988413](../../docs/tables/TABLE-DICTIONARY-25988413.md) |
-| 哪个字段还没找到 / 还缺什么实验 | [WORKFLOW §12](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
-| 换 build 要做什么 | [BUILDS.md](../../BUILDS.md) §3 |
+| 「我想改 X」/「这个字段是什么」/「这个数为什么是这样」 | [INDEX §1 按问题找](../../INDEX.md#1-按问题找) |
+| 全部 33 篇文档（按类型浏览） | [INDEX §2](../../INDEX.md#2-按类型浏览33-篇) |
+| 无密钥也能练手的资产 | [INDEX §3](../../INDEX.md#3-无密钥也能练) |
+| 哪条已实机 / 哪条已否证 | [INDEX §4 能力明细](../../INDEX.md#4-能力明细) |
+| **92 条坑**（现象 / 规则 / 三态） | [WORKFLOW §10](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
+| 还缺什么实验 / 哪些字段没找到 | [WORKFLOW §12](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
+| 换 build 三步 | [BUILDS.md §3](../../BUILDS.md) |
 | 工具清单与各自验证状态 | [tools/README.md](../../tools/README.md) |
-| 无密钥也能练手（三张明文小表 / 几何 / 逐行 CSV / 类型名） | [tables/](../../tables) · [refs/table-geometry.json](../../refs/table-geometry.json) · [refs/exports/](../../refs/exports) · [refs/dl-type-names.txt](../../refs/dl-type-names.txt) |
 | 别人怎么命名 / 前人做过什么 | [PRIOR-ART-NAMING](../../docs/cases/PRIOR-ART-NAMING.md) |
 
 > 字段名 `uses_per_rearm` / `rearm_time` 与「每次回收次数」语义来自 **[HD2Runtime by SkyeShade](https://github.com/SkyeShade/HD2Runtime)**；其许可要求引用其偏移 / 字段名 / 清单时**显式署名**。本仓库的数值与实机读数均为自行实测。
