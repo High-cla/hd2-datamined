@@ -104,6 +104,8 @@ def main() -> int:
     ap.add_argument("--block", required=True, help="组件块类型 id，如 0xFB8D88A3")
     ap.add_argument("--key", required=True, help="要新增的实体键")
     ap.add_argument("--row", type=lambda v: int(v, 0), default=None, help="指向这条已有行")
+    ap.add_argument("--delete", action="store_true",
+                    help="删除这个键（线性探测后移填补，不破坏其它键的探测链）")
     ap.add_argument("--copy-row-from", default=None,
                     help="把这条键所在行整行复制到目标行（与 --row 互斥）")
     ap.add_argument("--out", required=True)
@@ -119,46 +121,78 @@ def main() -> int:
     g = geometry(_d, tid)
     print(f"块 0x{tid:08X}  槽 {g['slots']}  行 {g['rows']}  行跨距 {g['stride']} B")
 
-    if lookup(original, g, key)[0] is not None:
-        raise SystemExit(f"✗ 键 0x{key:016X} 已经在哈希图里（本工具只负责新增）")
+    writes: list[tuple[int, bytes]] = []      # (文件偏移, 新字节) —— 只允许改这些区域
 
-    if a.copy_row_from and a.row is not None:
-        raise SystemExit("✗ --row 与 --copy-row-from 只能给一个")
-
-    if a.copy_row_from:
-        src_key = int(a.copy_row_from, 0)
-        slot, src_row = lookup(original, g, src_key)
+    if a.delete:
+        slot, row = lookup(original, g, key)
         if slot is None:
-            raise SystemExit(f"✗ 源键 0x{src_key:016X} 不在表里")
-        used = {struct.unpack_from("<I", original, g["hm"] + 16 * i + 8)[0]
-                for i in range(g["slots"])
-                if struct.unpack_from("<Q", original, g["hm"] + 16 * i)[0]}
-        orphans = [r for r in range(g["rows"]) if r not in used]
-        if not orphans:
-            raise SystemExit("✗ 没有孤儿行可放拷贝（先看一下能不能复用现成行）")
-        dst_row = orphans[0]
-        row_bytes = original[g["row_base"] + src_row * g["stride"]:
-                             g["row_base"] + (src_row + 1) * g["stride"]]
-        print(f"  源键 0x{src_key:016X} → 行 {src_row}；目标行 = 孤儿行 {dst_row}")
-    else:
-        if a.row is None:
-            raise SystemExit("✗ 需要 --row 或 --copy-row-from")
-        dst_row = a.row
-        row_bytes = None
-        if not 0 <= dst_row < g["rows"]:
-            raise SystemExit(f"✗ 行号 {dst_row} 越界（0..{g['rows'] - 1}）")
-        print(f"  目标行 = {dst_row}（只插键，不改行内容）")
+            raise SystemExit(f"✗ 键 0x{key:016X} 不在表里，无法删除")
+        print(f"  删除：槽 {slot}（行 {row}）—— 用**后移填补**（线性探测的标准删法）")
+        hm = bytearray(original[g["hm"]:g["hm"] + g["slots"] * 16])
 
-    slot = free_slot(original, g, key)
-    print(f"  插入位置：槽 {slot}（起点 {key % g['slots']}，探测 "
-          f"{(slot - key % g['slots']) % g['slots']} 步）")
+        def k_at(i):
+            return struct.unpack_from("<Q", hm, 16 * i)[0]
+
+        def v_at(i):
+            return struct.unpack_from("<I", hm, 16 * i + 8)[0]
+
+        hole, nxt, moved = slot, slot, 0
+        while True:
+            nxt = (nxt + 1) % g["slots"]
+            kk = k_at(nxt)
+            if kk == 0:
+                break
+            h = kk % g["slots"]
+            # 只有当 hole 落在它的探测路径上（比它自己更靠近起点）才搬
+            if (hole - h) % g["slots"] < (nxt - h) % g["slots"]:
+                struct.pack_into("<QII", hm, 16 * hole, kk, v_at(nxt), 0)
+                struct.pack_into("<QII", hm, 16 * nxt, 0, 0, 0)
+                hole = nxt
+                moved += 1
+        struct.pack_into("<QII", hm, 16 * hole, 0, 0, 0)      # 最后把空位显式清零
+        writes.append((g["hm"], bytes(hm)))
+        print(f"    搬移 {moved} 条后续记录，最终空槽 {hole}")
+        dst_row = row
+    else:
+        if lookup(original, g, key)[0] is not None:
+            raise SystemExit(f"✗ 键 0x{key:016X} 已经在哈希图里（新增请换一个键；删除请加 --delete）")
+        if a.copy_row_from and a.row is not None:
+            raise SystemExit("✗ --row 与 --copy-row-from 只能给一个")
+
+        if a.copy_row_from:
+            src_key = int(a.copy_row_from, 0)
+            sslot, src_row = lookup(original, g, src_key)
+            if sslot is None:
+                raise SystemExit(f"✗ 源键 0x{src_key:016X} 不在表里")
+            used = {struct.unpack_from("<I", original, g["hm"] + 16 * i + 8)[0]
+                    for i in range(g["slots"])
+                    if struct.unpack_from("<Q", original, g["hm"] + 16 * i)[0]}
+            orphans = [r for r in range(g["rows"]) if r not in used]
+            if not orphans:
+                raise SystemExit("✗ 没有孤儿行可放拷贝")
+            dst_row = orphans[0]
+            writes.append((g["row_base"] + dst_row * g["stride"],
+                           original[g["row_base"] + src_row * g["stride"]:
+                                    g["row_base"] + (src_row + 1) * g["stride"]]))
+            print(f"  源键 0x{src_key:016X} → 行 {src_row}；目标行 = 孤儿行 {dst_row}")
+        else:
+            if a.row is None:
+                raise SystemExit("✗ 需要 --row / --copy-row-from / --delete")
+            dst_row = a.row
+            if not 0 <= dst_row < g["rows"]:
+                raise SystemExit(f"✗ 行号 {dst_row} 越界（0..{g['rows'] - 1}）")
+            print(f"  目标行 = {dst_row}（只插键，不改行内容）")
+
+        slot = free_slot(original, g, key)
+        print(f"  插入位置：槽 {slot}（起点 {key % g['slots']}，探测 "
+              f"{(slot - key % g['slots']) % g['slots']} 步）")
+        writes.append((g["hm"] + 16 * slot, struct.pack("<QII", key, dst_row, 0)))
 
     blocks = parse_blocks(original)
     pad8 = (8 - len(original) % 8) % 8
     edited = bytearray(rebuild(original, blocks, pad8 + TAIL))
-    if row_bytes is not None:
-        edited[g["row_base"] + dst_row * g["stride"]:g["row_base"] + (dst_row + 1) * g["stride"]] = row_bytes
-    struct.pack_into("<QII", edited, g["hm"] + 16 * slot, key, dst_row, 0)
+    for off, blob in writes:
+        edited[off:off + len(blob)] = blob
 
     word_at = len(original) + pad8
     h0 = murmur64(original)
@@ -171,10 +205,9 @@ def main() -> int:
         print(f"  {'PASS' if cond else 'FAIL'}  {tag}{('  ' + detail) if detail else ''}")
 
     last_at = blocks[-1]["head"]
-    allowed = set(range(g["hm"] + 16 * slot, g["hm"] + 16 * slot + 16))
-    if row_bytes is not None:
-        allowed |= set(range(g["row_base"] + dst_row * g["stride"],
-                             g["row_base"] + (dst_row + 1) * g["stride"]))
+    allowed = set()
+    for off, blob in writes:
+        allowed |= set(range(off, off + len(blob)))
     allowed |= set(range(last_at + 16, last_at + 20))   # 末块 payload 尺寸字段
     allowed |= set(range(word_at, word_at + TAIL))
     diff = {i for i in range(len(original)) if original[i] != edited[i]}
@@ -184,15 +217,17 @@ def main() -> int:
           f"diff={len(diff)}，越界 {sorted(diff - allowed)[:5]}")
     check("G3 重算哈希 == 原始哈希", murmur64(bytes(edited)) == h0, f"0x{h0:016X}")
     got_slot, got_row = lookup(bytes(edited), g, key)
-    check("G4 新键查得到且行号正确", got_row == dst_row, f"槽 {got_slot} 行 {got_row}")
-    if row_bytes is not None:
-        back = bytes(edited[g["row_base"] + dst_row * g["stride"]:
-                            g["row_base"] + (dst_row + 1) * g["stride"]])
-        check("G4b 目标行内容 == 源行", back == row_bytes)
+    if a.delete:
+        check("G4 键已消失", got_slot is None)
+    else:
+        check("G4 新键查得到且行号正确", got_row == dst_row, f"槽 {got_slot} 行 {got_row}")
+        for off, blob in writes:
+            if off == g["row_base"] + dst_row * g["stride"]:
+                check("G4b 目标行内容 == 源行", bytes(edited[off:off + len(blob)]) == blob)
     ok_old = True
     for i in range(g["slots"]):
         k, v = struct.unpack_from("<QI", original, g["hm"] + 16 * i)
-        if not k:
+        if not k or (a.delete and k == key):
             continue
         if lookup(bytes(edited), g, k)[1] != v:
             ok_old = False
