@@ -183,6 +183,8 @@ python tools/murmur64.py <work>/readback.plain              # 必须仍等于锚
 并把四个字段记进账本（`backup_sha256` / `installed_sha256` / `installed_from` / `installed_at`）。
 回滚 = 把备份 `cp` 回去 + 核 sha256。
 
+> 工具输出末尾提到的 `dlbin_deploy.py` 是私有工作区的参考实现，**本仓库不含**；上面四行是它的最小等价物。
+
 ### Step 8 · 实机验证 + 记账
 
 | 字段类型 | 验法 | 关键 |

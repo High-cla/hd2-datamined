@@ -310,6 +310,9 @@ python tools/murmur64.py <work>/readback.plain        # 必须仍等于锚点哈
 
 回滚只需 `cp "<work>/backup/<名字>" "<游戏>/data/game/<名字>"`，再核一次 sha256。
 
+> `plain_edit.py` 结尾会提示 `tools/dlbin_deploy.py` —— 那是私有工作区里的参考实现（含账本与原子替换），
+> **本仓库不含**。上面三步就是它的最小等价物；想要自动化，按这四条字段自己包一层即可。
+
 ### Step 8 · 实机验证（先算预测，再看读数）
 
 | 字段类型 | 怎么验 | 注意 |
