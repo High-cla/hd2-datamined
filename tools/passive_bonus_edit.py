@@ -158,9 +158,13 @@ def main() -> int:
         if rec is None:
             raise SystemExit(f"✗ 没有 perk {perk}")
         row = struct.pack("<IIf", stat, flag, val)
-        if any(r[:8] == row[:8] for r in rec["sm"]):
-            print(f"  (perk {perk} 已有 sm stat={stat} {val:g}，跳过)")
+        # 去重口径与第三方一致：整行 12 B（stat + flag + value）。
+        # 早期我按前 8 B（stat+flag）去重，会连带挡掉「同一 stat 换一个值」这种加行 —— 语义更窄，已改回。
+        if any(r[:12] == row[:12] for r in rec["sm"]):
+            print(f"  (perk {perk} 已有完全相同的 sm stat={stat} {val:g}，跳过)")
             continue
+        if any(r[:8] == row[:8] for r in rec["sm"]):
+            print(f"  ⚠ perk {perk} 已有 stat={stat} 的另一条（值不同），按第三方的口径允许并存")
         rec["sm"].append(row)
         touched.add(perk)
         print(f"  perk {perk}: +sm stat={stat} value={val:g} flag={flag}（该 perk sm 行数 {len(rec['sm'])}）")
