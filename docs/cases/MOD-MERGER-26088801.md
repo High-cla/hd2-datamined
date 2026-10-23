@@ -69,6 +69,33 @@ python tools/dlbin_merge.py --vanilla <原版明文> \
 0x008EA40: mod_gr8.plain=0x05  vs  mod_conflict.plain=0x09
 ```
 
+### 3.1 第一次实机合成：投送舱三件 rig × GL-28 弹药行
+
+两个 mod 改的是**同一份** `generated_entities.dl_bin` 的不同块：
+
+| | 内容 | 落在哪个块 | 改动量 |
+|---|---|---|---|
+| **mod A** | rack 29 三件（Nova / Warp / GL-28）+ `+556` 设 3 | `HellpodRackComponentData 0xA98BB156` | 25 B / 4 段 |
+| **mod B** | GL-28 的联动弹药行两格改成 Maxigun 的值 | `WeaponLinkedAmmoComponentData 0x7A7039D8` | 5 B / 2 段 |
+
+```
+python tools/dlbin_merge.py --vanilla <原版明文>     --mod out/r8/entities.plain --mod out/r11/modB_gl28ammo.plain --out out/r11/merged.plain
+```
+
+读数：两份 mod 各带一段 tail 宿主（28 B / 12 B）被识别并**剔除脚手架 1 B**，
+真实改动 **30 B / 6 段**合并成一个 tail 宿主；`G1..G5` 全过，Murmur 复原 `0x8E49771B181FFAA1`。
+
+**合并正确性的离线证明**（比门禁更硬）：另做一份「一次改完」的参考件
+（在 mod A 的产物上直接叠加那两格），比较两者的**原版前缀**：
+
+| 比较 | 结果 |
+|---|---|
+| 前缀内差异字节 | **只有 1 个**，位置正是校正字所在 |
+| 除该字节外逐字节相同 | ✓ |
+| 合并件 Murmur | ✓ 与原生相同 |
+
+⇒ 合并产物与「一次改完」**只差校正字**（因为两者的 tail 长度不同）。已封装上机（`1c2fae0170cfa1d9`）。
+
 ## 4. 前提与边界
 
 | 项 | 说明 |
