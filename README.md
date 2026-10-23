@@ -49,7 +49,7 @@ python tools/plain_edit.py --plain tables/generated_projectile_settings.dl_bin \
 
 ```
 INDEX.md   ★ 唯一索引入口：按问题找 / 按类型浏览 / 能力明细 / 已验证结论
-BUILDS.md  每个 build 验证了什么、哪些结论跨 build 有效、新 build 到手先跑的三步
+BUILDS.md  换 build 的操作手册：三步 / 判读规则 / 锚点复验 / 基线存放（记录在 INDEX §2 builds/）
 docs/      33 篇文档（builds/ engine/ tables/ explosions/ boundaries/ cases/）
 tools/     离线工具链（解析 / 改字节 / 保哈希 / 行级编辑 + 门禁）
 tables/    三张很小的明文参数表，供离线验证解析器

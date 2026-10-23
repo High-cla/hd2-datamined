@@ -14,4 +14,4 @@
 | 已验证的核心结论（闸门 / 实体块 / 可选弹种 / 独立弹药池 / LoadoutEntry） | [INDEX §6](../INDEX.md#6-已验证的核心结论) |
 | 三态标记与自检 | [INDEX §7](../INDEX.md#7-三态标记与自检) |
 
-其它入口：**[BUILDS.md](../BUILDS.md)**（换 build 三步）· **[skills/hd2-file-route-mod](../skills/hd2-file-route-mod/SKILL.md)**（代理用方法论）。
+其它入口：**[BUILDS.md](../BUILDS.md)**（换 build 三步 + 锚点复验）· **[skills/hd2-file-route-mod](../skills/hd2-file-route-mod/SKILL.md)**（代理用方法论）。
