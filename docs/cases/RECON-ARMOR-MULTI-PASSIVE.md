@@ -325,3 +325,61 @@ sm 行：`{stat 槽位, 标志, 值}` —— 槽位 ✓（11–17，只见 7 个
 > ⚠ **本轮快速探测（按 64 B 逐行读 `+24/+28/+40`）拿到的值不像枚举**（`+24` 出现 793 种取值、
 > `+40` 593 种），说明**这 422 组的行跨距/对齐不是统一的 64 B**，或组里混了别的类型。
 > **所以这张表目前只有「类型名级」的认知，value 级一律算未知**，不要照这些偏移去写。
+
+## 10. memmod 时代的档案：效果确实分「Passive 行」和「Stat 行」两半（2026-10-24 补）
+
+上一节的疑问（sm 到底读不读）在旧知识库里已有答案，权威文件是：
+
+| 文件 | 内容 |
+|---|---|
+| `D:\mod\c11-recon\sdk-0.30.3\ArmorPassiveCatalog.json` | **32 个被动 × 逐行 `modifiers[]` / `stats[]` / `reader` / `follows` + 411 件甲的 kit 表** |
+| `D:\mod\c11-recon\sdk-0.30.3\docsrmor-passives.md` | SDK 的逐被动表（21 full / 10 partial / 1 unknown） |
+| `D:\mod\docs\CAPABILITIES.md` §1.4 / §1.4a | 判据与三条路；(b) 写 stat 组件被标「需授权」 |
+| `D:\mod\docs\HISTORY.md` | a6/a14 的过程、`(c) 加 stat 行` 被标「未证」 |
+
+**两半的分工**（`model.readers` 原文）：
+
+| 半 | 谁读 | 时机 |
+|---|---|---|
+| **passive 行（我们的 pm）** | `EntityAttribute 0x11D9DF0` 按 key 直接查 ⇒ `reader = direct` 才跟随换甲 | 运行期，随时 |
+| **stat 行（我们的 sm）** | `0x11DA190` 施加 → `SetStat 0xA076C0` 写入 | **仅出生时**，按「穿的那件甲」 |
+
+`description-only` 的官方解释原文：
+*"description text; the effect is a stat row the kit worn at spawn applies: a swap never changes it"* ——
+这正好合上我们观察到的 Acclimated（`direct`，改 pm 就生效）与 e15（`description-only`，叠 pm 无效）。
+
+### 10.1 目录与我们的二进制**逐条对上了**
+
+| 项 | 目录（SDK） | 我们的明文 | 结果 |
+|---|---|---|---|
+| `modifier type` | `Set=v=x` / `Add=v+=x` / `Multiply=v*=x` / `Time=v+=x` | 我们看到的 0/1/2/3 | ✓ **0=Set 1=Add 2=Multiply 3=Time**（之前只知 1/2） |
+| perk 16 `stats[]` | `[{13 primary reload, mul 1.3}, {12 ammo capacity, mul 1.2}]` | sm `(13,0,1.3) (12,0,1.2)` | ✓ |
+| perk 41 `stats[]` | `[{14 support reload, mul 1.3}]` | sm `(14,0,1.3)` | ✓ |
+| **全部 6 个带 stats 的 perk** | — | — | **逐条比对：0 处不一致** |
+| `+8` 字段 | 每个被动的 `icon`（perk 16 = `0x8667ED2CA6A6846F`） | `+8` 逐条相同 | ✓ **`+8` = 图标 id**，不是"族 id" |
+
+⇒ **sm 行布局确定：`{stat u32, add f32, mul f32}`** —— 我先前当成「标志位」的那 4 字节，其实是 **add 项**（全表都是 0.0）。
+
+### 10.2 stat 槽位的权威名字（7 个全齐）
+
+| stat | 名字 |
+|---:|---|
+| 11 | 未命名（目录注：`0x607ED0` 缩放一个整数数量） |
+| 12 | ammo capacity |
+| 13 | primary reload |
+| 14 | support reload |
+| 15 | sidearm reload |
+| 16 | sidearm draw / holster |
+| 17 | sidearm recoil |
+
+### 10.3 对当前实验的三条直接影响
+
+1. **必须穿 perk 16 的甲**：stat 行是「出生时穿的那件甲」施加的。
+   之前 sm13（主武器装填）读数为空，**头号嫌疑就是当时穿的甲不是 Siege-Ready** ——
+   后来 Acclimated 那次能生效，是因为那件甲确实带 perk 15。
+2. **`out/armor4` 正是旧档案里点名「未证」的那条路**：
+   HISTORY 原文 *"(c) 给 perk 16 的 stat 数组加一行 12 B 行 + count 2→3 ⇒ 多格写、
+   且第 3 行会不会被 `0x11DA190` 施加未证"*。我们这次就是去补这个洞。
+3. **`kits[]` 里没有 stat 行**（411 件甲只有 id/set/dlc/rarity/名字/wiki 三数字）⇒
+   「护甲值 / 速度 / 耐力」不走 stat 通道，它们在 wiki 记的是 `armorRating 100 / speed 500 / staminaRegen 100`，
+   文件里的落点仍未定位。
