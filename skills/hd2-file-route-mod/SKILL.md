@@ -41,13 +41,43 @@ metadata:
 
 | 需要 | 怎么确认 | 缺了怎么办 |
 |---|---|---|
-| `recipient.pk` / `recipient.sk` | 使用者自备；**本仓库不提供，也不该提供**；且必须是**游戏内置的那一对**（自造一对能让所有命令跑通，只在进游戏时失败）。只有 sk 也行：`pk = PrivateKey(sk).public_key` | 停：没 pk 封不回去，没 sk 解不开。三条已知来源与代价见 [WORKFLOW §1.2.1](../../docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) |
+| `recipient.pk` / `recipient.sk` | **不随仓库提供，但可以自己解出来** —— 完整配方见下方 **§2.1**（唯一外部实物是一份旧 build 的全量转储）。且必须是**游戏内置的那一对**：自造一对能让所有命令跑通，只在进游戏时失败。只有 sk 也行：`pk = PrivateKey(sk).public_key` | 既没有 dump、也没有别人给的一对 ⇒ 停：没 pk 封不回去，没 sk 解不开 |
 | build 对得上 | `appmanifest_553850.acf` 的 `buildid`；明文哈希 == §3 Step 1 的锚点 | 停：偏移整体作废，先跑 [BUILDS.md](../../BUILDS.md) §3 三步 |
 | 游戏已退出 | 任务管理器 / `Get-Process Helldivers2` | 关游戏：表在**启动时**读入，运行中替换会读到半份 |
 | `data/game` 是原版 | 没装过自己的 mod，或先 restore | 先 restore：否则 dump 的「原版」是你的负载（缓存污染的来源） |
 | 已备份 | 每张要动的表一份 sha256 备份 | 先备份：没有原版就不能回滚 |
 | Python 3.11+ / PyNaCl | `python -V`；`python -c "import nacl"` | `pip install pynacl`（只有解封/重封需要） |
 | 磁盘 | 实体表 47 MB ⇒ 备份 + 明文留 ~120 MB | 先拿小表把链路做通 |
+
+### 2.1 没有密钥怎么办：用一份旧 build 的全量转储自己解
+
+**这一节决定本技能能不能被独立复现。** 密钥不随仓库发，但**解开它所需的一切都在仓库里**；
+你唯一需要的外部实物是**一份 build `25480438` 的全量内存转储**（10 GB 级 minidump）。
+
+| 要素 | 值 / 位置 |
+|---|---|
+| 模块 | `helldivers2.exe` |
+| 公钥 RVA | `0x16532B0` |
+| 私钥 RVA | `0x1653160` |
+| 混淆 | 四段 LE qword **各 XOR `0xEB63463F0C116E2C`**，再拼成 32 B |
+| 读取 | `python tools/dump_read_rva.py <dump> --module helldivers2.exe --rva 0x1653160 --length 64`（10 GB 只 seek，不整读；`--list-modules` 先列模块与基址） |
+| 出处 | [DLBIN-SEALED-BOX §10](../../docs/engine/DLBIN-SEALED-BOX.md) |
+
+**为什么必须有 dump**：那些 RVA 是**加载后映像**的地址，而磁盘上的 exe 是 aPLib 打包的；
+一份运行时全量转储里已经是**解包后**的映像，直接按 RVA 读就跳过了解包这一步。
+
+**解完必须过三重验证**，否则你拿到的是别的 build 的密钥：
+
+| 检查 | 判据 |
+|---|---|
+| `X25519(sk) == pk` | 且与映像里那段 pk 逐字节一致 |
+| 用 sk 解当前 build 的原版被动表 | 4,016 B，sha256 与指南附录 A 一致 |
+| 解出的战备表**内容哈希** | `04BBE33EF809862A` |
+
+> **三态：✓ 已在本项目实测**（这一对就是这么来的），但两个边界要说清：
+> ① RVA 属于 `25480438`。若手上只有**当前 build** 的 dump，RVA 不同，得自己重新定位 ——
+> 仓库里唯一的自动找法是 `tools/dlbin_keyhunt.py`，**它没有成功记录**，不要当可行路径。
+> ② 那份 10 GB 转储**不在仓库里**，也不会在（体积 + 含密钥）。你需要自己留过，或从社区获取。
 
 ## 3. 分步链路（Step 0 选表 + 十步执行）
 
