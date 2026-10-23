@@ -152,6 +152,8 @@ python tools/stratagem_tune.py --plain <work>/generated_stratagem_settings.dl_bi
 python tools/plain_edit.py --plain <plain> --out <out.plain> --set 0x2DD8=f32:5.0
 ```
 
+> **偏移的两种写法别对不上**：工具 stdout 用**十进制**（`cooldown +104` 就是本文的 `+0x68`），本文与字段表用十六进制；`--set` 的偏移走 `int(x, 0)`，写 `0x2DD8` 最稳（十进制也收）。
+
 值语法，用一次「整行被抹掉」换来的：
 
 | 写法 | 实际字节 | 结论 |
