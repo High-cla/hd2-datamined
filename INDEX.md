@@ -33,7 +33,7 @@
 | 武器数值 / 可选弹种 / 独立弹药池 | [ENTITY-TABLE](docs/tables/ENTITY-TABLE-25988413.md) | §9 | `25988413` |
 | 武器配件与槽位 | [WEAPON-CUSTOMIZATION-DECODED](docs/tables/WEAPON-CUSTOMIZATION-DECODED.md) | 全文 | `25988413` |
 | **改武器伤害 / 穿甲** | [DAMAGE-SETTINGS](docs/tables/DAMAGE-SETTINGS-26088801.md) | **§2 字段图 · §4 共享行 · §5 宿主策略**（行内零 padding 也能改） | `26088801` |
-| **武器备弹 / 让有背包的武器自带备弹** | [WEAPON-AMMO-RESERVE](docs/tables/WEAPON-AMMO-RESERVE-26088801.md) | **§2 `+0x50/+0x54/+0x58` · §3 背包弹药 · §5 清空槽位≠少一件** | `26088801` |
+| **武器备弹 / 让背包武器自带备弹** | [WEAPON-AMMO-RESERVE](docs/tables/WEAPON-AMMO-RESERVE-26088801.md) | **§2 `Rounds +0x50/+0x54/+0x58` · §3 `Magazine +0x88/+0x8C/+0x94` · §5 四把配方** | `26088801` |
 | 弹幕轮数 / 每轮弹数 / 散布 | [STRATAGEM-FIELDS](docs/tables/STRATAGEM-FIELDS-26088801.md) · [ENTITY-TABLE](docs/tables/ENTITY-TABLE-25988413.md) | §3 散布 · §5 弹幕组件 | `26088801` |
 | **投送舱送什么（战备空投舱换载荷）** | [POD-RACK](docs/tables/POD-RACK-26088801.md) | **§1 槽位结构 · §2 前 N 个槽才生成 · §3 换物品配方** | `26088801` |
 | **换进来的物品只有紫问号 / 网格材质不加载** | [POD-RACK](docs/tables/POD-RACK-26088801.md) | **§4 两个包槽（`+0xA8` + `+0xF8`）· §5 item→包解析表** | `26088801` |
@@ -150,7 +150,7 @@
 | ★ [STRATAGEM-FIELDS-26088801](docs/tables/STRATAGEM-FIELDS-26088801.md) | 战备字段总表：面板公式（先预测后实测）、散布、**Eagle 回收（§5.4）**、条目 ID 重复=崩溃 | `26088801` |
 | ★ [DAMAGE-SETTINGS-26088801](docs/tables/DAMAGE-SETTINGS-26088801.md) | 伤害表 76 B 行字段图：5 张引用表 / 共享伤害行 / **行内零 padding 的宿主策略** / 完整改值链 | `26088801` |
 | ★ [POD-RACK-26088801](docs/tables/POD-RACK-26088801.md) | 投送舱换载荷：rack 568 B 行 / 槽位语义 / **`+0xA8`+`+0xF8` 双包声明** / item→包解析表 / 六轮实机 | `26088801` |
-| ★ [WEAPON-AMMO-RESERVE-26088801](docs/tables/WEAPON-AMMO-RESERVE-26088801.md) | 三种供弹模型 / `WeaponRounds` 行字段 / **背包供弹武器改成自带备弹（已实机）** / 清空槽位的坑 | `26088801` |
+| ★ [WEAPON-AMMO-RESERVE-26088801](docs/tables/WEAPON-AMMO-RESERVE-26088801.md) | 三种供弹模型 / `Rounds` 与 `Magazine` **两套备弹字段** / 五把背包武器改成自带备弹（已实机）/ 清空槽位的坑 | `26088801` |
 | [STRATAGEM-REFERENCE-CHAIN-25988413](docs/tables/STRATAGEM-REFERENCE-CHAIN-25988413.md) | 战备→弹丸→爆炸：只有弹丸↔爆炸一跳，战备→弹丸是否证 | `25988413` |
 
 ### `explosions/`
@@ -250,6 +250,7 @@
 | `pod_rack_swap.py` | 改 `HellpodRackComponentData` 槽位物品（投送舱换载荷），tail 宿主 + 9 道门禁 + 变异自检 | `murmur64.py`、`typelib.py` | ✓✓ 已实机（2026-10-23，六轮） |
 | `pod_loadout.py` | **投送舱换载荷 + 有限数量的跨包加载的通用产出**：名字→包/LOE id→自动判单包/双包→出可装文件（不部署） | `pod_rack_swap.py`、`plain_edit.py`、`dlbin_seal.py` | ✓ 产物与实机验证件逐字节一致 |
 | `entity_field_set.py` | **任意实体组件行任意字段**的通用写入（`--block`+`--key`+`--field`），tail 宿主 + 7 门禁，可链式 | `typelib.py`、`murmur64.py` | ✓✓ 已实机（AC-8 备弹 0→40/40）|
+| `entity_batch_set.py` | **批量字段写入**：一次 tail 宿主写多个组件/多行/多字段（文件只 +12 B），9 道门禁 | `entity_field_set.py`、`pod_rack_swap.py` | ✓ 产物与实机验证件逐字节一致 |
 | `expl_set.py` | 写爆炸行字段（半径 / 破片数 `+80` / 破片射弹 `+84`），带 6 道门禁 | `murmur64.py` | ✓✓ 已实机（毒气爆炸加 30 破片） |
 | `stratagem_tune.py` | 改战备表的 `+80` uses / `+84` call-in / `+104` cooldown；`--edit` 可重复，一次封装改多行。**默认 tail 宿主**保内容哈希；`--host-mode row` 已知会崩，永不传 | 标准库（`murmur64.py` + `typelib.py`） | ✓✓ 已实机：EAGLE. AIRSTRIKE `+104` 15→4 + EAGLE. REARM 150→5，整份只差 5 字节、哈希仍复原，面板 7→2 秒 / 任务内回收 150→3 秒多（`26088801`） |
 | `patch_compose.py` | 数据路线 mod 的离线合成器：`scan` 查各包槽位与空洞、`merge` 求并集（同 id 不同内容=冲突，默认拒绝）+ 逐条回读验证、`install` 只写下一个连续槽位 | 标准库 + `srkit.container` | ✓ 实测把 bones/material/texture/lua 共 7 条合进一个补丁，toc 与 gpu 附流逐条一致 |
@@ -336,7 +337,7 @@
 | **改现有伤害行的数值**（标准 / 耐久 / 穿甲 / 状态强度） | ✓✓ 实机（`26088801`：`116 +4` 改成 1 → 面板「伤害」直接显示 **001**，AR-23 / AR-23A / StA-52 / M-105 同时变；`25988413`：90→900 → AR-23 与 M-105 同时变高伤）—— 见 [DAMAGE-SETTINGS](docs/tables/DAMAGE-SETTINGS-26088801.md) |
 | **复用无主行「自制」一条伤害行**（整行改写 + 借另一条无主行付哈希） | ✓ 离线门禁通过（`dmg_custom_row.py`）；**⚠ 未实机** |
 | **投送舱换载荷**：改 rack 槽位决定空投舱送什么 | **✓✓ 实机**（`26088801`：rack 29 → GL-21+B-1 / GL-28 双件 / Nova+Warp 双件）—— 见 [POD-RACK](docs/tables/POD-RACK-26088801.md) |
-| **武器自带备弹**：把背包供弹武器（AC-8）改成自带备弹、不需要背包 | **✓✓ 实机**（`+0x50` 备弹上限 0→40 → 出现备弹且能装填；`+0x58` 初始 0→40 → 40/40；rack `+556` 2→1 → 只出一把）—— 见 [WEAPON-AMMO-RESERVE](docs/tables/WEAPON-AMMO-RESERVE-26088801.md) |
+| **武器自带备弹**：把背包供弹武器改成自带备弹、不需要背包 | **✓✓ 实机**（两套模型：`Rounds` 用 `+0x50/+0x54/+0x58`（AC-8），`Magazine` 用 `+0x88/+0x8C/+0x94`（GR-8 / Spear / RL-77 / W.A.S.P. 四把一次全绿）；rack `+556` 2→1 → 只出武器）—— 见 [WEAPON-AMMO-RESERVE](docs/tables/WEAPON-AMMO-RESERVE-26088801.md) |
 | **有限数量的跨包加载**（最多两个包）：`+0xA8`（物品包）+ `+0xF8`（武器的 LoadoutEntry）双声明口 ⇒ `pod_loadout.py` 一条命令出可装文件 | **✓✓ 实机**（同一 rack、同一对物品，只换 `+0xA8` → 谁出模型就跟着换；双包版两件全亮）—— 见 [LIMITED-CROSS-PACKAGE-LOADING](docs/engine/LIMITED-CROSS-PACKAGE-LOADING-26088801.md) |
 | 解锁未发布物品（`LoadoutEntry.selectable`） | ✗ 已否证（发布数据里没有这个开关） |
 
