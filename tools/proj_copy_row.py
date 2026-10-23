@@ -22,10 +22,18 @@
 from __future__ import annotations
 
 import argparse
+import pathlib
 import struct
 import sys
 
-sys.path.insert(0, r"D:\mod\work\devkit\tools")
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+
+for _stream in (sys.stdout, sys.stderr):          # Windows 控制台默认 GBK，不含 ✗/⚠
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:                                        # noqa: BLE001
+        pass
+
 from murmur64 import murmur64, padding_word_for_hash  # noqa: E402
 
 EXPECTED_HASH = 0x946A4FE5FAAAE076   # game.dll 里 projectile 明文的内容哈希
