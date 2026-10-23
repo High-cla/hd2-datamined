@@ -26,7 +26,7 @@
 | Eagle 面板冷却公式 | **✓ 实机** | 基值 80 → 面板 **38 秒**，排除 `floor(base/2)`；真因子 ×0.5×0.95（§11.10） |
 | `+0x60` 语义 | **⚠ 未证** | `EAGLE. REARM` = 15.0，`EAGLE. AIRSTRIKE` = 0.0；没做过改动实验 |
 | 20 张零空位表用 tail 宿主 | **⚠ 未证** | 只在战备表 / 实体表实机；其余逐表未验（§9.5 / §10.3） |
-| `damage_settings` 改伤害 | **⚠ 未证** | `DamageInfo` 76 B / 8 成员覆盖满，零 padding，没有可用宿主 |
+| `damage_settings` 改伤害 | **✓ 实机** | 面板「伤害」直接跟着变（改成 1 → **001**）。`DamageInfo` 76 B / 8 成员**行内**零 padding，但宿主可以放**文件尾**（tail +8）或借别的无主行 → [DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)。**零 padding 是「行内」事实，不是「文件内」事实** |
 | 加行新增可见战备 / 解锁未发布物品 | **✗ 否证** | 加行能进游戏，面板不显示；成员资格在 55 张表外（§10.3） |
 | 给武器新增独立弹种行 | **✗ 否证** | 四个变体全 `0xC000000D`；只能改现有行（§10.3） |
 | 用 `.patch_N` 覆盖 `data/game/*.dl_bin` | **✗ 否证** | 不在 `bundle_database.data`，引擎按路径直读加密松文件（§10.3） |
@@ -184,7 +184,7 @@ python tools/murmur64.py   <work>/generated_stratagem_settings.dl_bin          #
 | 风险 | 缓存被已部署的 mod 污染（§2.4） | 解到的是改过的文件；漏解 typelib |
 | 必做 | 抽样哈希 = 锚点 | 每张都哈希 = 锚点 |
 
-### 2.3 三个自检与四张表的锚点
+### 2.3 三个自检与五张表的锚点
 
 拿到明文，先做这三件事，缺一不可：
 
@@ -198,6 +198,7 @@ python tools/murmur64.py   <work>/generated_stratagem_settings.dl_bin          #
 | `generated_explosion_settings` | 68,156 | 68,204 | 1 组 / 424 行 / 152 B | `2ABCD21D2536373D` |
 | `generated_projectile_settings` | 96,604 | 96,652 | 1 组 / 355 行 / 272 B | `946A4FE5FAAAE076` |
 | `generated_entities` | 47,259,396 | 47,259,444 | 275 个 `LDLD` 块 | `8E49771B181FFAA1` |
+| `generated_damage_settings` | 50,336 | 50,384 | 2 组 / 661 行 / 76 B | `D03587CCBD2FECFC` |
 
 **哈希对不上时不要往下走**。三种常见原因：build 不是 `26088801`；解到了已部署的 mod 负载；`--key` 用错 / stream 不对。`open-key` 用错密钥会直接抛 `CryptoError`；`unseal` 用错 stream 只打一行 `WARNING: plaintext does not parse (wrong stream?)` 然后**照样写文件并返回 0** —— 所以永远以哈希为准，不以退出码为准。
 
@@ -338,7 +339,7 @@ python tools/plain_edit.py --plain <work>/generated_stratagem_settings.dl_bin \
 | 新可见战备 / 解锁未发布物品 | **不在 55 张表** | — | ✗ 否证 |
 | 自定义名称 / 描述文本 | `.strings` 语料 | — | ✗ 另一条路线 |
 | 战备攻击参数（`num_bombs` / `num_salvos` / `area_size` / `fire_height`） | **不在明文表** | bundle 里的战备攻击定义 | ✗ 全扫空 |
-| 伤害 / 穿甲（`DamageInfo`） | `damage_settings` | 76 B / 8 成员覆盖满 | ⚠ 零 padding，暂无宿主方案 |
+| 伤害 / 穿甲（`DamageInfo`） | `damage_settings` | 76 B / 8 成员，**行内**零 padding；宿主用 tail（或借无主行）（[DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)） | **✓ 实机**（面板可见） |
 
 > 选表的第一原则：**面板上不显示的数，不要先假定它不在表里，也不要假定它在战备行里**。轮数与散布最终都在实体表，`+0x3C` 只是投放方式枚举 —— 见 §3.6 的反面教材。
 >
@@ -1197,13 +1198,13 @@ base 80 之所以能判决，是因为 80 × 0.475 = **38.0 恰好整数**，两
 3. **`+0x60` 语义**：`EAGLE. REARM` = 15.0、`EAGLE. AIRSTRIKE` = 0.0；没有改动实验。先做单行改值，观察面板/任务内是否有可读变化。
 4. **20 张零空位表的 tail +8**：逐表进游戏测试；优先 `planet_override` / `planet_color_set` / `weather_color_set`（连 L3 都是 0）。
 5. **块头 L1 宿主**：`wide` 必须保持 1 的受约束反解；目前只有设计，没有实机。
-6. **`damage_settings` 的宿主方案**：`DamageInfo` 76 B / 8 成员覆盖满，零 padding；需要新的宿主（别的组 / 块头 / 自造结构）才能改伤害。
+6. ~~**`damage_settings` 的宿主方案**~~ **已解**：`DamageInfo` 的零 padding 只是**行内**，推不出「文件内没有宿主」；宿主走「别的无主行的空状态槽」，或者 tail 追加 8 B，见 [DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)。剩下的只是**实机复核**，不是方法缺口。
 7. **给武器新增独立弹种行**：四个变体全 `0xC000000D`，根因未定位；在根因清楚前只改现有行。
 8. **`table_dictionary.sample_rows` 修复**：把 `rows` / `rows+blob` 加进判定元组，重新生成 `TABLE-DICTIONARY-25988413.md`；否则样本列一直错位。
 9. **`stratagem_tune` 补容器重解析**：对齐 `plain_edit` 的 G6，避免只改 `payload_size` 不验块链。
 10. **部署器内容预检**：`install` 前增加「能否解密 + 明文哈希门禁 + `LDLD` 自洽」三项；账本加 `build` 与备份 staleness。
 11. **seed / build 绑定**：`murmur64` 的 seed 硬编码，工具链没有任何一处把它与 build 号绑定；换 seed 时全部门禁会静默通过。
-12. **更多表的锚点**：目前只记录了 4 张表的明文 `Murmur64A`；建议另行留档全表 55 张的锚点（`_index.json` 目前只有 sha256，没有 Murmur），换 build 时逐表比对。
+12. **更多表的锚点**：目前只记录了 5 张表的明文 `Murmur64A`；建议另行留档全表 55 张的锚点（`_index.json` 目前只有 sha256，没有 Murmur），换 build 时逐表比对。
 
 ---
 
@@ -1232,3 +1233,4 @@ wiki（helldivers.wiki.gg）只用于交叉核对字段语义与参考数值，�
 | 2026-10-23 | 本版：按「适用范围 → 取明文 → 定位 → 保哈希 → 门禁 → 封装 → 部署 → 验证 → 记账 → 坑 → 实例」重排；补 2026-10-23 工具只读审计（29 条）、语义 / 资源扩展坑（33 条）、路线边界（14 条）；修正 Eagle 校正字偏移为 `0x141D0`；否证「`--edit` 串两次会失效」；补部署三件套 / 盘上回读 / 多 writer 冲突；明确 `dlbin_deploy.py` / `ent_set.py` 未随仓库发布 |
 | 2026-10-23 | 复核修订：删掉会照抄必崩的 `--appmanifest` 路径；新增 §1.2.1（取密钥来源与本仓库不能凭空 bootstrap）、§2.5（哈希 == 锚点识别不了保哈希的 mod）、§2.6（无密钥预演）、§7.8（PowerShell 等价）；§3.1 改为「LDLD 三种形态 / 43 张可写」，§4.6 点名 7 张「尾部残留」表；§4.7 末块算术与 `+12` 落实机；§5.2 门禁改为「默认 7 行 / `--set-type` 8 行」并点明 `stratagem_tune` 的 G6 是记录级；§9.4 补 `installed_at` / `restored_at`；§10.3 #55 从 `✗` 降为 `⚠`；§10.4 去掉可照做的操作细节并标 `25988413`；§3.5 拆开「换爆炸」与「换弹头」；`+0x54` 的分层口径改为「111 行非零 + 差值分层」 |
 | 2026-10-23 | **架构定型：本文件与 `docs/` 成为唯一知识库，技能只留方法论**。① 删除 `tools/extract_seal_material.py`（借第三方 mod 固定 ephemeral 的方案已弃用，`max_len` 卡 65,504 B）并移除 `DLBIN-SEALED-BOX` §7 里印着的 `epk` / `poly` 十六进制（`poly` = Poly1305 密钥，属密钥材料）；② §1.2.1 由「三条来源」改为「两条」，并写明**一份旧 build 转储即可自解**；③ 删除 `refs/filediver-strings.go`（BSD-3 源码拷贝、全仓 0 引用、能力已由 `stratagem_display_names.py` 独立重实现）；④ 技能 `SKILL.md` 由 499 行重写为 213 行的纯方法论 + 知识库索引 |
+| 2026-10-23 | **伤害表打开**（`26088801`）：`damage_settings` 的四处「零 padding 无宿主」改成「行内零 padding、宿主在别的行」（§0 / §3.5 / §12 #6）；§2.3 加第 5 张锚点 `D03587CCBD2FECFC`；新增 [DAMAGE-SETTINGS](../tables/DAMAGE-SETTINGS-26088801.md)（字段图 / 5 张引用表 / 共享行 / 宿主策略） |

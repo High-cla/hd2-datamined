@@ -284,6 +284,10 @@ local material = (function() return {
 ⇒ 雾色表（1 组、组头 @0x4，`header+16=0x14` 不对齐）**根本不可能同时改内容又保哈希**，
 那次崩是必然的，不是封装问题。
 
+`damage_settings` 的这个 **0** 只说明「**组头**没有可用的对齐字」——**不是**「这张表没有宿主」。
+它的 `DamageInfo` 是**行内**零 padding，但宿主可以借**别的无主行**的空状态槽，或者在文件尾追加 8 B；
+见 [DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)。
+
 #### 7.2.3 用作者示例做的第一次合法写回（已部署，待实机）
 
 ```
@@ -301,9 +305,14 @@ dlbin_seal.py seal-material → 5,040 B，tag 1c984dae27a2729770c4acd3a0a7f98c
 
 #### 7.2.4 对另外三张表的含义
 
-`damage` / `planet_override` / `planet_types` 没有对齐的组头填充字，若要用，
-必须像指南 §8.1 的载具示例那样**改用记录级填充**（先解析类型库 `LTLD` 拿到字段偏移与 padding）。
-在那之前，这三张表都改不了 —— 不是封装问题，是没有可承载哈希校正的空闲字节。
+`damage` / `planet_override` / `planet_types` 都没有对齐的组头填充字 —— 但**其中一张已经打开了**，结论要分开：
+
+| 表 | 现在的结论 |
+|---|---|
+| `damage_settings` | **可改**（`26088801` 已离线过门禁）：`DamageInfo` 是**行内**零 padding，但**文件内**有宿主 —— 借别的无主行的空状态槽，或 tail 追加 8 B。见 [DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略) |
+| `planet_override` / `planet_types` | 仍无方案：既没有对齐的组头字，也**没有**做过「记录级填充 / 借行」的验证 |
+
+⇒ **「组头没有对齐字」不等于「这张表改不了」**：前者是**组头 / 行内**的事实，后者是**整份文件**的结论。
 
 另一条路仍是拿到 `recipient_pk`：指南 §4.2 给了旧构建初始化映像的两个 RVA
 （公钥 `0x16532B0`、私钥 `0x1653160`，四段 qword 各 XOR `0xEB63463F0C116E2C`），
@@ -406,11 +415,12 @@ LTLD v4  types=1208  enums=345  members=7349  enum_values=9072  字符串表 0 B
 
 ### 12.1 审计规则
 
-改内容必须保住 `MurmurHash64A`，只能用"语义为空的 8 字节对齐字"来反解。两个来源：
+改内容必须保住 `MurmurHash64A`，只能用"语义为空的 8 字节对齐字"来反解。三个来源：
 
 1. **组头 word**：`header+16` 那个 8 字节（1 字节 Is64Bit + 7 字节保留区）。要求它在文件里 8 字节对齐，
    且解出来的低字节仍为 1；搜索旋钮用第一个组头的保留字节。
 2. **记录级 padding**：类型描述符里没有任何成员覆盖的字节，取其中完整的 8 字节对齐字。
+3. **借别的行**：另一条「无主行」（不被任何 `DamageInfoType` 字段引用）里的空 8 字节对齐字 —— 伤害表就是这样打开的（[DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)）。
 
 ### 12.2 结果（`typelib.py audit`）
 
@@ -419,21 +429,25 @@ LTLD v4  types=1208  enums=345  members=7349  enum_values=9072  字符串表 0 B
 | `customization_passive_bonuses` | 33 | **7** | ✓ 已实测可改（6/6 兴奋剂）|
 | `stratagem_settings` | 12 | **4** | ✓ 可改（**新解锁**：战备冷却/次数）|
 | `weapon_customization_settings` | 9 | **4** | ✓ 可改（**新解锁**：武器改装数值）|
-| `damage_settings` | 2 | 0 | ✗ 组头都不对齐；元素类型 `0x260CBE2B`（76 B / 8 成员）**零 padding** |
+| `damage_settings` | 2 | 0 | ⚠ 组头都不对齐、元素类型 `0x260CBE2B`（76 B / 8 成员）**行内零 padding**；宿主改借**别的无主行**的空状态槽（[DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)） |
 | `customization_armor_sets` | 422 | 0 | ✗ 组类型不在类型库里，记录 padding 无法判定 |
 | `projectile_settings` | 1 | 0 | ✗ 同上 |
 | `explosion_settings` | 1 | 0 | ✗ 同上 |
 | `planet_data` / `region_settings` / `zone_data` | — | — | ✗ **不是 LDLD 容器**（解析报 trailing bytes / bad magic），需要先认容器格式 |
 
 `DamageSettings` 的根结构是 16 字节 `<qQ>`（数组偏移+数量），元素类型 `0x260CBE2B`：76 字节、
-8 个成员、覆盖满、**没有一字节空隙**。所以这张表在当前方法下确实改不了 —— 不是没找对地方。
+8 个成员、覆盖满、**行内没有一字节空隙**。
+
+**但「行内没有空隙」推不出「这张表改不了」** —— 那是把「行内」当成了「文件内」。真正的判据是
+「这 8 字节有没有人读」：借**别的无主行**的空状态槽（或 tail 追加 8 B）都能保哈希改值，
+见 [DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)（`26088801` 离线门禁全过）。
 
 ### 12.3 老路线的对应恢复
 
 - **战备冷却/次数**（旧 build 用内存改的那类）→ 现在可以离线改 `stratagem_settings`；
 - **武器改装数值** → `weapon_customization_settings`；
 - **护甲被动** → 已通；
-- **伤害/穿甲** → 仍需别的手段（该表无空隙）；
+- **伤害/穿甲** → 已开：行内无空位，宿主借无主行的空状态槽（[DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)）；实机复核中；
 - **载具/敌人** → `entities`、`planet_data` 结构未解。
 
 ---
@@ -475,7 +489,7 @@ LTLD v4  types=1208  enums=345  members=7349  enum_values=9072  字符串表 0 B
 
 **下一步**：按 Go 结构把嵌套数组的文件偏移算出来，挑 8 字节对齐的 padding 字，
 再跑一遍"改 + 保哈希 + 封装"（armor_sets 422 条、projectile、explosion 三张表大概率能打开）。
-`DamageInfo`（76 B / 8 成员）确认零 padding，`damage_settings` 仍无解。
+`DamageInfo`（76 B / 8 成员）确认**行内**零 padding；但宿主可借无主行的空状态槽，`damage_settings` 已不再是「无解」（[DAMAGE-SETTINGS §5](../tables/DAMAGE-SETTINGS-26088801.md#5-宿主策略)）。
 
 
 

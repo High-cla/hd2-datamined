@@ -39,8 +39,8 @@ python tools/build_geometry_diff.py --sk <recipient.sk>   # -> refs/build-geomet
 
 ### 3.1 锚点复验（沿用旧偏移之前的最后一道闸）
 
-沿用旧偏移之前，明文哈希必须等于**留档的锚点**：`python tools/murmur64.py <解出的明文>`。四张表的锚点与三个自检见 [WORKFLOW §2.3](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md)；这四张在 `25988413 → 26088801` 之间明文逐字节相同（`refs/build-diff.json` 里 `status` 全为 `same`），所以旧锚点可以直接沿用。
-对不上就停，只有三种原因：build 不是这个 / 解到了自己部署的 mod 负载 / `--key` 用错。**其余 51 张表的 `Murmur` 锚点尚未留档**（`_index.json` 只记 sha256），它们的跨 build 复验只能走 `build_diff.py` 的明文哈希对照。
+沿用旧偏移之前，明文哈希必须等于**留档的锚点**：`python tools/murmur64.py <解出的明文>`。五张表的锚点与三个自检见 [WORKFLOW §2.3](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md)；这五张在 `25988413 → 26088801` 之间明文逐字节相同（`refs/build-diff.json` 里 `status` 全为 `same`），所以旧锚点可以直接沿用。
+对不上就停，只有三种原因：build 不是这个 / 解到了自己部署的 mod 负载 / `--key` 用错。**其余 50 张表的 `Murmur` 锚点尚未留档**（`_index.json` 只记 sha256），它们的跨 build 复验只能走 `build_diff.py` 的明文哈希对照。
 
 ## 4. 基线产物放在哪
 

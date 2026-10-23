@@ -14,7 +14,7 @@
 | 想亲手改一张表 | **[改盘上数据的完整工作流](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md)** —— 主线文档，8 步链 + 锚点哈希 + 92 条坑 |
 | 想让**代理**去做 | **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)** —— Agent Skills，只给方法论（每步的目的 / 判据 / 停的条件）+ 指回本页 |
 | 想查某个字段 / 某个数 | [§1 按问题找](#1-按问题找) |
-| 想按类型看全部 33 篇 | [§2 按类型浏览](#2-按类型浏览33-篇) |
+| 想按类型看全部 34 篇 | [§2 按类型浏览](#2-按类型浏览34-篇) |
 | 想找某个工具 / 看它验证到哪一步 | [§3 工具清单](#3-工具清单tools) |
 | 刚更新完游戏 | [BUILDS.md §3](BUILDS.md)（三步 + §3.1 锚点复验） |
 | 什么都没有、只想先摸摸 | [§4 无密钥也能练](#4-无密钥也能练) |
@@ -32,6 +32,7 @@
 | 换弹头（整行搬运）/ 换爆炸效果 | [EXPLOSION-PROJECTILE](docs/explosions/EXPLOSION-PROJECTILE-25988413.md) | 全文 | `25988413` |
 | 武器数值 / 可选弹种 / 独立弹药池 | [ENTITY-TABLE](docs/tables/ENTITY-TABLE-25988413.md) | §9 | `25988413` |
 | 武器配件与槽位 | [WEAPON-CUSTOMIZATION-DECODED](docs/tables/WEAPON-CUSTOMIZATION-DECODED.md) | 全文 | `25988413` |
+| **改武器伤害 / 穿甲** | [DAMAGE-SETTINGS](docs/tables/DAMAGE-SETTINGS-26088801.md) | **§2 字段图 · §4 共享行 · §5 宿主策略**（行内零 padding 也能改） | `26088801` |
 | 弹幕轮数 / 每轮弹数 / 散布 | [STRATAGEM-FIELDS](docs/tables/STRATAGEM-FIELDS-26088801.md) · [ENTITY-TABLE](docs/tables/ENTITY-TABLE-25988413.md) | §3 散布 · §5 弹幕组件 | `26088801` |
 
 ### 理解原理
@@ -86,13 +87,13 @@
 | wiki 里的原始解码数据能补哪些字段 | [WIKI-DATA-MODULES](docs/cases/WIKI-DATA-MODULES.md) · [WIKI-LOCAL-DB](docs/cases/WIKI-LOCAL-DB.md) |
 | 社区包怎么做 / 能不能共存 | [CASE-STUDY](docs/cases/CASE-STUDY-20261021.md) · [COMMUNITY-MODS-COMPAT](docs/cases/COMMUNITY-MODS-COMPAT-26088801.md) · [PATCH-SALVAGE](docs/builds/PATCH-SALVAGE-25988413.md) |
 
-## 2. 按类型浏览（33 篇）
+## 2. 按类型浏览（34 篇）
 
 | 类别 | 放什么 | 篇数 |
 |---|---|---:|
 | [`builds/`](docs/builds/) | 每个 build 的总体变化、差异、路线取舍 | 4 |
 | [`engine/`](docs/engine/) | 引擎侧：格式封装、API 面、Lua 运行时、探针、加载器 | 9 |
-| [`tables/`](docs/tables/) | 数据表与实体库的解码 / 改写 | 9 |
+| [`tables/`](docs/tables/) | 数据表与实体库的解码 / 改写 | 10 |
 | [`explosions/`](docs/explosions/) | 爆炸与弹头（玩法层 + 外观层） | 2 |
 | [`boundaries/`](docs/boundaries/) | 被挡住的路：进程内存、虚拟机 | 2 |
 | [`cases/`](docs/cases/) | 案例与外部参照：社区包、贴图委托、wiki 数据、**完整工作流** | 7 |
@@ -142,6 +143,7 @@
 | ★ [WEAPON-CUSTOMIZATION-DECODED](docs/tables/WEAPON-CUSTOMIZATION-DECODED.md) | 武器配件总表：88 B 行、九类槽位枚举、252 行可读导出 | `25988413` |
 | ★ [STRATAGEM-SETTINGS-DECODED](docs/tables/STRATAGEM-SETTINGS-DECODED.md) | 战备表 400 B 行 / 12 组解码，含三处旧结论的自我否证 | `25988413` |
 | ★ [STRATAGEM-FIELDS-26088801](docs/tables/STRATAGEM-FIELDS-26088801.md) | 战备字段总表：面板公式（先预测后实测）、散布、**Eagle 回收（§5.4）**、条目 ID 重复=崩溃 | `26088801` |
+| ★ [DAMAGE-SETTINGS-26088801](docs/tables/DAMAGE-SETTINGS-26088801.md) | 伤害表 76 B 行字段图：5 张引用表 / 共享伤害行 / **行内零 padding 的宿主策略** / 完整改值链 | `26088801` |
 | [STRATAGEM-REFERENCE-CHAIN-25988413](docs/tables/STRATAGEM-REFERENCE-CHAIN-25988413.md) | 战备→弹丸→爆炸：只有弹丸↔爆炸一跳，战备→弹丸是否证 | `25988413` |
 
 ### `explosions/`
@@ -162,7 +164,7 @@
 
 | 文档 | 一句话 | build |
 |---|---|---|
-| ★ [FILE-ROUTE-WORKFLOW-26088801](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) | **知识库主管线**：完整 8 步链、4 张表锚点、宿主三选（含三次崩溃归因）、**92 条坑**、EAGLE 双行案例、未决清单 | `26088801`（流程跨 build） |
+| ★ [FILE-ROUTE-WORKFLOW-26088801](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) | **知识库主管线**：完整 8 步链、5 张表锚点、宿主三选（含三次崩溃归因）、**92 条坑**、EAGLE 双行案例、未决清单 | `26088801`（流程跨 build） |
 | [CASE-STUDY-20261021](docs/cases/CASE-STUDY-20261021.md) | 三个社区包拆出来的路：`.patch_N` 能替换任意资源类型，纯资产 mod 不需要 loader | `25988413` |
 | [TEXTURE-SWAP-10X-APEX](docs/cases/TEXTURE-SWAP-10X-APEX.md) | 一次贴图替换委托：BC1 往返误差、材质槽判定、`patch_3` 部署与回滚 | 跨 build |
 | [COMMUNITY-MODS-COMPAT-26088801](docs/cases/COMMUNITY-MODS-COMPAT-26088801.md) | SSEO 与护甲多被动为何不能共存：争的是同一文件的基线所有权 | `26088801` |
@@ -321,7 +323,8 @@
 | **爆炸视觉 + 跨包加载**：整行克隆供体爆炸 · `+0xA8` 任意外观可移植 | ✓✓ 已实机（`26088801`） |
 | 战备：呼叫 / 冷却 / 散布 / 使用次数 / 弹幕轮数与每轮弹数 / **Eagle 回收时间与两套升级公式** | ✓✓ 已实机（`26088801`） |
 | 全表字典：55 张表几何 + 1,208 类型字段偏移 | ✓ 离线可复现 |
-| 自制伤害行（占无主行，写伤害 / 穿甲 / 状态强度） | ✓ 离线门禁通过 |
+| **改现有伤害行的数值**（标准 / 耐久 / 穿甲 / 状态强度） | ✓ 实机（`25988413`：`116 +4` 90→900 后 AR-23 与 M-105 同时变高伤）；`26088801` 复核中 ⚠ —— 见 [DAMAGE-SETTINGS](docs/tables/DAMAGE-SETTINGS-26088801.md) |
+| **复用无主行「自制」一条伤害行**（整行改写 + 借另一条无主行付哈希） | ✓ 离线门禁通过（`dmg_custom_row.py`）；**⚠ 未实机** |
 | 解锁未发布物品（`LoadoutEntry.selectable`） | ✗ 已否证（发布数据里没有这个开关） |
 
 ## 6. 已验证的核心结论
