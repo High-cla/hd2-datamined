@@ -14,7 +14,7 @@
 | 想亲手改一张表 | **[改盘上数据的完整工作流](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md)** —— 主线文档，8 步链 + 锚点哈希 + 92 条坑 |
 | 想让**代理**去做 | **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)** —— Agent Skills，只给方法论（每步的目的 / 判据 / 停的条件）+ 指回本页 |
 | 想查某个字段 / 某个数 | [§1 按问题找](#1-按问题找) |
-| 想按类型看全部 38 篇 | [§2 按类型浏览](#2-按类型浏览38-篇) |
+| 想按类型看全部 39 篇 | [§2 按类型浏览](#2-按类型浏览39-篇) |
 | 想找某个工具 / 看它验证到哪一步 | [§3 工具清单](#3-工具清单tools) |
 | 刚更新完游戏 | [BUILDS.md §3](BUILDS.md)（三步 + §3.1 锚点复验） |
 | 什么都没有、只想先摸摸 | [§4 无密钥也能练](#4-无密钥也能练) |
@@ -34,6 +34,7 @@
 | 武器配件与槽位 | [WEAPON-CUSTOMIZATION-DECODED](docs/tables/WEAPON-CUSTOMIZATION-DECODED.md) | 全文 | `25988413` |
 | **改武器伤害 / 穿甲** | [DAMAGE-SETTINGS](docs/tables/DAMAGE-SETTINGS-26088801.md) | **§2 字段图 · §4 共享行 · §5 宿主策略**（行内零 padding 也能改） | `26088801` |
 | **武器备弹 / 让背包武器自带备弹** | [WEAPON-AMMO-RESERVE](docs/tables/WEAPON-AMMO-RESERVE-26088801.md) | **§2 `Rounds +0x50/+0x54/+0x58` · §3 `Magazine +0x88/+0x8C/+0x94` · §5 四把配方** | `26088801` |
+| **近炸引信（空炸 / 破片弹）** | [PROJECTILE-PROXIMITY](docs/tables/PROJECTILE-PROXIMITY-26088801.md) | **§1 引信段字段 · §3 AC-8 为什么要找备弹 289 · §4 怎么改** | `26088801` |
 | 弹幕轮数 / 每轮弹数 / 散布 | [STRATAGEM-FIELDS](docs/tables/STRATAGEM-FIELDS-26088801.md) · [ENTITY-TABLE](docs/tables/ENTITY-TABLE-25988413.md) | §3 散布 · §5 弹幕组件 | `26088801` |
 | **投送舱送什么（战备空投舱换载荷）** | [POD-RACK](docs/tables/POD-RACK-26088801.md) | **§1 槽位结构 · §2 前 N 个槽才生成 · §3 换物品配方** | `26088801` |
 | **换进来的物品只有紫问号 / 网格材质不加载** | [POD-RACK](docs/tables/POD-RACK-26088801.md) | **§4 两个包槽（`+0xA8` + `+0xF8`）· §5 item→包解析表** | `26088801` |
@@ -92,13 +93,13 @@
 | **多个 mod 改同一份文件的不同字段，想同时用** | [MOD-MERGER](docs/cases/MOD-MERGER-26088801.md) | **§1 算法 · §2 用法 · §3 逐字节等价证明 · §4 前提与边界** | `26088801` |
 | 社区包怎么做 / 能不能共存 | [CASE-STUDY](docs/cases/CASE-STUDY-20261021.md) · [COMMUNITY-MODS-COMPAT](docs/cases/COMMUNITY-MODS-COMPAT-26088801.md) · [PATCH-SALVAGE](docs/builds/PATCH-SALVAGE-25988413.md) |
 
-## 2. 按类型浏览（38 篇）
+## 2. 按类型浏览（39 篇）
 
 | 类别 | 放什么 | 篇数 |
 |---|---|---:|
 | [`builds/`](docs/builds/) | 每个 build 的总体变化、差异、路线取舍 | 4 |
 | [`engine/`](docs/engine/) | 引擎侧：格式封装、API 面、Lua 运行时、探针、加载器、**有限数量的跨包加载** | 10 |
-| [`tables/`](docs/tables/) | 数据表与实体库的解码 / 改写 | 12 |
+| [`tables/`](docs/tables/) | 数据表与实体库的解码 / 改写 | 13 |
 | [`explosions/`](docs/explosions/) | 爆炸与弹头（玩法层 + 外观层） | 2 |
 | [`boundaries/`](docs/boundaries/) | 被挡住的路：进程内存、虚拟机 | 2 |
 | [`cases/`](docs/cases/) | 案例与外部参照：社区包、贴图委托、wiki 数据、**完整工作流** | 8 |
@@ -152,6 +153,7 @@
 | ★ [DAMAGE-SETTINGS-26088801](docs/tables/DAMAGE-SETTINGS-26088801.md) | 伤害表 76 B 行字段图：5 张引用表 / 共享伤害行 / **行内零 padding 的宿主策略** / 完整改值链 | `26088801` |
 | ★ [POD-RACK-26088801](docs/tables/POD-RACK-26088801.md) | 投送舱换载荷：rack 568 B 行 / 槽位语义 / **`+0xA8`+`+0xF8` 双包声明** / item→包解析表 / 六轮实机 | `26088801` |
 | ★ [WEAPON-AMMO-RESERVE-26088801](docs/tables/WEAPON-AMMO-RESERVE-26088801.md) | 三种供弹模型 / `Rounds` 与 `Magazine` **两套备弹字段** / 五把背包武器改成自带备弹（已实机）/ 清空槽位的坑 | `26088801` |
+| ★ [PROJECTILE-PROXIMITY-26088801](docs/tables/PROJECTILE-PROXIMITY-26088801.md) | **近炸引信字段**（弹丸行 `+0x94` 半径 / `+0x88` 阈值角 / `+0xA0` 保险距离）；AC-8 在备弹 289 上 | `26088801` |
 | [STRATAGEM-REFERENCE-CHAIN-25988413](docs/tables/STRATAGEM-REFERENCE-CHAIN-25988413.md) | 战备→弹丸→爆炸：只有弹丸↔爆炸一跳，战备→弹丸是否证 | `25988413` |
 
 ### `explosions/`
