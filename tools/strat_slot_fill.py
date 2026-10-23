@@ -59,9 +59,15 @@ def pick(rows: list[dict], name: str, idx: int | None) -> list[dict]:
         return [rows[idx]]
     if not name:
         raise SystemExit("✗ 需要 --name 或 --idx")
-    hits = [r for r in rows if name.lower() in (r["name"] or "").lower()]
+    needle = name.strip()
+    # 先按**全名精确**匹配；没有再退回子串。否则 "Machine Gun" 会连
+    # "Heavy Machine Gun" / "Machine Gun Sentry" 一起改掉（那是别的战备自己的声明）
+    exact = [r for r in rows if (r["name"] or "").strip().lower() == needle.lower()]
+    if exact:
+        return exact
+    hits = [r for r in rows if needle.lower() in (r["name"] or "").lower()]
     if not hits:
-        hits = [r for r in rows if name.lower() in str(r["idx"])]
+        hits = [r for r in rows if needle.lower() in str(r["idx"])]
     if not hits:
         raise SystemExit(f"✗ 没有名字含 {name!r} 的行；用 --list 看全表")
     return hits
