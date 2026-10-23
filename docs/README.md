@@ -10,6 +10,10 @@
 （八步流程 + 锚点哈希 + 16 条坑）；要交给代理自动做，用技能
 [`skills/hd2-file-route-mod`](../skills/hd2-file-route-mod/SKILL.md)。
 
+> **2026-10-23 复核后新增的四处**（都在那篇工作流里）：§1.2.1 取密钥的三条来源与各自代价（本仓库**不能** bootstrap）·
+> §2.5 为什么「哈希 == 锚点」识别不出保哈希的 mod（原版判定）· §2.6 **无密钥预演**（`tables/` 三张明文样本真跑 G1–G6）·
+> §3.4 通用走位（值 → 组/行 → 绝对偏移，含「每组 `payload_off` 不是 44」这条）· §7.8 PowerShell 等价命令。技能同步了这几处。
+
 **★ 优先读（结论最硬、复用价值最高）**：
 [TABLE-DICTIONARY](tables/TABLE-DICTIONARY-25988413.md) ·
 [ENTITY-TABLE](tables/ENTITY-TABLE-25988413.md) ·
@@ -88,7 +92,7 @@
 
 | 文档 | 一句话内容 | build |
 |---|---|---|
-| ★ [FILE-ROUTE-WORKFLOW-26088801.md](cases/FILE-ROUTE-WORKFLOW-26088801.md) | **改盘上数据的完整工作流**：密封盒 + 内容哈希两层、4 张表的锚点哈希、校正字宿主的三种选择（含三次崩溃的归因）、八步命令链、EAGLE 双行案例、16 条坑 —— 想动手改表从这篇进 | `26088801`（流程跨 build） |
+| ★ [FILE-ROUTE-WORKFLOW-26088801.md](cases/FILE-ROUTE-WORKFLOW-26088801.md) | **改盘上数据的完整工作流**：密封盒 + 内容哈希两层、4 张表的锚点哈希、校正字宿主的三种选择（含三次崩溃的归因）、八步命令链、EAGLE 双行案例、16 条主坑；另含取密钥的三条来源、无密钥预演、通用走位与原版判定 | `26088801`（流程跨 build） |
 | [CASE-STUDY-20261021.md](cases/CASE-STUDY-20261021.md) | 三个社区包拆解出来的路：`.patch_N` 能替换任意资源类型，纯资产 mod 不需要 loader | `25988413` |
 | [TEXTURE-SWAP-10X-APEX.md](cases/TEXTURE-SWAP-10X-APEX.md) | 一次贴图替换委托：BC1 往返误差、材质槽判定、`patch_3` 部署与回滚 | 跨 build |
 | [COMMUNITY-MODS-COMPAT-26088801.md](cases/COMMUNITY-MODS-COMPAT-26088801.md) | SSEO 与护甲多被动为何不能共存：争的是同一文件的基线所有权，不是加载顺序 | `26088801` |

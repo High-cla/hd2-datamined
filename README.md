@@ -75,6 +75,10 @@ PY
 只想看实体库那一张表的细节，见 [ENTITY-TABLE §5](docs/tables/ENTITY-TABLE-25988413.md)。
 改完文档跑一次 `python tools/check_links.py` 自检链接（0 断链才算过）。
 
+> **两条前置，写在动手之前**：① 密钥 —— `recipient.pk` / `recipient.sk` **需自备**，本仓库不提供，也**无法从仓库 bootstrap**（三条已知来源与各自代价见工作流 §1.2.1）；
+> ② 原版判定 —— 「明文哈希 == 锚点」**识别不出**保哈希的 mod，判原版要靠封包字节数或备份（§2.5）。
+> 完全没有密钥也能先练：`tables/` 三张明文样本 + `plain_edit.py` 能跑出完整 G1–G6（§2.6）；技能 [skills/hd2-file-route-mod/SKILL.md](skills/hd2-file-route-mod/SKILL.md) 是同一套流程的可执行版（Step 0–10，每步都写「停的条件」）。
+
 ## 文档索引
 
 `docs/` 下按类型分 6 类，逐篇索引（每篇一句话 + 适用 build）在 **[docs/README.md](docs/README.md)**：
