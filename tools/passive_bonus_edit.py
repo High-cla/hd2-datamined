@@ -106,6 +106,8 @@ def main() -> int:
     ap.add_argument("--show", action="store_true")
     ap.add_argument("--add-pm", action="append", default=[],
                     help="<perk>:<key>:<type>:<value>[:text=0x..]")
+    ap.add_argument("--add-sm", action="append", default=[],
+                    help="<perk>:<stat 槽位>:<value>[:flag]（sm 才是引擎真正施加的数值）")
     a = ap.parse_args()
 
     original = pathlib.Path(a.plain).read_bytes()
@@ -114,7 +116,7 @@ def main() -> int:
     recs = [decode(b["payload"]) for b in blocks]
     print(f"容器 {len(blocks)} 组  type 0x{PASSIVE_TYPE:08X}  原版 Murmur 0x{vanilla_hash:016X}")
 
-    if a.show or not a.add_pm:
+    if a.show or (not a.add_pm and not a.add_sm):
         print(f"{'id':>3} {'块':>7} {'pm':>3} {'sm':>3}  pm 行")
         for b, r in zip(blocks, recs):
             desc = " ".join(
@@ -145,6 +147,23 @@ def main() -> int:
         touched.add(perk)
         print(f"  perk {perk}: +pm 0x{key:08X} type={typ} value={val:g} text=0x{text:08X}"
               f"（该 perk pm 行数 {len(rec['pm'])}）")
+
+    for spec in a.add_sm:
+        parts = spec.split(":")
+        if len(parts) < 3:
+            raise SystemExit(f"✗ --add-sm 语法：<perk>:<stat>:<value>[:flag]，收到 {spec!r}")
+        perk, stat, val = int(parts[0], 0), int(parts[1], 0), float(parts[2])
+        flag = int(parts[3], 0) if len(parts) >= 4 else 0
+        rec = by_id.get(perk)
+        if rec is None:
+            raise SystemExit(f"✗ 没有 perk {perk}")
+        row = struct.pack("<IIf", stat, flag, val)
+        if any(r[:8] == row[:8] for r in rec["sm"]):
+            print(f"  (perk {perk} 已有 sm stat={stat} {val:g}，跳过)")
+            continue
+        rec["sm"].append(row)
+        touched.add(perk)
+        print(f"  perk {perk}: +sm stat={stat} value={val:g} flag={flag}（该 perk sm 行数 {len(rec['sm'])}）")
 
     if not touched:
         raise SystemExit("✗ 没有实际改动")
