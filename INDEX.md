@@ -27,6 +27,7 @@
 |---|---|---|---|
 | 战备冷却 / 呼叫时间 / 使用次数 | [STRATAGEM-FIELDS](docs/tables/STRATAGEM-FIELDS-26088801.md) | §2 面板公式 · §5.2 鹰式次数 · §5.3 float32 边界 | `26088801` |
 | **Eagle 回收时间** | [STRATAGEM-FIELDS](docs/tables/STRATAGEM-FIELDS-26088801.md) | **§5.4 `EAGLE. REARM` 独立行** | `26088801` |
+| **Eagle 冷却 / 回收的升级公式** | [STRATAGEM-FIELDS](docs/tables/STRATAGEM-FIELDS-26088801.md) | **§5.4.4**（两个公式都已实机解开） | `26088801` |
 | 爆炸半径 / 破片数 / 粒子 / 震屏 / 外观移植 | [EXPLOSION-VISUAL](docs/explosions/EXPLOSION-VISUAL-26088801.md) | §1 字段图 · §5 `+0xA8` 跨包加载 | `26088801` |
 | 换弹头（整行搬运）/ 换爆炸效果 | [EXPLOSION-PROJECTILE](docs/explosions/EXPLOSION-PROJECTILE-25988413.md) | 全文 | `25988413` |
 | 武器数值 / 可选弹种 / 独立弹药池 | [ENTITY-TABLE](docs/tables/ENTITY-TABLE-25988413.md) | §9 | `25988413` |
@@ -318,7 +319,7 @@
 | **独立弹药池**：`fnid=4` + `WeaponRounds` 两套弹丸 | ✓✓ 已实机（仅限原生有该行的 25 把） |
 | **爆炸/弹头**：换弹头整行 · 换爆炸（`+144`/`+156`）· 加破片（`+80`/`+84`） | ✓✓ 已实机 |
 | **爆炸视觉 + 跨包加载**：整行克隆供体爆炸 · `+0xA8` 任意外观可移植 | ✓✓ 已实机（`26088801`） |
-| 战备：呼叫 / 冷却 / 散布 / 使用次数 / 弹幕轮数与每轮弹数 / **Eagle 回收时间** | ✓✓ 已实机（`26088801`） |
+| 战备：呼叫 / 冷却 / 散布 / 使用次数 / 弹幕轮数与每轮弹数 / **Eagle 回收时间与两套升级公式** | ✓✓ 已实机（`26088801`） |
 | 全表字典：55 张表几何 + 1,208 类型字段偏移 | ✓ 离线可复现 |
 | 自制伤害行（占无主行，写伤害 / 穿甲 / 状态强度） | ✓ 离线门禁通过 |
 | 解锁未发布物品（`LoadoutEntry.selectable`） | ✗ 已否证（发布数据里没有这个开关） |
@@ -333,6 +334,10 @@
 3. **可选弹种两格**：`WeaponData +184`（`function_id`，**8 = 原生 ProgrammableAmmo**）＋ `ProjectileWeapon +576`（**备选弹丸 type id**）。备选弹**只贡献伤害 + 状态**，弹道来自主弹行。
 4. **独立弹药池**：`WeaponRoundsComponentData`，行内 `+64` 两个弹丸 id / `+72` 两个弹匣容量 / `+80` 两个备弹。全表 25 把里只有 SG-20 Halt 是 B≠A，也正好只有它是 `fnid=4`。正向配方与边界见 [ENTITY-TABLE §9](docs/tables/ENTITY-TABLE-25988413.md)。
 5. **未发布物品**：`LoadoutEntryComponentData` 只有 `{id, type, dlc_pack_id, equipment_tags[5]}` 32 字节，**没有 selectable**；带 selectable 的结构在发布数据里 0 命中 ⇒ 不是离线可翻的开关。
+6. **战备面板的两套升级公式**（`26088801` 实测，判决点设计见 [STRATAGEM-FIELDS §5.4.4](docs/tables/STRATAGEM-FIELDS-26088801.md)）：
+   - 冷却 `= round(+0x68 × 0.5 × 0.95)`（Eagle 额外吃 Liquid-Ventilated Cockpit；全体吃 Morale Augmentation）
+   - Eagle 回收 `= EAGLE. REARM +0x68 × 0.8 × 0.9 × 0.95 = ×0.684`
+   - 方法要点：**选一个让两种假设给出不同整数的基值**（80 → 38/40；100 → 80/72/68），比多测几个小值有效得多。
 
 ## 7. 三态标记与自检
 
