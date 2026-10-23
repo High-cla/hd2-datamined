@@ -14,7 +14,7 @@
 | 想亲手改一张表 | **[改盘上数据的完整工作流](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md)** —— 主线文档，8 步链 + 锚点哈希 + 92 条坑 |
 | 想让**代理**去做 | **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)** —— Agent Skills，只给方法论（每步的目的 / 判据 / 停的条件）+ 指回本页 |
 | 想查某个字段 / 某个数 | [§1 按问题找](#1-按问题找) |
-| 想按类型看全部 37 篇 | [§2 按类型浏览](#2-按类型浏览37-篇) |
+| 想按类型看全部 38 篇 | [§2 按类型浏览](#2-按类型浏览38-篇) |
 | 想找某个工具 / 看它验证到哪一步 | [§3 工具清单](#3-工具清单tools) |
 | 刚更新完游戏 | [BUILDS.md §3](BUILDS.md)（三步 + §3.1 锚点复验） |
 | 什么都没有、只想先摸摸 | [§4 无密钥也能练](#4-无密钥也能练) |
@@ -89,9 +89,10 @@
 |---|---|
 | 别人怎么把内部名接到显示名 | [PRIOR-ART-NAMING](docs/cases/PRIOR-ART-NAMING.md) |
 | wiki 里的原始解码数据能补哪些字段 | [WIKI-DATA-MODULES](docs/cases/WIKI-DATA-MODULES.md) · [WIKI-LOCAL-DB](docs/cases/WIKI-LOCAL-DB.md) |
+| **多个 mod 改同一份文件的不同字段，想同时用** | [MOD-MERGER](docs/cases/MOD-MERGER-26088801.md) | **§1 算法 · §2 用法 · §3 逐字节等价证明 · §4 前提与边界** | `26088801` |
 | 社区包怎么做 / 能不能共存 | [CASE-STUDY](docs/cases/CASE-STUDY-20261021.md) · [COMMUNITY-MODS-COMPAT](docs/cases/COMMUNITY-MODS-COMPAT-26088801.md) · [PATCH-SALVAGE](docs/builds/PATCH-SALVAGE-25988413.md) |
 
-## 2. 按类型浏览（37 篇）
+## 2. 按类型浏览（38 篇）
 
 | 类别 | 放什么 | 篇数 |
 |---|---|---:|
@@ -100,7 +101,7 @@
 | [`tables/`](docs/tables/) | 数据表与实体库的解码 / 改写 | 12 |
 | [`explosions/`](docs/explosions/) | 爆炸与弹头（玩法层 + 外观层） | 2 |
 | [`boundaries/`](docs/boundaries/) | 被挡住的路：进程内存、虚拟机 | 2 |
-| [`cases/`](docs/cases/) | 案例与外部参照：社区包、贴图委托、wiki 数据、**完整工作流** | 7 |
+| [`cases/`](docs/cases/) | 案例与外部参照：社区包、贴图委托、wiki 数据、**完整工作流** | 8 |
 
 ### `builds/`
 
@@ -178,6 +179,7 @@
 | [PRIOR-ART-NAMING](docs/cases/PRIOR-ART-NAMING.md) | 别人怎么把内部名接到显示名/页面（filediver / HD2Runtime / wiki），我们该借哪个 | 跨 build |
 | [WIKI-DATA-MODULES](docs/cases/WIKI-DATA-MODULES.md) | wiki `Module:` 命名空间里的原始解码数据清单，能补哪些字段名 | 跨 build |
 | [WIKI-LOCAL-DB](docs/cases/WIKI-LOCAL-DB.md) | 不抓 HTML：页面源码 + JSON 模块落本地 SQLite，一条命令查战备/武器全貌 | 跨 build |
+| ★ [MOD-MERGER-26088801](docs/cases/MOD-MERGER-26088801.md) | **多个 mod 改同一文件不同字段怎么共存**：抽语义 / 剔哈希脚手架 / 逐字节判冲突 / 逐字节等价证明 | `26088801` |
 
 ## 3. 工具清单（`tools/`）
 
@@ -251,6 +253,7 @@
 | `pod_loadout.py` | **投送舱换载荷 + 有限数量的跨包加载的通用产出**：名字→包/LOE id→自动判单包/双包→出可装文件（不部署） | `pod_rack_swap.py`、`plain_edit.py`、`dlbin_seal.py` | ✓ 产物与实机验证件逐字节一致 |
 | `entity_field_set.py` | **任意实体组件行任意字段**的通用写入（`--block`+`--key`+`--field`），tail 宿主 + 7 门禁，可链式 | `typelib.py`、`murmur64.py` | ✓✓ 已实机（AC-8 备弹 0→40/40）|
 | `entity_batch_set.py` | **批量字段写入**：一次 tail 宿主写多个组件/多行/多字段（文件只 +12 B），9 道门禁 | `entity_field_set.py`、`pod_rack_swap.py` | ✓ 产物与实机验证件逐字节一致 |
+| `dlbin_merge.py` | **mod 合并器**：多个保哈希 mod 取并集、剔除脚手架、判冲突、重解一个校正字；含 `--report-only` / `--on-conflict` | `murmur64.py` | ✓ 合并产物与「一次改完」逐字节相同 |
 | `expl_set.py` | 写爆炸行字段（半径 / 破片数 `+80` / 破片射弹 `+84`），带 6 道门禁 | `murmur64.py` | ✓✓ 已实机（毒气爆炸加 30 破片） |
 | `stratagem_tune.py` | 改战备表的 `+80` uses / `+84` call-in / `+104` cooldown；`--edit` 可重复，一次封装改多行。**默认 tail 宿主**保内容哈希；`--host-mode row` 已知会崩，永不传 | 标准库（`murmur64.py` + `typelib.py`） | ✓✓ 已实机：EAGLE. AIRSTRIKE `+104` 15→4 + EAGLE. REARM 150→5，整份只差 5 字节、哈希仍复原，面板 7→2 秒 / 任务内回收 150→3 秒多（`26088801`） |
 | `patch_compose.py` | 数据路线 mod 的离线合成器：`scan` 查各包槽位与空洞、`merge` 求并集（同 id 不同内容=冲突，默认拒绝）+ 逐条回读验证、`install` 只写下一个连续槽位 | 标准库 + `srkit.container` | ✓ 实测把 bones/material/texture/lua 共 7 条合进一个补丁，toc 与 gpu 附流逐条一致 |
