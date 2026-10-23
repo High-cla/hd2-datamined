@@ -383,3 +383,32 @@ sm 行：`{stat 槽位, 标志, 值}` —— 槽位 ✓（11–17，只见 7 个
 3. **`kits[]` 里没有 stat 行**（411 件甲只有 id/set/dlc/rarity/名字/wiki 三数字）⇒
    「护甲值 / 速度 / 耐力」不走 stat 通道，它们在 wiki 记的是 `armorRating 100 / speed 500 / staminaRegen 100`，
    文件里的落点仍未定位。
+
+## 11. stat 11 是什么？（2026-10-24 调查结论：**不是占位符**）
+
+**本地三处证据拼起来就够定性了**：
+
+| 来源 | 内容 |
+|---|---|
+| `ArmorPassiveCatalog.json` perk 14 UNFLINCHING | `stats: [{stat: 11, name: "unnamed (0x607ED0 scales an integer quantity)", add 0.0, mul 0.05, describedBy: null}]` |
+| 同上 `note` | *"armor_rating, stat 11 x0.05 (no modifier row) follow the kit worn (at spawn) instead"* |
+| `docs/armor-passives.md:230` | `14 UNFLINCHING partial: flinch_prevention (direct), armor_rating (armor rating, NO), radar_scan_interval (direct), stat 11 x0.05 (stat row, NO)` |
+| 我们的二进制 | perk 14 的 sm 只有一条：`stat=11, add=0.0, mul=0.05` ✓ 与目录逐值一致 |
+
+结论分三层：
+
+1. **它是真被施加的 stat，不是占位符** —— 有值（×0.05）、有施加路径（出生时 stat 行）、
+   而且 `describedBy: null` 说明它**没有对应的 pm 描述行**，所以护甲卡片上永远看不到它。
+   这正是它看起来"神秘"的原因：**它在 UI 上不存在，但在数据里活着**。
+2. **它为什么没名字**：SDK 的生成器只在代码里找到 `0x607ED0` 这一处"把一个**整数**数量乘以该值"，
+   没能把它接到任何一个语义名上，于是老实写成 `unnamed (…)`。
+   —— 也就是说这是**"有名字我们不知道"那一类**，不是"未完成"。
+3. **它大概率就是「受击时的视角/镜头冲击」缩放**：wiki 的 UNFLINCHING 词条写着
+   *"It reduces **damage recoil** by **95%** and tones down camera shakes when staggered"* ——
+   `1 − 0.95 = 0.05`，与数据里的 `×0.05` 精确吻合；而 perk 14 另外三条 pm
+   （`flinch_prevention` Set 0、`armor_rating` Add、`radar_scan_interval` Time 2.0）
+   已经分别对上了 wiki 说的另外三件事，剩下的就是它。
+
+> ⚠ 仍是推断的地方：wiki 说"damage recoil 95%"，我们只知道"某个整数 ×0.05"。
+> 判定实验（1 个变量）：把 perk 14 的 `stat 11` 从 **0.05 改成 1.0**，穿 UF-84 Doubt Killer
+> （Unflinching 甲）被打时看镜头冲击是否**恢复成普通甲那种晃动**。若恢复 ⇒ 名字钉死。
