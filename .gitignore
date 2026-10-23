@@ -16,3 +16,4 @@ streams/
 *.xor
 report.json
 tmp/
+out/
