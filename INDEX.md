@@ -36,7 +36,7 @@
 | 弹幕轮数 / 每轮弹数 / 散布 | [STRATAGEM-FIELDS](docs/tables/STRATAGEM-FIELDS-26088801.md) · [ENTITY-TABLE](docs/tables/ENTITY-TABLE-25988413.md) | §3 散布 · §5 弹幕组件 | `26088801` |
 | **投送舱送什么（战备空投舱换载荷）** | [POD-RACK](docs/tables/POD-RACK-26088801.md) | **§1 槽位结构 · §2 前 N 个槽才生成 · §3 换物品配方** | `26088801` |
 | **换进来的物品只有紫问号 / 网格材质不加载** | [POD-RACK](docs/tables/POD-RACK-26088801.md) | **§4 两个包槽（`+0xA8` + `+0xF8`）· §5 item→包解析表** | `26088801` |
-| **跨包资源加载（通用产出）** | [CROSS-PACKAGE-LOADING](docs/engine/CROSS-PACKAGE-LOADING-26088801.md) | **§2 三个可编辑量 · §3 解析链 · §5 一条命令 · §7 边界** | `26088801` |
+| **有限数量的跨包加载（通用产出）** | [LIMITED-CROSS-PACKAGE-LOADING](docs/engine/LIMITED-CROSS-PACKAGE-LOADING-26088801.md) | **§2 三个可编辑量 · §3 解析链 · §5 一条命令 · §7 边界** | `26088801` |
 
 ### 理解原理
 
@@ -95,7 +95,7 @@
 | 类别 | 放什么 | 篇数 |
 |---|---|---:|
 | [`builds/`](docs/builds/) | 每个 build 的总体变化、差异、路线取舍 | 4 |
-| [`engine/`](docs/engine/) | 引擎侧：格式封装、API 面、Lua 运行时、探针、加载器、**跨包加载** | 10 |
+| [`engine/`](docs/engine/) | 引擎侧：格式封装、API 面、Lua 运行时、探针、加载器、**有限数量的跨包加载** | 10 |
 | [`tables/`](docs/tables/) | 数据表与实体库的解码 / 改写 | 11 |
 | [`explosions/`](docs/explosions/) | 爆炸与弹头（玩法层 + 外观层） | 2 |
 | [`boundaries/`](docs/boundaries/) | 被挡住的路：进程内存、虚拟机 | 2 |
@@ -133,7 +133,7 @@
 | [GUI-HUD-25988413](docs/engine/GUI-HUD-25988413.md) | 纯 Lua 自绘屏幕文字：`Gui.*` 真实签名（三次崩溃换来） | `25988413` |
 | [LOADER-SPEC-25988413](docs/engine/LOADER-SPEC-25988413.md) | 共享加载器必须满足什么，含 `package.loadlib` + 原生 DLL 的最终否证 | `25988413` |
 | [PATCH-LOADER-DESIGN-26088801](docs/engine/PATCH-LOADER-DESIGN-26088801.md) | 数据文件路线不需要执行权：用离线合成器替掉 boot 覆盖 | `26088801` |
-| ★ [CROSS-PACKAGE-LOADING-26088801](docs/engine/CROSS-PACKAGE-LOADING-26088801.md) | **没有 runtime/ffi 之后怎么跨包加载资源**：`+0xA8`+`+0xF8` 双声明口 / 解析链 / 判定矩阵 / 边界 | `26088801` |
+| ★ [LIMITED-CROSS-PACKAGE-LOADING-26088801](docs/engine/LIMITED-CROSS-PACKAGE-LOADING-26088801.md) | **没有 runtime/ffi 之后怎么有限地跨包加载资源**：`+0xA8`+`+0xF8` 双声明口 / 解析链 / 判定矩阵 / 边界 | `26088801` |
 
 ### `tables/`
 
@@ -246,7 +246,7 @@
 | `entities_modeb.py` | 实体表：武器单元格编辑、可选弹种（模式 A/B）、双弹药池、hashmap 维护 | `murmur64.py` | ✓✓ 已实机（主宰/惩罚者/扫荡者） |
 | `proj_copy_row.py` | 整行搬运 272 B 射弹行（换弹头），带 5 道门禁 | `murmur64.py` | ✓✓ 已实机（Eruptor 弹头 → 主宰） |
 | `pod_rack_swap.py` | 改 `HellpodRackComponentData` 槽位物品（投送舱换载荷），tail 宿主 + 9 道门禁 + 变异自检 | `murmur64.py`、`typelib.py` | ✓✓ 已实机（2026-10-23，六轮） |
-| `pod_loadout.py` | **投送舱换载荷 + 跨包加载的通用产出**：名字→包/LOE id→自动判单包/双包→出可装文件（不部署） | `pod_rack_swap.py`、`plain_edit.py`、`dlbin_seal.py` | ✓ 产物与实机验证件逐字节一致 |
+| `pod_loadout.py` | **投送舱换载荷 + 有限数量的跨包加载的通用产出**：名字→包/LOE id→自动判单包/双包→出可装文件（不部署） | `pod_rack_swap.py`、`plain_edit.py`、`dlbin_seal.py` | ✓ 产物与实机验证件逐字节一致 |
 | `expl_set.py` | 写爆炸行字段（半径 / 破片数 `+80` / 破片射弹 `+84`），带 6 道门禁 | `murmur64.py` | ✓✓ 已实机（毒气爆炸加 30 破片） |
 | `stratagem_tune.py` | 改战备表的 `+80` uses / `+84` call-in / `+104` cooldown；`--edit` 可重复，一次封装改多行。**默认 tail 宿主**保内容哈希；`--host-mode row` 已知会崩，永不传 | 标准库（`murmur64.py` + `typelib.py`） | ✓✓ 已实机：EAGLE. AIRSTRIKE `+104` 15→4 + EAGLE. REARM 150→5，整份只差 5 字节、哈希仍复原，面板 7→2 秒 / 任务内回收 150→3 秒多（`26088801`） |
 | `patch_compose.py` | 数据路线 mod 的离线合成器：`scan` 查各包槽位与空洞、`merge` 求并集（同 id 不同内容=冲突，默认拒绝）+ 逐条回读验证、`install` 只写下一个连续槽位 | 标准库 + `srkit.container` | ✓ 实测把 bones/material/texture/lua 共 7 条合进一个补丁，toc 与 gpu 附流逐条一致 |
@@ -333,7 +333,7 @@
 | **改现有伤害行的数值**（标准 / 耐久 / 穿甲 / 状态强度） | ✓✓ 实机（`26088801`：`116 +4` 改成 1 → 面板「伤害」直接显示 **001**，AR-23 / AR-23A / StA-52 / M-105 同时变；`25988413`：90→900 → AR-23 与 M-105 同时变高伤）—— 见 [DAMAGE-SETTINGS](docs/tables/DAMAGE-SETTINGS-26088801.md) |
 | **复用无主行「自制」一条伤害行**（整行改写 + 借另一条无主行付哈希） | ✓ 离线门禁通过（`dmg_custom_row.py`）；**⚠ 未实机** |
 | **投送舱换载荷**：改 rack 槽位决定空投舱送什么 | **✓✓ 实机**（`26088801`：rack 29 → GL-21+B-1 / GL-28 双件 / Nova+Warp 双件）—— 见 [POD-RACK](docs/tables/POD-RACK-26088801.md) |
-| **物品资源跨包加载**：`+0xA8`（物品包）+ `+0xF8`（武器的 LoadoutEntry）双声明口 ⇒ `pod_loadout.py` 一条命令出可装文件 | **✓✓ 实机**（同一 rack、同一对物品，只换 `+0xA8` → 谁出模型就跟着换；双包版两件全亮）—— 见 [CROSS-PACKAGE-LOADING](docs/engine/CROSS-PACKAGE-LOADING-26088801.md) |
+| **有限数量的跨包加载**（最多两个包）：`+0xA8`（物品包）+ `+0xF8`（武器的 LoadoutEntry）双声明口 ⇒ `pod_loadout.py` 一条命令出可装文件 | **✓✓ 实机**（同一 rack、同一对物品，只换 `+0xA8` → 谁出模型就跟着换；双包版两件全亮）—— 见 [LIMITED-CROSS-PACKAGE-LOADING](docs/engine/LIMITED-CROSS-PACKAGE-LOADING-26088801.md) |
 | 解锁未发布物品（`LoadoutEntry.selectable`） | ✗ 已否证（发布数据里没有这个开关） |
 
 ## 6. 已验证的核心结论

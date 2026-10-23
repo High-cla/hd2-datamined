@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""pod_loadout.py -- 投送舱换载荷 + 跨包资源加载的**通用产出**。
+"""pod_loadout.py -- 投送舱换载荷 + **有限数量的跨包加载**的通用产出。
 
 给「哪条 rack + 一件武器（+ 可选一件背包）」，自动算出要改哪些字节、跑门禁、出可安装文件。
 
@@ -436,7 +436,7 @@ def cmd_build(a) -> int:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="投送舱换载荷 + 跨包资源加载（通用产出）")
+    ap = argparse.ArgumentParser(description="投送舱换载荷 + 有限数量的跨包加载（通用产出）")
     sub = ap.add_subparsers(dest="cmd", required=True)
     for name in ("show", "plan", "build"):
         p = sub.add_parser(name)
