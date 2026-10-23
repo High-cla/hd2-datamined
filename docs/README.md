@@ -12,6 +12,7 @@
 [EXPLOSION-VISUAL](explosions/EXPLOSION-VISUAL-26088801.md) ·
 [EXPLOSION-PROJECTILE](explosions/EXPLOSION-PROJECTILE-25988413.md) ·
 [STRATAGEM-SETTINGS-DECODED](tables/STRATAGEM-SETTINGS-DECODED.md) ·
+[STRATAGEM-FIELDS](tables/STRATAGEM-FIELDS-26088801.md) ·
 [WEAPON-CUSTOMIZATION-DECODED](tables/WEAPON-CUSTOMIZATION-DECODED.md) ·
 [LOADER-SPEC](engine/LOADER-SPEC-25988413.md)
 
@@ -19,7 +20,7 @@
 |---|---|---:|
 | `builds/` | 每个 build 的总体变化、差异、路线取舍 | 4 |
 | `engine/` | 引擎侧：格式封装、API 面、Lua 运行时、探针、加载器 | 9 |
-| `tables/` | 数据表与实体库的解码 / 改写 | 8 |
+| `tables/` | 数据表与实体库的解码 / 改写 | 9 |
 | `explosions/` | 爆炸与弹头（玩法层 + 外观层） | 2 |
 | `boundaries/` | 被挡住的路：进程内存、虚拟机 | 2 |
 | `cases/` | 案例与外部参照：社区包、贴图委托、wiki 数据 | 6 |
@@ -62,6 +63,7 @@
 | [ROW-NAMING-25988413.md](tables/ROW-NAMING-25988413.md) | 表内逐行名字的两条取法（指针法 vs 位置法）、判据，以及位置法取错过名的两张表 | `25988413` |
 | ★ [WEAPON-CUSTOMIZATION-DECODED.md](tables/WEAPON-CUSTOMIZATION-DECODED.md) | 武器配件总表：88 B 行结构、九类槽位枚举、252 行逐行可读导出 | `25988413` |
 | ★ [STRATAGEM-SETTINGS-DECODED.md](tables/STRATAGEM-SETTINGS-DECODED.md) | 战备表：400 B 行 / 12 组，`+104` 冷却与 `+80` 次数，含三处旧结论的自我否证 | `25988413` |
+| ★ [STRATAGEM-FIELDS-26088801.md](tables/STRATAGEM-FIELDS-26088801.md) | 战备字段总表：**呼叫时间/冷却面板公式**（先预测后实测）、散布 `+0x24` 实机、条目 ID 重复=崩溃、`+0x3C` 不是轮数 | `26088801` |
 | [STRATAGEM-REFERENCE-CHAIN-25988413.md](tables/STRATAGEM-REFERENCE-CHAIN-25988413.md) | 战备→弹丸→爆炸这条链：表内只有弹丸↔爆炸一跳，战备→弹丸是否证 | `25988413` |
 
 ## explosions/ —— 爆炸与弹头

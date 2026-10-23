@@ -57,7 +57,7 @@ VERDICT: READABLE  external MiniDumpWriteDump should still work
 进程总计：committed **11,150 MB**（与旧 build 那五份 10–11 GB 全量转储的体量吻合），
 19,179 个 committed 区域，1,302 个 MEM_IMAGE 区域，**170 个映射文件**。
 
-完整清单：[`../recon/addrspace-25988413.tsv`](../../recon/addrspace-25988413.tsv)（170 行，含每文件的总字节数 / 基址 / 末址 / 区域数）。
+完整清单：`recon/addrspace-25988413.tsv`（本机生成，未入库；170 行，含每文件的总字节数 / 基址 / 末址 / 区域数）。
 
 **为什么这份表值钱**：两个主模块在内存里都是**单块连续**的，合计 93.5 MB。
 一旦哪天拿到进程内读取能力，要抓的就是这两个区间 —— 不需要全量 11 GB，也不需要再扫。

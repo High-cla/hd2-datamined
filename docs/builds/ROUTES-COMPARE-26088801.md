@@ -23,6 +23,8 @@
 宿主：组2 行10 'EAGLE. (NOT USED) AIR-TO-AIR MISSLES'  校正字 @ 12432
 原始哈希 0x04BBE33EF809862A
   cooldown +104: 240.0 -> 60.0
+  ⇒ **已实机**（2026-10-23）：战备面板显示 51 秒 = 60 × 0.90 × 0.95（两条冷却升级相乘）。
+     字段与公式见 ../tables/STRATAGEM-FIELDS-26088801.md
   PASS  G1 长度不变
   PASS  G2 差异 ⊆ 目标行 ∪ 校正字        diff=9
   PASS  G3 重算哈希 == 原始哈希
