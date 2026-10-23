@@ -46,7 +46,7 @@ tools/     离线工具链（解析 / 改字节 / 保哈希 / 行级编辑 + 门
 tables/    三张小参数表（damage / projectile / weapon_customization），仅供解析验证
 refs/      字段图与索引：行名 / 本地化名 / 爆炸弹头引用链 / 表几何 / 武器键→名字 / 275 个组件块类型名
 examples/  最小解析示例（纯标准库）+ 字段说明
-skills/    代理技能（Agent Skills）：hd2-file-route-mod —— 把"改盘上数据的 mod"写成可执行流程
+skills/    代理技能（Agent Skills）：hd2-file-route-mod —— **只写方法论**（顺序 / 判据 / 停的条件），知识全在 docs/
 ```
 
 ## 快速开始（核心表工具：纯 Python 3.11+，无第三方依赖）
@@ -70,14 +70,14 @@ PY
 ```
 
 动自己机器上的游戏文件时，**从 [改盘上数据的完整工作流](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md) 入手**
-（八步：取明文 → 定位字段 → 保哈希写入 → 门禁 → 重封 → 往返 → 部署 → 实机验证，含锚点哈希与 16 条坑）。
-要交给代理自动做，用技能 **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)**。
+（八步：取明文 → 定位字段 → 保哈希写入 → 门禁 → 重封 → 往返 → 部署 → 实机验证；含锚点哈希与 **92 条坑**）。
+要交给代理做，用技能 **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)** —— 它只给**方法论**（每步的目的 / 合格判据 / 停的条件）+ 一张知识库索引，具体数值与坑一律指回 `docs/`。
 只想看实体库那一张表的细节，见 [ENTITY-TABLE §5](docs/tables/ENTITY-TABLE-25988413.md)。
 改完文档跑一次 `python tools/check_links.py` 自检链接（0 断链才算过）。
 
-> **两条前置，写在动手之前**：① 密钥 —— `recipient.pk` / `recipient.sk` **需自备**，本仓库不提供，也**无法从仓库 bootstrap**（三条已知来源与各自代价见工作流 §1.2.1）；
+> **两条前置，写在动手之前**：① 密钥 —— `recipient.pk` / `recipient.sk` **不随仓库提供**，但**可以自己解出来**：只要有一份旧 build 的全量内存转储，RVA / XOR 常数 / seek 工具 / 三重验证判据全在 [DLBIN-SEALED-BOX §10](docs/engine/DLBIN-SEALED-BOX.md)（另有两条来源与代价见工作流 §1.2.1）；
 > ② 原版判定 —— 「明文哈希 == 锚点」**识别不出**保哈希的 mod，判原版要靠封包字节数或备份（§2.5）。
-> 完全没有密钥也能先练：`tables/` 三张明文样本 + `plain_edit.py` 能跑出完整 G1–G6（§2.6）；技能 [skills/hd2-file-route-mod/SKILL.md](skills/hd2-file-route-mod/SKILL.md) 是同一套流程的可执行版（Step 0–10，每步都写「停的条件」）。
+> 完全没有密钥也能先练：`tables/` 三张明文样本 + `plain_edit.py` 能跑出完整 G1–G6（§2.6）。
 
 ## 文档索引
 
@@ -92,8 +92,10 @@ PY
 | `docs/boundaries/` | 被挡住的路：进程内存、虚拟机 | 2 |
 | `docs/cases/` | 案例与外部参照：社区包、贴图委托、wiki 数据、**改盘上数据的完整工作流** | 7 |
 
-另有一份可执行形态：**`skills/hd2-file-route-mod/`**（Agent Skills 标准，`SKILL.md` 含八步流程、
-字段速查、15 条坑与"不许做的事"）—— 给代理直接照着做，人读也可以。
+另有一份**方法论形态**：**`skills/hd2-file-route-mod/`**（Agent Skills 标准）。它刻意**不承载知识库**——
+只写十步链路里每步的「目的 / 合格判据 / 停的条件」、证据纪律（三态 + 已上机三件套）、
+五条会改变流程顺序的红线，外加一张**知识库索引**（"想知道 X → 读哪份 docs"）。
+字段偏移、面板公式、92 条坑、能力边界**一律在 `docs/` 里**，所以换 build 只需更新仓库，技能不必动。
 
 ## 相关仓库
 
