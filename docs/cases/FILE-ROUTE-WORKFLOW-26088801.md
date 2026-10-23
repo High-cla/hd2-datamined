@@ -65,13 +65,17 @@
 | 有 sk 就能算出 pk | `python -c "from nacl.public import PrivateKey;print(PrivateKey(open('recipient.sk','rb').read()).public_key.encode().hex())"` —— 不必两个文件都齐 |
 | 本仓库不提供、也不该提供 | 密钥 = 能伪造「通过内容校验」的数据文件的能力 |
 
-三条已知来源与各自的代价：
+两条已知来源与各自的代价：
 
 | 来源 | 前置 | 代价 / 边界 |
 |---|---|---|
-| 第三方 mod 里的密封材料 → `tools/extract_seal_material.py` | 一个同 build、带 `boot.lua` 的社区 mod | **只能封 ≤65,504 B 的明文**（借用别人固定流）；战备表改完 82,392 B，超限 |
 | 旧 build 全量内存转储 + 手册给的 RVA | 一份 10 GB 级 dump（`25480438`）+ 外部手册 `HD2-Mod-Developer-Guide-25988413.zh-CN.txt`（不随仓库） | 本项目这一对就是这么来的，步骤见 [DLBIN-SEALED-BOX §10](../engine/DLBIN-SEALED-BOX.md)；dump 不在仓库 |
 | `tools/dlbin_keyhunt.py` | 无 | 研究工具，仓库里**没有成功记录**，别当可行路径 |
+
+> 曾经还有第三条：借第三方 mod 里烘焙的固定 ephemeral 密封材料。**已弃用（2026-10-23）**——
+> 它被 `max_len` 卡死在 **65,504 B**，我们的目标表全都超限（战备表 82,392 B、护甲 453,204 B）；
+> 且须先持有那份 mod。相关提取工具与文档里的材料数值已一并移除
+> （理由见 [DLBIN-SEALED-BOX §7](../engine/DLBIN-SEALED-BOX.md)）。
 
 **结论**：这条路线**无法只靠本仓库从零 bootstrap**。没有密钥只能读（解封之外的解析、定位、预演，见 §2.6），不能封、不能部署。这是前置条件，不是可以扫过去的障碍。
 

@@ -64,7 +64,7 @@
 | `resource_patch.py` | **任意** Stingray 资源类型的 `.patch_N` 构建/查看/解包/重打 | `srkit`（构建时） | ✓ |
 | `swap_texture.py` | 把一张 PNG 换进 `.patch_N` 里的某个贴图并重打 | Pillow | ✓ 已实机 |
 | `export_textures.py` | 把 `.patch_N` 里每个贴图导出成可编辑 DDS | Pillow | ✓ |
-| `extract_seal_material.py` | 从**第三方 mod** 的 `boot.lua` 里取密封材料（用于互操作） | lupa | ✓；`--share-safe` 输出占位符版本 |
+| `extract_seal_material.py` | ~~从第三方 mod 的 `boot.lua` 里取密封材料~~ **已移除（2026-10-23）**：该路线被 `max_len` 卡在 65,504 B，且产出即密钥材料 | — | — |
 
 ## Lua 侧
 

@@ -174,7 +174,7 @@ keystream 65,536 B、可用明文 65,504 B。超过就够不到，且无法扩�
 
 ---
 
-## 7. 材料到手（2026-10-22 09:3x，`护甲多被动.zip`）
+## 7. 材料到手（2026-10-22 09:3x，`护甲多被动.zip`）—— ⚠ 路线已弃用，见节末
 
 社区文档说的那份材料就在 `Source/boot.lua` 里，形式是一个自执行函数返回的表：
 
@@ -187,18 +187,30 @@ local material = (function() return {
 } end)()
 ```
 
-抽出来用 `tools/extract_seal_material.py`（交给 lupa 跑真 Lua 5.1 解析，不手写 `\NNN` 反转义）：
+抽取方式：不手写解析 `\NNN` 反转义，把整段自执行函数交给**真的 Lua 5.1（lupa）**求值后读表。
 
-| 项 | 值 |
+| 项 | 结论 |
 |---|---|
-| `epk` | `5bbc2459cd5f34de62fa11fcf36aa4a37d4fc6a31f91fc761bfb44e559b8a07f` ✓ 与社区文档一致 |
-| `poly` | `a37af877af978c5efbe5a8a02a1ca38984584e80d29904c262dfd3c9844680a7` ✓ 一致 |
-| `poly == keystream[:32]` | **True** ✓（libsodium 的 XSalsa20-Poly1305 布局自洽）|
-| 可用明文上限 | 65,504 B |
+| `epk` / `poly` | 均与社区文档一致 ✓（**具体值不在此存档**，见下） |
+| `poly == keystream[:32]` | **True** ✓（libsodium 的 XSalsa20-Poly1305 布局自洽） |
+| 可用明文上限 | **65,504 B**（`max_len` 65536 − 32） |
+| 产物路径 | 本地 `refs/dlbin/material/*.bin`（`.gitignore` 已拦 `refs/dlbin/`，不入库） |
 
-产物：`refs/dlbin/material/{keystream,epk,poly}.bin` + `material.json`（含 sha256）。
+> **为什么不印具体值（2026-10-23 更正）**
+> `poly` = `keystream[:32]` **就是 Poly1305 密钥**，`keystream[32:]` 是可直接使用的密文流 ——
+> 两者合起来等于「伪造能通过内容校验的数据文件」的能力。此前本文把 `epk` 与 `poly` 的完整十六进制
+> 印在了这里，与 `extract_seal_material.py` 自己写的红线（"产出即密钥材料，禁止提交/贴 issue"）自相矛盾。
+> 现已移除具体值，并**删除提取工具**。
+>
+> **这条路线已弃用（2026-10-23）**
+> 它借用第三方 mod 烘焙的固定 ephemeral，天然被 `max_len` 卡死在 **65,504 B**；
+> 而我们的目标表全都超限（战备表改完 82,392 B、爆炸 68,156 B、护甲 453,204 B），
+> 且使用前还需先持有那份 mod。现役密钥来源只有一条：旧 build 全量转储 + 手册 RVA（见 §10）。
 
 ### 7.1 交叉验证：Lua 实现与我们的 Python 逐字节相同
+
+> 这一节的价值与 §7 的路线去留无关：它验证的是**我们的封装构造**（tag 覆盖 cipher、不含 epk）没理解错。
+> 当时用的临时 harness 已随 §7 删除，结论保留。
 
 从 `boot.lua` 里把 `poly` / `material` / `sealer` 三段自执行块抠出来，在 lupa 里调它的 `seal()`，
 与 `dlbin_seal.py seal-material` 对同一批输入比较：
