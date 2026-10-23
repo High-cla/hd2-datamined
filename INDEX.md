@@ -257,7 +257,7 @@
 | `strat_slot_fill.py` | **把包填进战备行的空槽**：名字→行（同名全改）→拒绝覆盖已占用槽→一次 tail 宿主写完→读回校验→可选封装 | `strat_slot_census.py`、`plain_edit.py`、`dlbin_seal.py` | ✓ 离线门禁通过（6 处填空槽，整份只 +8 B） |
 | `entity_field_set.py` | **任意实体组件行任意字段**的通用写入（`--block`+`--key`+`--field`），tail 宿主 + 7 门禁，可链式 | `typelib.py`、`murmur64.py` | ✓✓ 已实机（AC-8 备弹 0→40/40）|
 | `entity_batch_set.py` | **批量字段写入**：一次 tail 宿主写多个组件/多行/多字段（文件只 +12 B），9 道门禁 | `entity_field_set.py`、`pod_rack_swap.py` | ✓ 产物与实机验证件逐字节一致 |
-| `dlbin_merge.py` | **mod 合并器**：多个保哈希 mod 取并集、剔除脚手架、判冲突、重解一个校正字；含 `--report-only` / `--on-conflict` | `murmur64.py` | ✓ 合并产物与「一次改完」逐字节相同 |
+| `dlbin_merge.py` | **mod 合并器**：多个保哈希 mod 取并集、剔除脚手架、判冲突、重解一个校正字；含 `--report-only` / `--on-conflict` | `murmur64.py` | ✓✓ 已实机（第一次上机：rack 三件 rig × GL-28 弹药行 → 合并后四件照常全出） |
 | `expl_set.py` | 写爆炸行字段（半径 / 破片数 `+80` / 破片射弹 `+84`），带 6 道门禁 | `murmur64.py` | ✓✓ 已实机（毒气爆炸加 30 破片） |
 | `stratagem_tune.py` | 改战备表的 `+80` uses / `+84` call-in / `+104` cooldown；`--edit` 可重复，一次封装改多行。**默认 tail 宿主**保内容哈希；`--host-mode row` 已知会崩，永不传 | 标准库（`murmur64.py` + `typelib.py`） | ✓✓ 已实机：EAGLE. AIRSTRIKE `+104` 15→4 + EAGLE. REARM 150→5，整份只差 5 字节、哈希仍复原，面板 7→2 秒 / 任务内回收 150→3 秒多（`26088801`） |
 | `patch_compose.py` | 数据路线 mod 的离线合成器：`scan` 查各包槽位与空洞、`merge` 求并集（同 id 不同内容=冲突，默认拒绝）+ 逐条回读验证、`install` 只写下一个连续槽位 | 标准库 + `srkit.container` | ✓ 实测把 bones/material/texture/lua 共 7 条合进一个补丁，toc 与 gpu 附流逐条一致 |
@@ -343,7 +343,7 @@
 | 全表字典：55 张表几何 + 1,208 类型字段偏移 | ✓ 离线可复现 |
 | **改现有伤害行的数值**（标准 / 耐久 / 穿甲 / 状态强度） | ✓✓ 实机（`26088801`：`116 +4` 改成 1 → 面板「伤害」直接显示 **001**，AR-23 / AR-23A / StA-52 / M-105 同时变；`25988413`：90→900 → AR-23 与 M-105 同时变高伤）—— 见 [DAMAGE-SETTINGS](docs/tables/DAMAGE-SETTINGS-26088801.md) |
 | **复用无主行「自制」一条伤害行**（整行改写 + 借另一条无主行付哈希） | ✓ 离线门禁通过（`dmg_custom_row.py`）；**⚠ 未实机** |
-| **投送舱换载荷**：改 rack 槽位决定空投舱送什么 | **✓✓ 实机**（`26088801`：rack 29 → GL-21+B-1 / GL-28 双件 / Nova+Warp 双件）—— 见 [POD-RACK](docs/tables/POD-RACK-26088801.md) |
+| **投送舱换载荷**：改 rack 槽位决定空投舱送什么 | **✓✓ 实机**（`26088801`：rack 29 → GL-21+B-1 / GL-28 双件 / Nova+Warp 双件；**四件版 Nova+Warp+GL-28+GL-28 背包（`+556`=4）四件全出**）—— 见 [POD-RACK](docs/tables/POD-RACK-26088801.md) |
 | **武器自带备弹**：把背包供弹武器改成自带备弹、不需要背包 | **✓✓ 实机**（两套模型：`Rounds` 用 `+0x50/+0x54/+0x58`（AC-8），`Magazine` 用 `+0x88/+0x8C/+0x94`（GR-8 / Spear / RL-77 / W.A.S.P. 四把一次全绿）；rack `+556` 2→1 → 只出武器）—— 见 [WEAPON-AMMO-RESERVE](docs/tables/WEAPON-AMMO-RESERVE-26088801.md) |
 | **有限数量的跨包加载**（每行最多两个包）：`+0xA8`（物品包）+ `+0xF8`（武器的 LoadoutEntry）双声明口 ⇒ `pod_loadout.py` 一条命令出可装文件 | **✓✓ 实机**（同一 rack、同一对物品，只换 `+0xA8` → 谁出模型就跟着换；双包版两件全亮）—— 见 [LIMITED-CROSS-PACKAGE-LOADING](docs/engine/LIMITED-CROSS-PACKAGE-LOADING-26088801.md) |
 | **空声明槽普查**：153 行战备里 **133 行没填满**，空槽存量 **155 个**（两槽全空 22 行 / 仅 `+0xA8` 空 17 行 / 仅 `+0xF8` 空 94 行）⇒ `strat_slot_fill.py` 按名字填空槽 | **✓✓ 实机**（R3：把 Warp 的包填进 `Reinforce` 的 `+0xA8` ⇒ **关卡加载即驻留**，不叫、不带、不死；投送舱里两件不同包的物品同时正常，**三个包并存**）。`+0xF8` 另有否证（R1：不授予武器的战备上不读它）—— 见 [LIMITED-CROSS-PACKAGE-LOADING](docs/engine/LIMITED-CROSS-PACKAGE-LOADING-26088801.md) §6.6 |
