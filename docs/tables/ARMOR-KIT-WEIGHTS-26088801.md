@@ -220,7 +220,7 @@ SDK 对这个键的说法（`ArmorPassiveCatalog.json` perk 1）：
 | 项 | 值 |
 |---|---|
 | 改动 | perk 1 的 `armor_rating` 值 **1.0 → 1.5**（文件偏移 `0x5C`，f32，只差 1 个字节） |
-| 产物 | `D:\mod\outrmor-p1\generated_customization_passive_bonuses.dl_bin`（4,072 B，sha256 `c8dfe62520e93805`） |
+| 产物 | `D:\mod\out\armor-p1\generated_customization_passive_bonuses.dl_bin`（4,072 B，sha256 `c8dfe62520e93805`） |
 | 已装 | `generated_customization_passive_bonuses.dl_bin` = `c8dfe62520e93805`；护甲表已回滚原版（`4739b50c6e6c105c`） |
 | **预测** | **B-01 Tactical（EXTRA PADDING 那 9 条同名甲）rating 150 → 175**；速度 500、耐力恢复 100 **不变** |
 | 伤害 | `A = 1 + 1.5 = 2.5`，曲线在 (2, ×0.75) 与 (3, ×0.65) 之间线性 ⇒ **×0.70** |
@@ -234,7 +234,7 @@ SDK 对这个键的说法（`ArmorPassiveCatalog.json` perk 1）：
 
 | 项 | 值 |
 |---|---|
-| 产物 | `D:\mod\outrmor-p2\generated_customization_passive_bonuses.dl_bin`（4,072 B，sha256 `b89a9cc624a435c0`） |
+| 产物 | `D:\mod\out\armor-p2\generated_customization_passive_bonuses.dl_bin`（4,072 B，sha256 `b89a9cc624a435c0`） |
 | 预测 | perk 0 的 **13 件甲** rating **+50**（如 B-01 STANDARD ISSUE 100 → **150**） |
 | 副作用 | `text=0` ⇒ 护甲卡片上**不会**多出一行说明（第三方 mod 隐藏文案的同一招），被动名与其它效果不变 |
 | 为什么用原地改写而不是"加一行" | 加行会让中间块变长（整容器重排），那条路我们**还没实机读过**；原地改写零几何变化，先把机制证明，再验重排 |
