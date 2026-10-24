@@ -1,6 +1,6 @@
 # 锁定 / 制导武器（lock-on / seek）—— 武器线遗漏项（build 26088801）
 
-> **状态：离线已闭环 + 单变量产物已装盘，待实机。**
+> **状态：锁定距离 ✓ 实机已证（P-92 60→300）；锥角 run 2 已装盘待测。**
 > 本篇把 memmod 时期 `c9-seek` 那条线与当前 build 的**明文表**对上，给出可编辑落点、映射与已跑通的做法。
 > 情报侧：`D:\mod\c9-recon\web-intel-hd2-lockon.md`（公开资料）· 当年写载物：`D:\mod\c9-seek-write\`（patch_3）。
 
@@ -173,7 +173,9 @@ python tools/dlbin_deploy.py restore --file generated_entities.dl_bin
 
 ---
 
-## 7 本轮已做的单变量实验（**已装盘，待实机**）
+## 7 单变量实验记录
+
+### run 1 —— 锁定距离（**✓ 实机通过**）
 
 | 项 | 值 |
 |---|---|
@@ -181,16 +183,34 @@ python tools/dlbin_deploy.py restore --file generated_entities.dl_bin
 | 只改了 | 3 字节（字段高字节 ×2 + 末块尺寸字段），其余与基线逐字节相同 |
 | 离线门禁 | G1–G9 全 PASS；哈希 `0x8E49771B181FFAA1` 不变 |
 | 封装 | `out/lockon-1/generated_entities.dl_bin`，47,259,456 B，sha256 `0c5a5f49…` |
-| 部署 | `dlbin_deploy.py install` ✓；盘上 sha256 `0c5a5f49…`；解封回读 == 我们的明文；字段读回 **300.0** |
+| 盘上回读 | live sha256 == 我们的密文；解封逐字节一致；字段读回 **300.0** |
+| **实机** | **✓「能锁上超过 60 m 的」** |
 | 原版备份 | `D:\mod\backups\dlbin-deploy\game\generated_entities.dl_bin`（`cac4a228…`） |
 
-**实机判据（一次只判这一个）**：带 **P-92 Warrant**（副武器）进图，对**超过 60 m、300 m 内**的敌人/建筑瞄 —
+⇒ **`SensorEye.distance` 就是锁定距离**；且**引擎接受重新封装的实体表**（详见
+[ENTITIES-TABLE-LIVE-EDIT](../cases/ENTITIES-TABLE-LIVE-EDIT-26088801.md)）。
+实测单位是米、写入值直接生效（60 → 300 后跨过 60 m 仍能锁）。
 
-- ✓ 若**能锁上**（出现锁定框 / 可发射）⇒ `SensorEye.distance` 就是锁定距离，这张表通了
-- ✗ 若**仍只能在 ~60 m 内锁** ⇒ 距离被别的东西（`angle_h/v` 或另一组件）卡住，继续分离
-- 对照：**P-33 应仍是 100 m**（本次未动）；若两把都变远 ⇒ 改错了行
+### run 2 —— 锥角（**已装盘，待实机**）
 
-> 需要**重启游戏**（组件表在启动时读），然后进任务并**拿到武器**（组件/数值在出生时应用）。
+在 run 1 基础上**只加一个变量**（距离保持 300，便于对照"同一个瞄偏量"）：
+
+| 项 | 值 |
+|---|---|
+| 变量 | **P-92 `GuidanceTargetComponentData +0x20 target_lock_dot`：0.95 → 0.50** |
+| 含义 | 锁定判定半角 `acos(dot)`：**18.19° → 60°**（全锥 36.4° → 120°） |
+| 范围 | **只改 P-92 那一行**（GT 行 4）；另 8 行仍 0.95 ⇒ 其它锁定武器不受影响 |
+| 离线 | G1–G9 全 PASS；哈希不变；封装 sha256 `6501d324…`（47,259,464 B） |
+| 盘上回读 | 解封 == 我们的明文；P-92 `distance=300` / `lock_dot=0.5`；**对照项未动**（P-33 仍 100、Spear 300 且 dot 0.95） |
+
+**实机判据（只看锥角）**：带 P-92 进图，**故意把目标放在准星外**再瞄 —
+
+- ✓ 若**偏得比较多也能锁上**（明显宽于原版）⇒ `target_lock_dot` 控制锁定锥，且**它比 `angle_h/v` 先卡**
+- ⚠ 若**能锁但宽度几乎没变**（仍约 ±20°）⇒ 先卡的是 `SensorEye.angle_h/v = 20°`，dot 只是次级判据
+  ⇒ 下一轮改 `SensorEye +0x0C/+0x10`（20 → 60）单独验
+- ✗ 若**完全没变化** ⇒ dot 不是运行期判据（可能只在生成锁定框时用）
+
+> 组件表在**游戏启动时**读 ⇒ 改完必须**重启**，再进任务拿到武器。
 
 ---
 
@@ -203,8 +223,10 @@ python tools/dlbin_deploy.py restore --file generated_entities.dl_bin
 | 武器 → `ProjectileWeapon +0x28` → `SeekingMissile` 行 的映射（4/4 命中） | **✓ 离线** |
 | `target_lock_dot` 全表统一 0.95（锥角非逐武器） | **✓ 离线** |
 | `TargetingComponentData` 是角色索敌、与玩家锁定无关 | **✓ 离线** |
-| 改 `SensorEye.distance` 能改变实机锁定距离 | **⚠ 待实机**（§7 已装盘） |
-| `angle_h/v = 20` 是全角还是半角；它与 `dot` 谁先卡死 | **⚠ 未证** |
+| 改 `SensorEye.distance` 能改变实机锁定距离 | **✓ 实机**（P-92 60→300，能锁 60 m 以外） |
+| 引擎接受改过并重新封装的 `generated_entities.dl_bin` | **✓ 实机**（同上；见 [案例](../cases/ENTITIES-TABLE-LIVE-EDIT-26088801.md)） |
+| `target_lock_dot` 是运行期锁定锥判据 | **⚠ 待实机**（run 2 已装盘） |
+| `angle_h/v = 20` 是全角还是半角；它与 `dot` 谁先卡死 | **⚠ 未证**（run 2 的判据就是分离它） |
 | `requires_target_lock` / `tracking_loop_start` 的实机语义 | **⚠ 未证** |
 | 能否让**非锁定武器**获得锁定（需同时加 `SensorEye` 行 + `GT` 行 + `crosshair=16`，≥3 变量） | **⚠ 未试** |
 | `Tag_CanBeLockedOn`（`0x07F0ADE3`）能否扩大"可被锁"的目标集合 | **⚠ 未试**（改实体标签，波及敌人/队友，**不要先动**） |
@@ -213,7 +235,12 @@ python tools/dlbin_deploy.py restore --file generated_entities.dl_bin
 
 ## 9 遗留 / 下一步
 
-1. **先收 §7 那一个变量**（实机）。无论 ✓/✗ 都能定死「距离字段」。
-2. 若 ✓ ⇒ 下一个单变量：`GuidanceTarget.target_lock_dot` 0.95 → 0.5（锥角放宽），判据「明明瞄着却不锁」是否消失。
-3. 再下一个：`lock_on_target_time` 缩到 0.05（瞬间锁）—— Spear 的 1.0 s 是最明显的那个。
-4. 想给非锁定武器加锁定 ⇒ **三变量**（传感器行 + GT 行 + 准星），必须分三次单变量各自验证，不要一次上。
+1. ~~收锁定距离那一变量~~ → **✓ 已收**（run 1 实机通过）。
+2. **收 run 2（锥角）**：判据见 §7。若"能锁但宽度没变" ⇒ 先卡的是 `SensorEye.angle_h/v`，
+   下一轮改 `+0x0C/+0x10`（20 → 60）单独验。
+3. 再下一个：`lock_on_target_time` 缩到 0.05（瞬间锁）—— **Spear 的 1.0 s** 是最明显的那个
+   （P-92 本来只有 0.1 s，改了看不出差别）。
+4. `SeekingMissile` 的转向/速度：P-92 是 90/90/90 + 30°/s（全表最快），要看得出来得挑
+   **Commando（30/75/120，turn 2/12）** 或 **Spear（10/10/100，turn 10/13）**。
+5. 想给非锁定武器加锁定 ⇒ **三变量**（传感器行 + GT 行 + 准星），必须分三次单变量各自验证，不要一次上。
+6. 想锁"不该能锁"的东西 ⇒ `Tag_CanBeLockedOn`，改实体标签，波及敌人/队友，**最后再碰**。

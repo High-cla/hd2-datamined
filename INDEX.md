@@ -14,7 +14,7 @@
 | 想亲手改一张表 | **[改盘上数据的完整工作流](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md)** —— 主线文档，8 步链 + 锚点哈希 + 92 条坑 |
 | 想让**代理**去做 | **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)** —— Agent Skills，只给方法论（每步的目的 / 判据 / 停的条件）+ 指回本页 |
 | 想查某个字段 / 某个数 | [§1 按问题找](#1-按问题找) |
-| 想按类型看全部 53 篇 | [§2 按类型浏览](#2-按类型浏览39-篇) |
+| 想按类型看全部 54 篇 | [§2 按类型浏览](#2-按类型浏览39-篇) |
 | 想找某个工具 / 看它验证到哪一步 | [§3 工具清单](#3-工具清单tools) |
 | 刚更新完游戏 | [BUILDS.md §3](BUILDS.md)（三步 + §3.1 锚点复验） |
 | 什么都没有、只想先摸摸 | [§4 无密钥也能练](#4-无密钥也能练) |
@@ -97,7 +97,7 @@
 | **多个 mod 改同一份文件的不同字段，想同时用** | [MOD-MERGER](docs/cases/MOD-MERGER-26088801.md) | **§1 算法 · §2 用法 · §3 逐字节等价证明 · §4 前提与边界** | `26088801` |
 | 社区包怎么做 / 能不能共存 | [CASE-STUDY](docs/cases/CASE-STUDY-20261021.md) · [COMMUNITY-MODS-COMPAT](docs/cases/COMMUNITY-MODS-COMPAT-26088801.md) · [PATCH-SALVAGE](docs/builds/PATCH-SALVAGE-25988413.md) |
 
-## 2. 按类型浏览（53 篇）
+## 2. 按类型浏览（54 篇）
 
 | 类别 | 放什么 | 篇数 |
 |---|---|---:|
@@ -106,7 +106,7 @@
 | [`tables/`](docs/tables/) | 数据表与实体库的解码 / 改写 | 16 |
 | [`explosions/`](docs/explosions/) | 爆炸与弹头（玩法层 + 外观层） | 2 |
 | [`boundaries/`](docs/boundaries/) | 被挡住的路：进程内存、虚拟机 | 2 |
-| [`cases/`](docs/cases/) | 案例与外部参照：社区包、贴图委托、wiki 数据、**完整工作流**、**第三方护甲多被动侦察**、**网络复制层探针系列** | 19 |
+| [`cases/`](docs/cases/) | 案例与外部参照：社区包、贴图委托、wiki 数据、**完整工作流**、**第三方护甲多被动侦察**、**网络复制层探针系列**、**实体表在线改写实机证明** | 20 |
 
 ### `builds/`
 
@@ -147,6 +147,7 @@
 | 文档 | 一句话 | build |
 |---|---|---|
 | ★ [LOCKON-TARGETING-26088801](docs/tables/LOCKON-TARGETING-26088801.md) | **锁定/制导武器**：锁定距离在 `SensorEye.distance`、锥角在 `GuidanceTarget.target_lock_dot`（全表 0.95）、制导参数在 `SeekingMissile`；武器→投射物→行 映射；`TargetingComponentData` 更正为 AI 索敌；P-92 60→300 已装盘 | `26088801` |
+| ★ [ENTITIES-TABLE-LIVE-EDIT-26088801](docs/cases/ENTITIES-TABLE-LIVE-EDIT-26088801.md) | **实体表在线改写 ✓ 实机**：47 MB `generated_entities.dl_bin` 可改 + 重新封装 + 引擎接受；完整证据链（解封/锚点哈希/门禁/盘上回读/实机） | `26088801` |
 | ★ [ARMOR-PASSIVE-STATS-26088801](docs/tables/ARMOR-PASSIVE-STATS-26088801.md) | **护甲被动/stat 行的文件侧能力模型**：pm vs sm 两通道、两层作用范围、7 个 stat 槽、三条硬约束、4 个已验证配方 | `26088801` |
 | ★ [TABLE-DICTIONARY-25988413](docs/tables/TABLE-DICTIONARY-25988413.md) | **全表字典**：55 张表几何 + 类型库字段偏移（1,208 类型 / 7,349 成员） | `25988413` |
 | ★ [ENTITY-TABLE-25988413](docs/tables/ENTITY-TABLE-25988413.md) | 47 MB 实体库离线改写：组件块、哈希闸门、校正字、可选弹种、LoadoutEntry 否证 | `25988413` |
