@@ -178,6 +178,67 @@ python tools/armor_kit_weight.py --kit "B-01 Tactical" --weight heavy --out out/
 > 面板 450 = 500×0.9、050 = 100×(2−1.5)、200 = 50+50×3，三条都只能在
 > `speed=0.9 / stamina=1.5 / armor=2` 的前提下成立。
 
+## 5.3 第二个杠杆：被动表里的 `armor_rating`（键 `0xAFAE3B47`）
+
+「护甲值」不止能按**件**改，还能按**被动**改 —— 因为 A 的公式是 `A = mean(部件档位) + Σ被动 Add`，
+而被动那半截就住在 `generated_customization_passive_bonuses.dl_bin` 的 pm 行里。
+
+| 被动 | 我们的 pm 行（键 · 类型 · 值） | SDK `passiveArmorBonuses` | 覆盖甲数 |
+|---|---|---|---:|
+| 1 EXTRA PADDING | `0xAFAE3B47` · Add(1) · **1.0** | +1.0 | 9 |
+| 14 UNFLINCHING | 同上 · **0.5** | +0.5 | 3 |
+| 34 SUPPLEMENTAL ADRENALINE | 同上 · **0.5** | +0.5 | 2 |
+| 35 CONCUSSIVE PADDING (Reinforced) | 同上 · **0.6** | +0.6 | 1 |
+| 40 BLUNT-FORCE MITIGATION | 同上 · **0.5** | +0.5 | 3 |
+
+⇒ **`0xAFAE3B47` = `armor_rating`，type 1 = Add，值直接加在 A 上。** 五个被动逐值对上 SDK，
+再加上 §5.2 那次实机（B-01 EXTRA PADDING 显示 200 而不是 150），这条通道已经被实机确认过一次。
+
+SDK 对这个键的说法（`ArmorPassiveCatalog.json` perk 1）：
+
+| 字段 | 值 | 含义 |
+|---|---|---|
+| `keyName` | `armor_rating` | 就是护甲值 |
+| `reader` | `"armor rating"` | 不是 `direct`，是"护甲值"专用读取口 |
+| `follows` | **false** | **不跟随运行期换被动记录**（换甲时在"施加护甲"那一刻按**穿的那件甲自己的被动**取值） |
+| `note` | "follows the worn armor kit (**its own passive**), never the slot" | ⇒ 一个 kit 用哪个被动，就吃哪个被动的 armor 行 |
+
+### 5.3.1 两种改法的差别
+
+| 改法 | 粒度 | 步长 | 影响面 | 现状 |
+|---|---|---|---|---|
+| 改**部件档位**（`armor_sets`，§2） | 一件甲 | **1/7 步**（rating 只能取 `50+50k/7`） | 只有那一件 | ✓✓ 实机 |
+| 改**被动 armor 行**（`passive_bonuses`，本节） | **一整个被动的所有甲** | **任意 float**（Add 值随便填） | 该被动的全部甲 | ⚠ 本发在测 |
+| 把 armor 行**塞给别的被动** | 一整个被动的所有甲 | 任意 float | 那个被动的全部甲，且**保留它自己的名字与其它效果** | ⚠ 待测（产物已备） |
+
+> ★ 第二条把上一节说的"任意 rating 做不到"**打破了**：Add 是浮点，`+0.5` ⇒ rating **125**，
+> 而 125 = `50+50×1.5`、`1.5 = 10.5/7` **不是整数格** ⇒ **部件档位永远做不出 125**。
+> 这正是本轮实验的判别点：看到 125 就只能是被动行生效。
+
+### 5.3.2 本轮已装的实验件（`out/armor-p1`）
+
+| 项 | 值 |
+|---|---|
+| 改动 | perk 1 的 `armor_rating` 值 **1.0 → 1.5**（文件偏移 `0x5C`，f32，只差 1 个字节） |
+| 产物 | `D:\mod\outrmor-p1\generated_customization_passive_bonuses.dl_bin`（4,072 B，sha256 `c8dfe62520e93805`） |
+| 已装 | `generated_customization_passive_bonuses.dl_bin` = `c8dfe62520e93805`；护甲表已回滚原版（`4739b50c6e6c105c`） |
+| **预测** | **B-01 Tactical（EXTRA PADDING 那 9 条同名甲）rating 150 → 175**；速度 500、耐力恢复 100 **不变** |
+| 伤害 | `A = 1 + 1.5 = 2.5`，曲线在 (2, ×0.75) 与 (3, ×0.65) 之间线性 ⇒ **×0.70** |
+| 若显示 150 | ⇒ 被动值被缓存/不读，需要另找通道（`follows=false` 的代价） |
+| 若显示 200 | ⇒ 只吃到旧 1.0，说明值没生效但行还在 |
+
+### 5.3.3 下一发（已备好，未装）：把 EXTRA PADDING 的效果**挪给别的被动**
+
+`out/armor-p2` 做了「用户提的那个想法」的直球版：**原地改写 perk 0（STANDARD ISSUE）那条空 pm 行**
+（`0x00000000/0/0` → `{0xAFAE3B47, Add, 1.0, text=0}`，16 B 原地替换，容器不长大）。
+
+| 项 | 值 |
+|---|---|
+| 产物 | `D:\mod\outrmor-p2\generated_customization_passive_bonuses.dl_bin`（4,072 B，sha256 `b89a9cc624a435c0`） |
+| 预测 | perk 0 的 **13 件甲** rating **+50**（如 B-01 STANDARD ISSUE 100 → **150**） |
+| 副作用 | `text=0` ⇒ 护甲卡片上**不会**多出一行说明（第三方 mod 隐藏文案的同一招），被动名与其它效果不变 |
+| 为什么用原地改写而不是"加一行" | 加行会让中间块变长（整容器重排），那条路我们**还没实机读过**；原地改写零几何变化，先把机制证明，再验重排 |
+
 ## 6. 读法（一次只读一个变量）
 
 | 看什么 | 期望 |
