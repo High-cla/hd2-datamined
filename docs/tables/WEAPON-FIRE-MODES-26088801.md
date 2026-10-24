@@ -244,6 +244,45 @@
 （那份名表 252 条、id 6..661，其中 `12 = DamageInfoType_Projectile_Flamethrower`）。
 ⇒ 它是 **`SprayWeapon` 组件自己的小枚举**（含义 = 火焰/毒气/酸等），**命名尚未解出**。
 
+### 5.6.3b 字段含义：`+200` 是**伤害表的 type 键**（SHODAN + hd2runtime 双证）
+
+**修正上一版的说法**：`+200` 不是一个"未解的小枚举"，而是**伤害表里那一行的 `type` 值** ——
+伤害表（`generated_damage_settings.dl_bin`，661 行）**按 `type` 键**，SHODAN 就是这么查的：
+
+```lua
+-- shodan-stat-editor/src/stat_editor.lua
+local T_SPRAY = 0x8E551126, ... { stride = 224, keyed = true }
+-- flame and gas weapons: spray component (+200 damage row), damage per flame / gas hit
+local id   = read_field(field_at(T_SPRAY, spray + 200, 'u32', 100000))
+local drow = id and tables[T_DAMAGE] and tables[T_DAMAGE].index[id]      -- ← 按 type 反查
+...
+damage_rows(weapon, 'Damage', '', drow)
+status_rows(weapon, 'Damage', '', drow, 'hit')                            -- ← 状态槽也在这一行
+```
+
+实测（本 build）：
+
+| 武器 | `+200` | 伤害行 | 伤害 / 耐久 | 3×AP | 状态槽（`+44` 起 4×{type u32, value f32}） |
+|---|---:|---:|---:|---|---|
+| **FLAM-40** | **20** | 24 | 2 / 2 | 4,4,4 | **(5, 2.0) · (68, 1.0) · (6, 3.0)** |
+| FLAM-66 Torcher | 21 | 28 | 2 / 2 | 4,4,4 | (5, 2.0) · (6, 3.0) · (68, 1.0) |
+| P-72 Crisper | 22 | 29 | 2 / 2 | 4,4,4 | (5, 2.0) · (68, 0.5) · (6, 2.0) |
+| **TX-41（毒气）** | **35** | 34 | 1 / 1 | 5,5,5 | **(44, 0.5) · (46, 0.5)** |
+| G-142 Pyrotech | 32 | 31 | 0 / 0 | 7,7,7 | (5, 3.0) |
+
+⇒ **"火 vs 毒"的真正分界是状态 id**：火焰走 **5 / 6 / 68**，毒气走 **44 / 46**。
+`+200` 那 2 点伤害只是"每次判定的直伤"，**真正的燃烧/中毒来自伤害行上的状态槽**
+（状态效果表 `generated_status_effect_settings.dl_bin`，组 `0xC63E0B22`，73 行）。
+
+⚠ 状态表的行索引还没完全对上（该组 stride 算出来是 175，疑非标准布局）：只确认 **id 5 / 6 存在**，
+**68 / 44 / 46 尚未定位**。
+
+**hd2runtime 侧的说法**（`docs/attack-outputs.md`、`docs/enemy-authoring.md`）：
+- `spray | SprayWeaponComponent | +200 DamageInfoType` —— 与上面一致；
+- 全库 **8 把** spray 武器；一个 spray 武器的 DamageInfo = "the nine DamageInfo members"（伤害行的 9 个成员）；
+- 写操作层面它把 spray 归为 **`INCOMPATIBLE_OUTPUT_FAMILY`（fail closed）** ⇒ **hd2runtime 不能写 spray**。
+  这也解释了为什么 SHODAN 能改：**它改的是下游的伤害行，不是 spray 组件本身**。
+
 ### 5.6.4 毒气比喷火多一层：`Status`
 
 TX-41 的 attack graph（`sdk/SupportWeaponAuthoringCapabilities.json`）：
@@ -265,7 +304,10 @@ TX-41 STERILIZER S            kind=Spray   role=primary
 | 存在第 4 个远程输出族 `SprayWeaponComponentData` | **✓ 离线**（社区模型 + 本 build 23 行实测，喷火/毒气/敌人喷火全在其中） |
 | 喷火器不发射 projectile | **✓ 离线**（没有 ProjectileWeapon 组件；只有 Spray + Magazine） |
 | `+200` = 喷流的伤害/命中类型 | **✓ 离线**（与社区 `+200 DamageInfoType` 一致；数值分火焰组 vs 毒气组） |
-| `+200` 各值的具体名字 | **⚠ 未解**（不在全局 DamageInfoType 名表里） |
+| `+200` = 伤害表的 `type` 键（不是无名小枚举） | **✓ 离线**（SHODAN 的查法 + 本 build 661 行伤害表按 type 键） |
+| 火/毒的分界 = 伤害行 `+44` 状态槽的 id（火 5/6/68 · 毒 44/46） | **✓ 离线**（FLAM-40 / Torcher / Crisper / TX-41 / Pyrotech 五把对照） |
+| 状态 id 68 / 44 / 46 在状态表里的行 | **⚠ 未定位**（组 stride 175 疑非标准布局） |
+| hd2runtime 不能写 spray（INCOMPATIBLE_OUTPUT_FAMILY） | **✓ 离线**（官方 docs；SHODAN 走伤害行所以能改） |
 | `+0x30/+0x68/+0xA0` 三段结构的语义 | **⚠ 未证**（推测近/中/远或起/续/收） |
 | 毒气的"中毒"来自 Status 攻击而非 Spray | **✓ 离线**（TX-41 的 attack graph） |
 
