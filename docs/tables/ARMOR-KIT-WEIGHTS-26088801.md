@@ -962,3 +962,41 @@ patch_9（ownershipperk）：
 
 `perk 1（EXTRA PADDING / B-01 Tactical 起手甲）` ⇒ **弹容 ×2 ＋ 主武器装填 ×2 ＋ 支援武器装填 ×2**，
 卡片盔甲等级不受影响，文案不变。盘上 `8f00d05e…`（4,112 B），回滚一条命令。
+
+---
+
+## 15 p8：文件侧「单件甲」——改 kit 记录的 passive 字段（已装机，待实机）
+
+思路来自 §13（memmod 时代 P48 用**运行时缓存**做到过单件甲）。文件侧的等价做法：
+**改那件甲的 kit 记录里的 passive id**，让它「算另一条被动」。
+
+| 项 | 值 |
+|---|---|
+| 目标 | **B-01 Tactical 的全部 9 条 kit 记录**：passive `0/1`（EXTRA PADDING）→ **`16`（SIEGE-READY）** |
+| 9 条 id | `0x250FD6C1` `0x1D0E3431` `0x708451E9` `0x61B31723` `0x4F7FB2BD` `0x6351A9AA` `0x6D30F386` `0xD59566D5` `0x1369B95B` |
+| 写入偏移 | 每条 `payload_at + 0x1C`（`0x2B568` … `0x31598`），各 4 B |
+| 产物 | `out/armor-p8/generated_customization_armor_sets.dl_bin`，**453,264 B**，sha256 `dfec3c321b6df3b9…` |
+| 门禁 | `plain_edit` 六门全过（差异 10 处 = 9 字段 + 校正字；哈希仍 `0x57A949680BBDA9E1`） |
+| 复解校验 | 422 条 kit：**B-01 的 9 条 passive 全 = 16**；**其它 413 条 passive 一条没动** ✓ |
+| 单变量 | 被动表已回滚到原版（`2bc5967a`）⇒ 盘上只有 `armor_sets` 这一处改动 |
+
+### 15.1 实机预测
+
+「换身份」如果成立，B-01 会**整条换成 Siege-Ready**（连同它的全部效果，且**失去** Extra Padding 的 +1.0）：
+
+| 观察 | 原版 | **若生效** |
+|---|---|---|
+| 军械库 B-01 **被动名** | 额外垫料（EXTRA PADDING） | **SIEGE-READY** |
+| 军械库 B-01 **盔甲等级** | **150** | **100**（Siege-Ready 无 armor_rating，A=1 ⇒ `50+50×1`） |
+| B-01 实战 | — | 弹容 **×1.2**（GL-15 32 → 38）、**主武器装填 +30%** |
+| **其它 EXTRA PADDING 甲**（TR-7 / TR-40 / CW-9 / B-27 / B-08） | 150 / 150 / 150 / 200 / 100 | **完全不变**（这是「单件甲」的核心判据） |
+| 原有 SIEGE-READY 甲（DP-8 / SR-64 / SR-24 / SR-18） | 100 / 150 / 50 / 150 | 不变 |
+
+| 看到 | 结论 |
+|---|---|
+| 卡片被动名变 **SIEGE-READY**、等级 **100**，且别的甲不变 | ✓✓ **文件侧换身份成立** ⇒ 「单件甲」在纯文件路线可达 |
+| 卡片毫无变化 | ✗ 与 memmod 时代「目录记录 `+28` 写 15 无效」一致 ⇒ **文件侧换不了身份**，单件甲只能走运行时缓存 |
+| 卡片变了但实战没效果 | ⚠ 身份换了、stat 行没被施加（需再查 spawn 时机） |
+| 卡片只变一半 / 数值错乱 | ⚠ 9 条记录里游戏只认某一条，需二分 |
+
+回滚：`python tools/dlbin_deploy.py restore --file generated_customization_armor_sets.dl_bin`
