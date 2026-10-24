@@ -200,6 +200,77 @@
 
 ---
 
+## 5.6 输出族：喷火/毒气是**第 4 族 `Spray`**，不是弹丸
+
+### 5.6.1 五族模型
+
+一个武器实体**只能拥有一个输出族组件**（社区原文：*"A weapon entity owns exactly one output-family component
+(ProjectileWeapon, BeamWeapon, ArcWeapon, **SprayWeapon** or MeleeWeapon)"*）：
+
+| 族 | 组件 | type | 它的"弹丸"是什么 |
+|---|---|---|---|
+| 弹丸 | `ProjectileWeaponComponentData` | `0x45171B68` | `+0` ProjectileType → 射弹表一行 |
+| 光束 | `BeamWeaponComponentData` | `0xF0721C2C` | `+0` BeamType |
+| 电弧 | `ArcWeaponComponentData` | `0xB845669E` | `+0` ArcType |
+| **喷流** | **`SprayWeaponComponentData`** | **`0x8E551126`** | **没有弹丸**：`+0xC8`（=十进制 200）`DamageInfoType` |
+| 近战 | `MeleeWeaponComponentData` | `0xBBA9003F` | `+12` DamageInfoType |
+
+⇒ **喷火器/毒气枪属于 `Spray`**：它不发射任何 projectile，而是"喷一段带伤害类型的锥形流"，
+伤害与命中由 `+200` 那个小枚举决定，视觉由行内若干哈希（粒子/材质）决定。
+
+### 5.6.2 本 build 实测（`SprayWeaponComponentData` @`0x2CD4E50`，46 槽 + 23 行 × 224 B）
+
+| 武器 | 行 | `+200` | 备注 |
+|---|---:|---:|---|
+| **FLAM-40 Flamethrower** | 20 | **20** | 装备侧用 `WeaponMagazineComponentData`（弹匣，不是 Rounds） |
+| FLAM-66 Torcher | 17 | 21 | |
+| **P-72 Crisper** | 13 / 18 | **22** | 与 **Stoker 的喷火下挂**共用同一行（`0x992B6F65A5BAB53D` → row 13） |
+| **TX-41 Sterilizer**（毒气） | 19 | **35** | 实体 `0x88F61AFFF48AC8A4`；`func/attack` 图里标 `kind: Spray` |
+| G-142 Pyrotech | 10 | 32 | |
+| 其它未命名行 | 3 / 7 / 11 / 15 / 16 / 21 / 22 | 591 / 24 / 24 / 21 / 36 / 23 / 23 | 敌人喷火（`flamer/conscript_flamer` 等）与未发布武器 |
+
+### 5.6.3 行内结构（FLAM-40，224 B）
+
+```
++0x00 f32 = 0.7        +0x04 f32 = 10
++0x0C / +0x18 / +0x1C  三个哈希（粒子 / 音效 / 材质之类）
++0x30 / +0x68 / +0xA0  ★ 三段重复结构，每段 (f32 2.0, f32 5.0, hash, hash, ...)
+                          ⇒ 像是"近/中/远"或"起始/持续/收尾"三段喷流参数（⚠ 未证）
++0xC0 =1  +0xC8 = ★DamageInfoType  +0xCC =2  +0xD0 =1
++0xD4 / +0xD8 两个哈希  +0xDC =3
+```
+
+⚠ `+200` 的取值（20/21/22/35 …）**不在** `names-all.json` 的 `DamageInfoType` 全局 id 空间里
+（那份名表 252 条、id 6..661，其中 `12 = DamageInfoType_Projectile_Flamethrower`）。
+⇒ 它是 **`SprayWeapon` 组件自己的小枚举**（含义 = 火焰/毒气/酸等），**命名尚未解出**。
+
+### 5.6.4 毒气比喷火多一层：`Status`
+
+TX-41 的 attack graph（`sdk/SupportWeaponAuthoringCapabilities.json`）：
+
+```
+TX-41 STERILIZER S            kind=Spray   role=primary
+├─ Gas Var2                   kind=Status  role=primary_status_43
+└─ Gas Confusion Var2         kind=Status  role=primary_status_45
+```
+
+⇒ **伤害来自 Spray，中毒/迷惑来自 `Status` 攻击**（两套独立数据；状态效果在
+`generated_status_effect_settings.dl_bin`）。所以"把喷火器改成毒气枪"不是单改一个 id 能成的，
+至少要动 Spray 的 `+200` **并且**给它挂上 Status 攻击。
+
+### 5.6.5 三态
+
+| 结论 | 态 |
+|---|---|
+| 存在第 4 个远程输出族 `SprayWeaponComponentData` | **✓ 离线**（社区模型 + 本 build 23 行实测，喷火/毒气/敌人喷火全在其中） |
+| 喷火器不发射 projectile | **✓ 离线**（没有 ProjectileWeapon 组件；只有 Spray + Magazine） |
+| `+200` = 喷流的伤害/命中类型 | **✓ 离线**（与社区 `+200 DamageInfoType` 一致；数值分火焰组 vs 毒气组） |
+| `+200` 各值的具体名字 | **⚠ 未解**（不在全局 DamageInfoType 名表里） |
+| `+0x30/+0x68/+0xA0` 三段结构的语义 | **⚠ 未证**（推测近/中/远或起/续/收） |
+| 毒气的"中毒"来自 Status 攻击而非 Spray | **✓ 离线**（TX-41 的 attack graph） |
+
+---
+
 ## 6 三态 / 未解
 
 | 结论 | 态 |
