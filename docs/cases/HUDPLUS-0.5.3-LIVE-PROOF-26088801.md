@@ -176,9 +176,67 @@ game_object_field_batched(session, goid, out)   -- out 是复用表，调用前�
 | `0x0f27c68e` | `baegche` | `player.avatar_field`（注意：9 位 hex，实为 `f27c68e`） |
 | `0xc3a3f66c` | `dvpupm` | `bind_field` |
 | `0xe144c5e3` | `mm9hm0` | — |
+| `0xdae681f4` | `gls4w9b` | `avatar.ship_field`（**飞船判据**，见 §4.6） |
 
-> 我此前记的"14 个 schema 失配标签"就是这批**字段名**——现在其中 13 个拿到了 hash。
-> 剩下 `gls4w9b` 未在载荷内嵌表里出现。
+> 我此前记的"14 个 schema 失配标签"就是这批**字段名**——**14/14 全部拿到 hash**。
+> `gls4w9b` 藏在 `avatar.ship_field` 里，形如 `{hash, value, call}`（三键，hash 与 call 不相邻），
+> 原先"相邻对"正则扫不到；`extract_names.py` 已改成"按最内层表块配对"→ 14 条全出。
+
+### 4.6 飞船 avatar 的判据：读一个字段跟常量比，**不是**数实体
+
+```lua
+-- 数据（内嵌表）
+ship_field = { hash = "0xdae681f4", value = 30, call = "gls4w9b" }
+
+-- script.lua:1320
+function Identity:on_ship(session, avatar)
+  local spot = self.avatar.ship_field
+  if spot == nil then return false end                 -- ① 没有这个字段 → 闸自动失效（放行），不报错
+  local memo = self.ship_memo
+  if memo ~= nil and memo.goid == avatar.goid then     -- ② 按 avatar goid 记忆，goid 不变不重读
+    return memo.aboard
+  end
+  local value = self:avatar_value(session, avatar, spot)  -- ③ game_object_field(session, avatar_goid, "gls4w9b")
+  if value == nil then return false end                -- ④ 读不到 → 当作不在船上（fail-open）
+  local aboard = value == spot.value                   -- ⑤ 与 30 比较
+  self.ship_memo = { goid = avatar.goid, aboard = aboard }
+  return aboard
+end
+```
+
+`reset()`（:539 附近）清 `ship_memo`；`avatar_goid` 变化时 `find` 会先 `reset()` 再重读（:1300-1304）。
+
+**离线交叉验证**（`type-schema-dictionary.json`）：
+
+| hash | 声明它的类型 | schema |
+|---|---|---|
+| `dae681f4` | **只有 `gl7xl2w`（= avatar）** | `type=2, bits=8, range=-1..255` |
+
+⇒ 这个字段**只存在于 avatar 类型上**，是普通 8 位值（不是 2 bit 枚举）⇒ `30` 是一个正常状态编号。
+而 avatar 类型名 `gl7xl2w` / 类型 hash `0x5d9752f9` 与内嵌表完全一致。
+
+**同家族的另外四道闸**（同一套「读语义字段」思路）：
+
+| 判据 | 字段 | hash | 常量 | 源码 |
+|---|---|---|---|---|
+| 是否在飞船上 | `gls4w9b` | `dae681f4` | `== 30` | :1320 |
+| 是否死亡 | `state` | `82830aed` | `== 2`（`AVATAR_LIVING, AVATAR_DEAD = 0, 2`，:441） | :605-607 |
+| 是否在玩家控制中 | `motion_enabled` | `d49efb40` | bool | :1309-1311 |
+| 旋转是否解锁 | `rotation_enabled` | `4441caf8` | bool | :1332 |
+| 备注用（诊断） | `health` / `state` / `rotation_enabled` | `cb0453ea` / `82830aed` / `4441caf8` | — | `gate_note_fields` |
+
+`state` 的 schema 是 `type=1, bits=2, range=0..3`（20 个类型共用）⇒ 4 态枚举，`2 = 死`，与常量自洽。
+`health` 的 schema 是 `type=1, bits=18, range=-100000..162143`，且**只在 `gl7xl2w`** 出现。
+
+**与我们"数加载实体"的对比**：
+
+| | HUD+ 的做法 | 我们此前的做法 |
+|---|---|---|
+| 判据性质 | **语义状态**（官方自己定的字段值） | **环境代理**（实体数量） |
+| 是否需要阈值 | 不需要，直接等于常量 | 需要，且阈值随版本/场景漂 |
+| 过渡态（运输机/复活/降落） | 字段值直接给出真值 | 计数可能暂时"像在局内" |
+| 换 build 后 | 字段改名则闸自动失效（fail-open），不崩 | 阈值失效则误判，且**误判后照样去调 API** |
+| 额外收益 | 死亡/受控/旋转锁定一并精确判定 | 只知道"加载差不多了" |
 
 提取物：`D:\mod\recon-hudplus\derived\field-names.json`、`REPORT.md`（`extract_names.py`）。
 
