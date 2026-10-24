@@ -838,3 +838,32 @@ SDK 文档原话（编译期反汇编得出的结论）：
 | **`stat 13` = 主武器装填** | ⚠ **从未直接测过** | **新增证据点** |
 | **三条 sm 共存** | ⚠ 未验 | **新增证据点** |
 | 文件侧（`dl_bin`）加 stat 行 == 内存侧同一效果 | ⚠ 未对照 | **新增证据点**（当年是内存搬迁） |
+
+### 12.8 「装填是 stat 而非 passive」—— 文档里的完整证据 + 一条关键时机
+
+用户 2026-10-24 18:3x 的怀疑是对的，而且这条早就被反汇编钉死过：
+
+| 证据 | 内容 |
+|---|---|
+| SDK `docs/armor-passives.md:200-201` | 原文：*"Reload, ammo capacity and sidearm stats **never follow** … they are **description text**. The effects are **stat rows** that `0x11DA190` applies from the **kits worn at spawn** (stat component, `SetStat 0xA076C0`)."* |
+| 六个 `description-only` 的 pm 键 | `CC530B21`(primary_reload) · `35F17BEC`(support_reload) · `B4F88129`(sidearm_reload) · `33C9C713`(ammo_capacity) · `AD5289FE`(sidearm_draw) · `22035F3C`(sidearm_recoil) —— **改这些 pm 行永远不产生效果** |
+| e15 的反面实例 | 当年把 `support_reload_speed` 的 **pm 行**叠进 perk 16 ⇒ **实机毫无变化**；改叠 **stat 行**（stat 14）⇒ 秒表 4.04 → 3.14 s ✓ |
+| 我们的 p6 | 加的是 **sm 行**（stat 12）⇒ 备弹 32 → 64 ✓ ⇒ **perk 1 的 sm 数组确实被消费** |
+
+⇒ **结论**：`pm` 管文案与 `armor_rating`；**`sm` 管武器类数值**（装填/弹容/副武器），且 **stat 行在 spawn 时施加**。
+
+#### ⚠ 由此得到一条测试纪律
+
+| 要求 | 原因 |
+|---|---|
+| 换表后**必须重启游戏** | 表在启动时读入 |
+| 必须**进任务（产生一次 spawn）** | stat 行是「**出生时穿着的甲**」施加的（`0x11DA190`） |
+| 必须**穿着目标甲**（B-01 Tactical = perk 1） | 施加源是「穿着的甲的被动记录」 |
+
+#### 12.8.1 更正：18:2x 那次「感觉没变化」的观察作废
+
+当时盘上是 **p6**（`db9322d0`，只有 `stat 12`）——**p7 从未装上**（我在等游戏退出，用户直接去测了）。
+文件时间戳 `2026-10-24 18:10:38` 可佐证。所以那次观察的对象里**根本没有装填那两条 sm**，
+不能用来判断 stat 13/14。
+
+p7 已于 **18:4x 正式装机**：盘上 `8f00d05e…`，解封后 `perk1: pm_cnt=1 sm_cnt=3` → `(12,2.0) (13,2.0) (14,2.0)` ✓。
