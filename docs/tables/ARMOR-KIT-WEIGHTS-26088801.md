@@ -157,7 +157,7 @@ python tools/armor_kit_weight.py --kit "B-01 Tactical" --weight heavy --out out/
 
 | 看什么 | 期望 |
 |---|---|
-| 军械库卡片 | 上面那张表；卡片标签 Light/Medium/Heavy **跟着 torso 走**（B-01 本来就 medium → 还是 Heavy 标签） |
+| 军械库卡片 | 上面那张表；卡片标签 Light/Medium/Heavy **跟着 torso 走**（B-01 原本是 **Medium** → 全改 heavy 后应变成 **Heavy**） |
 | 出生后冲刺 | 明显变慢（500 → 450，−10%） |
 | 耐力 | 条变短、消耗更快（100 → 50） |
 | 挨打 | 掉血少一档（A 1 → 2，伤害 ×1.00 → ×0.75） |
