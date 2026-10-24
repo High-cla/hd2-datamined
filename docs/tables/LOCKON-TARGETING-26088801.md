@@ -1,6 +1,7 @@
 # 锁定 / 制导武器（lock-on / seek）—— 武器线遗漏项（build 26088801）
 
-> **状态：锁定距离 ✓ 实机已证（P-92 60→300）；锥角 run 2 已装盘待测。**
+> **状态：✓ 结项。** 数据表侧已验证 **两** 个可改旋钮：**锁定距离**（`SensorEye.distance`）与
+> **锁定所需时间**（`GuidanceTarget.lock_on_target_time`）；锥角与可锁目标集合**在引擎侧**（五轮否证）。
 > 本篇把 memmod 时期 `c9-seek` 那条线与当前 build 的**明文表**对上，给出可编辑落点、映射与已跑通的做法。
 > 情报侧：`D:\mod\c9-recon\web-intel-hd2-lockon.md`（公开资料）· 当年写载物：`D:\mod\c9-seek-write\`（patch_3）。
 
@@ -300,11 +301,10 @@ dot 退回**原版 0.95**（去掉 run 2 那个「候选过多」的混淆因素
 | 离线 | G1–G9 全 PASS（diff 5 B）；哈希 `0x8E49771B181FFAA1` 不变；封装 sha256 `97b8e371…` |
 | 盘上回读 | Spear `lock_t=0.05`、`lost_t=0.15`、`locklost_t=2`、`req_lock=1`；**其余四把时序未动**（0.10 / 0.75 / 0.50 / 2.00） |
 
-**实机判据**：带 **FAF-14 Spear** 进图，对着可锁目标瞄——
+**实机结果（用户原话）**：「**Spear 锁定更快，几乎是一瞬间**」✓
 
-- ✓ 若**锁定框一瞄就满**（原本要约 1 秒才锁上）⇒ `lock_on_target_time` = 锁定所需时间，这条通了
-- ⚠ 若**锁得更难/更容易掉**（而不是更快）⇒ 它其实是"保持时间"，语义要改记
-- ✗ 若**完全一样** ⇒ 与锥角同理，时序也在引擎侧（那 `GuidanceTarget` 这张表对玩家锁定就只剩"存在性"意义）
+⇒ `lock_on_target_time` **就是锁定所需时间**（秒）。1.00 → 0.05 后从「约 1 秒」变成「一瞄即满」。
+这一条同时排除了另外两种可能：它不是「保持时间」，也不是「引擎侧写死」。
 
 ---
 
@@ -313,6 +313,7 @@ dot 退回**原版 0.95**（去掉 run 2 那个「候选过多」的混淆因素
 | 能力 | 字段 | 判定 |
 |---|---|---|
 | **锁定距离** | `SensorEyeComponentData +0x00 distance` | **✓ 实机可改**（P-92 60→300，能锁 60 m 以外） |
+| **锁定所需时间** | `GuidanceTargetComponentData +0x10 lock_on_target_time` | **✓ 实机可改**（Spear 1.00→0.05，一瞄即满） |
 | 锁定锥角 | `GuidanceTarget +0x20 target_lock_dot`（0.95→0.5） | **✗ 否证** |
 | 锁定锥角 | `SensorEye +0x0C/+0x10 angle_h/v`（20→90） | **✗ 否证** |
 | 锁定锥角 | 上面两者**同时**放宽（合取模型） | **✗ 否证** |
@@ -320,8 +321,19 @@ dot 退回**原版 0.95**（去掉 run 2 那个「候选过多」的混淆因素
 | 可锁目标集合 | 标签位图 | **✗ 不可读亦不可改**（见 §10） |
 | 每把武器的目标过滤（Spear 只锁建筑/精英 vs WASP 锁大多数） | `SeekingMissile +0x00 TargetingMode`（P-92/Spear/WASP 全 = **2**，Commando = **1** 激光） | **✗ 不在数据里**（同一 mode 内过滤不同） |
 
-**结论：锁定这条线上，数据表能给的就是「距离」。** 锥角与目标集合都在引擎侧（`game.dll` 或准星/HUD 几何）。
-`SensorEye.distance` 已足以做出"远程锁定"的实际效果；再往下挖性价比很低。
+**结论：数据表能改「距离」与「锁定速度」；改不动「锥角」与「目标集合」**（后者在引擎侧，五次否证后不再投入）。
+
+### 实验台账（7 轮 · 2 ✓ / 5 ✗）
+
+| run | 变量 | 结果 |
+|---:|---|---|
+| 1 | `SensorEye.distance` P-92 60 → **300** | **✓ 实机**：能锁 60 m 以外 |
+| 2 | `target_lock_dot` 0.95 → 0.5 | ✗ 无变化 |
+| 3 | `SensorEye.angle_h/v` 20 → 90 | ✗ 无变化 |
+| 4 | `SeekingMissile.MaxAngleToTarget` 45 → 120 | ✗ 无变化 |
+| 5 | run 2 + run 3 同时（合取模型） | ✗ 无变化 |
+| 6 | `peripheral` / `back` -1 → 90 | ✗ **取消**（`-1` 是哨兵值，改它无意义） |
+| 7 | `lock_on_target_time` Spear 1.00 → **0.05** | **✓ 实机**：一瞄即满 |
 
 ---
 
@@ -337,36 +349,52 @@ dot 退回**原版 0.95**（去掉 run 2 那个「候选过多」的混淆因素
 | `target_lock_dot` 全表统一 0.95（锥角非逐武器） | **✓ 离线** |
 | `TargetingComponentData` 是角色索敌、与玩家锁定无关 | **✓ 离线** |
 | 改 `SensorEye.distance` 能改变实机锁定距离 | **✓ 实机**（P-92 60→300，能锁 60 m 以外） |
+| 改 `lock_on_target_time` 能改变实机锁定速度 | **✓ 实机**（Spear 1.00→0.05，一瞄即满） |
 | 引擎接受改过并重新封装的 `generated_entities.dl_bin` | **✓ 实机**（同上；见 [案例](../cases/ENTITIES-TABLE-LIVE-EDIT-26088801.md)） |
 | `target_lock_dot` 是运行期判据（放宽后候选范围变宽） | **✓ 实机**（run 2） |
 | ~~锁定需第二道 = 传感器视锥~~ | **✗ 否证**（run 3：20→90 无变化） |
 | `MaxAngleToTarget` 是发射前锁定门禁 | **✗ 否证**（run 4：45→120 无变化） |
 | 锁定锥 = `dot` 与 `SensorEye.angle` 的**交集**（取小） | **✗ 否证**（run 5 同时放宽仍无变化） |
 | **锁定锥在引擎侧**（不在 `GuidanceTarget` / `SensorEye` / `SeekingMissile`） | **✓ 五轮否定后的结论** |
-| `angle_h/v = 20` 是全角还是半角 | **⚠ 未证**（run 3 用 90 做定性判据，不区分全/半角） |
+| `angle_h/v = 20` 是全角还是半角 | **— 不追**（run 3/5 证明它不参与锁定判定，单位已无意义） |
 | `angle_h/v` 与 `dot` 谁卡「完成锁定」 | **✗ 不适用**（两者都不控制可锁范围） |
-| `requires_target_lock` / `tracking_loop_start` 的实机语义 | **⚠ 未证** |
+| `requires_target_lock` / `tracking_loop_start` 的实机语义 | **⚠ 未证**（不影响已得结论） |
 | 能否让**非锁定武器**获得锁定（需同时加 `SensorEye` 行 + `GT` 行 + `crosshair=16`，≥3 变量） | **⚠ 未试** |
 | `Tag_CanBeLockedOn` 能否扩大"可被锁"的目标集合 | **✗ 不可行**（标签是 4352 bit 位图，无位↔名映射，见 §10） |
 
 ---
 
-## 9 遗留 / 下一步
+## 9 结项：装机状态 / 回滚 / 后续
 
-**已结项的部分**（不要再花局验）：
+### 9.1 当前装机（2026-10-24，`generated_entities.dl_bin`）
 
-1. ~~锁定距离~~ → **✓ 实机可改**（`SensorEye.distance`，run 1）。
-2. ~~锁定锥角~~ → **✗ 四路全否证**（`dot` / `SensorEye.angle` / 两者合取 / `MaxAngleToTarget`），在引擎侧。
-3. ~~可锁目标集合~~ → **✗ 不可读不可改**（§10，标签是位图且无映射）。
-
-**还值得做、且不属于"锥角"的**（都是独立能力，各自单变量）：
-
-| # | 能做什么 | 为什么值得 |
+| 改动 | 原值 → 新值 | 实机 |
 |---|---|---|
-| 1 | `GuidanceTarget +0x10 lock_on_target_time` 缩小（**挑 Spear**，它 1.0 s 最明显） | 锁得更快；P-92 只有 0.1 s 看不出差别 |
-| 2 | `SeekingMissile` 转向/速度（**挑 Commando** 30/75/120·turn 2/12，或 **Spear** turn 10/13） | P-92 已是全表最快（90/90/90·30°/s）改不出差别 |
-| 3 | 多把锁定武器的 `distance` 一起抬（P-33 100→300 等） | 做成"全系远程锁定"的成品，而非实验 |
-| 4 | ~~给非锁定武器加锁定~~ | **✗ 不可行**（用户 2026-10-24 确认）：memmod 时代那条路是**我们自己写锁定逻辑**（Lua 侧轮询目标 + 写瞄准），**不是引擎给的**；数据表路线没有等价通道 ⇒ 不再当"未试" |
+| P-92 Warrant `SensorEye +0x00 distance` | 60 → **300** | ✓ 能锁 60 m 以外 |
+| FAF-14 Spear `GuidanceTarget +0x10 lock_on_target_time` | 1.00 → **0.05** | ✓ 一瞄即满 |
+| 其余全部 | 原版（`dot 0.95`、`xhair 1.75`、`cone 20/20`、`max_angle 45`、其它四把的时序） | — |
+
+- 明文 sha256 `642b6e4c…`、封包 sha256 `97b8e371…`、内容哈希锚点 `0x8E49771B181FFAA1`
+- 原版备份：`D:\mod\backups\dlbin-deploy\game\generated_entities.dl_bin`（`cac4a228…`）
+- 回滚：`python tools/dlbin_deploy.py restore --file generated_entities.dl_bin`
+
+### 9.2 已结项、别再花局验的
+
+| 项 | 判定 |
+|---|---|
+| 锁定距离 | **✓ 实机可改**（run 1） |
+| 锁定所需时间 | **✓ 实机可改**（run 7） |
+| 锁定锥角 | **✗ 四路全否证**（`dot` / `SensorEye.angle` / 两者合取 / `MaxAngleToTarget`）⇒ 引擎侧 |
+| 可锁目标集合 | **✗ 不可读不可改**（§10：标签是 4352 bit 位图，无位↔名映射） |
+| 给非锁定武器加锁定 | **✗ 不可行**：memmod 时代是**我们自己写锁定逻辑**（Lua 轮询目标 + 写瞄准），不是引擎给的；数据表无等价通道（用户 2026-10-24 确认） |
+
+### 9.3 若还要继续（都是独立能力，各自单变量）
+
+| # | 能做什么 | 备注 |
+|---|---|---|
+| 1 | 其余三把的 `distance` / `lock_on_target_time` 一起调 | 做成「全系远程 + 瞬锁」成品；P-33 100→300、WASP 0.50→0.05 |
+| 2 | `SeekingMissile` 转向 / 速度 / 加速度 | **必须挑 Commando（turn 2/12）或 Spear（turn 10/13）**；P-92 已是全表最快（30°/s）改不出差别 |
+| 3 | `lost_target_time` / `lock_lost_target_time` | 掉锁后能维持多久；两把枪的 2.0 s 可能可调 |
 
 ## 10 锁定「目标列表」在明文表里吗？—— **不在**（✓ 已查清）
 

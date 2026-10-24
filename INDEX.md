@@ -37,7 +37,7 @@
 | **近炸引信（空炸 / 破片弹）** | [PROJECTILE-PROXIMITY](docs/tables/PROJECTILE-PROXIMITY-26088801.md) | **§1 引信段字段 · §3 AC-8 为什么要找备弹 289 · §4 怎么改** | `26088801` |
 | 弹幕轮数 / 每轮弹数 / 散布 | [STRATAGEM-FIELDS](docs/tables/STRATAGEM-FIELDS-26088801.md) · [ENTITY-TABLE](docs/tables/ENTITY-TABLE-25988413.md) | §3 散布 · §5 弹幕组件 | `26088801` |
 | **护甲三数字（rating / speed / stamina）** | [ARMOR-KIT-WEIGHTS](docs/tables/ARMOR-KIT-WEIGHTS-26088801.md) | **§2.1 完整数值模型（135/135）· §5.2 实机读数 · §1.1 class_table 三张表的 RVA 与字节** | `26088801` |
-| **锁定 / 制导武器** | [LOCKON-TARGETING](docs/tables/LOCKON-TARGETING-26088801.md) | **§1 三张表（`SensorEye` 距离 / `GuidanceTarget` 锥角时序 / `SeekingMissile` 制导）· §4 武器→投射物→制导行映射 · §5 改法· §7 已装盘单变量** | `26088801` |
+| **锁定 / 制导武器**（**✓ 结项**） | [LOCKON-TARGETING](docs/tables/LOCKON-TARGETING-26088801.md) | **§7.5 能力边界 + 7 轮实验台账**：距离 ✓ 实机、锁定时间 ✓ 实机、锥角 ✗、目标集合 ✗ · §1 三张表与几何 · §4 武器→投射物→制导行映射 · §10 目标列表不在明文 | `26088801` |
 | **护甲被动 / 弹容 / 装填 / 单件甲** | [ARMOR-PASSIVE-STATS](docs/tables/ARMOR-PASSIVE-STATS-26088801.md) | **§2 两层作用范围 · §4 sm 七个槽的语义 · §5 三条硬约束 · §6 已验证配方** | `26088801` |
 | **只给某一件甲加效果** | [ARMOR-PASSIVE-STATS](docs/tables/ARMOR-PASSIVE-STATS-26088801.md) | **§2 单件级（改 kit 的 `+0x1C`）· §6 配方 · §2 末尾「没有空被动」的否证** | `26088801` |
 | **投送舱送什么（战备空投舱换载荷）** | [POD-RACK](docs/tables/POD-RACK-26088801.md) | **§1 槽位结构 · §2 前 N 个槽才生成 · §3 换物品配方** | `26088801` |
@@ -146,7 +146,7 @@
 
 | 文档 | 一句话 | build |
 |---|---|---|
-| ★ [LOCKON-TARGETING-26088801](docs/tables/LOCKON-TARGETING-26088801.md) | **锁定/制导武器**：锁定距离在 `SensorEye.distance`、锥角在 `GuidanceTarget.target_lock_dot`（全表 0.95）、制导参数在 `SeekingMissile`；武器→投射物→行 映射；`TargetingComponentData` 更正为 AI 索敌；P-92 60→300 已装盘 | `26088801` |
+| ★ [LOCKON-TARGETING-26088801](docs/tables/LOCKON-TARGETING-26088801.md) | **锁定/制导武器（✓ 结项）**：可改 = 距离（`SensorEye.distance`）+ 锁定时间（`lock_on_target_time`，均实机）；改不动 = 锥角（四路否证）+ 可锁集合（标签位图无映射）；含 7 轮实验台账与武器→投射物→制导行映射 | `26088801` |
 | ★ [ENTITIES-TABLE-LIVE-EDIT-26088801](docs/cases/ENTITIES-TABLE-LIVE-EDIT-26088801.md) | **实体表在线改写 ✓ 实机**：47 MB `generated_entities.dl_bin` 可改 + 重新封装 + 引擎接受；完整证据链（解封/锚点哈希/门禁/盘上回读/实机） | `26088801` |
 | ★ [ARMOR-PASSIVE-STATS-26088801](docs/tables/ARMOR-PASSIVE-STATS-26088801.md) | **护甲被动/stat 行的文件侧能力模型**：pm vs sm 两通道、两层作用范围、7 个 stat 槽、三条硬约束、4 个已验证配方 | `26088801` |
 | ★ [TABLE-DICTIONARY-25988413](docs/tables/TABLE-DICTIONARY-25988413.md) | **全表字典**：55 张表几何 + 类型库字段偏移（1,208 类型 / 7,349 成员） | `25988413` |
