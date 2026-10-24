@@ -338,3 +338,66 @@
 | 携带状态在**被携带对象**的 `enabled_mask`/`dvpupm` 上 | ⚠ 强推断（HUD+ 源码 + 本次零变化） |
 | avatar seat 70 `a33df340` 是一个 0/1 状态位 | ✓ 实机（观测到翻转） |
 | seat 70 的具体语义 | ⚠ 未证（等动作回顾） |
+
+---
+
+# 18 挖 HUD+ 的 7 个 frag 数据块：seat 70 无线索，但补到两条名字
+
+把 HUD+ zip 里 patch_3..patch_9 各含的 1 个 lua 资源解码（`srkit extract --decoded`），
+得到 boot 脚本之外的 7 个「fragment」模块（`GeneratedFragment`）：
+
+| patch | 选项 | frag | 大小 |
+|---|---|---|---|
+| 3 | WEAPON_ON | `frag_weapon` | 15.2 KB |
+| 4 | BACKPACK_ON | `frag_backpack` | 3.6 KB |
+| 5 | NUMBERS_* | `frag_numbers` | 3.1 KB |
+| 6 | ICON_FULL | `frag_icon` | 2.7 KB |
+| 7 | ICONPOSITION_* | `frag_iconposition` | 418 B |
+| 8 | IDLE_* | `frag_idle` | 474 B |
+| 9 | SQUAD_ALL | `frag_squad` | 4.85 KB |
+
+## 18.1 直接答案：`a33df340` 在 HUD+ 里**一次都没出现**
+
+扫 8 个文件（boot + 7 frag），共引用 **259** 个不同的 32 位 hash。avatar 复制集尾部 9 个座位：
+
+| 座位 | id | HUD+ 引用 |
+|---|---|---|
+| 68 | `dae681f4`（`gls4w9b`） | ✓ boot 脚本 1 次 |
+| **64/65/66/67/69/70/71/72** | `b2205a6e`/`1023782c`/`ce125651`/`e4d00fe1`/`6d976352`/**`a33df340`**/`c20428c6`/`6d1d5cfb` | **0 次** |
+
+⇒ 想从 HUD+ 的代码里读 seat 70 的语义：**这条路不存在**。
+
+## 18.2 意外收获 1：两条字段名
+
+`frag_squad` 的 `foreign_calls` 里给了名字：
+
+| hash | 名字 | 座位（`un6y1d`） | 实测值 |
+|---|---|---|---|
+| `0x3b12bd49` | **`booster`** | seat 14（t1 b5） | 0 |
+| `0xcd889dbc` | **`gbgqot6`** | seat 3（t1 b32） | 257 |
+
+## 18.3 意外收获 2：HUD+ 的位域解读法（可直接搬用）
+
+`frag_squad` 的 `signals.icon`：
+
+```lua
+{ ["table"]="dead", ["from"]="raw_live", ["bits"]={8, 0} }
+```
+
+`bits = {字节序号, 位序号}` ⇒ 取「第 **8** 字节的第 **0** 位」= 第 **64** 位 = **死亡位**。
+
+我们实测 `cd889dbc` = **257** = `0b1_0000_0001` ⇒ bit0 与 bit8 置位，**bit64 未置 ⇒ 活着**，
+与当时事实自洽 ✓。这条方法对任何 32 位状态字段都适用。
+
+## 18.4 意外收获 3：HUD+ 读队友只用了两个字段
+
+`frag_squad` 的 `network_fields`（每个 relation 一份，`player`/`squad-1..3`）：
+
+| relation | 读的字段 | 用途 |
+|---|---|---|
+| player / squad-1..3 | `0x3b12bd49` = **`booster`**（`foreign_steady=true`，值不变→缓存） | 队友的被动/增益图标 |
+| player / squad-1..3 | `0xcd889dbc` = **`gbgqot6`** | 取 bit64 判**死亡** → 骷髅图标 |
+
+⇒ **「读队友」在 HUD+ 里是已经跑通的事实**（run4 实机 GUI 17544 次调用 0 失败），
+而且它只需要**两个字段**：`booster` + `gbgqot6`。
+`check_read` 里那两个 hash 的 `squad_owned` 特例就是为它们准备的。
