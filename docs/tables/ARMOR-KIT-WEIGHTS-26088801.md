@@ -304,12 +304,16 @@ SDK 对这个键的说法（`ArmorPassiveCatalog.json` perk 1）：
 
 伤害：`A = 1 + 1.0 = 2.0` ⇒ 伤害曲线在 (2, ×0.75) 上 ⇒ **受击 ×0.75**（与任何 A=2 的甲同档）。
 
-### 8.4 测试期间的一个真实风险
+### 8.4 ArmoryForge 已卸载（2026-10-24）
 
-`patch_4` = **ArmoryForge（护甲多被动）也会写同一个文件**，而且它用的是**自己内嵌的原版基线**
-（见 `docs/cases/COMMUNITY-MODS-COMPAT-26088801.md` §6）。它的日志目前全是
-`EXIT no pending selection`（从未写过盘），但只要在它的菜单里**确认任何选择**，它就会整表重建成原版，
-把 p2 抹掉。
+`patch_4` = **ArmoryForge（护甲多被动）写的是同一张表**，而且用**它自己内嵌的原版基线**重建整表
+（见 `docs/cases/COMMUNITY-MODS-COMPAT-26088801.md` §6）。它历史上已经造成过**误判**，所以直接卸掉：
 
-⇒ 这一轮测试：**不要碰 ArmoryForge 的选项**。若不小心动了，重装一次 p2 即可
-（`dlbin_deploy.py install` 同一条命令）。
+| 动作 | 结果 |
+|---|---|
+| 移走 `data/…patch_4` / `.gpu_resources` / `.stream` | ✓（418,432 B） |
+| 移走它留在游戏根目录的 `ArmoryForge-Multi.log` | ✓（4,136 B） |
+| 备份到 | `D:\mod\backups\armoryforge-removed-20261024-1421\` |
+| 对盔甲表的影响 | **无**：被动表仍是 p2（`b89a9cc624a435c0`），档位表仍是原版（`4739b50c…`） |
+
+⇒ 现在 `data/` 里只剩**我们自己的** `patch_0..3`，第三方写入者清零，被动表不再有被整表重建的风险。
