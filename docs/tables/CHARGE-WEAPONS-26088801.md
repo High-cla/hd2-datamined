@@ -1,0 +1,157 @@
+# 蓄力武器（charge-up）—— 组件表定位与字段图（build 26088801）
+
+> **状态：表已定位、字段已按社区 schema 逐项对齐；run 1（ARC-3 蓄满时间 → 0.05）已装盘待实机。**
+> 相关：[LOCKON-TARGETING](LOCKON-TARGETING-26088801.md)（锁定线）· 社区结构来源：`xypwn/filediver`
+> `datalibrary/weapon_charge_component.go`
+
+---
+
+## 0 一句话
+
+蓄力在 **`WeaponChargeComponentData`**（`0xEAC335A1` @ 明文 **`0x0075E5D0`**）里，
+每把武器一行 **216 B**，里面是 **三档蓄力状态（Min / Full / Over）× {蓄力时间, 弹丸类型}** + 一整组
+**蓄力倍率**（速度/伤害/穿甲/电弧距离/分裂/链数）+ 音效与材质句柄。
+**「能不能不蓄满就开火」直接对应 `Min` 档的 `ProjType` 是否为 0**（见 §2）。
+
+---
+
+## 1 表的几何
+
+| 项 | 值 |
+|---|---|
+| 组件类型 | `WeaponChargeComponentData` = `0xEAC335A1`（旧 build schema 与本 build 同值） |
+| 块头 | `0x0075E5D0`（`payload = 块头 + 28`） |
+| payload | 3,456 B = **20 槽 × 16 + 11 行 × 216** |
+| 行 stride | **216 B**（与社区 `WeaponChargeComponent` 的结构尺寸**逐字节吻合**） |
+| 键 | 武器 GUID（不是行号）；行基址 = `payload + 20×16` = `0x0075EC6C`… 见 §4 |
+
+> 同族还存在 `WeaponHeatComponentData`（`0x4C981CD9` @`0x1A8E660`，60 槽 / 31 行 × 592）
+> 与 `WeaponWindUpComponentData`（`0x84CE7EEE` @`0xC5BB8`，18 槽 / 10 行 × 36）——
+> 前者是激光类"过热"，后者是前摇/摇把，**都不是**蓄力；查蓄力只看 Charge 表。
+
+---
+
+## 2 行内字段图（216 B，已用数据逐项校准）
+
+```
++0x00 ChargeStateSetting[0]  Min 档   ┐
++0x18 ChargeStateSetting[1]  Full 档  ├ 每档 24 B：
++0x30 ChargeStateSetting[2]  Over 档  ┘  +0x00 ChargeTime(f32,秒) +0x04 ProjType(u32)
+                                         +0x08 ProjectileParticle(u64) +0x10 ThinHash(u32) +0x14 pad
+
++0x48 ProjectileMultipliers = 12 × f32（48 B）
+        SpeedMin / SpeedOver · DamageMin / DamageOver · PenetrationMin / PenetrationOver
+        DistanceMin / DistanceOver · ExtraArcSplitsMin / Over · ExtraArcChainsMin / Over
+
++0x78 ChargeStartSoundID      +0x7C ChargeStopSoundID
++0x80 ReadyToFireSoundID      +0x84 DangerOverchargeSoundID
++0x88 ChargeMesh  +0x8C ChargeMaterial  +0x90 ChargeVariable   (+0x94 pad)
++0x98 ChargeUpMuzzleFlash(u64)  +0xA0 ChargeUpMuzzleFlashLoop(u64)
++0xA8 ChargeAnimID  +0xAC ChargeEndAnimID  +0xB0 ChargeRateAnimID  +0xB4 SpinSpeedAnimID
++0xB8 AutoFireInSafety(u8)   ← 关掉 = 按住扳机能一直保持蓄力
++0xB9 ExplodesOnOvercharged(u8)
++0xBC ExplosionAudioEvent(u32)  +0xC0 UnknownFloat(f32)
++0xC4 DryFireAudioEvent(u32)    +0xC8 ExplodeType(u32)
++0xCC StateValue.State(u32)     +0xD0 StateValue.Value(f32)   (+0xD4 pad) → 合计 216 ✓
+```
+
+**校验方式**：`0xB8` 处四把枪读出 `u32=256` ⇒ 字节 `0xB8=0`、`0xB9=1`
+（`AutoFireInSafety=0`、`ExplodesOnOvercharged=1`），与社区 bool 顺序一致；结构总长 216 = 我们的 stride。
+
+---
+
+## 3 ★ 关键相关性：「要不要蓄满」= `Min.ProjType` 是否为 0
+
+`ChargeStateSettings` **每一档都有自己的 `ProjType`**。实测（`+0x04` / `+0x1C` / `+0x34`）：
+
+| 武器 | Min 档 type | Full 档 type | 玩家行为（用户描述） |
+|---|---:|---:|---|
+| **PLAS-101 Purifier** | **131** | 301 | **不蓄满也能开火** ✓ |
+| PLAS-15 Loyalist | **72** | 346 | 能（同类三档弹丸） |
+| PLAS-45 Epoch | **168** | 196 | 能（同类三档弹丸） |
+| **PLAS-39 Accelerator** | **0** | 0 | **必须蓄满** ✓ |
+| **ARC-3 Arc Thrower** | **0** | 0 | **必须蓄满** ✓ |
+| RS-422 Railgun | 0 | 0 | 必须蓄满（实际一致） |
+
+⇒ **有 Min 档弹丸 = 可以"打弱的一发"；三档全 0 = 只能等 Full**。
+（三档全 0 并不意味着"没弹丸"，而是本组件不按蓄力换弹丸，弹丸来自 `ProjectileWeapon`/`ArcWeapon` 等其它组件。）
+
+⚠ 这是**离线强相关**（6/6 与现象一致），运行期因果**未证**——见 §6 的判据设计。
+
+---
+
+## 4 六把蓄力武器的实际数值（本 build）
+
+| 武器 | 行 | Min 时间 | Full 时间 | Over 时间 | Speed Min/Over | Dmg Min/Over | Pen Min/Over | Dist Min/Over |
+|---|---:|---:|---:|---:|---|---|---|---|
+| PLAS-39 Accelerator | 2 | 0.45 | **0.50** | 0.90 | 0.7 / 1.0 | 1.0 / **2.5** | 1 / 1 | 0.7 / 1.4 |
+| PLAS-101 Purifier | 4 | **0.01** | 1.00 | 1.00 | — | — | — | — |
+| PLAS-15 Loyalist | 5 | **0.01** | 0.75 | 3.00 | 1 / 1 | 0.5 / 1 | 0.55 / 1 | 0.7 / 1.4 |
+| **ARC-3 Arc Thrower** | 6 | **1.00** | **1.10** | 1.20 | 0.7 / **1.4** | 1 / 1 | 1 / 1 | 1 / 1（电弧倍率另有 `Splits/Chains`，ARC-3 全 0） |
+| PLAS-45 Epoch | 8 | 1.00 | 2.50 | 2.60 | 1 / 1 | 1 / 2 | 1 / 1 | 0.7 / 1.4 |
+| RS-422 Railgun | 9 | 0.45 | 0.50 | 3.00 | 0.7 / 1.0 | 1.0 / 2.5 | 1 / 1 | 0.7 / 1.4 |
+
+> Accelerator 与 Railgun 的倍率组**完全相同**（0.7/1.0 · 1.0/2.5 · 1/1 · 0.7/1.4），像是同一套"单发重击"模板。
+
+---
+
+## 5 怎么改
+
+与锁定线同一套（实体表通用原语），只需换 `--block` / `--key` / `--field`：
+
+```bash
+python tools/entity_field_set.py show --block 0xEAC335A1 --key 0x96DE9CD50F7306E6 --width 216   # ARC-3
+python tools/entity_field_set.py set  --plain <in> --block 0xEAC335A1 --key <武器 GUID> \
+    --field 0x18 --type f32 --value 0.05 --expect-old 1.1 --out <out>
+# 封装 / 装机 / 回读 同 LOCKON-TARGETING §5
+```
+
+可改的旋钮（按有用程度）：
+
+| 目标 | 字段 |
+|---|---|
+| 蓄满更快 / 几乎不用蓄 | `+0x18` Full.ChargeTime（配合 `+0x00` Min、`+0x30` Over） |
+| 允许"不蓄满就开火" | `+0x04` Min.ProjType（要填一个合法的弹丸类型 id） |
+| 蓄力对伤害的加成 | `+0x54` DamageMin / `+0x58` DamageOver |
+| 过充会炸自己 | `+0xB9` ExplodesOnOvercharged |
+| 按住扳机保持蓄力 | `+0xB8` AutoFireInSafety |
+
+---
+
+## 6 run 1：ARC-3 蓄满时间 → 0.05（**已装盘，待实机**）
+
+| 项 | 值 |
+|---|---|
+| 变量 | **ARC-3 `WeaponChargeComponentData`：Min `1.00→0.02` · Full `1.10→0.05` · Over `1.20→0.06`**（一个逻辑变量：三档蓄力时间） |
+| 其余 | 只叠加已证的 `P-92 锁定距离 300` + `Spear lock_t 0.05`；Accelerator 等**未动** |
+| 离线 | G1–G9 全 PASS ×3 次链式；哈希 `0x8E49771B181FFAA1` 不变 |
+| 装盘 | 相对上一版**只差 11 字节**（三个 f32 + 末块尺寸）；封包 sha256 `a5b7c49d…` |
+| 盘上回读 | ARC-3 `Min=0.02 / Full=0.05 / Over=0.06`；Accelerator 仍 `0.45/0.50/0.90` |
+
+**实机判据**：带 **ARC-3 Arc Thrower** 进图——
+
+- ✓ 若**按下扳机几乎立刻就能放电**（原版要按约 1 秒）⇒ `ChargeTime` 就是蓄力时长，这条通了
+- ⚠ 若**仍然要按满约 1 秒**才放 ⇒ 时间不在数据侧（或另有门禁），转查 `Min.ProjType`
+- ✗ 若**变成不能开火 / 卡住** ⇒ 说明三档时间有次序约束（Min < Full < Over 被引擎校验），要按比例保留差值
+
+---
+
+## 7 三态
+
+| 结论 | 态 |
+|---|---|
+| `WeaponChargeComponentData` 块位置 / 几何（20 槽 + 11 行 × 216） | **✓ 离线** |
+| 216 B 行结构 = 三档 ChargeStateSetting + 12 倍率 + 句柄 + 布尔，与社区 schema 逐项对齐 | **✓ 离线** |
+| 「不蓄满能否开火」与 `Min.ProjType ≠ 0` 6/6 相关 | **✓ 离线**（强相关，非因果） |
+| `ChargeTime` 是蓄力时长（秒） | **⚠ 待 run 1** |
+| `Min.ProjType` 填值可让"必须蓄满"的枪提早开火 | **⚠ 未试** |
+| 倍率区对实际弹丸生效 | **⚠ 未试** |
+
+---
+
+## 8 下一步
+
+1. 收 run 1（ARC-3 时间）。若 ✓ ⇒ 同法可用于 Accelerator（0.50）、Railgun（0.50）、Epoch（2.50）。
+2. 若时间改了但"仍要蓄满才放" ⇒ 做 `Min.ProjType`：给 ARC-3 的 Min 档填一个合法电弧弹丸类型，
+   看能否按住 0.1 秒就放出一发弱电弧。
+3. 倍率区单独验（**挑 Purifier**：它的三档弹丸不同，倍率改了最容易看出强弱差别）。
