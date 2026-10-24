@@ -134,7 +134,44 @@ cat "$LOCALAPPDATA/CowboyBingus/Helldivers2/Logs/ResOvrTypes.log"
 > 说明：`3b12bd49`（HUD+ 的另一个 player 字段）**不在** `un6y1d` 的 36 个字段里，探针会跳过它并打印出来
 > —— 这本身也是一条信息（HUD+ 的那条数据可能属于另一种类型，或该字段在新 build 被去掉了）。
 
-## 8. 结果（待填，第 2 局）
+## 8. 第 2 局（探针 A v1.2.0 加固版）：**又崩在同一处，但排除了两个嫌疑**
+
+| 项 | 读数 |
+|---|---|
+| boot 段 | 与第 1 局一致：`object_info` 4/4 全通 |
+| 任务内 | `owned objects = 1`，`in-session object_info("un6y1d") = 36 fields` |
+| 挑中的字段 | `cd889dbc`，**schema 内存在**、`type=1 bits=32`（最安全的整数）、**带 `0x` 前缀** |
+| 崩点 | `>>> BEFORE GS.game_object_field(session, player, "0xcd889dbc")` 之后再无输出 |
+
+⇒ **假设 (a) 少 `0x` 前缀 与 (b) 读了 type=0 字段，两个都被排除。**
+剩下两个嫌疑：**(c) `goid = 0` 不合法**；**(d) 参数形态本身不对**。
+
+**重要修正**：上一轮我把 HD2 HUD+ 的调用约定当"已知好"来用 —— 不成立。
+它自己的 README 原文是 *"尚未进行当前游戏显示、多人和稳定性验收"*，所以
+`game_object_field(session, goid, "0x%08x")` 只是**它的理论**，不是已证事实。
+引用第三方代码时，**"它写了" ≠ "它能用"**。
+
+### 8.1 结论：字段读这条路先停
+
+连续两次硬崩在同一调用族上，而每次都是为了一个**可以绕开**的目标。
+已经把能零风险拿到的东西全部拿到（§7.2 的 `object_info` schema），
+**在读参数签名被证实之前，不再对 `game_object_field` 做实验。**
+
+## 9. 第 3 局：probe_types（零崩溃面）
+
+只做已经两次证明安全的那一半：**boot 时**对 238 个类型名逐个 `Network.object_info`，
+把返回的字段表整张打出来。不碰 `GameSession` 任何函数、不碰字段读、不需要每帧钩子。
+
+| 项 | 值 |
+|---|---|
+| 类型名来源 | `Repair.allowed_types`(224) ∪ `GeneratedCommon.call`(238) —— 实测 **224 ⊂ 238，并集 238** |
+| 日志 | `%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\TypeSchema.log` |
+| 每行格式 | `<类型名> n=<字段数> | <字段id>:t<type>/<bits>[min,max] ...` |
+| 末尾 | `SUMMARY candidates=… resolved=… miss=… total_fields=…` |
+| 离线自检抓到 | 提取器 off-by-one（`call` 名首字符被吃掉，`n03j_i`→`03j_i`）—— 已修，修后两集并集从 461 降到 238 |
+| 产物 | `patch_5` 8,240 B（比上一版还小） |
+
+## 10. 结果（待填）
 
 | 项 | 值 |
 |---|---|
