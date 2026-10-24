@@ -136,6 +136,52 @@
 
 ---
 
+## 5.5 双弹源 = 主武器 + **下挂武器（两个独立实体）**
+
+有一类武器能切两种弹头，而且**弹匣与备弹都各自独立**（不像 `fnable ammo` 那样共用弹匣）：
+**AR/GL-21 One-Two · AR-11 Arbitrator · SMG/FLAM-34 Stoker**。
+
+### 5.5.1 机制：不是"一把枪两个弹池"，是**两个实体**
+
+> 官方研究原文（`research/underbarrel-weapons-F5FEE03DCFDB.json`）：
+> *"An underbarrel is a **separate weapon entity** named by the host's default underbarrel item —
+> its delta sets **`WeaponCustomization +192 underbarrel_path`** to the entity;
+> the host entity carries none of its records."*
+
+⇒ 主武器与下挂**各有一套** `WeaponData` / `ProjectileWeapon|SprayWeapon` /
+`WeaponRounds|WeaponMagazine` / `WeaponReload`，所以弹药天然不共用。
+
+### 5.5.2 字段链（三层）
+
+| 层 | 字段 | 本 build 实测 |
+|---|---|---|
+| ① 切换键 | **`WeaponDataComponentData +0xB8`（`function_info.left`）= `11`**<br>`WeaponFunctionType 11` = 第二弹源/下挂 | **全表 373 把里只有 3 把是 11**，正是这三把（其余：`0`×355、`3`×5、`8`×6、`2/4/6/10` 各 1） |
+| ② 链接 | **`WeaponCustomizationComponentData +192` `underbarrel_path`**（由"默认下挂配件"的**实体 delta** 写入） | 基础组件里该格**全为 0** ⇒ 链接在 `generated_entity_deltas.dl_bin`，不在实体表本体 |
+| ③ 下挂自身 | 下挂实体自己的 `ProjectileWeapon +0` / `WeaponRounds +72/+80` / `WeaponReload +56` | 见下表 |
+
+### 5.5.3 三把武器 + 它们的下挂（本 build 实测）
+
+| 宿主 | 下挂实体 | 家族 | 弹丸类型 | 容量 | 备弹 | 射速 | reload |
+|---|---|---|---:|---:|---:|---:|---:|
+| **AR/GL-21 One-Two** | `0x02CD7321CD8445F5`（"Grenade Launcher Grenadier"，与 **GP-31 Grenade Pistol 共用根**） | Projectile（榴弹） | **267** | **1** | **5** | 900 | 0 |
+| **AR-11 Arbitrator** | `0xB9C209B4F99B5335`（"shotgun risk"） | Projectile（霰弹） | **201** | **4** | **20** | 80 | 0 |
+| **SMG/FLAM-34 Stoker** | `0x992B6F65A5BAB53D`（"Flamerthrower SMG Flamer"，与 **P-72 Crisper 共用根**） | SprayWeapon（喷火） | `+200`=22 | mag **50** | — | — | 2.5 |
+
+- 下挂的 `WeaponData.function_info = (0, 0)` ⇒ 它自己没有选择键，全靠宿主那个 `11` 切进来。
+- 下挂的弹丸在**两处**都写着同一个值（`ProjectileWeapon +0` 与 `WeaponRounds +64` 均为 267/201），
+  **究竟哪个生效未证**（研究文件把它列为 unproven）。
+
+### 5.5.4 由此得到的操作面
+
+| 想做什么 | 可行性 |
+|---|---|
+| 改某把武器的**下挂**弹丸 / 容量 / 备弹 / 射速 | **✓ 数据表内**（改下挂实体自己的行；结构已证，未实机） |
+| 把下挂**换成别的武器**（例：给它换成火焰喷射下挂） | ⚠ 需改 `generated_entity_deltas.dl_bin` 里那条默认配件的 `WeaponCustomization +192`，属另一张表，**未试** |
+| 给**没有下挂**的枪加下挂（例：AR-23 加榴弹） | ⚠ 同上：必须写 entity delta + 配件 item，且要给宿主 `function_info.left` 写 `11`；**三件事**，未试 |
+| 把下挂的弹匣/备弹和主武器**合并** | ✗ 结构上它们本就是两个实体，没有"共享"字段 |
+
+---
+
 ## 6 三态 / 未解
 
 | 结论 | 态 |
@@ -150,3 +196,8 @@
 | `Total` 的"自伤/掀翻"阈值（VG-70 是 >22 发） | **⚠ 未证**（AR-23 打 45 发用户未报自伤，待确认） |
 | 给任意枪加**射速切换** | **⚠ 待 run 8**（AR-23：100/500/1000 + 左输入绑 ROF） |
 | 要把"齐射多发"给单管枪 | **✗ 数据表做不到** ⇒ 需改 `unit`/`state_machine` 的 muzzle 定位点（资源路线） |
+| **双弹源 = 主武器 + 下挂武器两个独立实体**（非弹池共享） | **✓ 离线**（研究文件 + 本 build 三把实测） |
+| 切换键 = `function_info.left = 11`（`WeaponFunctionType 11`） | **✓ 离线**：全表只有这 3 把是 11，一一对应 |
+| 链接字段 = `WeaponCustomization +192 underbarrel_path`（本 build 基础值为 0，来自 entity delta） | **✓ 离线** |
+| 改下挂的弹丸/容量/备弹 | **⚠ 未实机** |
+| 给无下挂武器加下挂 | **⚠ 未试**（要写 entity delta + item + `func.left=11`） |
