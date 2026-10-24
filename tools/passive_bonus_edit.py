@@ -174,17 +174,23 @@ def main() -> int:
 
     # 重排容器
     out = bytearray(struct.pack("<I", len(blocks)))
+    heads, last_payload = [], b""
     for b, r in zip(blocks, recs):
         payload = encode(r) if r["id"] in touched else bytes(b["payload"])
+        heads.append(len(out))                 # ★ 记录每块**重建后**的块头位置
+        last_payload = payload
         out += bytes(b"\x4c\x44\x4c\x44") + struct.pack("<III", 1, PASSIVE_TYPE, len(payload))
         out += bytes([1]) + b"\0" * 7
         out += payload
     before_tail = len(out)
     pad8 = (8 - len(out) % 8) % 8
     out += b"\0" * (pad8 + TAIL)
-    # 末块 payload 尺寸同步：payload 尾就是 before_tail，故末块头位置 = before_tail - 原末块 payload
-    last_payload_len = len(blocks[-1]["payload"])
-    last_head = before_tail - HEADER - last_payload_len      # 别忘了 24 B 块头
+    # 末块 payload 尺寸同步：尾字（pad8+TAIL）寄宿在**末块**的 payload 里。
+    # ★ 2026-10-24 修：原来用「原末块 payload 长度」倒推块头位置 —— 一旦**被改的正是末块**
+    #   （perk 0 就是容器最后一块）就会算错、parse 走飞（报「尾部残留」）。
+    #   现在直接用重建时记下的块头位置 + 该块重建后的真实 payload 长度。
+    last_head = heads[-1]
+    last_payload_len = len(last_payload)
     struct.pack_into("<I", out, last_head + 12,   # 设置表头：'LDLD'|ver|type|★payload|wide|4B
                      last_payload_len + pad8 + TAIL)
     word_at = before_tail + pad8
