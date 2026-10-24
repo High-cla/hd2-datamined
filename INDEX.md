@@ -14,7 +14,7 @@
 | 想亲手改一张表 | **[改盘上数据的完整工作流](docs/cases/FILE-ROUTE-WORKFLOW-26088801.md)** —— 主线文档，8 步链 + 锚点哈希 + 92 条坑 |
 | 想让**代理**去做 | **[skills/hd2-file-route-mod](skills/hd2-file-route-mod/SKILL.md)** —— Agent Skills，只给方法论（每步的目的 / 判据 / 停的条件）+ 指回本页 |
 | 想查某个字段 / 某个数 | [§1 按问题找](#1-按问题找) |
-| 想按类型看全部 39 篇 | [§2 按类型浏览](#2-按类型浏览39-篇) |
+| 想按类型看全部 52 篇 | [§2 按类型浏览](#2-按类型浏览39-篇) |
 | 想找某个工具 / 看它验证到哪一步 | [§3 工具清单](#3-工具清单tools) |
 | 刚更新完游戏 | [BUILDS.md §3](BUILDS.md)（三步 + §3.1 锚点复验） |
 | 什么都没有、只想先摸摸 | [§4 无密钥也能练](#4-无密钥也能练) |
@@ -37,6 +37,8 @@
 | **近炸引信（空炸 / 破片弹）** | [PROJECTILE-PROXIMITY](docs/tables/PROJECTILE-PROXIMITY-26088801.md) | **§1 引信段字段 · §3 AC-8 为什么要找备弹 289 · §4 怎么改** | `26088801` |
 | 弹幕轮数 / 每轮弹数 / 散布 | [STRATAGEM-FIELDS](docs/tables/STRATAGEM-FIELDS-26088801.md) · [ENTITY-TABLE](docs/tables/ENTITY-TABLE-25988413.md) | §3 散布 · §5 弹幕组件 | `26088801` |
 | **护甲三数字（rating / speed / stamina）** | [ARMOR-KIT-WEIGHTS](docs/tables/ARMOR-KIT-WEIGHTS-26088801.md) | **§2.1 完整数值模型（135/135）· §5.2 实机读数 · §1.1 class_table 三张表的 RVA 与字节** | `26088801` |
+| **护甲被动 / 弹容 / 装填 / 单件甲** | [ARMOR-PASSIVE-STATS](docs/tables/ARMOR-PASSIVE-STATS-26088801.md) | **§2 两层作用范围 · §4 sm 七个槽的语义 · §5 三条硬约束 · §6 已验证配方** | `26088801` |
+| **只给某一件甲加效果** | [ARMOR-PASSIVE-STATS](docs/tables/ARMOR-PASSIVE-STATS-26088801.md) | **§2 单件级（改 kit 的 `+0x1C`）· §6 配方 · §2 末尾「没有空被动」的否证** | `26088801` |
 | **投送舱送什么（战备空投舱换载荷）** | [POD-RACK](docs/tables/POD-RACK-26088801.md) | **§1 槽位结构 · §2 前 N 个槽才生成 · §3 换物品配方** | `26088801` |
 | **换进来的物品只有紫问号 / 网格材质不加载** | [POD-RACK](docs/tables/POD-RACK-26088801.md) | **§4 两个包槽（`+0xA8` + `+0xF8`）· §5 item→包解析表** | `26088801` |
 | **有限数量的跨包加载（通用产出）** | [LIMITED-CROSS-PACKAGE-LOADING](docs/engine/LIMITED-CROSS-PACKAGE-LOADING-26088801.md) | **§2 三个可编辑量 · §3 解析链 · §5 一条命令 · §7 边界** | `26088801` |
@@ -94,16 +96,16 @@
 | **多个 mod 改同一份文件的不同字段，想同时用** | [MOD-MERGER](docs/cases/MOD-MERGER-26088801.md) | **§1 算法 · §2 用法 · §3 逐字节等价证明 · §4 前提与边界** | `26088801` |
 | 社区包怎么做 / 能不能共存 | [CASE-STUDY](docs/cases/CASE-STUDY-20261021.md) · [COMMUNITY-MODS-COMPAT](docs/cases/COMMUNITY-MODS-COMPAT-26088801.md) · [PATCH-SALVAGE](docs/builds/PATCH-SALVAGE-25988413.md) |
 
-## 2. 按类型浏览（40 篇）
+## 2. 按类型浏览（52 篇）
 
 | 类别 | 放什么 | 篇数 |
 |---|---|---:|
 | [`builds/`](docs/builds/) | 每个 build 的总体变化、差异、路线取舍 | 4 |
 | [`engine/`](docs/engine/) | 引擎侧：格式封装、API 面、Lua 运行时、探针、加载器、**有限数量的跨包加载** | 10 |
-| [`tables/`](docs/tables/) | 数据表与实体库的解码 / 改写 | 13 |
+| [`tables/`](docs/tables/) | 数据表与实体库的解码 / 改写 | 15 |
 | [`explosions/`](docs/explosions/) | 爆炸与弹头（玩法层 + 外观层） | 2 |
 | [`boundaries/`](docs/boundaries/) | 被挡住的路：进程内存、虚拟机 | 2 |
-| [`cases/`](docs/cases/) | 案例与外部参照：社区包、贴图委托、wiki 数据、**完整工作流**、**第三方护甲多被动侦察** | 9 |
+| [`cases/`](docs/cases/) | 案例与外部参照：社区包、贴图委托、wiki 数据、**完整工作流**、**第三方护甲多被动侦察**、**网络复制层探针系列** | 19 |
 
 ### `builds/`
 
@@ -143,6 +145,7 @@
 
 | 文档 | 一句话 | build |
 |---|---|---|
+| ★ [ARMOR-PASSIVE-STATS-26088801](docs/tables/ARMOR-PASSIVE-STATS-26088801.md) | **护甲被动/stat 行的文件侧能力模型**：pm vs sm 两通道、两层作用范围、7 个 stat 槽、三条硬约束、4 个已验证配方 | `26088801` |
 | ★ [TABLE-DICTIONARY-25988413](docs/tables/TABLE-DICTIONARY-25988413.md) | **全表字典**：55 张表几何 + 类型库字段偏移（1,208 类型 / 7,349 成员） | `25988413` |
 | ★ [ENTITY-TABLE-25988413](docs/tables/ENTITY-TABLE-25988413.md) | 47 MB 实体库离线改写：组件块、哈希闸门、校正字、可选弹种、LoadoutEntry 否证 | `25988413` |
 | [ENTITY-LOCID-26088801](docs/tables/ENTITY-LOCID-26088801.md) | 实体 → 游戏内名字的唯一出处（`EncyclopediaEntry`，643 行可解） | `26088801` |
@@ -184,6 +187,9 @@
 | [WIKI-LOCAL-DB](docs/cases/WIKI-LOCAL-DB.md) | 不抓 HTML：页面源码 + JSON 模块落本地 SQLite，一条命令查战备/武器全貌 | 跨 build |
 | ★ [MOD-MERGER-26088801](docs/cases/MOD-MERGER-26088801.md) | **多个 mod 改同一文件不同字段怎么共存**：抽语义 / 剔哈希脚手架 / 逐字节判冲突 / 逐字节等价证明 | `26088801` |
 | ★ [RECON-ARMOR-MULTI-PASSIVE](docs/cases/RECON-ARMOR-MULTI-PASSIVE.md) | **第三方「护甲多被动」只读侦察**：`passive_bonuses` 的 payload 布局（pm/sm 双数组）、**效果在 sm 行**、全表只有 7 个 stat 槽、描述隐藏=末 4 B 清零、它的堆叠配方与安全设计 | `25988413`（结构在 `26088801` 已逐字段核对一致） |
+| ★ [NETWORK-READ-QUICKREF](docs/cases/NETWORK-READ-26088801-QUICKREF.md) | **网络复制层读取一页速查**：正确调用形态、六道闸、字段字典（16 条 hash↔名字）、能力边界 | `26088801` |
+| ★ [PROBE-READ-GUARDED](docs/cases/PROBE-READ-GUARDED-26088801.md) | 自建探针 run4–run8 全记录：名字形态、batched 语义、seat 70 = 被击倒、时间线纪律 | `26088801` |
+| [HUDPLUS-0.5.3-LIVE-PROOF](docs/cases/HUDPLUS-0.5.3-LIVE-PROOF-26088801.md) | HUD+ 0.5.3 实机可用 + 从它反推出的正确 API 形态；含 7 个 frag 模块解码 | `26088801` |
 
 ## 3. 工具清单（`tools/`）
 
