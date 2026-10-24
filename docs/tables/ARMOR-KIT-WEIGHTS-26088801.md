@@ -143,6 +143,16 @@ python tools/armor_kit_weight.py --kit "B-01 Tactical" --weight heavy --out out/
 
 ⇒ 两组的**变化量完全一样**：rating **+50**、speed **−50**、stamina **−50**。B-01 Tactical 是起手甲，人人都有。
 
+### 5.1 下一发已经预生成：只改 torso（等 w1 读完再上）
+
+| 项 | 值 |
+|---|---|
+| 产物 | `D:\mod\out\armor-w2\generated_customization_armor_sets.dl_bin`（453,264 B，sha256 `00fac3b0cff465e6`） |
+| 改动 | B-01 的 9 条记录里**只有横跨三组的 36 个 torso 部件**（槽位 2）→ heavy，其余 171 个部件不动 |
+| **预测（卡片）** | **107 / 493 / 93**（`A = 8/7 = 1.143`） |
+| **预测（实战）** | **107 / 494 / 94**（S/F 含 cape/hips，9 件均值） |
+| 这一发能额外证明什么 | ①「按槽位粒度」成立；② 卡片到底用哪套均值（493/93 vs 494/94 一眼可分）；③ 卡片标签应翻成 **Heavy**（标签跟 torso 走） |
+
 ## 6. 读法（一次只读一个变量）
 
 | 看什么 | 期望 |
@@ -153,16 +163,6 @@ python tools/armor_kit_weight.py --kit "B-01 Tactical" --weight heavy --out out/
 | 挨打 | 掉血少一档（A 1 → 2，伤害 ×1.00 → ×0.75） |
 
 回滚：`python tools/dlbin_deploy.py restore --file generated_customization_armor_sets.dl_bin`
-
-### 5.1 下一发已经预生成：只改 torso（等 w1 读完再上）
-
-| 项 | 值 |
-|---|---|
-| 产物 | `D:\mod\outrmor-w2\generated_customization_armor_sets.dl_bin`（453,264 B，sha256 `00fac3b0cff465e6`） |
-| 改动 | B-01 的 9 条记录里**只有横跨三组的 36 个 torso 部件**（槽位 2）→ heavy，其余 171 个部件不动 |
-| **预测（卡片）** | **107 / 493 / 93**（`A = 8/7 = 1.143`） |
-| **预测（实战）** | **107 / 494 / 94**（S/F 含 cape/hips，9 件均值） |
-| 这一发能额外证明什么 | ①「按槽位粒度」成立；② 卡片到底用哪套均值（493/93 vs 494/94 一眼可分）；③ 卡片标签应翻成 **Heavy**（标签跟 torso 走） |
 
 ## 7. 未解
 
