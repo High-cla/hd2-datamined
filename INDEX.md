@@ -258,6 +258,7 @@
 | `strat_slot_fill.py` | **把包填进战备行的空槽**：名字→行（同名全改）→拒绝覆盖已占用槽→一次 tail 宿主写完→读回校验→可选封装 | `strat_slot_census.py`、`plain_edit.py`、`dlbin_seal.py` | ✓ 离线门禁通过（6 处填空槽，整份只 +8 B） |
 | `entity_field_set.py` | **任意实体组件行任意字段**的通用写入（`--block`+`--key`+`--field`），tail 宿主 + 7 门禁，可链式 | `typelib.py`、`murmur64.py` | ✓✓ 已实机（AC-8 备弹 0→40/40）|
 | `entity_batch_set.py` | **批量字段写入**：一次 tail 宿主写多个组件/多行/多字段（文件只 +12 B），9 道门禁 | `entity_field_set.py`、`pod_rack_swap.py` | ✓ 产物与实机验证件逐字节一致 |
+| `armor_kit_weight.py` | **护甲三数字的唯一文件侧入口**：改某件甲 9 个部件的档位（`+16`），rating/speed/stamina 一起变；`--show` 列 135 件甲；8 道门禁 | `plain_edit.py`、`murmur64.py` | ✓ 离线（135/135 与 SDK 逐件对上），⚠ 上机待读 |
 | `passive_bonus_edit.py` | **护甲被动表编辑**：给某个 perk 加 pm/sm 行（含**中间块变长后的整容器重排**），尾部校正字保内容哈希；`--show` 打全表 | `murmur64.py` | ✓✓ 已实机（Acclimated 抗性 0.5→0.0 ⇒ 火/毒不掉血；ergonomics +30 待读） |
 | `entity_hashmap_insert.py` | **给实体新增一种组件**：往组件哈希图里插一条 `(键 → 行)`，可整行复制孤儿行；哈希图是 `键 % 槽数` 线性探测（§ENTITY-LOCID 10），8 道门禁 | `pod_loadout.py`、`murmur64.py` | ✓ 离线门禁全过；**但「新增组件」这条用法已实机否证**（GL-28 插弹匣行不被采纳，删联动键后崩溃）—— 只用于读写已存在组件 |
 | `dlbin_merge.py` | **mod 合并器**：多个保哈希 mod 取并集、剔除脚手架、判冲突、重解一个校正字；含 `--report-only` / `--on-conflict` | `murmur64.py` | ✓✓ 已实机（第一次上机：rack 三件 rig × GL-28 弹药行 → 合并后四件照常全出） |
