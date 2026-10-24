@@ -1000,3 +1000,40 @@ patch_9（ownershipperk）：
 | 卡片只变一半 / 数值错乱 | ⚠ 9 条记录里游戏只认某一条，需二分 |
 
 回滚：`python tools/dlbin_deploy.py restore --file generated_customization_armor_sets.dl_bin`
+
+## 16 p8b：测试目标换成 **CW-9 White Wolf**（B-01 有多套贴图变体，不适合当单件甲的判据）
+
+用户指出：**B-01 在游戏里有多套贴图略有不同的变体**（表里正是 **9 条 kit 记录**），
+所以拿它验"单件甲"会被"到底改到的是哪一套"搅浑。改用**同为 EXTRA PADDING、同为中甲、且表里只有 1 条记录**的
+**CW-9 White Wolf**。
+
+| 项 | 值 |
+|---|---|
+| 目标 | **CW-9 White Wolf**：kit id `0xB3DEB5D9`（**全表唯一 1 条**，无变体） |
+| 原状 | passive **1**（EXTRA PADDING）· 档位 `211111111`（cape=2，其余 1）· 中甲 · rating **150** |
+| 动作 | 该记录 `payload_at + 0x1C`（**偏移 `0x3B328`**）passive **1 → 16**（SIEGE-READY） |
+| 产物 | `out/armor-p8b/generated_customization_armor_sets.dl_bin`，**453,264 B**，sha256 `31b214367509dbba…` |
+| 门禁 | `plain_edit` 六门全过：**diff=2**（1 字段 + 校正字），哈希仍 `0x57A949680BBDA9E1` |
+| 复解 | **CW-9 passive = 16** ✓；**全表 422 条里被动被改的只有它 1 条** ✓ |
+| 单变量 | 被动表已回滚原版（`2bc5967a`）⇒ 盘上只有 `armor_sets` 这一处改动 |
+
+### 16.1 实机预测（比 p8 更干净：只有 1 条记录）
+
+换成 Siege-Ready 后，CW-9 会**失去** Extra Padding 的 `armor_rating +1.0`、**获得** Siege-Ready 的 stat 12/13：
+
+| 观察 | 原版 | **若换身份成立** |
+|---|---|---|
+| 军械库 CW-9 **被动名** | 额外垫料（EXTRA PADDING） | **SIEGE-READY** |
+| 军械库 CW-9 **盔甲等级** | **150** | **100**（`50+50×(A=1 + 0)`） |
+| 穿 CW-9 进任务 | — | 弹容 **×1.2**（GL-15 32 → 38）、**主武器装填 +30%** |
+| **其它 EXTRA PADDING 甲**（B-01 / TR-7 / TR-40 / B-27 / B-08） | 150 / 150 / 150 / 200 / 100 | **完全不变** ← 单件甲核心判据 |
+| 原有 SIEGE-READY 甲（DP-8 / SR-64 / SR-24 / SR-18） | 100 / 150 / 50 / 150 | 不变 |
+
+| 看到 | 结论 |
+|---|---|
+| CW-9 名字变 SIEGE-READY、等级 100，其它甲不变 | ✓✓ **文件侧换身份成立** ⇒ 单件甲纯文件可达 |
+| CW-9 卡片毫无变化 | ✗ 与 memmod 时代「目录记录 `+28` 写 15 无效」一致 ⇒ 文件侧换不了身份 |
+| CW-9 名字变了但实战无效果 | ⚠ 身份换了、stat 行未施加 |
+| 等级变 100 但名字没变 | ⚠ 数值读新身份、UI 名读别处（与 P48 的"卡片不读缓存"同族） |
+
+回滚：`python tools/dlbin_deploy.py restore --file generated_customization_armor_sets.dl_bin`
