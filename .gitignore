@@ -17,3 +17,5 @@ streams/
 report.json
 tmp/
 out/
+# 转储扫描的可再生产物（体积大、能一键重跑；结论见 docs/recon/CLASS-TABLE-DUMP.md）
+tools/out-*.json
