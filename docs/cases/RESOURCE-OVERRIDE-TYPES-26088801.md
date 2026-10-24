@@ -1,6 +1,6 @@
 # `set_resource_override` 只对 `lua` 有效，还是对所有资源类型都有效？
 
-> build `26088801` · 2026-10-24 · 状态：v1.0.0 **崩在第 2 个类型**（§7.1，已定位到区间）；v1.1.0 逐步版已装，等第二局
+> build `26088801` · 2026-10-24 · 状态：**⚠ 未证（口径失效）** —— `can_get` 对 material/texture 连**真名**都返回 false，所以量不到覆盖效果；同时确认 `set_resource_override` 对**任意类型串都不校验**（§7.3）
 
 ## 1. 已知的事实（2026-10-21 三次实机）
 
@@ -110,6 +110,42 @@
 | 4 | `set_resource_override("dsh_not_a_type", …)` | 非法类型串对照 |
 
 **判读**：日志最后一行是哪个 `>>> BEFORE`，凶手就是它；它上面的所有 `<<< AFTER` 都是已证明安全的调用。
+
+### 7.3 v1.1.0 实机（2026-10-24，**没崩**，但口径被推翻）
+
+| 调用 | 读数 | 判读 |
+|---|---|---|
+| `can_get(lua, REAL)` | **true** | 口径前提成立 |
+| `set_resource_override(lua, ALIAS, REAL)` | OK ret=nil | 已知 |
+| `can_get(lua, ALIAS)` after | **true** | **override 对 lua 确实被采纳**（第二次复验） |
+| `can_get(lua, ALIAS)` after clear | false | 撤销干净 |
+| **`can_get(material, REAL)`**（真名，hash 复核过） | **false** | ⚠ **真名在 boot 时刻就查不到** |
+| **`can_get(texture, REAL)`**（真名，hash 复核过） | **false** | 同上 |
+| `set_resource_override(material, ALIAS, REAL)` | **OK ret=nil**，不崩 | 被"接受" |
+| `can_get(material, ALIAS)` after override | false | **无信息量**（A 已经 false，口径对该类型不成立） |
+| `set_resource_override(texture, …)` | OK ret=nil | 同上 |
+| **`set_resource_override("dsh_not_a_type", …)`** | **OK ret=nil** | ★ **绑定完全不校验类型**：随便什么字符串都"成功" |
+
+**三条硬结论：**
+
+1. **`can_get` 不能当非 lua 类型的口径**。连"hash 复核过的真实材质/贴图名"都返回 `false`。
+   两种解释还没分开：**(a)** `can_get` 只索引 `lua` 类型；**(b)** boot 那一刻装材质的 bundle 还没挂载。
+2. **"调用成功"不构成证据**。`set_resource_override` 对 `"dsh_not_a_type"` 也返回 nil ⇒
+   它只是把参数塞进去、不做任何类型校验（这与 10-21 记的"绑定不校验参数、传 0 个参直接崩"一致）。
+   以后不能再拿 `OK returns=0` 当作"覆盖建立成功"。
+3. **v1.0.0 的那次崩溃没能复现**：v1.1.0 跑了同样的 material/texture 调用，全程没崩。
+   所以不能把它归因到某一次调用；诚实的记录是 **"崩过 1 次，不可复现"**（可能是类型总览里某个异种类型串
+   —— `level`/`package`/`strings` 之类 —— 引起的延迟崩溃，也可能是偶发）。
+
+**⇒ 本轴判定：`⚠ 未证`。** 不是"否证"，是"观察工具坏了"。要真正回答"material/texture 能不能覆盖"，
+必须有**真消费者 + 资源已挂载的时刻**：
+
+| 需要什么 | 为什么 | 代价 |
+|---|---|---|
+| 每帧钩子（`update` 里延后 N 秒执行） | boot 时刻 bundle 未挂载；我们的实测教训是**进任务后延迟 30 s–1 min** 才稳 | 要改 `patch_0`（BootProbe）或装 BSL v21 拿 `on_update` |
+| 一个真消费者 | 例如把别名材质塞给某个 unit 的 material 槽，然后看画面/属性 | 需要任务内、需要一个已知的 unit + 材质槽 |
+
+⇒ 这条轴**不是一行探针能收的**，它需要一个"任务内 Lua 探针"基础设施。**基础设施没建之前，别再花启动次数**。
 
 | 最后一行 | 结论 |
 |---|---|
