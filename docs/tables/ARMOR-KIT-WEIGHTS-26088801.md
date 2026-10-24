@@ -290,19 +290,40 @@ SDK 对这个键的说法（`ArmorPassiveCatalog.json` perk 1）：
 | 另一张表 | `generated_customization_armor_sets.dl_bin` = **原版**（4739b50c…）⇒ 本发只动被动表一个变量 |
 | 回滚 | `python tools/dlbin_deploy.py restore --file generated_customization_passive_bonuses.dl_bin` |
 
-### 8.3 实机预测（perk 0 = STANDARD ISSUE，共 13 件）
+### 8.3 实机预测（perk 0 = STANDARD ISSUE，共 13 条记录）
 
 `RATING = 50 + 50×(A + 1.0)`（被动 `armor_rating` Add 1.0）：
 
 | 甲 | 部件档位 | 原 rating | **预测 rating** | 速度 | 耐力 |
 |---|---|---|---|---|---|
-| B-01 Tactical（idx 132/134/135/140/141） | 全 medium（A=1） | 100 | **150** | 500 不变 | 100 不变 |
+| B-01 Tactical（idx 132/134/135/140/141，perk **0**） | 全 medium（A=1） | 100 | **150** | 500 不变 | 100 不变 |
 | B-16 Battle-Scarred Veteran（41） | 全 medium | 100 | **150** | 500 | 100 |
 | CM-09 Bonesnapper（87） | 全 medium | 100 | **150** | 500 | 100 |
 | idx 16/17/18/43 | 全 medium | 100 | **150** | 500 | 100 |
 | idx 81/83 | 全 light（A=0） | 50 | **100** | 550 | 125 |
 
 伤害：`A = 1 + 1.0 = 2.0` ⇒ 伤害曲线在 (2, ×0.75) 上 ⇒ **受击 ×0.75**（与任何 A=2 的甲同档）。
+
+> ### ❗ 8.3.1 更正：「B-01 Tactical 军械库显示 150」不等于预测错，是我靶子选错了
+>
+> **用户实机反馈（2026-10-24 17:44）：B-01 Tactical 本来就是 150 / 500 / 100。**
+>
+> 数据核对 —— 同一个名字在表里是 **9 条记录，分属两个被动**：
+>
+> | 记录 | perk | 被动 | 模型 rating |
+> |---|---|---|---|
+> | `0x250FD6C1` `0x1D0E3431` `0x708451E9` `0xD59566D5` `0x1369B95B`（idx 132/134/135/140/141） | **0** | STANDARD ISSUE | **100** |
+> | `0x61B31723` `0x4F7FB2BD` `0x6351A9AA` `0x6D30F386`（idx 136/137/138/139） | **1** | EXTRA PADDING | **150** |
+>
+> 军械库显示的那张 B-01 Tactical 卡片是 **EXTRA PADDING 那条（150）** —— 这与 §5.3.2 那次
+> 实机（把 perk 1 的 `armor_rating` 1.0 → 1.5 后卡片变 **175**）完全一致。
+>
+> ⇒ **p2 改的是 perk 0，与显示的那条记录无关** ⇒ 看到 150 属**预期之内**，
+> 这次观察**既不能证真也不能证伪 p2**。
+>
+> **正确的靶子**：卡片上被动写着 **STANDARD ISSUE** 的甲（13 条：B-16 / CM-09 / 5 条 B-01 /
+> 4 条无名 medium / 2 条无名 light）。若军械库里**一件都找不到**，说明 perk 0 是隐藏/未放出的记录族，
+> 那 p2 这种「给空被动填空行」的设计就选错了被观察对象，需要改成在**某件可见甲的被动**上填空行。
 
 ### 8.4 ArmoryForge 已卸载（2026-10-24）
 
