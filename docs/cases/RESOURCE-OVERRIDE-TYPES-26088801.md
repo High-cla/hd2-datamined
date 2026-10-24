@@ -1,6 +1,6 @@
 # `set_resource_override` 只对 `lua` 有效，还是对所有资源类型都有效？
 
-> build `26088801` · 2026-10-24 · 状态：**探针已装，等一局实机**（预测先行，见 §4）
+> build `26088801` · 2026-10-24 · 状态：v1.0.0 **崩在第 2 个类型**（§7.1，已定位到区间）；v1.1.0 逐步版已装，等第二局
 
 ## 1. 已知的事实（2026-10-21 三次实机）
 
@@ -76,12 +76,43 @@
 | 离线预检 | Lua 5.1 语法 ✓；假引擎（模拟"只有 lua 被承认"）跑通全 30 行日志 ✓ |
 | 风险 | 只写一个日志文件；所有引擎调用都 pcall 包裹；失败最多让 BootProbe 记一行 `require FAILED` |
 
-## 7. 结果（待填）
+## 7. 结果
 
-| 项 | 值 |
+### 7.1 v1.0.0（2026-10-24，一局，**崩溃**）
+
+| 项 | 读数 |
 |---|---|
-| 局次 | — |
-| `lua` D | — |
-| `material` D | — |
-| `texture` D | — |
-| 判定 | — |
+| 类型串总览 | 16 个类型串 `can_get` 全部**安全返回 false**（没有 ERR、没崩） |
+| `lua` 段 | A=true · B=false · **D=true** · F=false —— **完整跑完并落盘** |
+| `material` 段 | **一行都没有** ⇒ 进程在 material 段里死掉，且死在第一次 flush 之前 |
+| BootProbe 侧 | 它自己的日志停在 `mods/auto/4`，说明崩在 `require("mods/auto/5")` 里 ⇒ **确认是我们的探针** |
+| 结论 1（重要） | **观察口径成立**：`can_get(type,name)` 确实会查 `set_resource_override` 表（lua 的 D 从 false 翻到 true） |
+| 结论 2 | `can_get` 对 `material`/`texture`/`unit`/`physics`/… 这些类型串**只读查询是安全的**（总览那 16 行都返回了） |
+| 未定 | material 段里哪一次调用致命 —— v1.0.0 把一个 case 的全部行攒到最后才 flush，所以 A/B/C/D 全丢 |
+
+**嫌疑排序**：`set_resource_override("material", …)` 最可疑（10-21 的记录已经证明这个绑定**不校验参数**：
+1.0.0 时代传 0 个参数直接崩在 nil 解引用上）。次嫌：`can_get("material", <真实材质名>)` 真取到了材质、
+在 boot 早期触碰了图形侧。
+
+**排除**：文件/补丁本身没坏（`srkit check` 通过），也不是 `can_get` 的类型串问题（总览全过）。
+
+### 7.2 v1.1.0（逐步版，已装）
+
+修的就是定位问题：**每次调用前先写 `>>> BEFORE <调用>` 并 close**，所以硬崩之下的最后一行就是凶手。
+调用顺序把 4 个**只读**探针排在最前，第一次写探针排在后面 —— 即使写探针崩了，也只读结果仍然拿得到。
+
+| 序 | 调用 | 作用 |
+|---|---|---|
+| 0 | lua 全套（5 次调用） | 复验口径（已知安全） |
+| 1 | `can_get(material, REAL)` / `(material, ALIAS)` / `(texture, REAL)` / `(texture, ALIAS)` | **只读**：真实材质/贴图在运行时可见吗 |
+| 2 | **`set_resource_override(material, …)`** | 头号嫌疑，单独成段 |
+| 3 | `set_resource_override(texture, …)` | 若上一步没死才继续 |
+| 4 | `set_resource_override("dsh_not_a_type", …)` | 非法类型串对照 |
+
+**判读**：日志最后一行是哪个 `>>> BEFORE`，凶手就是它；它上面的所有 `<<< AFTER` 都是已证明安全的调用。
+
+| 最后一行 | 结论 |
+|---|---|
+| `>>> BEFORE set_resource_override(material, …)` | 写探针致命 ⇒ **非 lua 类型不允许建立覆盖**（最强的"不支持"证据） |
+| `>>> BEFORE can_get(material, REAL)` | 读真实材质致命 ⇒ boot 早期材质子系统未就绪 ⇒ 需要**延迟到进任务后**再试（我们已知的 30 s–1 min 教训） |
+| `===== … end` | 没崩 ⇒ 看 §1 四行的返回值判断 material/texture 覆盖是否被采纳 |
