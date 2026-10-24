@@ -256,6 +256,197 @@ def predict(kits: list[dict], sdk: dict[int, dict], target: int, slots: set[str]
     return out
 
 
+# --------------------------------------------------------------------- 数值模型
+def slot_weights(kit: dict) -> dict[int, int]:
+    """9 个槽位的档位向量：**每个槽位取 variant 最小（=0）的那件**。
+
+    这条规则不是猜的：拿它算出来的 rating/speed/stamina 与 SDK 的 135 件甲 vanilla
+    **逐件精确相等（135/135）**，而 max-variant 只有 113/135、优先共享组只有 126/135。
+    """
+    out: dict[int, tuple[int, int]] = {}
+    for b in kit["bodies"]:
+        for p in b["pieces"]:
+            cur = out.get(p["slot"])
+            if cur is None or p["variant"] < cur[0]:
+                out[p["slot"]] = (p["variant"], p["weight"])
+    return {slot: v[1] for slot, v in out.items()}
+
+
+def stats_of(w: dict[int, int], passive_bonus: float, sub: int = 0) -> dict:
+    """档位向量 -> 三个数字。sub=2 表示按军械库口径（跳过 cape(1) 与 hips(3)）。"""
+    a = [v for slot, v in w.items() if slot in RATING_SLOTS]
+    A = sum(CLASS_A[x] for x in a) / len(a) if a else 0.0
+    shown = {slot: v for slot, v in w.items() if slot not in (1, 3)} if sub else w
+    S = sum(CLASS_S[x] for x in shown.values()) / len(shown)
+    F = sum(CLASS_F[x] for x in shown.values()) / len(shown)
+    return {"A": A, "S": S, "F": F, "rating": 50 + 50 * (A + passive_bonus),
+            "speed": 500 * S, "stamina": 100 * (2 - F)}
+
+
+def verify_model(plain: bytes) -> int:
+    """用模型重算 135 件甲的 vanilla 三个数字，必须逐件精确相等。"""
+    _blocks, kits = parse_table(plain)
+    sdk = sdk_kits()
+    passive = sdk_passive_armor()
+    ok = 0
+    total = 0
+    bad = []
+    for k in kits:
+        sk = sdk.get(k["id"])
+        if not sk:
+            continue
+        total += 1
+        pb = passive.get(sk["passive"]["id"], 0.0)
+        w = slot_weights(k)
+        game = stats_of(w, pb, sub=0)
+        disp = stats_of(w, pb, sub=2)
+        v = sk["vanilla"]
+        hit_game = all(abs(game[x] - v[y]) < 0.01 for x, y in
+                       (("rating", "rating"), ("speed", "speed"), ("stamina", "stamina")))
+        hit_disp = all(abs(disp[x] - v[y]) < 0.01 for x, y in
+                       (("rating", "rating"), ("speed", "speed"), ("stamina", "stamina")))
+        if hit_disp:
+            ok += 1
+        else:
+            bad.append((sk["index"], sk["name"], v["rating"], v["speed"], v["stamina"],
+                        round(disp["rating"], 1), round(disp["speed"], 1), round(disp["stamina"], 1)))
+        if not hit_game:
+            pass
+    print(f"模型复核：卡片口径逐件甲复现 vanilla = {ok}/{total}")
+    for r in bad[:6]:
+        print("  MISS", r)
+    if bad:
+        print("✗ 模型没有完全复现，预测不可信")
+        return 1
+    print("✓ 135/135 精确复现 → 预测可用（同一张表、同一套公式）")
+    return 0
+
+
+# --------------------------------------------------------------------- 写入
+def apply_edits(plain: bytes, blocks: list[dict], edits: list[dict]) -> bytes:
+    """把 edits 写进明文并用 tail 宿主解校正字。返回新明文（不落盘）。"""
+    pad8 = (8 - len(plain) % 8) % 8
+    tail_len = pad8 + TAIL
+    edited = bytearray(rebuild(plain, blocks, tail_len))
+    for e in edits:
+        edited[e["abs"]:e["abs"] + 4] = struct.pack("<I", e["new"])
+    word_at = len(plain) + pad8
+    h0 = murmur64(plain)
+    edited[word_at:word_at + TAIL] = padding_word_for_hash(bytes(edited), word_at, h0)
+    return bytes(edited)
+
+
+def collect_edits(kits: list[dict], picked: list[dict], target: int,
+                  want_slots: set[int], body_types: set[int]) -> list[dict]:
+    edits = []
+    for k in picked:
+        for b in k["bodies"]:
+            if body_types and b["type"] not in body_types:
+                continue
+            for p in b["pieces"]:
+                if p["slot"] not in want_slots or p["weight"] == target:
+                    continue
+                edits.append({"abs": k["payload_at"] + p["at"] + OFF_WEIGHT,
+                              "old": p["weight"], "new": target, "kit": k["id"],
+                              "group": k["group"], "slot": p["slot"], "body": b["type"]})
+    return edits
+
+
+def selftest(plain: bytes) -> int:
+    """改出去再改回来：**除最后一块的尾宿主之外，所有块 payload 必须逐字节回到原样**。"""
+    blocks, kits = parse_table(plain)
+    sdk = sdk_kits()
+    targets = [k for k in kits if k["id"] in sdk and sdk[k["id"]]["name"] == "B-01 Tactical"]
+    if not targets:
+        print("✗ selftest：找不到 B-01 Tactical")
+        return 1
+    all_slots = set(range(1, 10))
+    before = {k["id"]: [p["weight"] for b in k["bodies"] for p in b["pieces"]]
+              for k in targets}
+    print(f"selftest 目标：{len(targets)} 条 B-01 Tactical 记录")
+
+    step1 = collect_edits(kits, targets, 2, all_slots, set())
+    once = apply_edits(plain, blocks, step1)
+    print(f"  ① 全改 heavy：{len(step1)} 处，{len(plain):,} → {len(once):,} B")
+
+    blocks2, kits2 = parse_table(once)
+    targets2 = [k for k in kits2 if k["id"] in sdk and sdk[k["id"]]["name"] == "B-01 Tactical"]
+    step2 = collect_edits(kits2, targets2, None, all_slots, set()) if False else []
+    # 逐件按原值改回去
+    orig_weights = {}
+    for k in targets:
+        for b in k["bodies"]:
+            for p in b["pieces"]:
+                orig_weights.setdefault(p["slot"], p["weight"])
+    step2 = []
+    for k in targets2:
+        for b in k["bodies"]:
+            for p in b["pieces"]:
+                want = orig_weights.get(p["slot"])
+                if want is not None and p["weight"] != want:
+                    step2.append({"abs": k["payload_at"] + p["at"] + OFF_WEIGHT,
+                                  "old": p["weight"], "new": want, "kit": k["id"],
+                                  "group": k["group"], "slot": p["slot"], "body": b["type"]})
+    twice = apply_edits(once, blocks2, step2)
+    print(f"  ② 改回原档位：{len(step2)} 处，{len(once):,} → {len(twice):,} B")
+
+    blocks3, kits3 = parse_table(twice)
+    checks = []
+    last = len(blocks) - 1
+
+    def check(tag, cond, detail=""):
+        checks.append((tag, bool(cond)))
+        print(f"  {'PASS' if cond else 'FAIL'}  {tag}{('  ' + detail) if detail else ''}")
+
+    print(f"  （原 {len(blocks)} 块 / 一次 {len(blocks2)} 块 / 两次 {len(blocks3)} 块）")
+    check("块数不变", len(blocks) == len(blocks2) == len(blocks3) == 422)
+    bad = []
+    for i, b in enumerate(blocks):
+        orig_pay = plain[b["at"] + 24:b["at"] + 24 + b["size"]]
+        b3 = blocks3[i]
+        got = twice[b3["at"] + 24:b3["at"] + 24 + b["size"]]
+        if i == last:
+            continue
+        if got != orig_pay:
+            diff = sum(1 for x, y in zip(got, orig_pay) if x != y)
+            bad.append((i, diff))
+    check("除最后一块外，所有块 payload 逐字节回到原样", not bad, f"异常块 {bad[:5]}")
+    last_pay = plain[blocks[last]["at"] + 24:blocks[last]["at"] + 24 + blocks[last]["size"]]
+    b3l = blocks3[last]
+    got_last = twice[b3l["at"] + 24:b3l["at"] + 24 + blocks[last]["size"]]
+    check("最后一块的原 payload 前缀也回到原样", got_last == last_pay,
+          f"尾宿主 {b3l['size'] - blocks[last]['size']} B")
+    # 注意：判的是**文件长度** 8 对齐（校正字必须在 8 对齐处），不是 payload 长度 ——
+    # payload 长度本来就可以不是 8 的倍数（原始最后一块就是 200）。
+    check("最后一块只多了尾宿主字节、文件长度 8 对齐",
+          b3l["size"] > blocks[last]["size"] and len(twice) % 8 == 0
+          and len(twice) - len(plain) == (len(once) - len(plain)) + (len(twice) - len(once)),
+          f"payload {blocks[last]['size']} → {b3l['size']}；文件 {len(plain):,} → {len(twice):,}（+{len(twice)-len(plain)}）")
+    # 档位回到原样
+    same = True
+    for k in kits3:
+        if k["id"] not in before:
+            continue
+        got = [p["weight"] for b in k["bodies"] for p in b["pieces"]]
+        if got != before[k["id"]]:
+            same = False
+    check("B-01 的档位向量回到原样", same)
+    try:
+        parse_blocks(twice)
+        ok = True
+    except Exception as exc:                                             # noqa: BLE001
+        ok = False
+        print(f"      {exc}")
+    check("两次改写后容器仍自洽", ok)
+    if not all(c[1] for c in checks):
+        print()
+        print("✗ selftest 未全过")
+        return 1
+    print()
+    print("✓ selftest 全过（改出去再改回来，只有尾宿主是已知噪声）")
+    return 0
+
+
 # --------------------------------------------------------------------- main
 def main() -> int:
     ap = argparse.ArgumentParser(description="改单件护甲的部件档位（rating/speed/stamina 的唯一文件侧入口）")
@@ -269,10 +460,16 @@ def main() -> int:
     ap.add_argument("--slots", default="", help="只改这些槽位（逗号分隔，默认全部）")
     ap.add_argument("--body-types", default="", help="只改这些组类型（逗号分隔，默认全部）")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--selftest", action="store_true", help="改出去再改回来，验证工具本身不漂")
+    ap.add_argument("--verify-model", action="store_true", help="用模型复现 135 件甲的 vanilla 三数字")
     a = ap.parse_args()
 
     plain = pathlib.Path(a.plain).read_bytes()
     blocks, kits = parse_table(plain)
+    if a.selftest:
+        return selftest(plain)
+    if a.verify_model:
+        return verify_model(plain)
     sdk = sdk_kits()
     passive_armor = sdk_passive_armor()
 
@@ -351,47 +548,48 @@ def main() -> int:
     if not edits:
         raise SystemExit("✗ 没有要改的（已经是该档位？）")
 
-    # 预测（用改后的档位重算 SDK 的显示公式；取「和原值最接近的那个身体组」当游戏读的那组）
+    # 预测。模型（2026-10-24 用 135/135 件甲的 vanilla 三个数字反证钉死）：
+    #   每个槽位取 **variant 最小（=0）的那件** 的档位 → 9 个槽位的档位向量
+    #   RATING = 50 + 50*(mean(A[评分槽 2,4,5,6,7,8,9]) + 被动 armor 行)
+    #   实战 SPEED = 500*mean(S[全部 9 槽])      STAMINA = 100*(2-mean(F[全部 9 槽]))
+    #   卡片 SPEED = 500*mean(S[去掉 cape(1)/hips(3)])  同上（SDK 原话：军械库的均值跳过这两件）
     for k in picked:
         sk = sdk.get(k["id"])
         if not sk:
             continue
         before = sk["vanilla"]
-        new_w = {}
+        # 复制一份 piece，按当前选中的修改模拟
+        sim = []
         for b in k["bodies"]:
             for p in b["pieces"]:
-                new_w.setdefault((b["type"], p["slot"]), p["weight"])
-        for b in k["bodies"]:
-            for p in b["pieces"]:
-                if not body_types or b["type"] in body_types:
-                    if p["slot"] in want_slots:
-                        new_w[(b["type"], p["slot"])] = target
-        # 每个身体组算一套
-        best = None
-        for b in k["bodies"]:
-            w = {s: v for (bt, s), v in new_w.items() if bt == b["type"]}
-            if not w:
-                continue
-            a_slots = [v for s, v in w.items() if s in RATING_SLOTS]
-            if not a_slots:
-                continue
-            A = sum(CLASS_A[x] for x in a_slots) / len(a_slots)
-            S = sum(CLASS_S[x] for x in w.values()) / len(w)
-            F = sum(CLASS_F[x] for x in w.values()) / len(w)
-            old_w = {p["slot"]: p["weight"] for p in b["pieces"]}
-            old_a = [v for s, v in old_w.items() if s in RATING_SLOTS]
-            old_err = abs((50 + 50 * (sum(CLASS_A[x] for x in old_a) / len(old_a)))
-                          - before["rating"])
-            if best is None or old_err < best[0]:
-                best = (old_err, b["type"], A, S, F)
-        if not best:
-            continue
-        _e, btype, A, S, F = best
+                w = p["weight"]
+                if (not body_types or b["type"] in body_types) and p["slot"] in want_slots:
+                    w = target
+                sim.append((p["slot"], p["variant"], w, k["payload_at"] + p["at"]))
+        changed = {e["abs"] for e in edits}
+        def slot_map(rows):
+            out = {}
+            for slot, variant, w, abs_off in rows:
+                if abs_off in changed:
+                    w = target
+                cur = out.get(slot)
+                if cur is None or variant < cur[0]:
+                    out[slot] = (variant, w)
+            return {slot: v[1] for slot, v in out.items()}
+        w_now = slot_map([(sl, va, wt, ao) for sl, va, wt, ao in sim])
         pbonus = passive_armor.get(sk["passive"]["id"], 0.0)
+        a_now = [v for sl, v in w_now.items() if sl in RATING_SLOTS]
+        A = sum(CLASS_A[x] for x in a_now) / len(a_now) if a_now else 0.0
+        S = sum(CLASS_S[x] for x in w_now.values()) / len(w_now)
+        F = sum(CLASS_F[x] for x in w_now.values()) / len(w_now)
+        show = {sl: v for sl, v in w_now.items() if sl not in (1, 3)}
+        S_show = sum(CLASS_S[x] for x in show.values()) / len(show)
+        F_show = sum(CLASS_F[x] for x in show.values()) / len(show)
         print(f"  0x{k['id']:08X} {sk['name'] or '<unnamed>':<26} "
               f"{before['rating']:>5.0f}/{before['speed']:>4.0f}/{before['stamina']:>4.0f} -> "
-              f"{50 + 50 * (A + pbonus):>5.0f}/{500 * S:>4.0f}/{100 * (2 - F):>4.0f}"
-              f"   (A={A:.2f}+被动{pbonus:+.1f} S={S:.3f} F={F:.2f}，组{btype})")
+              f"实战 {50 + 50 * (A + pbonus):>5.0f}/{500 * S:>5.1f}/{100 * (2 - F):>5.1f} "
+              f"· 卡片 {50 + 50 * (A + pbonus):>5.0f}/{500 * S_show:>5.1f}/{100 * (2 - F_show):>5.1f}"
+              f"   (A={A:.3f}+被动{pbonus:+.1f})")
 
     # 写
     pad8 = (8 - len(plain) % 8) % 8
