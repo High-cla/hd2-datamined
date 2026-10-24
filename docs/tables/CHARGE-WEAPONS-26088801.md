@@ -368,6 +368,42 @@ fire-mode selector bound to an input. Weapons without it can only have one mode.
 
 ---
 
+## 6.9 run 5：给**单管枪**加 `Volley(4)` —— 能力边界探针（**已装盘，待实机**）
+
+### 6.9.1 为什么选它
+
+`4 = Volley` 是**唯一一个"语义依赖枪管数"的模式**（SG-88 `Barrels x 2` → 一次打 2 发）。
+把它塞进一条**单管**武器，就能问清一件事：**模式值本身是否足够，还是引擎会去查枪管数 / 资产包**。
+
+| 已知线索 | 结论 |
+|---|---|
+| 社区 schema 里**没有** `barrels` 字段（只有 `pellet_count` 这种"每发弹丸数"） | 枪管数很可能**不在明文数据里** |
+| `volley_gun` 在 `player_weapon_composition_catalog.json` 里是一个 **资产包名**（`residency.package`，VG-70 的 loadout 包） | 齐射的**动画/多枪口事件**可能在那个包里，缺资源时行为不可预期 |
+
+### 6.9.2 改动
+
+| 项 | 值 |
+|---|---|
+| 目标 | **AR-23 Liberator**（单管自动步枪，已有选择器 `function_info = (0, 3)`） |
+| 变量 | **`WeaponDataComponentData +0x9C`（第四模式槽）：`0` → `4`（Volley）** |
+| 结果 | 模式槽 `[1, 2, 3, 0]` → **`[1, 2, 3, 4]`**（自动 / 半自动 / 连发 / 齐射） |
+| 为什么单变量 | AR-23 本来就绑了 `Firemode` 选择键，**只需改一格**，不引入第二个改动 |
+| 其余 | 沿用 APW-1 全自动 · Railgun 恒定安全 · ARC-3 瞬蓄 · P-92 距离 300 · Spear 快锁 |
+| 离线 | G1–G9 全 PASS，diff 仅 2 B；哈希 `0x8E49771B181FFAA1` 不变；封包 sha256 `17195c7b…` |
+
+### 6.9.3 四种结果各自说明什么（都算收获）
+
+| 你看到 | 结论 |
+|---|---|
+| **面板出现「齐射」，按下去手感就是普通单发** | `Volley` 只是"每枪管一发"的语义 ⇒ 单管=1 发。**模式值足够、枪管数由引擎侧决定**（数据里查不到） |
+| **面板出现，且一次打出多发同款弹丸** | 齐射对单管也有效 ⇒ 等于"一发变霰弹"，这会把 `4` 变成一个**通用多发模式** |
+| **面板里没有第四档 / 按键跳过它** | 引擎按武器类型**过滤**模式值 ⇒ 模式列表不是自由的，能加什么取决于枪型 |
+| **切到齐射就崩溃 / 卡死** | 齐射需要 `volley_gun` 那套资产（多枪口事件），**数据侧不够** ⇒ 报"模式值真、资源缺"这条边界 |
+
+> 回滚：`python tools/dlbin_deploy.py restore --file generated_entities.dl_bin`
+
+---
+
 ## 7 三态
 
 | 结论 | 态 |
@@ -392,6 +428,7 @@ fire-mode selector bound to an input. Weapons without it can only have one mode.
 | `FireMode 4` = Volley | **✓ 离线**（SG-88 wiki「Semi • Volley」↔ 数据 `[2,4]`） |
 | `FireMode 7` = Total | **✓ 离线**（VG-70 wiki 三模式 ↔ `[1,4,7]` 排除法） |
 | `FireMode 6` = Unsafe | **⚠ 强推断**（Epoch `[6,6]` 能过蓄 + Railgun `[5,6]`） |
+| `Volley(4)` 用在单管枪上的行为（模式值是否足够 / 是否要枪管数或资产包） | **⚠ 待 run 5**（AR-23 第四槽 = 4） |
 
 ---
 
@@ -408,3 +445,5 @@ fire-mode selector bound to an input. Weapons without it can only have one mode.
 8. ~~run 4~~ → **✓ 已收**。可批量给单发武器加全自动；也可试加 `Burst(3)` / `Volley(4)` / `Total(7)`。
 9. 想验证 `6 = Unsafe`：给某把能过蓄的枪**删掉 6 槽**（像 run 3 那样）看是否只剩安全。
 10. 射速路线：给 APW-1（或任意单档枪）写 `+4/+12` 两个新 rpm + `function_info` 写 `ROF(2)`，看能否加出射速切换。
+11. 收 run 5（单管 + Volley）。若"单管=1 发"⇒ 反过来试**给 AR-23 加 `Total(7)`**（倾泻全部弹药，不依赖枪管数）。
+12. 若 run 5 表明 `4` 依赖资产包 ⇒ 查 `volley_gun` 包里到底有什么（`srkit` 可解包），判断能否移植。
