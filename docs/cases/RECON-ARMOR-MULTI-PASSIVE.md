@@ -412,3 +412,51 @@ sm 行：`{stat 槽位, 标志, 值}` —— 槽位 ✓（11–17，只见 7 个
 > ⚠ 仍是推断的地方：wiki 说"damage recoil 95%"，我们只知道"某个整数 ×0.05"。
 > 判定实验（1 个变量）：把 perk 14 的 `stat 11` 从 **0.05 改成 1.0**，穿 UF-84 Doubt Killer
 > （Unflinching 甲）被打时看镜头冲击是否**恢复成普通甲那种晃动**。若恢复 ⇒ 名字钉死。
+
+## 12. Armor rating / Speed / Stamina Regen 住在哪？（2026-10-24，权威答案）
+
+**不在任何单条 `.dl_bin` 行里**，而是「**全局 3 行 class_table** × **每件甲的 9 个部件档位**」两层算出来的。
+权威来源：`D:\mod\c11-recon\sdk-0.30.3\ArmorStatsCapabilities.json`（`classes` / `formulas` / `executableData` / `kits[].weights`）。
+
+### 12.1 第一层：class_table —— 3 行，**在 `game.dll` 的可执行数据页里**
+
+| class | `armorValue` A | `speedFactor` S | `staminaFactor` F | 显示 rating | speed | stamina |
+|---|---:|---:|---:|---:|---:|---:|
+| light | 0.0 | 1.1 | 0.75 | 50 | 550 | 125 |
+| medium | 1.0 | 1.0 | 1.0 | 100 | 500 | 100 |
+| heavy | 2.0 | 0.9 | 1.5 | 150 | 450 | 50 |
+
+显示公式（`formulas.display`）：`RATING = 50 + 50×A` · `SPEED = 500×S` · `STAMINA = 100×(2−F)`。
+
+伤害曲线也在这里（同一页）：`A = −1 / 0 / 1 / 2 / 3` → 伤害 **×1.66 / 1.25 / 1.00 / 0.75 / 0.65**（线性插值，读在每一次命中）。
+
+> `executableData` 原文：*"The class tables and the damage curve sit in **game.dll pages that are executable at run time** … written as reviewed executable data … only their exact 4-byte entries … the page protection is never changed."*
+> ⇒ **这三行不是 .dl_bin 表**，是代码页里的 f32 常量。
+
+### 12.2 第二层：每件甲的 9 个部件各属哪一档 —— **这一层在文件里**
+
+`ArmorStatsCapabilities.kits[]` 每件甲都带 9 个部件的 weight：
+`cape · torso · hips · left_leg · right_leg · left_arm · right_arm · left_shoulder · right_shoulder`
+（`fieldInstances` 里对应 `hd2.fields.armor_kit` 的 1,141 个实例 = 9 × 127 件）。
+
+聚合规则（`formulas`）：
+
+| 数字 | 怎么算 |
+|---|---|
+| **rating** | 只取**评分槽**（torso / 两条腿 / 两条臂 / 两肩，**不含 cape 与 hips**）的 `A` 求**均值**，再套被动 armor 行：`(Set 否则均值) + ΣAdd`，再 `× ΠMultiply`；**每次命中都读** |
+| **speed** | **全部 9 件**（含 cape 与 hips）的 `S` 求均值 |
+| **stamina** | **全部 9 件**的 `F` 求均值（同时缩放耐力消耗与恢复、跳跃/扑倒/攀爬/滑铲开销） |
+
+⇒ 这两层合起来才解释得通两件旧事：
+
+1. **只有 3 档，却能显示 75 / 125 / 175 这类中间值** —— 是**混搭档位的均值**（例如护甲件是 light、腿是 medium ⇒ A=0.5 ⇒ rating 75）；
+2. **memmod 时代改 piece 的 `+16`(0/1/2) 卡片一动不动**（`armor_kit_table` 记忆里的 ✗）——
+   要么 `+16` 不是那个 weight，要么改的时候卡片已按旧值缓存。
+
+### 12.3 对文件路线的含义
+
+| 想改什么 | 在哪 | 能不能走我们的路线 |
+|---|---|---|
+| **三档基准**（让所有轻甲更硬、更快） | `game.dll` 代码页 f32 | ✗ **不在 .dl_bin**，属另一条（需授权/改 exe） |
+| **单件甲的三数字** | 该甲 9 个部件的 class（套件表内） | ⚠ **文件可达**，但 piece → class 的实际编码**尚未确认**（旧试验阴性） |
+| **+25 之类的被动加成** | 被动表的 `armor_rating` pm 行（Add） | ✓ 已证（`type=1` = Add） |
