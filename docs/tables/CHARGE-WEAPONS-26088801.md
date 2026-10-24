@@ -318,6 +318,56 @@ fire-mode selector bound to an input. Weapons without it can only have one mode.
 
 ---
 
+## 6.8 两套「模式」系统 + FireMode 枚举反查表
+
+武器有**两套独立的选择器**，靠 `function_info` 里的枚举值区分：
+
+| 选择器 | `WeaponFunctionType` | 改什么 | 数据在哪 |
+|---|---:|---|---|
+| **射击模式** | **`Firemode = 3`** | 单发 / 连发 / 全自动 / 齐射 / 总倾泻 / 安全 / 不安全 | `WeaponData +0x90…0x9C`（FireMode 四连槽） |
+| **射速档位** | **`ROF = 2`** | rpm 三档切换（MG-43 / M-105 / MG-206 切的就是这个） | **`ProjectileWeapon +4 / +8 / +12`（X / Y / Z 三个 f32）** |
+
+- `rpm` 三档里 **Y（+8）是默认档**，也是没有选择器时唯一生效的那档。
+- 选择器按 `Y → Z → X → Y` 循环，遇到 0 的槽跳过（`docs/fire-rate-modes.md`，game.dll `0x617960`）。
+- 两者可**同时存在**：`VG-70 Variable` 就是 `function_info = (3, 2)` —— 左键切射击模式、右键切射速。
+
+### 6.8.1 实测：切射速的武器
+
+| 武器 | rpm X / Y / Z | 射击模式槽 | `function_info`（左/右） |
+|---|---|---|---|
+| **MG-43 Machine Gun** | **630 / 760 / 900** | `[1]` | (0, **2 = ROF**) |
+| **M-105 Stalwart** | **700 / 850 / 1150** | `[1]` | (0, **2 = ROF**) |
+| MG-206 HMG | 450 / 600 / 750 | `[1]` | (0, **2 = ROF**) |
+| **VG-70 Variable** | 300 / 550 / 750 | `[1,4,7]` | (**3**, **2**) ← 两套都有 |
+| APW-1（本轮改后） | 0 / 400 / 0 | `[2, 1]` | (0, **3**) |
+
+⇒ 给任何武器加射速切换 = 往 `+4/+8/+12` 写三个 rpm + 把 `function_info` 的某个输入写成 **2**。
+
+### 6.8.2 ★ `FireMode` 枚举反查表（数据 + wiki 交叉）
+
+方法：把「武器在数据里的模式集合」与「wiki 页面 Firing Modes 一栏」做联立。
+
+| 值 | 名字 | 证据 |
+|---:|---|---|
+| 0 | **None（空槽）** | 四连槽的空位一律 0 |
+| 1 | **Automatic 全自动** | 252 把只有 `[1]`；AR-23 `[1,2,3]` = 自动/单发/连发 |
+| 2 | **Single（半自动）** | 57 把只有 `[2]`；APW-1、Purifier、Accelerator 都是 `[2]` |
+| 3 | **Burst 连发** | AR-23 的第三槽；JAR-5 `[2,3]` = 单发/连发 |
+| **4** | **Volley（多管齐射）** | **SG-88 wiki「Semi • Volley」↔ 数据 `[2,4]`** ✓；同组还有 DBS-2 / SG-22（都是多管） |
+| **5** | **Safe（安全蓄力，蓄满即发）** | Railgun run 3 实机：删掉第二槽后只剩「安全」 |
+| **6** | **Unsafe（不安全，可过蓄）** | Epoch 只有 `[6,6]` 且实测能过蓄；Railgun 的 `[5,6]` 即安全/不安全 |
+| **7** | **Total（倾泻全部剩余弹药）** | VG-70 wiki「Total • Volley • Auto」↔ 数据 `[1,4,7]`；1=Auto、4=Volley ⇒ 7=Total |
+| 8 | 未使用 | 全表 373 把无一把出现 8 |
+
+⚠ 三态：`1/2/3` 有官方命名（type library 里名字长度对得上）⇒ **✓**；
+`4` 由 SG-88 wiki 直接对上 ⇒ **✓ 离线**；`5` **✓ 实机**；`6` **⚠ 强推断**（间接）；
+`7` **✓ 离线**（排除法 + VG-70 三个模式恰好三个值）。
+
+⇒ **这套表可以直接用来"造模式"**：往空槽里写 4/7 就是给别的武器加齐射 / 总倾泻；
+写 1 就是加全自动（run 4 已在 APW-1 上实机通过）。
+
+---
+
 ## 7 三态
 
 | 结论 | 态 |
@@ -337,7 +387,11 @@ fire-mode selector bound to an input. Weapons without it can only have one mode.
 | 「安全/不安全」= `WeaponDataComponentData +0x90/+0x94` 里的 FireMode 值（5=安全 / 6=不安全） | **⚠ 待 run 3**（推断来自"Epoch 只有 6 且能过蓄"） |
 | 能否切换 = `function_info` 是否绑定 `WeaponFunctionType Firemode(3)`（Railgun 绑在 `+0xB8`） | **✓ 离线**（4 把蓄力枪对照，只有 Railgun 绑定） |
 | Railgun「恒定安全」= 删掉第二模式槽（`+0x94` 6→0） | **✓ 实机**（run 3：面板只剩「安全」） |
-| 模式槽 + 选择键 = 可给任意武器加射击模式 | **⚠ 待 run 4**（APW-1 加全自动） |
+| 模式槽 + 选择键 = 可给任意武器加射击模式 | **✓ 实机**（run 4：APW-1 能在半自动/全自动之间切并连续开火） |
+| 射速切换 = `ProjectileWeapon +4/+8/+12` 三档 rpm + `function_info` 写 `ROF(2)` | **✓ 离线**（MG-43/M-105/MG-206 三者 rpm 三档与右侧选择键） |
+| `FireMode 4` = Volley | **✓ 离线**（SG-88 wiki「Semi • Volley」↔ 数据 `[2,4]`） |
+| `FireMode 7` = Total | **✓ 离线**（VG-70 wiki 三模式 ↔ `[1,4,7]` 排除法） |
+| `FireMode 6` = Unsafe | **⚠ 强推断**（Epoch `[6,6]` 能过蓄 + Railgun `[5,6]`） |
 
 ---
 
@@ -351,4 +405,6 @@ fire-mode selector bound to an input. Weapons without it can only have one mode.
 5. `Min.ProjType` 路线（让"必须蓄满"的枪能提早开火）：给 ARC-3 的 Min 档填一个合法电弧弹丸类型。
 6. 收 run 3（Railgun 恒定安全）。若 ✓ ⇒ 同法可给 Epoch/ARC-3 定档（它们没绑选择键，改槽即等于改行为）。
 7. 之后可试"反向"：把 ARC-3 加上 `Firemode` 选择键（`function_info` 写 3）+ 第二槽 6，看能否给它加出"不安全"档。
-8. run 4 若 ✓ ⇒ 可批量给单发武器加全自动；同时可试给**狙击/霰弹枪**加 `Burst(3)`。
+8. ~~run 4~~ → **✓ 已收**。可批量给单发武器加全自动；也可试加 `Burst(3)` / `Volley(4)` / `Total(7)`。
+9. 想验证 `6 = Unsafe`：给某把能过蓄的枪**删掉 6 槽**（像 run 3 那样）看是否只剩安全。
+10. 射速路线：给 APW-1（或任意单档枪）写 `+4/+12` 两个新 rpm + `function_info` 写 `ROF(2)`，看能否加出射速切换。
