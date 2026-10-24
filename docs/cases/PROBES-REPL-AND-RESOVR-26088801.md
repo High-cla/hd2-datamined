@@ -171,7 +171,86 @@ cat "$LOCALAPPDATA/CowboyBingus/Helldivers2/Logs/ResOvrTypes.log"
 | 离线自检抓到 | 提取器 off-by-one（`call` 名首字符被吃掉，`n03j_i`→`03j_i`）—— 已修，修后两集并集从 461 降到 238 |
 | 产物 | `patch_5` 8,240 B（比上一版还小） |
 
-## 10. 结果（待填）
+## 10. ✓✓ 第 3 局（probe_types）：拿到 224 类型的完整字段字典
+
+`SUMMARY candidates=238 resolved=224 miss=14 total_fields=5713`
+
+| 指标 | 值 |
+|---|---|
+| 候选类型名 | 238 |
+| **解析成功** | **224**（= `Repair.allowed_types` 的 224 条，**一个不多一个不少**） |
+| 未解析 | 14 |
+| **字段总数** | **5,713** |
+| 去重字段 id | **227** |
+| 平均每类型字段 | 25.5 |
+| 字典文件 | `D:\modecon-hudplus	ype-schema-dictionary.json`（567,665 B） |
+
+### 10.1 那 14 个 miss 不是"坏类型名"，是我的提取器抓到了**字段标签**
+
+`baegche · drone · dvpupm · enabled_mask · fire_mode · gls4w9b · health · mm9hm0 ·
+motion_enabled · position · rotation_enabled · shield_goid · state · underbarrel_goid`
+
+—— 这些是 `GeneratedCommon` 里**嵌套字段描述符**的 `["call"]`（人读标签），不是类型名。
+所以真类型集合 = `allowed_types` 的 **224** 条，`GeneratedCommon.call` 是"类型名 + 字段标签"混合。
+
+### 10.2 字段 id 是一套**跨类型共享的词汇表**
+
+227 个 id 分布在 5,713 个槽位。出现最广的 12 个：
+
+| 字段 id | 出现在多少个类型 | type/bits/range | 判读（借 HUD+ 标签 + 语义） |
+|---|---:|---|---|
+| `c336a25c` | 223 / 224 | t1 / b32 | 近乎全类型都有 → 通用（疑似 owner/goid） |
+| `50ac6619` | 219 | t1 / b12 [0,4095] | 通用整数 |
+| `98b4aaf0` | 218 | t10 / b0 | 引用型（t10） |
+| `3ccffa7f` | 208 | t9 | 引用型 |
+| **`8bbeb160`** | **193** | t3 / b24 [−2000,2000] | **位置**（HUD+ `position_field` ✓） |
+| `20605662` | 192 | t4 / b31 | 位域 |
+| `2d27198c` | 181 | t0 | 复合型 |
+| **`788b9753`** | **174** | t1 / b8 [0,255] | **携带位掩码**（HUD+ `carry_field` ✓） |
+| `99901914` | 174 | t1 / b8 [0,255] | 同类位掩码 |
+| `1dd07f05` | 174 | t1 / b6 [0,63] | 位域 |
+| **`67526982`** | **152** | t1 / b15 | **下挂件 goid**（HUD+ `underbarrel_field` ✓） |
+| **`49c250a6`** | **151** | t1 / b4 [0,15] | **开火模式**（HUD+ `mode_field` ✓） |
+
+### 10.3 HUD+ 的命名字段，15/16 被字典证实
+
+| HUD+ 标签 | 字段 id | 出现类型数 | 结论 |
+|---|---|---:|---|
+| position | `8bbeb160` | 193 | ✓ |
+| carry / enabled_mask | `788b9753` | 174 | ✓ |
+| underbarrel_goid | `67526982` | 152 | ✓ |
+| fire_mode | `49c250a6` | 151 | ✓ |
+| hand-weapon.stage | `cd889dbc` | 127 | ✓ |
+| bind | `c3a3f66c` | 42 | ✓ |
+| drone | `a5ae4500` | 24 | ✓ |
+| state | `82830aed` | 20 | ✓ |
+| rotation_enabled | `4441caf8` | 12 | ✓ |
+| motion_enabled | `d49efb40` | 12 | ✓ |
+| mm9hm0 | `e144c5e3` | 9 | ✓ |
+| shield_goid | `58c2060b` | 1 | ✓ |
+| health | `cb0453ea` | **1**（`gl7xl2w`） | ✓ **生命值在 avatar 类型上**，range `[−100000, 162143]` |
+| ship | `dae681f4` | 1（`gl7xl2w`） | ✓ |
+| player.3b12bd49 | `3b12bd49` | 1（`un6y1d`） | ✓ |
+| **avatar** | `0x0f27c68e` | **0** | ✗ **HUD+ 这里是坏的**：`0x0f27c68e` 是 **9 位 hex**（非法）；真身是 `un6y1d` 的 **`f27c68e`**（多打了一个前导 0） |
+
+⇒ HUD+ 的字段命名**大体可信**，但存在**格式级错误**，印证它"未实机验收"的状态。
+
+### 10.4 两个类型被钉死
+
+| 类型 | 字段数 | 证据 |
+|---|---:|---|
+| **`un6y1d`** | 36 | `is_type(session, id, "un6y1d")` 对 owned 对象返回 **true**（实机）；含 `3b12bd49`/`cd889dbc` 两个 HUD+ player 字段 → **玩家网络对象** |
+| **`gl7xl2w`** | **72（最多）** | 唯一持有 `health`(`cb0453ea`) 的类型；HUD+ 的 `identity.avatar.call` 正是它 → **角色/生命状态对象** |
+
+### 10.5 由此更正 §8 的判断：崩溃**不是字段 id 的问题**
+
+上一轮我说 `3b12bd49` "不在 un6y1d 的 schema 里" —— **错**，那是只看了前 6 个字段导致的误判。
+它在 `un6y1d` 的 **field[14]**（t1 / b5 [0,31]）。所以两次崩溃时用的字段 id 都是**真实存在**的。
+
+⇒ 剩下的嫌疑收敛为：**(c) `goid = 0` 不合法**，或 **(d) `game_object_field` 的调用形态不对**
+（HUD+ 那套是它自己的理论，未实机验证）。
+
+## 11. 结果（待填）
 
 | 项 | 值 |
 |---|---|
