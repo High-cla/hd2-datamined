@@ -263,3 +263,53 @@ SDK 对这个键的说法（`ArmorPassiveCatalog.json` perk 1）：
 5. ~~当前 build 里这三张表的 RVA 是否仍是那三个~~ → **✓ 已由实机反证**：面板 450 = 500×0.9、050 = 100×(2−1.5)、
    200 = 50+50×(2+1.0) 三条同时成立，只有 `speed 0.9 / stamina 1.5 / armor 2` 在用时才可能。
    （仍然拿不到当前 build 的镜像地址 —— 那需要 dump，而 EAC 挡着；但这不影响「这三张表就是引擎读的那三张」的结论。）
+
+## 8 p2 已部署，待实机（2026-10-24 14:12）
+
+> 盔甲线是**资源侧**（`data/game/*.dl_bin`），与 Lua 补丁无关：本次部署期间 Lua 补丁 (patch_0..4)
+> 原样在位，未参与、未受影响。
+
+### 8.1 部署前的三条离线验证（全部通过）
+
+| # | 验证 | 做法 | 结果 |
+|---|---|---|---|
+| V1 | **p2 是否基于「当前盘上基线」** | 用 `dlbin_seal.py open-key` 解封盘上原版 → 与 p2 的明文逐字节 diff | 正文区**只有 3 段共 12 B 不同**（16 B 的 perk-0 行 + 校正字），其余全同 ✓ |
+| V2 | **改的是不是那一行** | `passive_bonus_edit.py --show` 两份明文全表 dump 后 diff | **全表 35 行只差 1 行**：`perk 0 @0xf50`：`[0x00000000 t0 0]` → `[0xAFAE3B47 t1 1]` ✓ |
+| V3 | **内容哈希是否保持** | `murmur64` 对两份明文求值 | 两者都是 **`0xBFB6F7235F9A269C`** ✓（= 工具打印的原版值） |
+
+补充：p2 明文比原版多 8 B 尾巴（保哈希用的追加填充），`passive_bonus_edit --show` 行数仍是 **35 = 35**
+⇒ 容器几何未变、没有加行/删行 ✓（这正是「原地改写」相对于「加一行」的卖点）。
+
+### 8.2 部署记录
+
+| 项 | 值 |
+|---|---|
+| 文件 | `data/game/generated_customization_passive_bonuses.dl_bin` |
+| 装入 | `D:\mod\out\armor-p2\...dl_bin`，4,072 B，sha256 **`b89a9cc624a435c0…`** |
+| 原版备份 | `D:\mod\backups\dlbin-deploy\game\…`（2bc5967a12ee4555…，未被覆盖） |
+| 另一张表 | `generated_customization_armor_sets.dl_bin` = **原版**（4739b50c…）⇒ 本发只动被动表一个变量 |
+| 回滚 | `python tools/dlbin_deploy.py restore --file generated_customization_passive_bonuses.dl_bin` |
+
+### 8.3 实机预测（perk 0 = STANDARD ISSUE，共 13 件）
+
+`RATING = 50 + 50×(A + 1.0)`（被动 `armor_rating` Add 1.0）：
+
+| 甲 | 部件档位 | 原 rating | **预测 rating** | 速度 | 耐力 |
+|---|---|---|---|---|---|
+| B-01 Tactical（idx 132/134/135/140/141） | 全 medium（A=1） | 100 | **150** | 500 不变 | 100 不变 |
+| B-16 Battle-Scarred Veteran（41） | 全 medium | 100 | **150** | 500 | 100 |
+| CM-09 Bonesnapper（87） | 全 medium | 100 | **150** | 500 | 100 |
+| idx 16/17/18/43 | 全 medium | 100 | **150** | 500 | 100 |
+| idx 81/83 | 全 light（A=0） | 50 | **100** | 550 | 125 |
+
+伤害：`A = 1 + 1.0 = 2.0` ⇒ 伤害曲线在 (2, ×0.75) 上 ⇒ **受击 ×0.75**（与任何 A=2 的甲同档）。
+
+### 8.4 测试期间的一个真实风险
+
+`patch_4` = **ArmoryForge（护甲多被动）也会写同一个文件**，而且它用的是**自己内嵌的原版基线**
+（见 `docs/cases/COMMUNITY-MODS-COMPAT-26088801.md` §6）。它的日志目前全是
+`EXIT no pending selection`（从未写过盘），但只要在它的菜单里**确认任何选择**，它就会整表重建成原版，
+把 p2 抹掉。
+
+⇒ 这一轮测试：**不要碰 ArmoryForge 的选项**。若不小心动了，重装一次 p2 即可
+（`dlbin_deploy.py install` 同一条命令）。

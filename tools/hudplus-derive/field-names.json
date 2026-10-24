@@ -1,0 +1,48 @@
+{
+ "_source": "HUD+ 0.5.3 lua payload generated tables",
+ "field_count": 14,
+ "fields": {
+  "0x0f27c68e": {
+   "name": "baegche"
+  },
+  "0x4441caf8": {
+   "name": "rotation_enabled"
+  },
+  "0x49c250a6": {
+   "name": "fire_mode"
+  },
+  "0x58c2060b": {
+   "name": "shield_goid"
+  },
+  "0x67526982": {
+   "name": "underbarrel_goid"
+  },
+  "0x788b9753": {
+   "name": "enabled_mask"
+  },
+  "0x82830aed": {
+   "name": "state"
+  },
+  "0x8bbeb160": {
+   "name": "position"
+  },
+  "0xa5ae4500": {
+   "name": "drone"
+  },
+  "0xc3a3f66c": {
+   "name": "dvpupm"
+  },
+  "0xcb0453ea": {
+   "name": "health"
+  },
+  "0xd49efb40": {
+   "name": "motion_enabled"
+  },
+  "0xdae681f4": {
+   "name": "gls4w9b"
+  },
+  "0xe144c5e3": {
+   "name": "mm9hm0"
+  }
+ }
+}
