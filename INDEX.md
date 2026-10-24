@@ -147,7 +147,7 @@
 
 | 文档 | 一句话 | build |
 |---|---|---|
-| ★ [CHARGE-WEAPONS-26088801](docs/tables/CHARGE-WEAPONS-26088801.md) | **蓄力武器**：`WeaponChargeComponentData`（20 槽 + 11 行 × 216 B）三档蓄力状态 + 12 倍率；**「不蓄满能否开火」= `Min.ProjType` 是否非 0**（6/6 相关）；ARC-3 蓄满 1.1→0.05 已装盘 | `26088801` |
+| ★ [CHARGE-WEAPONS-26088801](docs/tables/CHARGE-WEAPONS-26088801.md) | **蓄力武器**：`WeaponChargeComponentData`（20 槽 + 11 行 × 216 B）三档状态（`ChargeTime`+`ProjType`）+ 12 倍率；**蓄满时间 ✓ 实机**（ARC-3 按下几乎立刻放电）；「不蓄满能否开火」= `Min.ProjType` 非 0（6/6）；过蓄伤害 = `DamageMin→DamageOver`（Railgun 1.0→2.5）· 过蓄自毁 = 爆炸 type 326→伤害行 362（2000 伤害 / 0.4-2-3 m） | `26088801` |
 | ★ [LOCKON-TARGETING-26088801](docs/tables/LOCKON-TARGETING-26088801.md) | **锁定/制导武器（✓ 结项）**：可改 = 距离（`SensorEye.distance`）+ 锁定时间（`lock_on_target_time`，均实机）；改不动 = 锥角（四路否证）+ 可锁集合（标签位图无映射）；含 7 轮实验台账与武器→投射物→制导行映射 | `26088801` |
 | ★ [ENTITIES-TABLE-LIVE-EDIT-26088801](docs/cases/ENTITIES-TABLE-LIVE-EDIT-26088801.md) | **实体表在线改写 ✓ 实机**：47 MB `generated_entities.dl_bin` 可改 + 重新封装 + 引擎接受；完整证据链（解封/锚点哈希/门禁/盘上回读/实机） | `26088801` |
 | ★ [ARMOR-PASSIVE-STATS-26088801](docs/tables/ARMOR-PASSIVE-STATS-26088801.md) | **护甲被动/stat 行的文件侧能力模型**：pm vs sm 两通道、两层作用范围、7 个 stat 槽、三条硬约束、4 个已验证配方 | `26088801` |

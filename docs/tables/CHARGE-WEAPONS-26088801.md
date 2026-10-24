@@ -1,6 +1,7 @@
 # 蓄力武器（charge-up）—— 组件表定位与字段图（build 26088801）
 
-> **状态：表已定位、字段已按社区 schema 逐项对齐；run 1（ARC-3 蓄满时间 → 0.05）已装盘待实机。**
+> **状态：run 1 ✓ 实机（ARC-3 蓄满时间 1.1→0.05 后「按下几乎立刻能放电」）；
+> 过蓄（overcharge）线已定位到爆炸行与伤害行，run 2（Railgun 过蓄不自伤）已装盘待测。**
 > 相关：[LOCKON-TARGETING](LOCKON-TARGETING-26088801.md)（锁定线）· 社区结构来源：`xypwn/filediver`
 > `datalibrary/weapon_charge_component.go`
 
@@ -128,11 +129,65 @@ python tools/entity_field_set.py set  --plain <in> --block 0xEAC335A1 --key <武
 | 装盘 | 相对上一版**只差 11 字节**（三个 f32 + 末块尺寸）；封包 sha256 `a5b7c49d…` |
 | 盘上回读 | ARC-3 `Min=0.02 / Full=0.05 / Over=0.06`；Accelerator 仍 `0.45/0.50/0.90` |
 
-**实机判据**：带 **ARC-3 Arc Thrower** 进图——
+**实机结果（用户原话）**：「**按下几乎立刻能放电**」✓ —— `ChargeTime` **就是蓄力时长（秒）**。
 
-- ✓ 若**按下扳机几乎立刻就能放电**（原版要按约 1 秒）⇒ `ChargeTime` 就是蓄力时长，这条通了
-- ⚠ 若**仍然要按满约 1 秒**才放 ⇒ 时间不在数据侧（或另有门禁），转查 `Min.ProjType`
-- ✗ 若**变成不能开火 / 卡住** ⇒ 说明三档时间有次序约束（Min < Full < Over 被引擎校验），要按比例保留差值
+⇒ 三档时间可任意压短；同样的做法可套到 Accelerator（`0.50`）、Railgun（`0.50`）、Epoch（`2.50`）。
+
+---
+
+## 6.5 过蓄（overcharge）：伤害怎么变、爆炸是哪一行
+
+### 6.5.1 伤害随蓄力变化的机制 = `ProjectileMultipliers`
+
+社区结构里每项属性**只有两个端点**：`…Min`（最小蓄力时）与 `…Over`（完全过蓄时），
+中间由引擎按蓄力程度插值。实测：
+
+| 武器 | DamageMin | **DamageOver** | PenMin / PenOver | SpeedMin / SpeedOver | DistMin / DistOver |
+|---|---:|---:|---|---|---|
+| **RS-422 Railgun** | 1.0 | **2.5** | 1 / 1 | 0.7 / 1.0 | 0.7 / 1.4 |
+| **PLAS-45 Epoch** | 1.0 | **2.0** | 1 / 1 | 1 / 1 | 0.7 / 1.4 |
+| PLAS-39 Accelerator | 1.0 | **2.5** | 1 / 1 | 0.7 / 1.0 | 0.7 / 1.4 |
+| PLAS-15 Loyalist | 0.5 | 1.0 | 0.55 / 1 | 1 / 1 | 0.7 / 1.4 |
+
+⇒ **这正是「蓄满到过蓄之间伤害会变」的来源**：从 `DamageMin` 一路涨到 `DamageOver`。
+Railgun 是 **1.0× → 2.5×**（涨 150%），Epoch 是 **1.0× → 2.0×**。
+
+另有一条**独立**的变化通道：Epoch 的三档 `ProjType` 不同（Min `168` → Full/Over `196`），
+即"换弹丸"；Railgun 三档全 0（不换弹丸，只吃倍率）。
+
+### 6.5.2 过蓄爆炸对应的爆炸行（`generated_explosion_settings.dl_bin`）
+
+蓄力行 `+0xC8` = `ExplodeType`，指向爆炸表里的行。**逐武器实测**：
+
+| 武器 | `ExplodesOnOvercharged` `+0xB9` | `ExplodeType` `+0xC8` | 爆炸行 | 伤害行 | 伤害 | 半径（内/中/外） | 破片 |
+|---|---:|---:|---:|---:|---:|---|---:|
+| **RS-422 Railgun** | **1** | **326** | 209 | 362 | **2000** | **0.4 / 2 / 3 m** | 0 |
+| **PLAS-45 Epoch** | 0 | **321** | 107 | 68 | 400 | 3 / 4 / 5 m | 0 |
+| PLAS-39 Accelerator | 1 | 326 | 209 | 362 | 2000 | 0.4 / 2 / 3 m | 0 |
+| Purifier / ARC-3 / Loyalist | 1 | 269 | 208 | 362 | 2000 | 0.4 / 2 / 3 m | 0 |
+
+- **type 326（行 209）与 type 269（行 208）是相邻的一对同模板自毁爆炸**：伤害 **2000**、半径极小
+  （内 0.4 m）、**无破片** ⇒ 贴脸致死。Railgun 用的就是 326。
+- `AutoFireInSafety` `+0xB8`：Railgun/Epoch 都是 **0**＝"按住可以一直保持蓄力" ⇒ 才可能过蓄。
+- ⚠ Epoch 的 `ExplodesOnOvercharged=0` 但用户实测会炸 ⇒ 它的过蓄爆炸**可能不走这个布尔**
+  （或走 `ExplodeType 321` 的 400 伤害轻爆）。**未证**。
+- 该表另有一批"高伤害小半径"行可作对照：type 303/61（2000，1/2/4 m）、type 33（3000，1/3/5 m）等。
+
+### 6.5.3 run 2：Railgun 过蓄不再自伤（**已装盘，待实机**）
+
+| 项 | 值 |
+|---|---|
+| 文件 | **`generated_explosion_settings.dl_bin`**（不是实体表） |
+| 变量 | **爆炸 type 326 行内 `+0x4`（伤害行 id）：`362` → `6`**（行 6 的伤害 = **0**） |
+| 只影响 | type 326 这一条；**type 269 仍指 362，未被波及**（盘上回读确认） |
+| 离线 | G1–G6 全 PASS；哈希 `0x2ABCD21D2536373D` 不变；封包 sha256 `6663a5f7…`（68,204 B） |
+| 保留 | 爆炸的**视觉与音效不变**，只是不再造成伤害 |
+
+**实机判据**：带 **RS-422 Railgun** 进图，蓄满后**继续按住直到过蓄**——
+
+- ✓ 若**照旧爆闪/爆响但自己不掉血**（原版会被 2000 伤害打死）⇒ 确认 type 326 + 伤害行 362 就是过蓄自毁
+- ⚠ 若**完全不爆了**（连特效都没）⇒ 说明 `+0x4` 同时兼作"是否爆炸"的开关，改成噪声小的行会更好
+- ✗ 若**照旧被炸死** ⇒ 过蓄自毁用的是另一条爆炸（不在 `ExplodeType` 里），要转查引擎侧
 
 ---
 
@@ -143,15 +198,20 @@ python tools/entity_field_set.py set  --plain <in> --block 0xEAC335A1 --key <武
 | `WeaponChargeComponentData` 块位置 / 几何（20 槽 + 11 行 × 216） | **✓ 离线** |
 | 216 B 行结构 = 三档 ChargeStateSetting + 12 倍率 + 句柄 + 布尔，与社区 schema 逐项对齐 | **✓ 离线** |
 | 「不蓄满能否开火」与 `Min.ProjType ≠ 0` 6/6 相关 | **✓ 离线**（强相关，非因果） |
-| `ChargeTime` 是蓄力时长（秒） | **⚠ 待 run 1** |
+| `ChargeTime` 是蓄力时长（秒） | **✓ 实机**（ARC-3 1.1→0.05，按下几乎立刻放电） |
 | `Min.ProjType` 填值可让"必须蓄满"的枪提早开火 | **⚠ 未试** |
 | 倍率区对实际弹丸生效 | **⚠ 未试** |
+| 伤害随蓄力在 `DamageMin`→`DamageOver` 间变化（Railgun 1.0→2.5 · Epoch 1.0→2.0） | **✓ 离线**（结构+数值；实机幅度未量化） |
+| Railgun 过蓄自毁 = 爆炸 type 326 → 伤害行 362（2000 伤害 / 0.4-2-3 m） | **⚠ 待 run 2** |
+| Epoch 过蓄自毁的爆炸来源 | **⚠ 未证**（它的 `ExplodesOnOvercharged=0`，与本用户观察不一致） |
 
 ---
 
 ## 8 下一步
 
-1. 收 run 1（ARC-3 时间）。若 ✓ ⇒ 同法可用于 Accelerator（0.50）、Railgun（0.50）、Epoch（2.50）。
-2. 若时间改了但"仍要蓄满才放" ⇒ 做 `Min.ProjType`：给 ARC-3 的 Min 档填一个合法电弧弹丸类型，
-   看能否按住 0.1 秒就放出一发弱电弧。
-3. 倍率区单独验（**挑 Purifier**：它的三档弹丸不同，倍率改了最容易看出强弱差别）。
+1. ~~收 run 1（ARC-3 时间）~~ → **✓ 已收**。
+2. **收 run 2（Railgun 过蓄不自伤）**。若 ✓ ⇒ 同法可给 Epoch 试（先确认它用的爆炸 type）。
+3. 把 ARC-3 的短蓄力做法推广：Accelerator `0.50`、Railgun `0.50`、Epoch `2.50` → 0.05。
+4. 倍率区单独验：**把 Railgun `DamageOver` 2.5 → 5.0**，看蓄满伤害是否翻倍
+   （同时验证"倍率线性插值"这个假设）。
+5. `Min.ProjType` 路线（让"必须蓄满"的枪能提早开火）：给 ARC-3 的 Min 档填一个合法电弧弹丸类型。
