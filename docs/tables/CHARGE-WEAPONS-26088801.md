@@ -391,16 +391,46 @@ fire-mode selector bound to an input. Weapons without it can only have one mode.
 | 其余 | 沿用 APW-1 全自动 · Railgun 恒定安全 · ARC-3 瞬蓄 · P-92 距离 300 · Spear 快锁 |
 | 离线 | G1–G9 全 PASS，diff 仅 2 B；哈希 `0x8E49771B181FFAA1` 不变；封包 sha256 `17195c7b…` |
 
-### 6.9.3 四种结果各自说明什么（都算收获）
+### 6.9.3 实机结果：**第四档没有出现** ✗
+
+AR-23 的模式面板仍然只有 **自动 / 半自动 / 连发** 三档（用户截图确认），第四槽写的 `4` 没被显示。
+
+**但这不等于 `4` 无效** —— 因为有一层更基础的可能：**全表 373 把武器没有一把用过 4 个模式槽**（最多的 `[1,2,3]`）。
+
+### 6.9.4 SDK 怎么说（`sdk/WeaponFireModeCapabilities.json`）
+
+| 事实 | 原文/值 |
+|---|---|
+| `states.selectable` | 「Modes can be added, removed or reordered (**up to four**); the fire-mode selector is bound.」 |
+| AR-23 | `modes=["automatic","single","burst"]` · **`maxModes: 4`** · `state: selectable` |
+| APW-1 | `modes=["single"]` · `maxModes: 1` · `state: single_mode` |
+| SG-88 | `modes=["single","**Safety_Off**"]` · `state: blocked`（"only Automatic, Single and Burst are proven"） |
+| Railgun | `modes=[5, 6]` · `state: blocked` |
+
+⇒ HD2Runtime 的**模型允许 4 档**（`maxModes: 4`），但它对 `4–8` 的命名是**按别名长度猜的**：
+它把**值 4 叫作 `Safety_Off`** —— 与 wiki 的 SG-88「Semi • **Volley**」**冲突**。
+⚠ 因此 `4` 到底是 Volley 还是某个安全档，**仍待实机判定**（见 run 6）。
+
+### 6.9.5 run 6：把「半自动」换成齐射（**已装盘，待实机**）
+
+思路（用户提出）：既然 4 个槽可能不被支持，那就**不占第四槽**，直接把已有的一个模式换掉。
+
+| 项 | 值 |
+|---|---|
+| 目标 | **AR-23 Liberator**，基线回到 pristine（`[1,2,3,0]`，不含 run 5 那个 4） |
+| 变量 | **`+0x94`（第二模式，原本 Single `2`）→ `4`** |
+| 结果 | 模式槽 `[1, 2, 3, 0]` → **`[1, 4, 3, 0]`**（自动 / **4** / 连发） |
+| 为什么单变量 | 只改一格、不新增槽，把「槽位上限」这个变量彻底排除 |
+| 离线 | G1–G9 全 PASS，diff 2 B；哈希不变；封包 sha256 `c1dea13a…` |
+
+**结果怎么读（三分支）**：
 
 | 你看到 | 结论 |
 |---|---|
-| **面板出现「齐射」，按下去手感就是普通单发** | `Volley` 只是"每枪管一发"的语义 ⇒ 单管=1 发。**模式值足够、枪管数由引擎侧决定**（数据里查不到） |
-| **面板出现，且一次打出多发同款弹丸** | 齐射对单管也有效 ⇒ 等于"一发变霰弹"，这会把 `4` 变成一个**通用多发模式** |
-| **面板里没有第四档 / 按键跳过它** | 引擎按武器类型**过滤**模式值 ⇒ 模式列表不是自由的，能加什么取决于枪型 |
-| **切到齐射就崩溃 / 卡死** | 齐射需要 `volley_gun` 那套资产（多枪口事件），**数据侧不够** ⇒ 报"模式值真、资源缺"这条边界 |
-
-> 回滚：`python tools/dlbin_deploy.py restore --file generated_entities.dl_bin`
+| 面板第二档**变成了新图标/新名字**（不再是半自动）且能切过去 | **值 `4` 被接受** ⇒ run 5 的失败是**槽位数**问题（实际只吃 3 档），不是值无效 |
+| 面板只剩 **自动 / 连发** 两档（半自动消失了但没补上新的） | 值 `4` 被**这类武器过滤掉** ⇒ 模式值不是自由的，取决于枪型/枪管数 |
+| 面板三档不变、半自动还在 | 写入没生效或被回环覆盖（异常，要复查盘上字节） |
+| 切过去崩溃 / 卡死 | `4` 需要 `volley_gun` 资产包（多枪口事件），数据侧不够 |
 
 ---
 
@@ -428,7 +458,10 @@ fire-mode selector bound to an input. Weapons without it can only have one mode.
 | `FireMode 4` = Volley | **✓ 离线**（SG-88 wiki「Semi • Volley」↔ 数据 `[2,4]`） |
 | `FireMode 7` = Total | **✓ 离线**（VG-70 wiki 三模式 ↔ `[1,4,7]` 排除法） |
 | `FireMode 6` = Unsafe | **⚠ 强推断**（Epoch `[6,6]` 能过蓄 + Railgun `[5,6]`） |
-| `Volley(4)` 用在单管枪上的行为（模式值是否足够 / 是否要枪管数或资产包） | **⚠ 待 run 5**（AR-23 第四槽 = 4） |
+| 给 AR-23 加**第四档**模式（`+0x9C` = 4） | **✗ 实机**：面板仍只有三档，第四档不显示 |
+| 引擎是否允许 4 个模式槽 | **⚠ 待 run 6**（SDK 说 `maxModes: 4`，但全表无一把用过 4 个） |
+| 值 `4` 能否被非多管武器接受 | **⚠ 待 run 6**（把 Single 换成 4） |
+| `FireMode 4` 的引擎内部名（SDK 猜作 `Safety_Off`，wiki 记为 Volley） | **⚠ 冲突未解** |
 
 ---
 
@@ -445,5 +478,6 @@ fire-mode selector bound to an input. Weapons without it can only have one mode.
 8. ~~run 4~~ → **✓ 已收**。可批量给单发武器加全自动；也可试加 `Burst(3)` / `Volley(4)` / `Total(7)`。
 9. 想验证 `6 = Unsafe`：给某把能过蓄的枪**删掉 6 槽**（像 run 3 那样）看是否只剩安全。
 10. 射速路线：给 APW-1（或任意单档枪）写 `+4/+12` 两个新 rpm + `function_info` 写 `ROF(2)`，看能否加出射速切换。
-11. 收 run 5（单管 + Volley）。若"单管=1 发"⇒ 反过来试**给 AR-23 加 `Total(7)`**（倾泻全部弹药，不依赖枪管数）。
+11. **收 run 6**（Single→Volley）。它同时回答两件事：4 档是否支持、值 4 是否被接受。
+12. 若 run 6 表明值 4 被拒 ⇒ 改试 **`Total(7)`**（倾泻全部弹药，不依赖枪管数）与 **`Burst(3)`**（已证实可用）。
 12. 若 run 5 表明 `4` 依赖资产包 ⇒ 查 `volley_gun` 包里到底有什么（`srkit` 可解包），判断能否移植。
